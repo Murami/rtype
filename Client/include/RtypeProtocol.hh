@@ -42,7 +42,8 @@ namespace	Network
       T_SCORE			= 13,
       T_MAPCHANGE		= 14,
       T_PLAYERINFO		= 15,
-      T_MSG			= 16
+      T_MSG			= 16,
+      T_HEADER			= 17
     };
 
   PACKED(Header {

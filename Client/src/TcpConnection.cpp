@@ -1,11 +1,15 @@
 #include	<SFML/System/Time.hpp>
-# include	<boost/bind.hpp>
 
 #include	"ConnectionConfiguration.hh"
 #include	"TcpConnection.hh"
 
 TcpConnection::TcpConnection(const ConnectionConfiguration& conf) : _conf(conf)
 {
+}
+
+sf::TcpSocket&	TcpConnection::socket()
+{
+  return (_socket);
 }
 
 bool		TcpConnection::connect()
