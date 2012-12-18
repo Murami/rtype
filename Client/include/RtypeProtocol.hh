@@ -9,7 +9,7 @@
 #  define PACKED(__body__) struct __attribute__((packed)) __body__
 # endif
 
-namespace	Network
+namespace	RtypeProtocol
 {
 
 # define	MAX_MSG_SIZE	512

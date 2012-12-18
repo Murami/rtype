@@ -1,5 +1,7 @@
+#include	<cstring>
 #include	<stdexcept>
 
+#include	"RtypeProtocol.hh"
 #include	"MenuController.hh"
 #include	"MenuView.hh"
 #include	"TcpConnection.hh"
@@ -13,7 +15,7 @@ RtypeClient::RtypeClient()
   _tcpConnection = new TcpConnection(_configuration);
 }
 
-void	RtypeClient::onMagic(Network::Magic)
+void	RtypeClient::onMagic(RtypeProtocol::Magic)
 {
   std::cout << __FUNCTION__ << std::endl;
 }
@@ -28,12 +30,12 @@ void	RtypeClient::onDisconnection()
   std::cout << __FUNCTION__ << std::endl;
 }
 
-void	RtypeClient::onRoomInfo(Network::Room)
+void	RtypeClient::onRoomInfo(RtypeProtocol::Room)
 {
   std::cout << __FUNCTION__ << std::endl;
 }
 
-void	RtypeClient::onPingPong(Network::PingPong)
+void	RtypeClient::onPingPong(RtypeProtocol::PingPong)
 {
   std::cout << __FUNCTION__ << std::endl;
 }
@@ -43,17 +45,17 @@ void	RtypeClient::onGameStart()
   std::cout << __FUNCTION__ << std::endl;
 }
 
-void	RtypeClient::onGameEnd(Network::EndGame)
+void	RtypeClient::onGameEnd(RtypeProtocol::EndGame)
 {
   std::cout << __FUNCTION__ << std::endl;
 }
 
-void	RtypeClient::onScore(Network::Score)
+void	RtypeClient::onScore(RtypeProtocol::Score)
 {
   std::cout << __FUNCTION__ << std::endl;
 }
 
-void	RtypeClient::onMessage(Network::Message)
+void	RtypeClient::onMessage(RtypeProtocol::Message)
 {
   std::cout << __FUNCTION__ << std::endl;
 }
@@ -61,9 +63,16 @@ void	RtypeClient::onMessage(Network::Message)
 bool	RtypeClient::onConnectFromMenu(const std::string & login)
 {
   // Send connection datas
+  RtypeProtocol::Header header;
+  RtypeProtocol::User user;
+
   SoundManager::Play("bip");
   std::cout << __FUNCTION__ << " : " << login << std::endl;
-  _tcpConnection->write(login.c_str(), login.size());
+
+  header.type = RtypeProtocol::T_DISCONNECTION;
+  header.data_size = sizeof(RtypeProtocol::User);
+  strcpy(reinterpret_cast<char *>(&user.username[0]), login.c_str());
+  //_tcpConnection->write(login.c_str(), login.size());
   return (true);
 }
 
@@ -74,21 +83,21 @@ bool	RtypeClient::onDisconnectFromMenu()
   return (true);
 }
 
-bool	RtypeClient::onRoomConnectFromMenu(Network::RoomConnection)
+bool	RtypeClient::onRoomConnectFromMenu(RtypeProtocol::RoomConnection)
 {
   // Send data informing connection to a room
   std::cout << __FUNCTION__ << std::endl;
   return (true);
 }
 
-bool	RtypeClient::onUserReadyFromMenu(Network::User)
+bool	RtypeClient::onUserReadyFromMenu(RtypeProtocol::User)
 {
   // Send signal data notifying user ready
   std::cout << __FUNCTION__ << std::endl;
   return (true);
 }
 
-bool	RtypeClient::onUserMessageFromMenu(Network::Message)
+bool	RtypeClient::onUserMessageFromMenu(RtypeProtocol::Message)
 {
   // Send user message
   std::cout << __FUNCTION__ << std::endl;
@@ -98,22 +107,23 @@ bool	RtypeClient::onUserMessageFromMenu(Network::Message)
 void		RtypeClient::run()
 {
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
-					       sf::VideoMode::getDesktopMode().height), "Rtype", sf::Style::Fullscreen);
+					       sf::VideoMode::getDesktopMode().height), "Rtype");
   SoundManager::Play("scoring");
 
-  // _window->setKeyRepeatEnabled(false);
-  // _menuView = new MenuView(*_window);
-  // _menuController = new MenuController(*_menuView);
-  // if (!_tcpConnection->connect())
-  //   throw (std::runtime_error("Connect"));
-  // _menuView->addObserver(_menuController);
-  // _menuController->setMenuListener(this);
-  // _menuView->run(*_window);
+  _window->setKeyRepeatEnabled(false);
+  _menuView = new MenuView(*_window);
+  _menuController = new MenuController(*_menuView);
+  if (!_tcpConnection->connect())
+    throw (std::runtime_error("Connect"));
+  _menuView->addObserver(_menuController);
+  _menuController->setMenuListener(this);
+  _menuView->run(*_window);
 
-  _gameView = new GameView();
-  _gameController = new GameController(*_gameView);
-  _gameView->addObserver(_gameController);
-  _gameView->run(*_window);
+  // _gameView = new GameView();
+  // _gameController = new GameController(*_gameView);
+  // _gameView->addObserver(_gameController);
+  // _gameView->run(*_window);
+
 }
 
 RtypeClient::~RtypeClient()

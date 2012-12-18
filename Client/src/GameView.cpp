@@ -14,7 +14,7 @@ GameView::GameView()
   _backgroundVector.push_back(new ScrollingBackground("./res/Game/background_game.jpg"));
   _backgroundVector.push_back(new ScrollingBackground("./res/Game/planets.png"));
   _backgroundVector[1]->setBgSpeed(0.5);
-    
+
   IObject *player = new BigRocket(true);
 
   _objectMap[0] = player;
@@ -78,14 +78,14 @@ void	GameView::update()
   std::map<int, IObject*>::iterator		itObj;
   std::vector<ScrollingBackground*>::iterator	itBack;
 
+  for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
+    (*itBack)->update(sf::Vector2<float>(0, 0));
   for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
     {
       sf::Vector2<float>	pos = {100, 100};
 
       itObj->second->update(pos);
     }
-  for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
-    (*itBack)->update(sf::Vector2<float>(0, 0));
 }
 
 void	GameView::render(sf::RenderWindow& window)
@@ -93,8 +93,8 @@ void	GameView::render(sf::RenderWindow& window)
   std::map<int, IObject*>::iterator		itObj;
   std::vector<ScrollingBackground*>::iterator	itBack;
 
-  for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
-    itObj->second->render(window);
   for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
     (*itBack)->render(window);
+  for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
+    itObj->second->render(window);
 }

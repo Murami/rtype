@@ -26,23 +26,23 @@ private:
 
   // INetworkListener
 public:
-  virtual void	onMagic(Network::Magic);
+  virtual void	onMagic(RtypeProtocol::Magic);
   virtual void	onConnection();
   virtual void	onDisconnection();
-  virtual void	onRoomInfo(Network::Room);
-  virtual void	onPingPong(Network::PingPong);
+  virtual void	onRoomInfo(RtypeProtocol::Room);
+  virtual void	onPingPong(RtypeProtocol::PingPong);
   virtual void	onGameStart();
-  virtual void	onGameEnd(Network::EndGame);
-  virtual void	onScore(Network::Score);
-  virtual void	onMessage(Network::Message);
+  virtual void	onGameEnd(RtypeProtocol::EndGame);
+  virtual void	onScore(RtypeProtocol::Score);
+  virtual void	onMessage(RtypeProtocol::Message);
 
   // IMenuListener
 public:
   virtual bool	onConnectFromMenu(const std::string&);
   virtual bool	onDisconnectFromMenu();
-  virtual bool	onRoomConnectFromMenu(Network::RoomConnection);
-  virtual bool	onUserReadyFromMenu(Network::User);
-  virtual bool	onUserMessageFromMenu(Network::Message);
+  virtual bool	onRoomConnectFromMenu(RtypeProtocol::RoomConnection);
+  virtual bool	onUserReadyFromMenu(RtypeProtocol::User);
+  virtual bool	onUserMessageFromMenu(RtypeProtocol::Message);
 
 public:
   void		run();

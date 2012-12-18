@@ -13,20 +13,20 @@ public:
 
 private:
   TcpConnection&	_tcpConnection;
-  Network::Type		_expectedPacket;
+  RtypeProtocol::Type		_expectedPacket;
   INetworkListener*	_tcpListener;
 
 public:
   NetworkReader(TcpConnection& tcpConnection);
   ~NetworkReader();
 
-  void		setTcpListener(INetworkListener*);
+  void			setTcpListener(INetworkListener*);
 
-  void		setExpectedPacket(Network::Type packetType);
-  Network::Type	getExpectedPacket();
+  void			setExpectedPacket(RtypeProtocol::Type packetType);
+  RtypeProtocol::Type	getExpectedPacket();
 
-  void		start();
-  void		onReadData(void *data, std::size_t size);
+  void			start();
+  void			onReadData(void *data, std::size_t size);
 };
 
 #endif
