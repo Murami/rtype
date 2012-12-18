@@ -73,6 +73,15 @@ void	GameView::add(int id, IObject* obj)
     _objectMap[id] = obj;
 }
 
+void	GameView::erase(int id)
+{
+  if (_objectMap.find(id) != _objectMap.end())
+    {
+      delete ((_objectMap.find(id))->second);
+      _objectMap.erase(id);
+    }
+}
+
 void	GameView::update()
 {
   std::map<int, IObject*>::iterator		itObj;
