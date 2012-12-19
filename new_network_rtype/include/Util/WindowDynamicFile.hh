@@ -3,6 +3,7 @@
 # define _WINDOW_DYNAMIC_FILE_HH_
 
 # include <windows.h>
+# include <stdexcept>
 # include "IDynamicFile.hh"
 
 class	WindowDynamicFile : public IDynamicFile

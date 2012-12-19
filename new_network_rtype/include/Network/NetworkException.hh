@@ -2,6 +2,7 @@
 # define NETWORK_EXCEPTION_HH
 
 #include <stdexcept>
+#include <iostream>
 
 namespace Network
 {
