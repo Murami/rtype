@@ -1,0 +1,21 @@
+- Conception (UML + Gantt + RFC + Sequences)
+
+- Implementation Server
+  - Abstraction Thread + Socket Linux & Windows
+  - Systeme d'authentification
+  - Systeme creation de partie (Room)
+  - Gestion Gameplay
+  - Developpement API chargement .so & .dll
+
+- Implementation Client
+  - Interface utilisateur (Menu)
+  - Abstraction network
+  - Gestion affichage Gameplay + son
+
+Developpers
+- bichon_b
+- pinon_a
+- guerot_a
+- fourni_j
+- senesi_t
+- bonin_e
