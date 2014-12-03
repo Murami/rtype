@@ -8,35 +8,35 @@
 
 #include "MenuView.h"
 
-static const char *blackConf = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/widgets/Black.conf";
-static const char *backgroundLogin = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/login.jpg";
-static const char *backgroundMenu = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/Menu.jpg";
-static const char *backgroundRoomSelect = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/roomSelect.jpg";
-static const char *backgroundRoom = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/room.jpg";
-static const char *fontPath = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/Tr2n.ttf";
-static const char *chatFont = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/DejaVuSans.ttf";
+static const char *blackConf = "./widgets/Black.conf";
+static const char *backgroundLogin = "./login.jpg";
+static const char *backgroundMenu = "./Menu.jpg";
+static const char *backgroundRoomSelect = "./roomSelect.jpg";
+static const char *backgroundRoom = "./room.jpg";
+static const char *fontPath = "./Tr2n.ttf";
+static const char *chatFont = "./DejaVuSans.ttf";
 
 MenuView::MenuView(sf::RenderWindow &window)
 {
     _run = false;
     _actualState = LOGINSTATE;
-    
+
     _width = sf::VideoMode::getDesktopMode().width;
     _height = sf::VideoMode::getDesktopMode().height;
-    
-    _width = 2880;
-    _height = 1800;
-    
+
+    // _width = 2880;
+    // _height = 1800;
+
     _loginGui = new tgui::Gui(window);
     _menuGui = new tgui::Gui(window);
     _roomSelectGui = new tgui::Gui(window);
     _roomGui = new tgui::Gui(window);
-    
+
     _stateToGui[LOGINSTATE] = _loginGui;
     _stateToGui[MENUSTATE] = _menuGui;
     _stateToGui[ROOMSELECTSTATE] = _roomSelectGui;
     _stateToGui[ROOMSTATE] = _roomGui;
-    
+
     initLogin();
     initMenu();
     initRoomSelect();
@@ -54,17 +54,17 @@ MenuView::~MenuView()
 void MenuView::initLogin()
 {
     _loginGui->setGlobalFont(fontPath);
-    
+
     tgui::Picture::Ptr picture(*_loginGui);
     picture->load(backgroundLogin);
     picture->setSize(_width, _height);
-    
+
     _loginGui->add(_editBoxUsername);
     _editBoxUsername->load(blackConf);
     _editBoxUsername->setSize((0.27 * _width), (0.044 * _height));
     _editBoxUsername->setPosition((_width / 2) - (0.138 * _width), (0.77 * _height));
     _editBoxUsername->setMaximumCharacters(16);
-    
+
     tgui::Button::Ptr button(*_loginGui);
     button->load(blackConf);
     button->setSize((0.09 * _width), (0.033 * _height));
@@ -78,11 +78,11 @@ void MenuView::initLogin()
 void MenuView::initMenu()
 {
     _menuGui->setGlobalFont(fontPath);
-    
+
     tgui::Picture::Ptr picture(*_menuGui);
     picture->load(backgroundMenu);
     picture->setSize(_width, _height);
-    
+
     tgui::Button::Ptr playButton(*_menuGui);
     playButton->load(blackConf);
     playButton->setTextSize(90);
@@ -91,7 +91,7 @@ void MenuView::initMenu()
     playButton->setText("Play");
     playButton->bindCallback(tgui::Button::LeftMouseClicked);
     playButton->setCallbackId(PLAY);
-    
+
     tgui::Button::Ptr settingsButton(*_menuGui);
     settingsButton->load(blackConf);
     settingsButton->setTextSize(90);
@@ -100,7 +100,7 @@ void MenuView::initMenu()
     settingsButton->setText("Settings");
     settingsButton->bindCallback(tgui::Button::LeftMouseClicked);
     settingsButton->setCallbackId(SETTINGS);
-    
+
     tgui::Button::Ptr scoresButton(*_menuGui);
     scoresButton->load(blackConf);
     scoresButton->setTextSize(90);
@@ -109,7 +109,7 @@ void MenuView::initMenu()
     scoresButton->setText("Scores");
     scoresButton->bindCallback(tgui::Button::LeftMouseClicked);
     scoresButton->setCallbackId(SCORES);
-    
+
     tgui::Button::Ptr creditsButton(*_menuGui);
     creditsButton->load(blackConf);
     creditsButton->setTextSize(90);
@@ -123,21 +123,21 @@ void MenuView::initMenu()
 void MenuView::initRoomSelect()
 {
     _roomSelectGui->setGlobalFont(fontPath);
-    
+
     tgui::Picture::Ptr picture(*_roomSelectGui);
     picture->load(backgroundRoomSelect);
     picture->setSize(_width, _height);
-    
+
     _roomSelectGui->add(_editBoxRoomName);
     _editBoxRoomName->load(blackConf);
     _editBoxRoomName->setSize((0.277 * _width), (0.044 * _height));
     _editBoxRoomName->setPosition((_width / 3) * 2 - (0.069 * _width), (0.388 * _height));
-    
+
     _roomSelectGui->add(_editBoxRoomPass);
     _editBoxRoomPass->load(blackConf);
     _editBoxRoomPass->setSize((0.277 * _width), (0.044 * _height));
     _editBoxRoomPass->setPosition((_width / 3) * 2 - (0.069 * _width), (0.61 * _height));
-    
+
     _roomSelectGui->add(_listRoom);
     _listRoom->setItemHeight(55);
     _listRoom->load(blackConf);
@@ -149,7 +149,7 @@ void MenuView::initRoomSelect()
     _listRoom->bindCallback(tgui::Button::LeftMouseClicked);
     _listRoom->setCallbackId(LISTCHOICE);
     _listRoom->setTextColor(sf::Color::Cyan);
-    
+
     tgui::Button::Ptr createButton(*_roomSelectGui);
     createButton->load(blackConf);
     createButton->setSize((0.190 * _width), (0.05 * _height));
@@ -158,7 +158,7 @@ void MenuView::initRoomSelect()
     createButton->setTextSize(60);
     createButton->bindCallback(tgui::Button::LeftMouseClicked);
     createButton->setCallbackId(JOIN);
-    
+
     tgui::Button::Ptr joinButton(*_roomSelectGui);
     joinButton->load(blackConf);
     joinButton->setSize((0.190 * _width), (0.05 * _height));
@@ -167,8 +167,8 @@ void MenuView::initRoomSelect()
     joinButton->setTextSize(60);
     joinButton->bindCallback(tgui::Button::LeftMouseClicked);
     joinButton->setCallbackId(CREATE);
-    
-    
+
+
     tgui::Button::Ptr selectButton(*_roomSelectGui);
     selectButton->load(blackConf);
     selectButton->setSize(100, 100);
@@ -183,13 +183,13 @@ void MenuView::initRoom()
 {
     sf::Font font;
     font.loadFromFile(chatFont);
-    
+
     _roomGui->setGlobalFont(fontPath);
-    
+
     tgui::Picture::Ptr picture(*_roomGui);
     picture->load(backgroundRoom);
     picture->setSize(_width, _height);
-    
+
     tgui::Button::Ptr button(*_roomGui);
     button->load(blackConf);
     button->setSize((0.0902 * _width), (0.044 * _height));
@@ -198,7 +198,7 @@ void MenuView::initRoom()
     button->setTextSize(60);
     button->bindCallback(tgui::Button::LeftMouseClicked);
     button->setCallbackId(READY);
-    
+
     _roomGui->add(_chatBox);
     _chatBox->load(blackConf);
     _chatBox->setSize((0.399 * _width), (0.194 * _height));
@@ -210,7 +210,7 @@ void MenuView::initRoom()
     _chatBox->addLine("Player2 : Yo");
     _chatBox->addLine("Player2 : Pret ?");
     _chatBox->addLine("Player2 : Go");
-    
+
     _roomGui->add(_labelPlayer1);
     _labelPlayer1->load(blackConf);
     _labelPlayer1->setSize((0.104 * _width), (0.027 * _height));
@@ -218,7 +218,7 @@ void MenuView::initRoom()
     _labelPlayer1->setTextColor(sf::Color::Cyan);
     _labelPlayer1->setText("Player1");
     _labelPlayer1->setTextSize(50);
-    
+
     _roomGui->add(_labelPlayer2);
     _labelPlayer2->load(blackConf);
     _labelPlayer2->setSize((0.104 * _width), (0.027 * _height));
@@ -226,7 +226,7 @@ void MenuView::initRoom()
     _labelPlayer2->setTextColor(sf::Color::Cyan);
     _labelPlayer2->setText("Player2");
     _labelPlayer2->setTextSize(50);
-    
+
     _roomGui->add(_labelPlayer3);
     _labelPlayer3->load(blackConf);
     _labelPlayer3->setSize((0.104 * _width), (0.027 * _height));
@@ -234,7 +234,7 @@ void MenuView::initRoom()
     _labelPlayer3->setTextColor(sf::Color::Cyan);
     _labelPlayer3->setText("Player3");
     _labelPlayer3->setTextSize(50);
-    
+
     _roomGui->add(_labelPlayer4);
     _labelPlayer4->load(blackConf);
     _labelPlayer4->setSize((0.104 * _width), (0.027 * _height));
@@ -242,11 +242,11 @@ void MenuView::initRoom()
     _labelPlayer4->setTextColor(sf::Color::Cyan);
     _labelPlayer4->setText("Player4");
     _labelPlayer4->setTextSize(50);
-    
-    
+
+
     //    tgui::Picture::Ptr themePreview(*_roomGui);
     //    themePreview->setSize(300, 600);
-    
+
 }
 
 void MenuView::run(sf::RenderWindow &window)
@@ -255,12 +255,12 @@ void MenuView::run(sf::RenderWindow &window)
     while (_run == true && window.isOpen())
     {
         sf::Event event;
-        
+
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
-            
+
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
                 if (_actualState == LOGINSTATE) {
@@ -270,11 +270,11 @@ void MenuView::run(sf::RenderWindow &window)
                     this->prevState();
                 }
             }
-            
+
             _stateToGui[_actualState]->handleEvent(event);
             //Ajouter le handle event en fonction du GUI actif
         }
-        
+
         tgui::Callback callback;
         while (_stateToGui[_actualState]->pollCallback(callback))  // Callback du GUI actif
         {
