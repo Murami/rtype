@@ -1,8 +1,9 @@
-#include	"ConnectionConfiguration.hh"
+#include	"RtypeClient.hh"
 
 int		main()
 {
-  ConnectionConfiguration conf;
+  RtypeClient	client;
 
+  client.run();
   return (0);
 }

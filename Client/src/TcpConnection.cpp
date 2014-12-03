@@ -8,18 +8,14 @@ TcpConnection::TcpConnection(const ConnectionConfiguration& conf) : _conf(conf)
 
 bool		TcpConnection::connect()
 {
-  sf::Time	time;
-
-  time.seconds(10);
-  if (!_socket.connect(_conf.getIp(), _conf.getPort()))
+  if (_socket.connect(_conf.getIp(), _conf.getPort()) != sf::Socket::Done)
     {
-      std::cerr << "Unable to connect to remote host : " << _conf << std::endl;
+      std::cerr << "Unable to connect to remote host : "
+		<< std::endl << _conf << std::endl;
       return (false);
     }
   return (true);
 }
-
-TcpConnection::~TcpConnection() {}
 
 std::ostream&	operator<<(std::ostream& os, const ConnectionConfiguration& conf)
 {
@@ -27,3 +23,5 @@ std::ostream&	operator<<(std::ostream& os, const ConnectionConfiguration& conf)
   os << std::endl;
   return (os);
 }
+
+TcpConnection::~TcpConnection() {}
