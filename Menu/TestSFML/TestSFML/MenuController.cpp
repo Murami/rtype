@@ -36,3 +36,8 @@ void MenuController::manageUpdate(eButton idCallback)
             break;
     }
 }
+
+//void MenuController::setMenuListener(IMenuListener *listen)
+//{
+//    _listen = listen;
+//}

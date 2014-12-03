@@ -22,8 +22,11 @@ public:
     void update(eButton idCallback);
     void manageUpdate(eButton idCallback);
     
+//    void setMenuListener(IMenuListener *);
+    
 private:
     MenuView _view;
+//    IMenuListener *_listen;
 };
 
 
