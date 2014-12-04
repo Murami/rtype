@@ -12,9 +12,10 @@ OBJ	=	$(SRC:.cpp=.o)
 
 CXX	=	g++
 
-CXXFLAGS +=	-W -Wall -Wextra -std=c++11 $(LDFLAGS) $(IFLAGS) -ggdb -g3
+CXXFLAGS +=	-W -Wall -Wextra -std=c++11 $(LDFLAGS) $(IFLAGS)
 
-LDFLAGS	+=	-lsfml-network -lsfml-system -lsfml-graphics -lsfml-window -ltgui
+LDFLAGS += 	-framework sfml-system -framework sfml-network -framework sfml-graphics -framework sfml-window -ltgui
+#LDFLAGS	+=	-lsfml-network -lsfml-system -lsfml-graphics -lsfml-window -ltgui
 
 IFLAGS	=	-I./include
 
@@ -24,6 +25,7 @@ all	:	$(NAME)
 
 $(NAME)	:	$(OBJ)
 		$(CXX) $(OBJ) -o $(NAME) $(LDFLAGS)
+		echo $(LDFLAGS);
 
 clean	:
 		$(RM) $(OBJ)
