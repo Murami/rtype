@@ -58,6 +58,8 @@ MenuView::MenuView(sf::RenderWindow &window)
     initMenu();
     initRoomSelect();
     initRoom();
+
+    window.setKeyRepeatEnabled(false);
 }
 
 MenuView::~MenuView()
