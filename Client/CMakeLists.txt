@@ -5,7 +5,8 @@ include_directories(include/)
 
 SET(CMAKE_CXX_FLAGS "-W -Wall -Wextra -std=c++11")
 
-set(EXECUTABLE_NAME "../client")
+set(EXECUTABLE_NAME "client")
+set(EXECUTABLE_OUTPUT_PATH "../")
 
 add_executable(
 	${EXECUTABLE_NAME}

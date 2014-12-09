@@ -56,7 +56,10 @@ set(FIND_TGUI_PATHS
     /sw
     /opt/local
     /opt/csw
-    /opt)
+    /opt
+    "C:/Program Files (x86)/tgui"
+    "C:/tgui"
+    ${CMAKE_SOURCE_DIR}/dependance/tgui)
 
 # find the TGUI include directory
 find_path(TGUI_INCLUDE_DIR TGUI/Config.hpp
