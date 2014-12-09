@@ -2,7 +2,6 @@
 #ifndef _PLUGIN_LOADER_HPP_
 # define _PLUGIN_LOADER_HPP_
 
-#include <iostream>
 # include <list>
 # include <string>
 # include <map>
@@ -123,25 +122,6 @@ namespace	RType
       delete (_pluginsMap[name]);
       _pluginsMap.erase(name);
       _fileAndPluginName.erase(name);
-    }
-
-    void	display()
-    {
-      std::list<std::string>::iterator	it1;
-      std::map<std::string, DynamicFile::IDynamicFile*>::iterator	it2;
-      std::map<std::string, std::string>::iterator	it3;
-
-      std::cout << "---------- begin ----------" << std::endl;
-      std::cout << "--> filenameList\n";
-      for (it1 = _filenameList.begin(); it1 != _filenameList.end(); it1++)
-	std::cout << "\t" << *it1 << "\n";
-      std::cout << "\n--> pluginsMap\n";
-      for (it2 = _pluginsMap.begin(); it2 != _pluginsMap.end(); it2++)
-	std::cout << "\t" << it2->first << ", " << it2->second << "\n";
-      std::cout << "\n--> fileAndPluginName\n";
-      for (it3 = _fileAndPluginName.begin(); it3 != _fileAndPluginName.end(); it3++)
-	std::cout << "\t" << it3->first << ", " << it3->second << "\n";
-      std::cout << "---------- end ----------\n" << std::endl;
     }
 
   private:
