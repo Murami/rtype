@@ -7,11 +7,11 @@
 class		IMenuListener
 {
 public:
-  virtual bool	onConnect(const std::string&) = 0;
-  virtual bool	onDisconnect() = 0;
-  virtual bool	onRoomConnect(Network::RoomConnection) = 0;
-  virtual bool	onUserReady(Network::User) = 0;
-  virtual bool	onUserMessage(Network::Message) = 0;
+  virtual bool	onConnectFromMenu(const std::string&) = 0;
+  virtual bool	onDisconnectFromMenu() = 0;
+  virtual bool	onRoomConnectFromMenu(Network::RoomConnection) = 0;
+  virtual bool	onUserReadyFromMenu(Network::User) = 0;
+  virtual bool	onUserMessageFromMenu(Network::Message) = 0;
 
 public:
   virtual	~IMenuListener() {}

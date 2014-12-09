@@ -6,7 +6,7 @@ SRC	=	src/main.cpp				\
 		src/MenuController.cpp			\
 		src/MenuView.cpp			\
 
-NAME	=	server
+NAME	=	client
 
 OBJ	=	$(SRC:.cpp=.o)
 

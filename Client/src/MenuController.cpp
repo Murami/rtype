@@ -25,7 +25,7 @@ void MenuController::manageUpdate(eButton idCallback)
     switch (idCallback) {
         case LOGIN:
             std::cout << "Login : " << _view.getLogin() << std::endl;
-	    _listen->onConnect(_view.getLogin());
+	    _listen->onConnectFromMenu(_view.getLogin());
             break;
         case JOIN:
             std::cout << "Joining room : " << _view.getRoomName() << " with password : " << _view.getRoomPass() << std::endl;
