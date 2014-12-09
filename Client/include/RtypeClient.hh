@@ -19,11 +19,11 @@ private:
   sf::RenderWindow*		_window;
 
 public:
-  virtual bool	onConnect(const std::string&);
-  virtual bool	onDisconnect();
-  virtual bool	onRoomConnect(Network::RoomConnection);
-  virtual bool	onUserReady(Network::User);
-  virtual bool	onUserMessage(Network::Message);
+  virtual bool	onConnectFromMenu(const std::string&);
+  virtual bool	onDisconnectFromMenu();
+  virtual bool	onRoomConnectFromMenu(Network::RoomConnection);
+  virtual bool	onUserReadyFromMenu(Network::User);
+  virtual bool	onUserMessageFromMenu(Network::Message);
 
 public:
   void		run();

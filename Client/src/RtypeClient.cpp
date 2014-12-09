@@ -8,35 +8,35 @@ RtypeClient::RtypeClient()
   _tcpConnection = new TcpConnection(_configuration);
 }
 
-bool	RtypeClient::onConnect(const std::string & login)
+bool	RtypeClient::onConnectFromMenu(const std::string & login)
 {
   // Send connection datas
   std::cout << __FUNCTION__ << " : " << login << std::endl;
   return (true);
 }
 
-bool	RtypeClient::onDisconnect()
+bool	RtypeClient::onDisconnectFromMenu()
 {
   // Send disconnection datas
   std::cout << __FUNCTION__ << std::endl;
   return (true);
 }
 
-bool	RtypeClient::onRoomConnect(Network::RoomConnection)
+bool	RtypeClient::onRoomConnectFromMenu(Network::RoomConnection)
 {
   // Send data informing connection to a room
   std::cout << __FUNCTION__ << std::endl;
   return (true);
 }
 
-bool	RtypeClient::onUserReady(Network::User)
+bool	RtypeClient::onUserReadyFromMenu(Network::User)
 {
   // Send signal data notifying user ready
   std::cout << __FUNCTION__ << std::endl;
   return (true);
 }
 
-bool	RtypeClient::onUserMessage(Network::Message)
+bool	RtypeClient::onUserMessageFromMenu(Network::Message)
 {
   // Send user message
   std::cout << __FUNCTION__ << std::endl;
