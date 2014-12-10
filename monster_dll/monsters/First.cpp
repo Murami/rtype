@@ -24,6 +24,8 @@ std::uint32_t	First::specialAttack() const
   return (20);
 }
 
+/* extern */
+
 extern "C" std::string	get_monster_name()
 {
   return ("First");

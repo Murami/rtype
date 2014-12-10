@@ -1,11 +1,6 @@
 
 #include "Second.hh"
 
-extern "C" Second*	instantiate_plugin()
-{
-  return (new Second());
-}
-
 Second::Second()
 {
   _name = "Second";
@@ -29,7 +24,14 @@ std::uint32_t	Second::specialAttack() const
   return (15);
 }
 
+/* extern */
+
 extern "C" std::string	get_monster_name()
 {
   return ("Second");
+}
+
+extern "C" Second*	instantiate_plugin()
+{
+  return (new Second());
 }

@@ -16,12 +16,14 @@ add_executable(
 	src/MenuView.cpp
 	src/RtypeClient.cpp
 	src/TcpConnection.cpp
+	src/MyIniParser.cpp
+	src/SoundManager.cpp
 	src/main.cpp
 )
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 
-find_package(SFML 2.1 REQUIRED system window graphics network)
+find_package(SFML 2.1 REQUIRED system window graphics network audio)
 find_package(TGUI 0.6 REQUIRED)
 
 if(SFML_FOUND)
