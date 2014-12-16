@@ -5,7 +5,7 @@
 ## Login   <otoshigami@epitech.net>
 ## 
 ## Started on  Sun Jun 15 08:48:53 2014 otoshigami
-## Last update Tue Dec 16 13:50:08 2014 anto
+## Last update Tue Dec 16 18:37:19 2014 anto
 ##
 
 ## FILES
@@ -29,7 +29,10 @@ SRC		=	main				\
 			Game/Entity			\
 			Game/Core			\
 			Game/CollisionEvent		\
-			Game/Player
+			Game/Player			\
+			Game/Projectile			\
+			Game/Monster			\
+			Game/DestroyableSet
 
 
 SRC_EXT		=	.cpp
