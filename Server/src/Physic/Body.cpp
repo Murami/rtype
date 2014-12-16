@@ -18,36 +18,41 @@ namespace Physic
     static_cast<BodyContainer&>(_world).remove(*this);
   }
 
-  void	Body::setSpeed(Util::Vec2& speed)
+  void		Body::setSpeed(const Util::Vec2& speed)
   {
     _speed = speed;
   }
 
-  Util::Vec2&	Body::getSpeed()
+  const Util::Vec2&	Body::getSpeed() const
   {
     return (_speed);
   }
 
-  void	Body::setPosition(Util::Vec2& position)
+  void		Body::setPosition(const Util::Vec2& position)
   {
     _position = position;
   }
 
-  Util::Vec2&	Body::getPosition()
+  const Util::Vec2&	Body::getPosition() const
   {
     return (_position);
   }
 
-  void	Body::update(float time)
+  void		Body::update(float time)
   {
     _position += _speed * time;
     notifyMove();
   }
 
-  void	Body::notifyMove()
+  void		Body::notifyMove()
   {
     const BodyEvent::Move&	event = BodyEvent::Move(_position);
 
     notifyObservers(event);
+  }
+
+  bool		Body::collide(const Body& /*body*/)
+  {
+    return (false);
   }
 };

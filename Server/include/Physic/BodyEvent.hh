@@ -5,13 +5,14 @@
 
 namespace Physic
 {
-  class BodyEventReceiver;
   class Body;
+  class BodyEventReceiver;
 
   class BodyEvent
   {
   public:
     class Move;
+    class Collide;
 
   public:
     virtual ~BodyEvent() {};

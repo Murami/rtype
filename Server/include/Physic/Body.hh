@@ -3,15 +3,14 @@
 
 #include "Util/Vec2.hh"
 #include "Util/Observable.hpp"
-#include "Physic/WorldBody.hh"
+#include "Util/Time.hh"
 
 namespace Physic
 {
   class World;
   class BodyEvent;
 
-  class Body : public Util::Observable<Body, BodyEvent>,
-	       public WorldBody
+  class Body : public Util::Observable<Body, BodyEvent>
   {
   private:
     Util::Vec2	_speed;
@@ -22,14 +21,16 @@ namespace Physic
     Body(World& world);
     virtual ~Body();
 
-    void	setSpeed(Util::Vec2& speed);
-    Util::Vec2&	getSpeed();
+    void		setSpeed(const Util::Vec2& speed);
+    const Util::Vec2&	getSpeed() const;
 
-    void	setPosition(Util::Vec2& position);
-    Util::Vec2&	getPosition();
+    void		setPosition(const Util::Vec2& position);
+    const Util::Vec2&	getPosition() const;
+
+    void		update(float time);
+    bool		collide(const Body& body);
 
   private:
-    void	update(float time);
     void	notifyMove();
   };
 };
