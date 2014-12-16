@@ -4,10 +4,14 @@
 # include	<SFML/Graphics.hpp>
 # include	"IMenuListener.hh"
 # include	"ConnectionConfiguration.hh"
+# include	"GameView.hh"
+# include	"GameController.hh"
 
 class		MenuController;
 class		MenuView;
 class		TcpConnection;
+class		GameView;
+class		GameController;
 
 class		RtypeClient : public IMenuListener
 {
@@ -16,6 +20,8 @@ private:
   TcpConnection*		_tcpConnection;
   MenuController*		_menuController;
   MenuView*			_menuView;
+  RType::GameController*		_gameController;
+  RType::GameView*			_gameView;
   sf::RenderWindow*		_window;
 
 public:

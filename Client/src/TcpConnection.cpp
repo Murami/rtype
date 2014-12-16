@@ -1,9 +1,20 @@
 #include	<SFML/System/Time.hpp>
+
 #include	"ConnectionConfiguration.hh"
 #include	"TcpConnection.hh"
 
+// // static void	readOnSocket(CircularBuffer&, sf::TcpSocket&)
+// {
+
+// }
+
 TcpConnection::TcpConnection(const ConnectionConfiguration& conf) : _conf(conf)
 {
+}
+
+void		TcpConnection::startRead()
+{
+  //_readThread = new std::thread(readOnSocket, _circularBuffer, _socket);
 }
 
 bool		TcpConnection::connect()
@@ -17,10 +28,35 @@ bool		TcpConnection::connect()
   return (true);
 }
 
+bool		TcpConnection::write(const void *data, std::size_t count)
+{
+  sf::Socket::Status	ret;
+
+  if ((ret = _socket.send(data, count)) != sf::Socket::Done)
+    {
+      switch (ret)
+	{
+	case sf::Socket::NotReady:
+	  std::cerr << "Socket write error: socket is not ready" << std::endl;
+	  break;
+	case sf::Socket::Disconnected:
+	  std::cerr << "Socket write error: socket is disconnected" << std::endl;
+	  break;
+	case sf::Socket::Error:
+	  std::cerr << "Socket write error: socket is on error" << std::endl;
+	  break;
+	default:
+	  break;
+	  return (false);
+	}
+    }
+  return (true);
+}
+
 std::ostream&	operator<<(std::ostream& os, const ConnectionConfiguration& conf)
 {
   os << "[IP]:\t" << conf.getIp() << std::endl << "[PORT]:\t" << conf.getPort();
-  os << std::endl;
+  //os << std::endl;
   return (os);
 }
 
