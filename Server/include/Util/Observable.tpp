@@ -53,7 +53,7 @@ namespace Util
 	Observer<T, MsgT>& observer = *(*it);
 
 	it++;
-	observer.update(*this, msg);
+	observer.update(*static_cast<T*>(this), msg);
       }
   }
 };

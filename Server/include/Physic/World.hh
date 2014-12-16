@@ -6,6 +6,8 @@
 
 namespace Physic
 {
+  class WorldEvent;
+
   class World : public BodyContainer
   {
   private:

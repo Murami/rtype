@@ -10,9 +10,9 @@ namespace Util
   class Observer
   {
   public:
-    virtual ~Observer();
+    virtual ~Observer() {}
 
-    virtual void	update(Observable<T, MsgT>& observable, const MsgT& msg) = 0;
+    virtual void	update(const T& observable, const MsgT& msg) = 0;
   };
 }
 

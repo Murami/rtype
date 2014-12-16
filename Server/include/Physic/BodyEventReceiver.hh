@@ -14,10 +14,11 @@ namespace Physic
   public:
     virtual ~BodyEventReceiver() {};
 
-    void		dispatch(const Body& body, const BodyEvent& event);
-    void		update(const Body& body, const BodyEvent& event);
+    void		dispatch(const Physic::Body& body, const BodyEvent& event);
+    void		update(const Physic::Body& body, const BodyEvent& event);
 
-    virtual void	onMove(const Body&  body, const BodyEvent::Move& event) = 0;
+    virtual void	receive(const Body& body, const BodyEvent::Move& event) = 0;
+    virtual void	receive(const Body& body, const BodyEvent::Collide& collide) = 0;
   };
 };
 

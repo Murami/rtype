@@ -5,19 +5,31 @@
 ## Login   <otoshigami@epitech.net>
 ## 
 ## Started on  Sun Jun 15 08:48:53 2014 otoshigami
-## Last update Tue Dec  2 11:30:25 2014 anto
+## Last update Tue Dec 16 13:50:08 2014 anto
 ##
 
 ## FILES
 
 NAME		=	rtype
 
-SRC		=	main			\
-			Util/Vec2		\
-			Util/IDGenerator	\
-			Physic/Body		\
-			Physic/World		\
-			Physic/BodyEventMove	\
+SRC		=	main				\
+			Util/Vec2			\
+			Util/IDGenerator		\
+			Util/Time			\
+			Physic/Body			\
+			Physic/World			\
+			Physic/BodyEventMove		\
+			Physic/BodyEventCollide		\
+			Physic/BodyEventReceiver	\
+			Game/CoreEventReceiver		\
+			Game/EntityEventReceiver	\
+			Game/EntityEventMove		\
+			Game/EntityEventLife		\
+			Game/CollisionReceiver		\
+			Game/Entity			\
+			Game/Core			\
+			Game/CollisionEvent		\
+			Game/Player
 
 
 SRC_EXT		=	.cpp
@@ -33,7 +45,8 @@ DBIN		=	.
 DINC		=	include
 
 CFLAGS		=	-Wall		\
-			-Wextra
+			-Wextra		\
+			-std=c++11
 
 MAKED		=	make --no-print-directory -C
 
@@ -46,6 +59,7 @@ LDFLAGS		=
 ## RUNS
 
 CC		=	g++ -fmax-errors=5
+# CC		=	clang++
 RM		=	rm -rf
 MD		=	mkdir -p
 
