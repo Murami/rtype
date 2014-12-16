@@ -3,6 +3,8 @@
 #include	"TcpConnection.hh"
 #include	"RtypeClient.hh"
 #include	"SoundManager.hh"
+#include	"GameController.hh"
+#include	"GameView.hh"
 
 RtypeClient::RtypeClient()
 {
@@ -51,18 +53,24 @@ void		RtypeClient::run()
 					       sf::VideoMode::getDesktopMode().height),
 				 "Rtype", sf::Style::Fullscreen);
   RType::SoundManager::Play("theme");
-  _window->setKeyRepeatEnabled(false);
-  _menuView = new MenuView(*_window);
-  _menuController = new MenuController(*_menuView);
-  _menuView->addObserver(_menuController);
-  _menuController->setMenuListener(this);
-  _menuView->run(*_window);
+  // _window->setKeyRepeatEnabled(false);
+  // _menuView = new MenuView(*_window);
+  // _menuController = new MenuController(*_menuView);
+  // _menuView->addObserver(_menuController);
+  // _menuController->setMenuListener(this);
+  // _menuView->run(*_window);
+
+  _gameView = new RType::GameView();
+  _gameController = new RType::GameController(*_gameView);
+  _gameView->addObserver(_gameController);
+  _gameView->run(*_window);
+
   std::cout << std::boolalpha << _tcpConnection->connect() << std::endl;
 }
 
 RtypeClient::~RtypeClient()
 {
-  delete _menuView;
-  delete _menuController;
-  delete _window;
+  // delete _menuView;
+  // delete _menuController;
+  // delete _window;
 }

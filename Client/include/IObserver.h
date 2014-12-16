@@ -7,9 +7,9 @@
 //
 
 #ifndef TestSFML_IObserver_h
-#define TestSFML_IObserver_h
+# define TestSFML_IObserver_h
 
-#include "MenuEnum.h"
+# include "MenuEnum.h"
 
 class IObserver {
 public:

@@ -360,6 +360,11 @@ void MenuView::run(sf::RenderWindow &window)
     }
 }
 
+void	MenuView::stop()
+{
+  _run = false;
+}
+
 void MenuView::prevState()
 {
     switch (_actualState) {
