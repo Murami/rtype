@@ -6,8 +6,20 @@ namespace Util
   {
   }
 
+  IDGenerator::IDGenerator(const IDGenerator& generator)
+  {
+    _id = generator._id;
+  }
+
   IDGenerator::~IDGenerator()
   {
+  }
+
+  IDGenerator&	IDGenerator::operator=(const IDGenerator&  generator)
+  {
+    _id = generator._id;
+
+    return (*this);
   }
 
   void		IDGenerator::reset()

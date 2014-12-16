@@ -4,47 +4,57 @@
 #include "Physic/Body.hh"
 #include "Physic/BodyEventReceiver.hh"
 #include "Util/Observer.hpp"
+#include "Util/Observable.hpp"
+#include "Util/IDGenerator.hh"
+#include "Util/Vec2.hh"
+#include "Game/CollisionReceiver.hh"
 
 namespace Game
 {
-  class Ship;
+  class Player;
   class Projectile;
   class Monster;
+  class DestroyableSet;
   class EntityEvent;
+  class Core;
 
-  class Entity : public Observable<Entity, Entity>,
-		 public Physic::BodyEventReceiver
+  class Entity : public Util::Observable<Entity, EntityEvent>,
+		 public CollisionReceiver
   {
   protected:
-    Physic::Body	_body;
-    int			_life;
-    bool		_alive;
-    unsigned int	_id;
+    static Util::IDGenerator	_generator;
+    Core&			_core;
+    Physic::Body		_body;
+    int				_life;
+    int				_maxlife;
+    bool			_alive;
+    unsigned int		_id;
 
   public:
-    Entity();
+    Entity(Core& game);
     virtual ~Entity();
 
-    void		setSpeed(const vec3& speed);
-    const vec2&		getSpeed() const;
-    void		setPosition(const vec3& position);
-    const vec2&		getPosition();
+    void		setSpeed(const Util::Vec2& speed);
+    const Util::Vec2&	getSpeed() const;
+    void		setPosition(const Util::Vec2& position);
+    const Util::Vec2&	getPosition() const;
     void		setLife(int life);
-    int			getLife();
+    int			getLife() const;
     void		kill();
-    bool		isAlive();
+    bool		isAlive() const;
     unsigned int	getId() const;
+    Core&		getCore();
 
     virtual void	update(float time) = 0;
-    virtual void	onCollide(Entity* entity) = 0;
-    virtual void	onCollide(Ship* ship);
-    virtual void	onCollide(Projectile* projectile);
-    virtual void	onCollide(Monster* monster);
+    virtual void	onCollide(Entity& entity) = 0;
+    virtual void	onCollide(Player& ship) = 0;
+    virtual void	onCollide(Projectile& projectile) = 0;
+    virtual void	onCollide(Monster& monster) = 0;
+    virtual void	onCollide(DestroyableSet& set) = 0;
 
-    void		update(Body& body, BodyEvent& event);
-
-    void		receive(Body& body, BodyPositionEvent& event);
-    void		receive(Body& body, BodyCollsiionEvent& event);
+    void		receive(const Physic::Body& body, const Physic::BodyEvent::Move& event);
+    void		receive(const Physic::Body& body, const Physic::BodyEvent::Collide& event);
+    void		receive(const Physic::Body& body, const CollisionEvent& event);
   };
 };
 

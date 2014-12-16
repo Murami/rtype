@@ -14,7 +14,7 @@ namespace Physic
 
   void			BodyEvent::Move::dispatch(const Body& body, BodyEventReceiver& receiver) const
   {
-    receiver.onMove(body, *this);
+    receiver.receive(body, *this);
   }
 
   const Util::Vec2&	BodyEvent::Move::getPosition() const

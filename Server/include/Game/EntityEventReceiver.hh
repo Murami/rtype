@@ -2,25 +2,25 @@
 #define ENTITY_EVENT_RECEIVER
 
 #include "Util/Observer.hpp"
+#include "Game/EntityEvent.hh"
+#include "Game/EntityEventMove.hh"
+#include "Game/EntityEventLife.hh"
 
 namespace Game
 {
   class Entity;
-  class EntityEvent;
-  class EntityLifeEvent;
-  class EntityPositionEvent;
 
   class EntityEventReceiver : public Util::Observer<Entity, EntityEvent>
   {
   public:
-    EntityEventReceiver():
-    virtual ~EntityEventReceiver();
+    EntityEventReceiver();
+    virtual ~EntityEventReceiver() {}
 
-    void		dispatch(Entity& entity, const EntityEvent& event);
-    void		update(Entity& entity, const EntityEvent& event);
+    void		dispatch(const Entity& entity, const EntityEvent& event);
+    void		update(const Entity& entity, const EntityEvent& event);
 
-    virtual void	receive(Entity& entity, const EntityPositionEvent& event) = 0;
-    virtual void	receive(Entity& entity, const EntityLifeEvent& event) = 0;
+    virtual void	receive(const Entity& entity, const EntityEvent::Move& event) = 0;
+    virtual void	receive(const Entity& entity, const EntityEvent::Life& event) = 0;
   };
 };
 

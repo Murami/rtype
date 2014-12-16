@@ -8,7 +8,12 @@ namespace Game
 
   class EntityEvent
   {
-    virtual ~EntityEvent();
+  public:
+    class Move;
+    class Life;
+
+  public:
+    virtual ~EntityEvent() {}
 
     virtual void	dispatch(const Entity& entity, EntityEventReceiver& receiver) const = 0;
   };

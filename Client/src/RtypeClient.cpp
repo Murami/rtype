@@ -4,6 +4,7 @@
 #include	"MenuView.h"
 #include	"TcpConnection.hh"
 #include	"RtypeClient.hh"
+#include	"SoundManager.hh"
 
 RtypeClient::RtypeClient()
 {
@@ -13,6 +14,7 @@ RtypeClient::RtypeClient()
 bool	RtypeClient::onConnectFromMenu(const std::string & login)
 {
   // Send connection datas
+  RType::SoundManager::Play("bip");
   std::cout << __FUNCTION__ << " : " << login << std::endl;
   _tcpConnection->write(login.c_str(), login.size());
   return (true);
@@ -51,9 +53,8 @@ void		RtypeClient::run()
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
 					       sf::VideoMode::getDesktopMode().height),
 				 "Rtype");
-  // _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
-  // 					       sf::VideoMode::getDesktopMode().height),
-  // 				 "Rtype", sf::Style::Fullscreen);
+  RType::SoundManager::Play("theme");
+  _window->setKeyRepeatEnabled(false);
   _menuView = new MenuView(*_window);
   _menuController = new MenuController(*_menuView);
   if (!_tcpConnection->connect())

@@ -10,7 +10,10 @@ namespace Util
 
   public:
     IDGenerator();
+    IDGenerator(const IDGenerator& generator);
     ~IDGenerator();
+
+    IDGenerator&	operator=(const IDGenerator& generator);
 
     void		reset();
     unsigned int	generate();
