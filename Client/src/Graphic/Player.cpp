@@ -8,8 +8,8 @@
 
 #include <map>
 #include <iostream>
-#include "Player.h"
-#include "TextureManager.h"
+#include "Player.hh"
+#include "TextureManager.hh"
 
 
 Player::Player(int nb) : _powerUp(1)

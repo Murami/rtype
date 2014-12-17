@@ -2,10 +2,10 @@
 #include <iostream>
 
 #include "GameView.hh"
-#include "Player.h"
+#include "Player.hh"
 #include "GameEnum.hh"
 #include "SoundManager.hh"
-#include "BigRocket.h"
+#include "BigRocket.hh"
 
 namespace	RType
 {
@@ -41,8 +41,8 @@ namespace	RType
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	  /* network onKeyEvent(RType::LEFT) */
 	  {
-	    RType::SoundManager::Stop("stage1");
-	    RType::SoundManager::Play("pause");
+	    RType::SoundManager::Stop("scoring");
+	    RType::SoundManager::Play("stage8");
 	  }
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	  /* network onKeyEvent(RType::RIGHT) */

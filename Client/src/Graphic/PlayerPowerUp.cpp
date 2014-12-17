@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#include "PlayerPowerUp.h"
-#include "TextureManager.h"
+#include "PlayerPowerUp.hh"
+#include "TextureManager.hh"
 
 PlayerPowerUp::PlayerPowerUp(int index)
 {

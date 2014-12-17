@@ -5,7 +5,7 @@
 # include <map>
 # include <SFML/Graphics.hpp>
 # include "GameObservable.hh"
-# include "ScrollingBackground.h"
+# include "ScrollingBackground.hh"
 
 class	IObject;
 

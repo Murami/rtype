@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#include "BigRocket.h"
-#include "TextureManager.h"
+#include "BigRocket.hh"
+#include "TextureManager.hh"
 
 BigRocket::BigRocket(bool friendly)
 {

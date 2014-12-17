@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#include "Monster.h"
-#include "TextureManager.h"
+#include "Monster.hh"
+#include "TextureManager.hh"
 #include <iostream>
 
 Monster::Monster(int monsterID)

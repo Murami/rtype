@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#include "LittleRocket.h"
-#include "TextureManager.h"
+#include "LittleRocket.hh"
+#include "TextureManager.hh"
 
 LittleRocket::LittleRocket(bool friendly)
 {

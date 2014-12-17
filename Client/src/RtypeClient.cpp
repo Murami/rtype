@@ -1,7 +1,7 @@
 #include	<stdexcept>
 
-#include	"MenuController.h"
-#include	"MenuView.h"
+#include	"MenuController.hh"
+#include	"MenuView.hh"
 #include	"TcpConnection.hh"
 #include	"RtypeClient.hh"
 #include	"SoundManager.hh"
@@ -99,7 +99,8 @@ void		RtypeClient::run()
 {
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
 					       sf::VideoMode::getDesktopMode().height), "Rtype", sf::Style::Fullscreen);
-  RType::SoundManager::Play("theme");
+  RType::SoundManager::Play("scoring");
+
   // _window->setKeyRepeatEnabled(false);
   // _menuView = new MenuView(*_window);
   // _menuController = new MenuController(*_menuView);

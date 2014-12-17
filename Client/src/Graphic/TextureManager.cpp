@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#include "TextureManager.h"
+#include "TextureManager.hh"
 #include <iostream>
 
 TextureManager *TextureManager::_instance = NULL;

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#include "MenuController.h"
+#include "MenuController.hh"
 #include <iostream>
 
 MenuController::MenuController(MenuView &view) : _view(view)

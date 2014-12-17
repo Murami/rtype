@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#include "MenuView.h"
+#include "MenuView.hh"
 
 #ifdef __APPLE__
 static const char *blackConf = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/widgets/Black.conf";

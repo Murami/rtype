@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#include "ScrollingBackground.h"
+#include "ScrollingBackground.hh"
 #include <iostream>
 
 ScrollingBackground::ScrollingBackground(std::string filePath)

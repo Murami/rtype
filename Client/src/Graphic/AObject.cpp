@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#include "AObject.h"
+#include "AObject.hh"
 
 AObject::AObject()
 { }
