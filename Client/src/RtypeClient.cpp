@@ -13,6 +13,51 @@ RtypeClient::RtypeClient()
   _tcpConnection = new TcpConnection(_configuration);
 }
 
+void	RtypeClient::onMagic(Network::Magic)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onConnection()
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onDisconnection()
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onRoomInfo(Network::Room)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onPingPong(Network::PingPong)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onGameStart()
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onGameEnd(Network::EndGame)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onScore(Network::Score)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onMessage(Network::Message)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
 bool	RtypeClient::onConnectFromMenu(const std::string & login)
 {
   // Send connection datas
@@ -53,8 +98,7 @@ bool	RtypeClient::onUserMessageFromMenu(Network::Message)
 void		RtypeClient::run()
 {
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
-					       sf::VideoMode::getDesktopMode().height),
-				 "Rtype");
+					       sf::VideoMode::getDesktopMode().height), "Rtype");
   RType::SoundManager::Play("theme");
 // <<<<<<< HEAD
 //   // _window->setKeyRepeatEnabled(false);
