@@ -27,6 +27,7 @@ add_executable(
 	src/SoundManager.cpp
 	src/GameView.cpp
 	src/GameController.cpp
+	src/NetworkReader.cpp
 	src/main.cpp
 )
 

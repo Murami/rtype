@@ -6,6 +6,7 @@
 # include	"ConnectionConfiguration.hh"
 # include	"GameView.hh"
 # include	"GameController.hh"
+# include	"INetworkListener.hh"
 
 class		MenuController;
 class		MenuView;
@@ -13,17 +14,31 @@ class		TcpConnection;
 class		GameView;
 class		GameController;
 
-class		RtypeClient : public IMenuListener
+class		RtypeClient : public IMenuListener,
+			      public INetworkListener
 {
 private:
   ConnectionConfiguration	_configuration;
   TcpConnection*		_tcpConnection;
   MenuController*		_menuController;
   MenuView*			_menuView;
-  RType::GameController*		_gameController;
-  RType::GameView*			_gameView;
+  RType::GameController*	_gameController;
+  RType::GameView*		_gameView;
   sf::RenderWindow*		_window;
 
+  // INetworkListener
+public:
+  virtual void	onMagic(Network::Magic);
+  virtual void	onConnection();
+  virtual void	onDisconnection();
+  virtual void	onRoomInfo(Network::Room);
+  virtual void	onPingPong(Network::PingPong);
+  virtual void	onGameStart();
+  virtual void	onGameEnd(Network::EndGame);
+  virtual void	onScore(Network::Score);
+  virtual void	onMessage(Network::Message);
+
+  // IMenuListener
 public:
   virtual bool	onConnectFromMenu(const std::string&);
   virtual bool	onDisconnectFromMenu();
