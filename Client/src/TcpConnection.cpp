@@ -1,20 +1,11 @@
 #include	<SFML/System/Time.hpp>
+# include	<boost/bind.hpp>
 
 #include	"ConnectionConfiguration.hh"
 #include	"TcpConnection.hh"
 
-// // static void	readOnSocket(CircularBuffer&, sf::TcpSocket&)
-// {
-
-// }
-
 TcpConnection::TcpConnection(const ConnectionConfiguration& conf) : _conf(conf)
 {
-}
-
-void		TcpConnection::startRead()
-{
-  //_readThread = new std::thread(readOnSocket, _circularBuffer, _socket);
 }
 
 bool		TcpConnection::connect()
@@ -22,7 +13,7 @@ bool		TcpConnection::connect()
   if (_socket.connect(_conf.getIp(), _conf.getPort()) != sf::Socket::Done)
     {
       std::cerr << "Unable to connect to remote host : "
-		<< std::endl << _conf << std::endl;
+  		<< std::endl << _conf << std::endl;
       return (false);
     }
   return (true);
@@ -35,20 +26,20 @@ bool		TcpConnection::write(const void *data, std::size_t count)
   if ((ret = _socket.send(data, count)) != sf::Socket::Done)
     {
       switch (ret)
-	{
-	case sf::Socket::NotReady:
-	  std::cerr << "Socket write error: socket is not ready" << std::endl;
-	  break;
-	case sf::Socket::Disconnected:
-	  std::cerr << "Socket write error: socket is disconnected" << std::endl;
-	  break;
-	case sf::Socket::Error:
-	  std::cerr << "Socket write error: socket is on error" << std::endl;
-	  break;
-	default:
-	  break;
-	  return (false);
-	}
+  	{
+  	case sf::Socket::NotReady:
+  	  std::cerr << "Socket write error: socket is not ready" << std::endl;
+  	  break;
+  	case sf::Socket::Disconnected:
+  	  std::cerr << "Socket write error: socket is disconnected" << std::endl;
+  	  break;
+  	case sf::Socket::Error:
+  	  std::cerr << "Socket write error: socket is on error" << std::endl;
+  	  break;
+  	default:
+  	  break;
+  	  return (false);
+  	}
     }
   return (true);
 }
@@ -56,7 +47,6 @@ bool		TcpConnection::write(const void *data, std::size_t count)
 std::ostream&	operator<<(std::ostream& os, const ConnectionConfiguration& conf)
 {
   os << "[IP]:\t" << conf.getIp() << std::endl << "[PORT]:\t" << conf.getPort();
-  //os << std::endl;
   return (os);
 }
 
