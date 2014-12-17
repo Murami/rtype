@@ -12,6 +12,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "AObject.h"
+#include "PlayerPowerUp.h"
 
 class Player : public AObject
 {
@@ -20,10 +21,14 @@ public:
     Player(int nb = 1);
     virtual ~Player();
     virtual void update(const sf::Vector2<float> pos);
+    virtual void render(sf::RenderWindow &window);
+    
+    void setPower(int power);
+    int     getPower() const;
 
 private:
     int             _nbPlayer;
-
+    PlayerPowerUp   _powerUp;
 };
 
 #endif /* defined(__TestSFML__Player__) */

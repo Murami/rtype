@@ -25,21 +25,19 @@ TextureManager *TextureManager::getInstance()
     if (_instance == NULL)
     {
         _instance = new TextureManager();
-        _instance->loadRetinaTexture();
+        _instance->loadTexture();
     }
     return _instance;
 }
 
-void TextureManager::loadRetinaTexture()
-{
-    _ship.loadFromFile("/Users/Charles/Desktop/R-Type_Ressources/r-typesheet42@2.gif");
-    _rocket.loadFromFile("/Users/Charles/Desktop/R-Type_Ressources/r-typesheet1@2.png");
-}
-
 void TextureManager::loadTexture()
 {
-    _ship.loadFromFile("/Users/Charles/Desktop/R-Type_Ressources/r-typesheet42.gif");
-    _rocket.loadFromFile("/Users/Charles/Desktop/R-Type_Ressources/r-typesheet1.gif");
+    _ship.loadFromFile("./res/Game/r-typesheet42.gif");
+    _sheet2.loadFromFile("./res/Game/r-typesheet2.gif");
+    _rocket.loadFromFile("./res/Game/r-typesheet1.gif");
+    _enemy1.loadFromFile("./res/Game/r-typesheet26.gif");
+    _enemy2.loadFromFile("./res/Game/r-typesheet5.gif");
+    _enemy3.loadFromFile("./res/Game/r-typesheet9.gif");
 }
 
 sf::Texture TextureManager::getTextureShip() const
@@ -50,4 +48,24 @@ sf::Texture TextureManager::getTextureShip() const
 sf::Texture TextureManager::getTextureRocket() const
 {
     return _rocket;
+}
+
+sf::Texture TextureManager::getTextureEnemy1() const
+{
+    return _enemy1;
+}
+
+sf::Texture TextureManager::getTextureEnemy2() const
+{
+    return _enemy2;
+}
+
+sf::Texture TextureManager::getTextureEnemy3() const
+{
+    return _enemy3;
+}
+
+sf::Texture TextureManager::getTextureSheet2() const
+{
+    return _sheet2;
 }

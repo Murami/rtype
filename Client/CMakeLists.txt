@@ -15,6 +15,7 @@ add_executable(
 	src/Graphic/BigRocket.cpp
 	src/Graphic/LittleRocket.cpp
 	src/Graphic/Player.cpp
+	src/Graphic/PlayerPowerUp.cpp	
 	src/Graphic/ScrollingBackground.cpp
 	src/Graphic/TextureManager.cpp
 	src/ConnectionConfiguration.cpp

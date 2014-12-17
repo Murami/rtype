@@ -55,29 +55,19 @@ void		RtypeClient::run()
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
 					       sf::VideoMode::getDesktopMode().height), "Rtype");
   RType::SoundManager::Play("theme");
-// <<<<<<< HEAD
-//   // _window->setKeyRepeatEnabled(false);
-//   // _menuView = new MenuView(*_window);
-//   // _menuController = new MenuController(*_menuView);
-//   // _menuView->addObserver(_menuController);
-//   // _menuController->setMenuListener(this);
-//   // _menuView->run(*_window);
+  // _window->setKeyRepeatEnabled(false);
+  // _menuView = new MenuView(*_window);
+  // _menuController = new MenuController(*_menuView);
+  // if (!_tcpConnection->connect())
+  //   throw (std::runtime_error("Connect"));
+  // _menuView->addObserver(_menuController);
+  // _menuController->setMenuListener(this);
+  // _menuView->run(*_window);
 
-//   _gameView = new RType::GameView();
-//   _gameController = new RType::GameController(*_gameView);
-//   _gameView->addObserver(_gameController);
-//   _gameView->run(*_window);
-
-//   std::cout << std::boolalpha << _tcpConnection->connect() << std::endl;
-// =======
-  _window->setKeyRepeatEnabled(false);
-  _menuView = new MenuView(*_window);
-  _menuController = new MenuController(*_menuView);
-  if (!_tcpConnection->connect())
-    throw (std::runtime_error("Connect"));
-  _menuView->addObserver(_menuController);
-  _menuController->setMenuListener(this);
-  _menuView->run(*_window);
+  _gameView = new RType::GameView();
+  _gameController = new RType::GameController(*_gameView);
+  _gameView->addObserver(_gameController);
+  _gameView->run(*_window);
 }
 
 RtypeClient::~RtypeClient()
