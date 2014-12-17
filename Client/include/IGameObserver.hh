@@ -6,17 +6,15 @@
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#ifndef TestSFML_IObserver_h
-# define TestSFML_IObserver_h
+#ifndef TestSFML_IGameObserver_h
+# define TestSFML_IGameObserver_h
 
-# include "MenuEnum.h"
-
-class IObserver {
+class IGameObserver {
 public:
-    virtual void update(eButton idCallback) = 0;
+  virtual void update() = 0;
 
  public:
-    virtual ~IObserver() {}
+    virtual ~IGameObserver() {}
 };
 
 #endif

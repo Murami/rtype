@@ -28,6 +28,7 @@ public:
     void initRoom();
     
     void run(sf::RenderWindow &window);
+    void stop();
     
     void setActualState(eMenuState state);
     eMenuState getActualState() const;

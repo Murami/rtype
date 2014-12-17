@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(R-Type)
 
-include_directories(include/)
+include_directories(include/ include/Graphic)
 
 SET(CMAKE_CXX_FLAGS "-W -Wall -Wextra -std=c++11")
 
@@ -11,6 +11,12 @@ set(EXECUTABLE_OUTPUT_PATH "../")
 add_executable(
 	${EXECUTABLE_NAME}
 	src/ConfigurationParser.cpp
+	src/Graphic/AObject.cpp
+	src/Graphic/BigRocket.cpp
+	src/Graphic/LittleRocket.cpp
+	src/Graphic/Player.cpp
+	src/Graphic/ScrollingBackground.cpp
+	src/Graphic/TextureManager.cpp
 	src/ConnectionConfiguration.cpp
 	src/MenuController.cpp
 	src/MenuView.cpp
@@ -18,6 +24,8 @@ add_executable(
 	src/TcpConnection.cpp
 	src/MyIniParser.cpp
 	src/SoundManager.cpp
+	src/GameView.cpp
+	src/GameController.cpp
 	src/main.cpp
 )
 
