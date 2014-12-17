@@ -5,7 +5,7 @@
 ## Login   <otoshigami@epitech.net>
 ## 
 ## Started on  Sun Jun 15 08:48:53 2014 otoshigami
-## Last update Tue Dec 16 18:37:19 2014 anto
+## Last update Wed Dec 17 14:56:29 2014 anto
 ##
 
 ## FILES
@@ -32,7 +32,9 @@ SRC		=	main				\
 			Game/Player			\
 			Game/Projectile			\
 			Game/Monster			\
-			Game/DestroyableSet
+			Game/DestroyableSet		\
+			Util/Mutex			\
+			Util/Lock
 
 
 SRC_EXT		=	.cpp
@@ -55,7 +57,7 @@ MAKED		=	make --no-print-directory -C
 
 ## LINKAGE
 
-LIB		=
+LIB		=	pthread
 DLIB		=
 LDFLAGS		=
 
