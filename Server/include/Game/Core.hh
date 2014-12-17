@@ -15,12 +15,13 @@ namespace Game
   public:
     std::list<Entity*>	_entities;
     Physic::World	_world;
+    bool		_alive;
 
   public:
     Core();
     ~Core();
 
-    void		run();
+    bool		alive() const;
 
     void		update(float time);
     Physic::World&	getWorld();

@@ -13,7 +13,6 @@ namespace Game
   class EntityEventReceiver : public Util::Observer<Entity, EntityEvent>
   {
   public:
-    EntityEventReceiver();
     virtual ~EntityEventReceiver() {}
 
     void		dispatch(const Entity& entity, const EntityEvent& event);

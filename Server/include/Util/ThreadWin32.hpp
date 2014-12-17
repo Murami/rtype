@@ -117,13 +117,6 @@ namespace Util
     Thread<T>* thread = reinterpret_cast<Thread<T>*>(param);
     return (thread->run(thread->getParam()));
   }
-
-  template<>
-  DWORD __stdcall launch_thread<void>(LPVOID param)
-  {
-    Thread<void>* thread = reinterpret_cast<Thread<void>*>(param);
-    return (thread->run());
-  }
 };
 
 #endif /* UTIL_THREAD */

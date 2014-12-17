@@ -35,6 +35,9 @@ namespace Util
   private:
     void	normalize();
   };
+
+  unsigned int		getCurrentTime();
+  void			sleep(unsigned int millisecond);
 };
 
 #endif /* UTIL_TIME_HH */
