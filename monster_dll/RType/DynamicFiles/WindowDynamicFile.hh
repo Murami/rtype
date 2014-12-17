@@ -5,23 +5,20 @@
 # include <windows.h>
 # include "IDynamicFile.hh"
 
-namespace	DynamicFile
+class	WindowDynamicFile : public IDynamicFile
 {
-  class	WindowDynamicFile : public IDynamicFile
-  {
-  public:
-    WindowDynamicFile();
-    WindowDynamicFile(const std::string& filename);
-    ~WindowDynamicFile();
+public:
+  WindowDynamicFile();
+  WindowDynamicFile(const std::string& filename);
+  ~WindowDynamicFile();
 
-    void	open(const std::string& filename);
-    void	close();
-    void	*loadSymbol(const std::string& symbol);
+  void	open(const std::string& filename);
+  void	close();
+  void	*loadSymbol(const std::string& symbol);
 
-  private:
-	  bool		_isOpen;
-	  HMODULE	_handle;
-  };
-}
+private:
+  bool		_isOpen;
+  HMODULE	_handle;
+};
 
 #endif /* _WINDOW_DYNAMIC_FILE_HH_ */

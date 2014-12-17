@@ -5,21 +5,18 @@
 # include <windows.h>
 # include "IDirent.hh"
 
-namespace	Dirent
+class	WindowDirent : public IDirent
 {
-  class	WindowDirent : public IDirent
-  {
-  public:
-    WindowDirent(std::string directory);
-    ~WindowDirent();
+public:
+  WindowDirent(std::string directory);
+  ~WindowDirent();
 
-    std::list<std::string>	getFilesName();
-    std::list<std::string>	getFilesNameByExtension(std::string ext);
+  std::list<std::string>	getFilesName();
+  std::list<std::string>	getFilesNameByExtension(std::string ext);
 
-  private:
-	  HANDLE			_handle;
-	  WIN32_FIND_DATA	_ffd;
-  };
-}
+private:
+  HANDLE			_handle;
+  WIN32_FIND_DATA	_ffd;
+};
 
 #endif
