@@ -1,4 +1,6 @@
 #include "Game/Player.hh"
+#include "Game/Projectile.hh"
+#include "Game/Monster.hh"
 
 namespace Game
 {
@@ -49,18 +51,22 @@ namespace Game
 
   void	Player::onCollide(Player& /*player*/)
   {
-    // TODO Players can't pass through their mates
+    // TODO Les joueurs se collisionent sans degats
   }
 
-  void	Player::onCollide(Projectile& /*projectile*/)
+  void	Player::onCollide(Projectile& projectile)
   {
-    // TODO Missile die and player loose some life
+    if (!this->isAlive() || !projectile.isAlive())
+      return;
+
+    if (!projectile.isFriend())
+      _life -= projectile.getDamage();
+    projectile.kill();
   }
 
-  void	Player::onCollide(Monster& /*monster*/)
+  void	Player::onCollide(Monster& monster)
   {
-    // TODO Player and monster loose life
-    // Do they pass through each other ?
+    monster.onCollide(*this);
   }
 
   void	Player::onCollide(DestroyableSet& /*set*/)
@@ -69,6 +75,7 @@ namespace Game
 
   }
 
+  // TODO input methods
   void	Player::onForward()
   {
   }

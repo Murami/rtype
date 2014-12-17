@@ -23,7 +23,6 @@ namespace Game
     typedef void (Player::*PlayerAction)();
 
     std::list<Input>				_inputs;
-    // static std::map<Input, PlayerAction>	_actions;
     static PlayerAction				_actions[InputMax];
 
   public:

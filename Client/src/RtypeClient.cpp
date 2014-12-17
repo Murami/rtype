@@ -53,8 +53,7 @@ bool	RtypeClient::onUserMessageFromMenu(Network::Message)
 void		RtypeClient::run()
 {
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
-					       sf::VideoMode::getDesktopMode().height),
-				 "Rtype");
+					       sf::VideoMode::getDesktopMode().height), "Rtype");
   RType::SoundManager::Play("theme");
 // <<<<<<< HEAD
 //   // _window->setKeyRepeatEnabled(false);

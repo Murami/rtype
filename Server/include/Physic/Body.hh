@@ -15,6 +15,7 @@ namespace Physic
   private:
     Util::Vec2	_speed;
     Util::Vec2	_position;
+    Util::Vec2	_size;
     World&	_world;
 
   public:
@@ -27,11 +28,14 @@ namespace Physic
     void		setPosition(const Util::Vec2& position);
     const Util::Vec2&	getPosition() const;
 
+    void		setSize(const Util::Vec2& size);
+    const Util::Vec2&	getSize() const;
+
     void		update(float time);
     bool		collide(const Body& body);
 
   private:
-    void	notifyMove();
+    void		notifyMove();
   };
 };
 
