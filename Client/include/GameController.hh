@@ -4,22 +4,19 @@
 
 # include "IGameObserver.hh"
 
-namespace	RType
+class	GameView;
+
+class	GameController : public IGameObserver
 {
-  class	GameView;
+public:
+  GameController(GameView&);
+  ~GameController();
 
-  class	GameController : public IGameObserver
-  {
-  public:
-    GameController(GameView&);
-    ~GameController();
+  void	update();
 
-    void	update();
-
-  private:
-    GameView&	_view;
-    /* mettre un network ici */
-  };
-}
+private:
+  GameView&	_view;
+  /* mettre un network ici */
+};
 
 #endif

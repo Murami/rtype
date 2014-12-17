@@ -4,17 +4,14 @@
 
 # include <string>
 
-namespace	PluginManager
+class	APlugin
 {
-  class	APlugin
-  {
-  public:
-    virtual ~APlugin() {}
-    const std::string&	getName() const;
+public:
+  virtual ~APlugin() {}
+  const std::string&	getName() const;
 
-  protected:
-    std::string	_name;
-  };
-}
+protected:
+  std::string	_name;
+};
 
 #endif /* _PLUGIN_HH_ */

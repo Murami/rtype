@@ -4,7 +4,7 @@
 
 # include "AMonster.hh"
 
-class	First : public RType::AMonster
+class	First : public AMonster
 {
 public:
   First();

@@ -15,8 +15,10 @@ add_executable(
 	src/Graphic/BigRocket.cpp
 	src/Graphic/LittleRocket.cpp
 	src/Graphic/Player.cpp
+	src/Graphic/PlayerPowerUp.cpp	
 	src/Graphic/ScrollingBackground.cpp
 	src/Graphic/TextureManager.cpp
+	src/Graphic/Monster.cpp
 	src/ConnectionConfiguration.cpp
 	src/MenuController.cpp
 	src/MenuView.cpp
@@ -26,6 +28,7 @@ add_executable(
 	src/SoundManager.cpp
 	src/GameView.cpp
 	src/GameController.cpp
+	src/NetworkReader.cpp
 	src/main.cpp
 )
 
