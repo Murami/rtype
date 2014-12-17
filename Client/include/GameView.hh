@@ -5,6 +5,7 @@
 # include <map>
 # include <SFML/Graphics.hpp>
 # include "GameObservable.hh"
+# include "ScrollingBackground.h"
 
 class	IObject;
 
@@ -24,8 +25,9 @@ namespace	RType
     void	render(sf::RenderWindow&);
 
   private:
-    std::map<int, IObject*>	_map;
-    bool			_run;
+    std::vector<ScrollingBackground*>	_backgroundVector;
+    std::map<int, IObject*>		_objectMap;
+    bool				_run;
   };
 }
 

@@ -25,8 +25,8 @@ public:
     sf::Vector2<float> getPosition() const;
     
 private:
-    int _index;
-    int _anim;
+    int						_index;
+    size_t					_anim;
     std::map<int, void(PlayerPowerUp::*)()>     _powerUpMap;
     std::map<int, sf::IntRect>                  _animationMap;
     std::map<int, float>                        _animationDuration;

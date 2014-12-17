@@ -4,6 +4,8 @@
 #include "GameView.hh"
 #include "Player.h"
 #include "GameEnum.hh"
+#include "SoundManager.hh"
+#include "BigRocket.h"
 
 namespace	RType
 {
@@ -11,13 +13,24 @@ namespace	RType
   {
     _run = false;
 
-    IObject *player = new Player(1);
-    _map[0] = player;
+    _backgroundVector.push_back(new ScrollingBackground("./res/Game/background_game.jpg"));
+    _backgroundVector.push_back(new ScrollingBackground("./res/Game/planets.png"));
+    _backgroundVector[1]->setBgSpeed(0.5);
+    
+    IObject *player = new BigRocket(true);
+
+    _objectMap[0] = player;
   }
 
   GameView::~GameView()
   {
+    std::map<int, IObject*>::iterator		itObj;
+    std::vector<ScrollingBackground*>::iterator	itBack;
 
+    for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
+      delete (itObj->second);
+    for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
+      delete (*itBack);
   }
 
   void	GameView::run(sf::RenderWindow& window)
@@ -27,7 +40,10 @@ namespace	RType
       {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	  /* network onKeyEvent(RType::LEFT) */
-	  std::cout << "a remplir" << std::endl;
+	  {
+	    RType::SoundManager::Stop("stage1");
+	    RType::SoundManager::Play("pause");
+	  }
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	  /* network onKeyEvent(RType::RIGHT) */
 	  std::cout << "a remplir" << std::endl;
@@ -39,7 +55,7 @@ namespace	RType
 	  std::cout << "a remplir" << std::endl;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	  /* network onKeyEvent(RType::SPACE) */
-	  std::cout << "a remplir" << std::endl;
+	  RType::SoundManager::Play("bip");
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	  /* network onKeyEvent(RType::ESCAPE) */
 	  _run = false;
@@ -55,21 +71,27 @@ namespace	RType
 
   void	GameView::update()
   {
-    std::map<int, IObject*>::iterator	it;
+    std::map<int, IObject*>::iterator		itObj;
+    std::vector<ScrollingBackground*>::iterator	itBack;
 
-    for (it = _map.begin(); it != _map.end(); it++)
+    for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
       {
 	sf::Vector2<float>	pos = {100, 100};
 
-	it->second->update(pos);
+	itObj->second->update(pos);
       }
+    for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
+      (*itBack)->update(sf::Vector2<float>(0, 0));
   }
 
   void	GameView::render(sf::RenderWindow& window)
   {
-    std::map<int, IObject*>::iterator	it;
+    std::map<int, IObject*>::iterator		itObj;
+    std::vector<ScrollingBackground*>::iterator	itBack;
 
-    for (it = _map.begin(); it != _map.end(); it++)
-      it->second->render(window);
+    for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
+      itObj->second->render(window);
+    for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
+      (*itBack)->render(window);
   }
 }

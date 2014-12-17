@@ -18,6 +18,7 @@ add_executable(
 	src/Graphic/PlayerPowerUp.cpp	
 	src/Graphic/ScrollingBackground.cpp
 	src/Graphic/TextureManager.cpp
+	src/Graphic/Monster.cpp
 	src/ConnectionConfiguration.cpp
 	src/MenuController.cpp
 	src/MenuView.cpp

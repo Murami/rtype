@@ -98,7 +98,7 @@ bool	RtypeClient::onUserMessageFromMenu(Network::Message)
 void		RtypeClient::run()
 {
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
-					       sf::VideoMode::getDesktopMode().height), "Rtype");
+					       sf::VideoMode::getDesktopMode().height), "Rtype", sf::Style::Fullscreen);
   RType::SoundManager::Play("theme");
   // _window->setKeyRepeatEnabled(false);
   // _menuView = new MenuView(*_window);

@@ -70,6 +70,16 @@ namespace	RType
     return (false);
   }
 
+  bool	SoundManager::Pause(std::string name)
+  {
+    if (_musicsMap.find(name) != _musicsMap.end())
+      {
+	_musicsMap[name]->pause();
+	return (true);
+      }
+    return (false);    
+  }
+
   bool	SoundManager::Stop(std::string name)
   {
     if (_musicsMap.find(name) != _musicsMap.end())

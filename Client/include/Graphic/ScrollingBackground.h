@@ -13,7 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include "IObject.h"
 
-class ScrollingBackground : public IObject
+class ScrollingBackground
 {
 public:
     ScrollingBackground(std::string filePath);

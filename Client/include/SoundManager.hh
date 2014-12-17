@@ -17,6 +17,7 @@ namespace	RType
     ~SoundManager();
 
     static bool	Play(std::string, bool loop = false);
+    static bool Pause(std::string);
     static bool	Stop(std::string);
 
   private:
