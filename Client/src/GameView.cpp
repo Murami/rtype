@@ -37,28 +37,28 @@ void	GameView::run(sf::RenderWindow& window)
   while (_run)
     {
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	/* network onKeyEvent(RType::LEFT) */
+	/* network onKeyEvent(RTypeEvent::LEFT) */
 	{
 	  SoundManager::Stop("scoring");
 	  SoundManager::Play("stage8");
 	}
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	/* network onKeyEvent(RType::RIGHT) */
+	/* network onKeyEvent(RTypeEvent::RIGHT) */
 	std::cout << "a remplir" << std::endl;
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	/* network onKeyEvent(RType::UP) */
+	/* network onKeyEvent(RTypeEvent::UP) */
 	std::cout << "a remplir" << std::endl;
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	/* network onKeyEvent(RType::DOWN) */
+	/* network onKeyEvent(RTypeEvent::DOWN) */
 	std::cout << "a remplir" << std::endl;
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-	/* network onKeyEvent(RType::SPACE) */
+	/* network onKeyEvent(RTypeEvent::SPACE) */
 	SoundManager::Play("bip");
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-	/* network onKeyEvent(RType::ESCAPE) */
+	/* network onKeyEvent(RTypeEvent::ESCAPE) */
 	_run = false;
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-	/* network onKeyEvent(RType::ENTER) */
+	/* network onKeyEvent(RTypeEvent::ENTER) */
 	std::cout << "a remplir" << std::endl;
       window.clear();
       this->update();

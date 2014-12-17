@@ -11,9 +11,9 @@
 
 # include "MenuEnum.hh"
 
-class IObserver {
+class	IObserver {
 public:
-    virtual void update(eButton idCallback) = 0;
+  virtual void update(RTypeEvent::eButton idCallback) = 0;
 
  public:
     virtual ~IObserver() {}
