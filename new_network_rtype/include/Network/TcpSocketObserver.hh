@@ -9,8 +9,8 @@ namespace Network
   class TcpSocketObserver
   {
   public:
-    virtual void onRead(TcpSocket*) = 0;
-    virtual void onWrite(TcpSocket*) = 0;
+    virtual void onRead(TcpSocket &) = 0;
+    virtual void onWrite(TcpSocket &) = 0;
   };
 
 } /* namespace Network */

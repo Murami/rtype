@@ -9,7 +9,7 @@
 #ifndef __TestSFML__AObject__
 #define __TestSFML__AObject__
 
-#include "IObject.h"
+#include "IObject.hh"
 
 class AObject : public IObject {
     

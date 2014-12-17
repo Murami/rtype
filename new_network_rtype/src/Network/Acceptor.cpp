@@ -62,7 +62,7 @@ namespace Network
 
   void Acceptor::notifyAccept()
   {
-    _observer->onAccept(this);
+    _observer->onAccept(*this);
   }
 
 } /* namespace Network */

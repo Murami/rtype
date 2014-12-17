@@ -68,12 +68,12 @@ namespace Network
 
   void	UdpSocket::notifyRead()
   {
-    _observer->onRead(this);
+    _observer->onRead(*this);
   }
 
   void	UdpSocket::notifyWrite()
   {
-    _observer->onWrite(this);
+    _observer->onWrite(*this);
   }
 
 } /* namespace Network */

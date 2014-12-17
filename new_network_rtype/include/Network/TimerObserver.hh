@@ -9,7 +9,7 @@ namespace Network
   class TimerObserver
   {
   public:
-    virtual void onTimeout(Timer *) = 0;
+    virtual void onTimeout(Timer &) = 0;
   };
 
 } /* namespace Network */

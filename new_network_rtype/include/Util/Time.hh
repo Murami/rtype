@@ -36,6 +36,9 @@ namespace Util
     int		getSecond() const;
     int		getMicrosecond() const;
 
+    void	setSecond(int sec);
+    void	setMicrosecond(int usec);
+
   private:
     void	normalize();
   };

@@ -42,8 +42,8 @@ namespace Network
     Acceptor(unsigned int port);
     ~Acceptor();
 
-    SOCKET	getSocket();
-    TcpSocket*	getAcceptSocket();
+    SOCKET		getSocket();
+    TcpSocket*		getAcceptSocket();
     void		acceptSocket();
     void		setObserver(AcceptorObserver *);
     void		notifyAccept();

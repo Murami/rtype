@@ -6,20 +6,17 @@
 # include <string>
 # include <fstream>
 
-namespace	RType
+class	MyIniParser
 {
-  class	MyIniParser
-  {
-  public:
-    MyIniParser(std::string filename);
-    ~MyIniParser();
+public:
+  MyIniParser(std::string filename);
+  ~MyIniParser();
 
-    std::map<std::string, std::string>	getEverythingInSection(std::string);
+  std::map<std::string, std::string>	getEverythingInSection(std::string);
     
 
-  private:
-    std::ifstream	_file;
-  };
-}
+private:
+  std::ifstream	_file;
+};
 
 #endif /* _MY_INI_PARSER_HH_ */

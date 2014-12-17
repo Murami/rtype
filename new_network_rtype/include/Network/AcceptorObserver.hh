@@ -9,7 +9,7 @@ namespace Network
   class AcceptorObserver
   {
   public:
-    virtual void onAccept(Acceptor *) = 0;
+    virtual void onAccept(Acceptor &) = 0;
   };
 
 } /* namespace Network */

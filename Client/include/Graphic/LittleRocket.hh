@@ -9,7 +9,7 @@
 #ifndef __TestSFML__LittleRocket__
 #define __TestSFML__LittleRocket__
 
-#include "AObject.h"
+#include "AObject.hh"
 
 class LittleRocket : public AObject {
     

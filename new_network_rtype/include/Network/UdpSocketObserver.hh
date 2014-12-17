@@ -9,8 +9,8 @@ namespace Network
   class UdpSocketObserver
   {
   public:
-    virtual void onRead(UdpSocket*) = 0;
-    virtual void onWrite(UdpSocket*) = 0;
+    virtual void onRead(UdpSocket &) = 0;
+    virtual void onWrite(UdpSocket &) = 0;
   };
 
 } /* namespace Network */

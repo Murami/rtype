@@ -10,9 +10,9 @@
 #define __TestSFML__MenuController__
 
 #include "IMenuListener.hh"
-#include "MenuEnum.h"
-#include "IObserver.h"
-#include "MenuView.h"
+#include "MenuEnum.hh"
+#include "IObserver.hh"
+#include "MenuView.hh"
 
 class MenuController : public IObserver
 {
@@ -20,8 +20,8 @@ class MenuController : public IObserver
 public:
     MenuController(MenuView &view);
     virtual ~MenuController();
-    void update(eButton idCallback);
-    void manageUpdate(eButton idCallback);
+  void update(RTypeEvent::eButton idCallback);
+  void manageUpdate(RTypeEvent::eButton idCallback);
 
    void setMenuListener(IMenuListener *);
 

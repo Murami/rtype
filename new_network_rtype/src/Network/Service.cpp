@@ -79,6 +79,16 @@ namespace Network
 	#endif
   }
 
+  template <class T, class S, class C>
+  S& Container(std::priority_queue<T, S, C>& q) {
+    struct HackedQueue : private std::priority_queue<T, S, C> {
+      static S& Container(std::priority_queue<T, S, C>& q) {
+	return q.*&HackedQueue::c;
+      }
+    };
+    return HackedQueue::Container(q);
+  }
+
   void Service::run()
   {
     int			fd = 0;
@@ -86,6 +96,8 @@ namespace Network
     fd_set		readfs;
     fd_set		writefs;
     struct timeval	tv;
+    Util::Time		time;
+    std::vector<TimerRAII>   &tasks = Container(_Timers);
 
     while (_Timers.size() || _RSocketUdp.size() || _RSocketTcp.size() ||
 	   _WSocketUdp.size() || _WSocketTcp.size() || _Acceptors.size())
@@ -103,12 +115,14 @@ namespace Network
 	    tv.tv_usec = _Timers.top()->getTime().getMicrosecond();
 	    if ((ret = select(fd + 1, &readfs, &writefs, NULL, &tv)) < 0)
 	      throw NetworkException("Service select failed");
-	    // _Timers.top()->getTime().getMicrosecond() - tv.tv_usec
-	    // vector<int> &tasks = Container(_Timers);
-	    // for (std::vector<TimerRAII>::iterator it = tasks.begin(); it != tasks.end(); ++it)
-	    //   {
-	    // 	std::cout << "sec = " << tv.tv_sec << "| usec = " << tv.tv_usec << std::endl;
-	    //   }
+	    time.setSecond(tv.tv_sec);
+	    time.setMicrosecond(tv.tv_usec);
+	    //std::cout << time.getSecond() << " - " << time.getMicrosecond() << std::endl;
+	    time = _Timers.top()->getTime() - time;
+	    //std::cout << time.getSecond() << " - " << time.getMicrosecond() << std::endl;
+	    //_Timers.top()->setTime(_Timers.top()->getTime() - time);
+	    for (std::vector<TimerRAII>::iterator it = tasks.begin(); it != tasks.end(); ++it)
+	      (*it)->setTime((*it)->getTime() - time);
 	  }
 	else
 	  if ((ret = select(fd + 1, &readfs, &writefs, NULL, NULL)) < 0)

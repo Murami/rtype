@@ -1,5 +1,8 @@
 
-namespace	RType
+#ifndef _GAME_ENUM_HH_
+# define _GAME_ENUM_HH_
+
+namespace	RTypeEvent
 {
   enum eKeyEvent
     {
@@ -13,3 +16,4 @@ namespace	RType
       DEFAULT
     };
 }
+#endif /* _GAME_ENUM_HH_ */

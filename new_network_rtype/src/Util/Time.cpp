@@ -143,6 +143,16 @@ namespace Util
     return (_microsecond);
   }
 
+  void	Time::setSecond(int sec)
+  {
+    _second = sec;
+  }
+
+  void	Time::setMicrosecond(int usec)
+  {
+    _microsecond = usec;
+  }
+
   void	Time::normalize()
   {
     _second += _microsecond / 1000000;

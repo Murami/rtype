@@ -15,6 +15,7 @@ namespace Network
     ~Timer();
 
     void		setTime(int second, int microsecond);
+    void		setTime(const Util::Time& time);
     const Util::Time&	getTime(void) const;
 
     void		setObserver(TimerObserver * observer);

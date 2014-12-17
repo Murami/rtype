@@ -11,9 +11,9 @@
 
 #include <string>
 #include <SFML/Graphics.hpp>
-#include "IObject.h"
+#include "IObject.hh"
 
-class ScrollingBackground : public IObject
+class ScrollingBackground
 {
 public:
     ScrollingBackground(std::string filePath);

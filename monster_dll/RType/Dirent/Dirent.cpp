@@ -6,21 +6,18 @@
 #elif defined (WIN32) || defined (_WIN32)
 # include "WindowDirent.hh"
 #endif
-
-namespace	Dirent
+IDirent*	create(std::string directory)
 {
-  IDirent*	create(std::string directory)
-  {
 #if defined(__unix__)
-    return (new LinuxDirent(directory));
+  return (new LinuxDirent(directory));
 #elif defined(_WIN32) || defined (WIN32)
-    return (new WindowDirent(directory));
+  return (new WindowDirent(directory));
 #else
 #error "OS not supported"
 #endif
-    (void)directory;
-    return (NULL);
-  }
+  (void)directory;
+  return (NULL);
+}
 
 #if defined(__unix__)
   std::string separator = "/";
@@ -29,4 +26,3 @@ namespace	Dirent
 #else
 #error "OS not supported"
 #endif
-}

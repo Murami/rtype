@@ -13,6 +13,11 @@ namespace Network
     _time = Util::Time(second, microsecond);
   }
 
+  void	Timer::setTime(const Util::Time& time)
+  {
+    _time = time;
+  }
+
   const Util::Time&	Timer::getTime(void) const
   {
     return (_time);
@@ -25,7 +30,7 @@ namespace Network
 
   void		Timer::notify()
   {
-    _observer->onTimeout(this);
+    _observer->onTimeout(*this);
   }
 
 } /* namespace Network */

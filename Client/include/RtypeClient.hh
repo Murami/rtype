@@ -4,8 +4,6 @@
 # include	<SFML/Graphics.hpp>
 # include	"IMenuListener.hh"
 # include	"ConnectionConfiguration.hh"
-# include	"GameView.hh"
-# include	"GameController.hh"
 # include	"INetworkListener.hh"
 
 class		MenuController;
@@ -22,8 +20,8 @@ private:
   TcpConnection*		_tcpConnection;
   MenuController*		_menuController;
   MenuView*			_menuView;
-  RType::GameController*	_gameController;
-  RType::GameView*		_gameView;
+  GameController*		_gameController;
+  GameView*			_gameView;
   sf::RenderWindow*		_window;
 
   // INetworkListener

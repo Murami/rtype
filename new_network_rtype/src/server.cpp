@@ -18,7 +18,10 @@ private:
   Acceptor  _acceptor;
   TcpSocket * _client;
   UdpSocket _udp;
-  Timer		_timeout;
+  Timer		_timeout1;
+  Timer		_timeout2;
+  Timer		_timeout3;
+  Timer		_timeout4;
 
 public:
   Server(Service & service) : _service(service), _acceptor(4242)
@@ -30,9 +33,18 @@ public:
     // _service.addReadUdp(_udp);
     // _udp.bindSocket(1234);
 
-    // _timeout.setTime(1, 0);
-    // _timeout.setObserver(this);
-    // _service.addTimeout(_timeout);
+    _timeout1.setTime(2, 0);
+    _timeout1.setObserver(this);
+    _service.addTimeout(_timeout1);
+    _timeout2.setTime(4, 0);
+    _timeout2.setObserver(this);
+    _service.addTimeout(_timeout2);
+    _timeout3.setTime(8, 0);
+    _timeout3.setObserver(this);
+    _service.addTimeout(_timeout3);
+    _timeout4.setTime(16, 0);
+    _timeout4.setObserver(this);
+    _service.addTimeout(_timeout4);
   }
 
   ~Server()
@@ -97,7 +109,7 @@ public:
   void onTimeout(Timer *timeout)
   {
     std::cout << "timeout detected" << std::endl;
-    _service.addTimeout(*timeout);
+    //_service.addTimeout(*timeout);
   }
 
 };

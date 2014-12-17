@@ -81,12 +81,12 @@ namespace Network
     if((n = recv(_socket, buffer, 4096, 0)) <= 0)
       throw NetworkException("tcp read failed");
     _readbuf.write(buffer, n);
-    _observer->onRead(this);
+    _observer->onRead(*this);
   }
 
   void TcpSocket::notifyWrite()
   {
-    _observer->onWrite(this);
+    _observer->onWrite(*this);
   }
 
   void TcpSocket::setObserver(TcpSocketObserver * observer)

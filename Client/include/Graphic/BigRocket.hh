@@ -10,7 +10,7 @@
 #define __TestSFML__Rocket__
 
 #include <SFML/Graphics.hpp>
-#include "AObject.h"
+#include "AObject.hh"
 
 class BigRocket : public AObject {
 

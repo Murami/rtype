@@ -10,12 +10,13 @@
 #define TestSFML_Observable_h
 
 #include <set>
-#include "IObserver.h"
+#include "IObserver.hh"
 
-class Observable {
+class	Observable
+{
 public:
     
-    void notify(eButton idCallback) const
+  void notify(RTypeEvent::eButton idCallback) const
     {
         for (std::set<IObserver *>::const_iterator it = _list_observers.begin(); it != _list_observers.end(); it++)
             (*it)->update(idCallback);

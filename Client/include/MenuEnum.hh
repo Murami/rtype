@@ -9,7 +9,9 @@
 #ifndef TestSFML_MenuEnum_h
 #define TestSFML_MenuEnum_h
 
-enum eButton {
+namespace	RTypeEvent
+{
+  enum eButton {
     LOGIN = 1,
     PLAY,
     SETTINGS,
@@ -20,14 +22,15 @@ enum eButton {
     READY,
     LISTCHOICE,
     BACK
-};
+  };
 
-enum eMenuState {
+  enum eMenuState {
     LOGINSTATE = 1,
     MENUSTATE,
     ROOMSELECTSTATE,
     ROOMSTATE,
     UNKNOWSTATE,
-};
+  };
+}
 
 #endif
