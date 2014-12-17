@@ -61,7 +61,7 @@ void	RtypeClient::onMessage(Network::Message)
 bool	RtypeClient::onConnectFromMenu(const std::string & login)
 {
   // Send connection datas
-  RType::SoundManager::Play("bip");
+  SoundManager::Play("bip");
   std::cout << __FUNCTION__ << " : " << login << std::endl;
   _tcpConnection->write(login.c_str(), login.size());
   return (true);
@@ -99,7 +99,7 @@ void		RtypeClient::run()
 {
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
 					       sf::VideoMode::getDesktopMode().height), "Rtype", sf::Style::Fullscreen);
-  RType::SoundManager::Play("scoring");
+  SoundManager::Play("scoring");
 
   // _window->setKeyRepeatEnabled(false);
   // _menuView = new MenuView(*_window);
@@ -110,8 +110,8 @@ void		RtypeClient::run()
   // _menuController->setMenuListener(this);
   // _menuView->run(*_window);
 
-  _gameView = new RType::GameView();
-  _gameController = new RType::GameController(*_gameView);
+  _gameView = new GameView();
+  _gameController = new GameController(*_gameView);
   _gameView->addObserver(_gameController);
   _gameView->run(*_window);
 }

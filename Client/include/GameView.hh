@@ -9,26 +9,24 @@
 
 class	IObject;
 
-namespace	RType
+class	GameView : public GameObservable
 {
-  class	GameView : public GameObservable
-  {
-  public:
-    GameView();
-    ~GameView();
+public:
+  GameView();
+  ~GameView();
 
-  public:
-    void	run(sf::RenderWindow&);
+public:
+  void	run(sf::RenderWindow&);
+  void	add(int, IObject*);
 
-  private:
-    void	update();
-    void	render(sf::RenderWindow&);
+private:
+  void	update();
+  void	render(sf::RenderWindow&);
 
-  private:
-    std::vector<ScrollingBackground*>	_backgroundVector;
-    std::map<int, IObject*>		_objectMap;
-    bool				_run;
-  };
-}
+private:
+  std::vector<ScrollingBackground*>	_backgroundVector;
+  std::map<int, IObject*>		_objectMap;
+  bool					_run;
+};
 
 #endif
