@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 set (EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/..)
 set (CTEST_CUSTOM_MAXIMUM_NUMBER_OF_ERRORS 5)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 include_directories(include/Network)
 include_directories(include/Util)
 include_directories(include/Application)

@@ -1,11 +1,11 @@
 #ifndef SERVICE_HH
 # define SERVICE_HH
 
-# ifdef WIN32
+# ifdef _WIN32
 
 #	include <winsock2.h>
 
-# elif defined (linux)
+# elif defined (__linux__)
 
 	typedef int SOCKET;
 	typedef struct sockaddr_in SOCKADDR_IN;
@@ -31,7 +31,6 @@
 # endif /* WIN32 */
 
 # include <map>
-# include <queue>
 # include <list>
 # include <vector>
 # include <functional>
@@ -64,6 +63,7 @@ namespace Network
       bool	operator<(const TimerRAII& timer) const;
       bool	operator>(const TimerRAII& timer) const;
       Timer*	operator->() const;
+      Timer*	operator*() const;
     };
 
   public:
@@ -88,7 +88,7 @@ namespace Network
     void notifyAcceptor(fd_set * readfs);
 
   private:
-    std::priority_queue<TimerRAII, std::vector<TimerRAII>, std::greater<TimerRAII> >		_Timers;
+    std::list<TimerRAII>									_Timers;
     std::map<SOCKET, TcpSocket *>								_RSocketTcp;
     std::map<SOCKET, TcpSocket *>								_WSocketTcp;
     std::map<SOCKET, UdpSocket *>								_RSocketUdp;

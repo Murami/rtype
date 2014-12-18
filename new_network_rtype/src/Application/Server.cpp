@@ -11,6 +11,10 @@ namespace Application
     _service.addAcceptor(_acceptor);
     _service.addReadUdp(_udpSocket);
     _service.addWriteUdp(_udpSocket);
+
+    _timer1.setObserver(this);
+    _timer1.setTimeout(Network::duration_millisecond(100));
+    _service.addTimeout(_timer1);
   }
 
   Server::~Server()
@@ -43,6 +47,12 @@ namespace Application
   void Server::onWrite(Network::UdpSocket & socket)
   {
     _service.addReadUdp(socket);
+  }
+
+  void Server::onTimeout(Network::Timer & timer)
+  {
+    timer.setTimeout(Network::duration_millisecond(100));
+    _service.addTimeout(timer);
   }
 
   Network::Service & Server::getService() const

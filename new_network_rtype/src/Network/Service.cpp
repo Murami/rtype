@@ -58,6 +58,11 @@ namespace Network
     return (_timer);
   }
 
+  Timer* Service::TimerRAII::operator*() const
+  {
+    return (_timer);
+  }
+
   Service::Service()
   {
 	#ifdef WIN32
@@ -79,16 +84,6 @@ namespace Network
 	#endif
   }
 
-  template <class T, class S, class C>
-  S& Container(std::priority_queue<T, S, C>& q) {
-    struct HackedQueue : private std::priority_queue<T, S, C> {
-      static S& Container(std::priority_queue<T, S, C>& q) {
-	return q.*&HackedQueue::c;
-      }
-    };
-    return HackedQueue::Container(q);
-  }
-
   void Service::run()
   {
     int			fd = 0;
@@ -96,12 +91,13 @@ namespace Network
     fd_set		readfs;
     fd_set		writefs;
     struct timeval	tv;
-    Util::Time		time;
-    std::vector<TimerRAII>   &tasks = Container(_Timers);
 
     while (_Timers.size() || _RSocketUdp.size() || _RSocketTcp.size() ||
 	   _WSocketUdp.size() || _WSocketTcp.size() || _Acceptors.size())
       {
+	std::chrono::system_clock::duration	now = std::chrono::system_clock::now().time_since_epoch();
+
+	// Initalize sets
 	FD_ZERO(&readfs);
 	FD_ZERO(&writefs);
 	ret = setRead(&readfs);
@@ -109,31 +105,42 @@ namespace Network
 	ret = setWrite(&writefs);
 	fd = (ret > fd) ? ret : fd;
 
+	// Run through list of timer to determine the expireds ones and run them
+	while (_Timers.size() && _Timers.front()->getTime() <= now)
+	  {
+	    Service::TimerRAII	tmp = _Timers.front();
+
+	    _Timers.pop_front();
+	    tmp->notify();
+	  }
+
+	// Send informations to select with timer information
 	if (_Timers.size())
 	  {
-	    tv.tv_sec = _Timers.top()->getTime().getSecond();
-	    tv.tv_usec = _Timers.top()->getTime().getMicrosecond();
+	    std::chrono::system_clock::duration	waittime = _Timers.front()->getTime() - now;
+	    duration_second			sec;
+	    duration_microsecond		usec;
+
+	    sec = std::chrono::duration_cast<duration_second>(waittime);
+	    usec = std::chrono::duration_cast<duration_microsecond>(waittime) - sec;
+
+	    tv.tv_sec = sec.count();
+	    tv.tv_usec = usec.count();
+	    std::cout << tv.tv_sec << " - " << tv.tv_usec << std::endl;
 	    if ((ret = select(fd + 1, &readfs, &writefs, NULL, &tv)) < 0)
 	      throw NetworkException("Service select failed");
-	    time.setSecond(tv.tv_sec);
-	    time.setMicrosecond(tv.tv_usec);
-	    //std::cout << time.getSecond() << " - " << time.getMicrosecond() << std::endl;
-	    time = _Timers.top()->getTime() - time;
-	    //std::cout << time.getSecond() << " - " << time.getMicrosecond() << std::endl;
-	    //_Timers.top()->setTime(_Timers.top()->getTime() - time);
-	    for (std::vector<TimerRAII>::iterator it = tasks.begin(); it != tasks.end(); ++it)
-	      (*it)->setTime((*it)->getTime() - time);
+	    if (ret == 0)
+	      {
+		Service::TimerRAII	tmp = _Timers.front();
+
+		_Timers.pop_front();
+		tmp->notify();
+	      }
 	  }
+	// Send informations to select without timer information
 	else
 	  if ((ret = select(fd + 1, &readfs, &writefs, NULL, NULL)) < 0)
 	    throw NetworkException("Service select failed");
-
-	if (ret == 0)
-	  {
-	    Service::TimerRAII	tmp = _Timers.top();
-	    _Timers.pop();
-	    tmp->notify();
-	  }
 
 	notifyRTcp(&readfs);
 	notifyWTcp(&writefs);
@@ -283,7 +290,24 @@ namespace Network
 
   void Service::addTimeout(Timer & timer)
   {
-    _Timers.push(TimerRAII(&timer));
+    std::list<TimerRAII>::iterator it;
+
+    it = _Timers.begin();
+    while (it != _Timers.end())
+      {
+	if (*(*it) == &timer)
+	  it = _Timers.erase(it);
+	else
+	  ++it;
+      }
+
+    for (it = _Timers.begin(); it != _Timers.end(); it++)
+      if ((*(*it))->getTime() > timer.getTime())
+	{
+	  _Timers.insert(it, TimerRAII(&timer));
+	  return;
+	}
+    _Timers.insert(it, TimerRAII(&timer));
   }
 
   void Service::addReadTcp(TcpSocket & socket)

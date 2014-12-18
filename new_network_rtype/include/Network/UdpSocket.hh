@@ -1,11 +1,11 @@
 #ifndef UDP_SOCKET_HH
 # define UDP_SOCKET_HH
 
-# ifdef WIN32
+# ifdef _WIN32
 
 #	include <winsock2.h>
 
-# elif defined (linux)
+# elif defined (__linux__)
 
 	typedef int SOCKET;
 	typedef struct sockaddr_in SOCKADDR_IN;

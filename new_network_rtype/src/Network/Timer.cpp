@@ -8,17 +8,15 @@ namespace Network
 
   Timer::~Timer() {}
 
-  void	Timer::setTime(int second, int microsecond)
+  void	Timer::setTimeout(const std::chrono::system_clock::duration& time)
   {
-    _time = Util::Time(second, microsecond);
+    std::chrono::system_clock::time_point	now = std::chrono::system_clock::now();
+    std::chrono::system_clock::duration		epochTime = now.time_since_epoch();
+
+    _time = time + epochTime;
   }
 
-  void	Timer::setTime(const Util::Time& time)
-  {
-    _time = time;
-  }
-
-  const Util::Time&	Timer::getTime(void) const
+  const std::chrono::system_clock::duration&	Timer::getTime(void) const
   {
     return (_time);
   }
