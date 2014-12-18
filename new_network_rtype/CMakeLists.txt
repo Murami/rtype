@@ -53,6 +53,8 @@ src/Util/LinuxDirent.cpp
 src/Util/WindowDirent.cpp
 src/Application/Server.cpp
 src/Application/ClientServer.cpp
+src/Application/Room.cpp
+src/Application/ClientRoom.cpp
 src/Protocol/Protocole.cpp
 include/Game/CollisionEvent.hh
 include/Game/CoreEvent.hh
