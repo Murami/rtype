@@ -17,7 +17,8 @@ public:
 
 public:
   void	run(sf::RenderWindow&);
-  void	add(int, IObject*);
+  void	add(int id, IObject*);
+  void	erase(int id);
 
 private:
   void	update();
