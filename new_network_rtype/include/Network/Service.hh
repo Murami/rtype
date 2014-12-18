@@ -4,6 +4,7 @@
 # ifdef _WIN32
 
 #	include <winsock2.h>
+  typedef int socklen_t;
 
 # elif defined (__linux__)
 
