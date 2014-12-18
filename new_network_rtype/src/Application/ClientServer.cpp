@@ -15,6 +15,7 @@ namespace Application
 
   void	ClientServer::onRead(Network::TcpSocket & socket)
   {
+    _server.getProtocole().onRead(socket, this);
     _server.getService().addReadTcp(socket);
   }
 

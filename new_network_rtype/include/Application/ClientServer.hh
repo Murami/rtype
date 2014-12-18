@@ -3,13 +3,14 @@
 
 #include "TcpSocket.hh"
 #include "TcpSocketObserver.hh"
+#include "ProtocoleObserver.hh"
 // #include "Room.hh"
 
 namespace Application
 {
   class Server;
 
-  class ClientServer : public Network::TcpSocketObserver
+  class ClientServer : public Network::TcpSocketObserver, public Network::ITcpProtocoleObserver
   {
   public:
     ClientServer(Server & server, Network::TcpSocket & socket);

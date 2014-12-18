@@ -9,6 +9,7 @@
 #include "Timer.hh"
 #include "TimerObserver.hh"
 #include "ClientServer.hh"
+#include "Protocole.hh"
 
 namespace Application
 {
@@ -19,16 +20,18 @@ namespace Application
     Server(Network::Service & service);
     ~Server();
 
-    void run();
-    void onAccept(Network::Acceptor & socket);
-    void onRead(Network::UdpSocket & socket);
-    void onWrite(Network::UdpSocket & socket);
-    void onTimeout(Network::Timer & timer);
+    void			run();
+    void			onAccept(Network::Acceptor & socket);
+    void			onRead(Network::UdpSocket & socket);
+    void			onWrite(Network::UdpSocket & socket);
+    void			onTimeout(Network::Timer & timer);
 
-    Network::Service & getService() const;
+    Network::Service &		getService() const;
+    Network::ProtocoleTcp &	getProtocole() const;
 
   private:
     Network::Service &			_service;
+    Network::ProtocoleTcp		_protocoleTcp;
 
     Network::Acceptor			_acceptor;
     Network::UdpSocket			_udpSocket;
