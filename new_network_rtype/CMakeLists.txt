@@ -8,6 +8,7 @@ include_directories(include)
 include_directories(include/Network)
 include_directories(include/Util)
 include_directories(include/Application)
+include_directories(include/Protocol)
 add_executable(
 server
 src/main.cpp
@@ -45,6 +46,7 @@ src/Util/MutexWin32.cpp
 src/Util/ThreadLinux.cpp
 src/Application/Server.cpp
 src/Application/ClientServer.cpp
+src/Protocol/Protocole.cpp
 include/Game/CollisionEvent.hh
 include/Game/CoreEvent.hh
 include/Game/DestroyableSet.hh
@@ -99,7 +101,11 @@ include/Util/Vec2.hh
 include/Application/ClientRoom.hh
 include/Application/Room.hh
 include/Application/Server.hh
-include/Application/ClientServer.hh)
+include/Application/ClientServer.hh
+include/Protocol/Protocole.hh
+include/Protocol/ProtocoleObserver.hh
+include/Protocol/RtypeProtocol.hh)
+
 if(WIN32)
   target_link_libraries(server wsock32 ws2_32)
 elseif(UNIX)
