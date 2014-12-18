@@ -3,7 +3,6 @@
 
 namespace Util
 {
-
   class Time
   {
   private:
@@ -33,16 +32,12 @@ namespace Util
     bool	operator>(const Time& time) const;
     bool	operator>=(const Time& time) const;
 
-    int		getSecond() const;
-    int		getMicrosecond() const;
-
-    void	setSecond(int sec);
-    void	setMicrosecond(int usec);
-
   private:
     void	normalize();
   };
 
-} /* namespace Util */
+  unsigned int		getCurrentTime();
+  void			sleep(unsigned int millisecond);
+};
 
 #endif /* UTIL_TIME_HH */

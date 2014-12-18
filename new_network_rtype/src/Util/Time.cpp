@@ -1,4 +1,27 @@
-#include "Time.hh"
+#include "Util/Time.hh"
+
+#ifdef WIN32
+
+#include <time.h>
+#include <sys/timeb.h>
+
+int	gettimeofday (struct timeval *tp, void /*tz*/)
+{
+  struct _timeb	timebuffer;
+
+  _ftime (&timebuffer);
+
+  tp->tv_sec = timebuffer.time;
+  tp->tv_usec = timebuffer.millitm * 1000;
+
+  return (0);
+}
+
+#elif __linux__
+#include <sys/time.h>
+#include <unistd.h>
+#define Sleep(time) usleep(time * 1000)
+#endif
 
 namespace Util
 {
@@ -133,26 +156,6 @@ namespace Util
 	   _microsecond >= time._microsecond));
   }
 
-  int	Time::getSecond() const
-  {
-    return (_second);
-  }
-
-  int	Time::getMicrosecond() const
-  {
-    return (_microsecond);
-  }
-
-  void	Time::setSecond(int sec)
-  {
-    _second = sec;
-  }
-
-  void	Time::setMicrosecond(int usec)
-  {
-    _microsecond = usec;
-  }
-
   void	Time::normalize()
   {
     _second += _microsecond / 1000000;
@@ -168,5 +171,18 @@ namespace Util
 	_microsecond -= 1000000;
 	_second += 1;
       }
+  }
+
+  unsigned int	getCurrentTime()
+  {
+    struct timeval time;
+
+    gettimeofday(&time, 0);
+    return (time.tv_usec / 1000);
+  }
+
+  void		sleep(unsigned int millisecond)
+  {
+    Sleep(millisecond);
   }
 };

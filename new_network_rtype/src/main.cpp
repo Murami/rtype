@@ -1,11 +1,10 @@
-#include "Service.hh"
-#include "Server.hh"
+#include "Observable.hpp"
+#include "Observer.hpp"
 
-int main()
+#include "Vec2.hh"
+#include "Thread.hpp"
+
+int	main()
 {
-  Network::Service service;
-  Application::Server server(service);
-
-  server.run();
   return (0);
 }
