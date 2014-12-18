@@ -32,7 +32,7 @@ namespace Network
 
     unsigned int tosize = sizeof to;
 
-    if(sendto(_socket, data, size, 0, (SOCKADDR *)&to, tosize) < 0)
+    if(sendto(_socket, reinterpret_cast<const char *>(data), size, 0, (SOCKADDR *)&to, tosize) < 0)
       throw NetworkException("udp socket sendto failed");
   }
 
@@ -40,9 +40,9 @@ namespace Network
   {
     int	n;
     SOCKADDR_IN from = { 0 };
-    unsigned int fromsize = sizeof from;
+    int fromsize = sizeof from;
 
-    if((n = recvfrom(_socket, data, size, 0, (SOCKADDR *)&from, &fromsize)) < 0)
+    if((n = recvfrom(_socket, reinterpret_cast<char *>(data), size, 0, (SOCKADDR *)&from, &fromsize)) < 0)
       throw NetworkException("udp socket recvfrom failed");
     port = from.sin_port;
     host = inet_ntoa(from.sin_addr);

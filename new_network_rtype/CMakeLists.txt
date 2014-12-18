@@ -35,7 +35,6 @@ src/Physic/BodyEventCollide.cpp
 src/Physic/BodyEventMove.cpp
 src/Physic/BodyEventReceiver.cpp
 src/Physic/World.cpp
-src/Util/Time.cpp
 src/Util/Buffer.cpp
 src/Util/Lock.cpp
 src/Util/MutexLinux.cpp
@@ -44,7 +43,6 @@ src/Util/Vec2.cpp
 src/Util/IDGenerator.cpp
 src/Util/MutexWin32.cpp
 src/Util/ThreadLinux.cpp
-src/Util/Time.cpp
 src/Application/Server.cpp
 src/Application/ClientServer.cpp
 include/Game/CollisionEvent.hh
@@ -83,7 +81,6 @@ include/Network/Timer.hh
 include/Network/TimerObserver.hh
 include/Network/UdpSocket.hh
 include/Network/UdpSocketObserver.hh
-include/Util/Time.hh
 include/Util/Buffer.hh
 include/Util/Lock.hh
 include/Util/Mutex.hh
@@ -91,7 +88,6 @@ include/Util/MutexWin32.hh
 include/Util/Observable.tpp
 include/Util/Receiver.hpp
 include/Util/ThreadLinux.hpp
-include/Util/Time.hh
 include/Util/IDGenerator.hh
 include/Util/Msg.hpp
 include/Util/MutexLinux.hh
@@ -117,7 +113,6 @@ endif()
 # src/Network/Acceptor.cpp
 # src/Network/UdpSocket.cpp
 # src/Network/Timer.cpp
-# src/Util/Time.cpp
 # src/Util/Buffer.cpp
 # include/Network/Acceptor.hh
 # include/Network/AcceptorObserver.hh
@@ -129,7 +124,6 @@ endif()
 # include/Network/TimerObserver.hh
 # include/Network/UdpSocket.hh
 # include/Network/UdpSocketObserver.hh
-# include/Util/Time.hh
 # include/Util/Buffer.hh)
 # if(WIN32)
 #   target_link_libraries(client wsock32 ws2_32)
