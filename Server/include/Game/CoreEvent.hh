@@ -9,6 +9,10 @@ namespace Game
   class CoreEvent
   {
   public:
+    class Spawn;
+    class Destroy;
+
+  public:
     virtual ~CoreEvent();
 
     virtual void	dispatch(const Core& core, CoreEventReceiver& receveir) const = 0;

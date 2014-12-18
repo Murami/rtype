@@ -11,8 +11,7 @@ namespace Game
   class CoreEventReceiver : public Util::Observer<Core, CoreEvent>
   {
   public:
-    CoreEventReceiver();
-    virtual ~CoreEventReceiver();
+    virtual ~CoreEventReceiver() {}
 
     void		dispatch(const Core& core, const CoreEvent& event);
     void		update(const Core& core, const CoreEvent& event);

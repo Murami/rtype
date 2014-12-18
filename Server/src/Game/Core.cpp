@@ -4,7 +4,8 @@
 
 namespace Game
 {
-  Core::Core()
+  Core::Core() :
+    _alive(true)
   {
   }
 
@@ -19,6 +20,11 @@ namespace Game
     _world.update(time);
     for (it = _entities.begin(); it != _entities.end(); it++)
       (*it)->update(time);
+  }
+
+  bool	Core::alive() const
+  {
+    return (_alive);
   }
 
   Player&	Core::addPlayer()

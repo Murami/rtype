@@ -25,7 +25,7 @@ void		NetworkReader::onReadData(void *data, std::size_t size)
   // Elle construira la bonne structure pour l'envoyer au RtypeClient (listener)
   // Et en fonction du type recu, il faudra changer le type de packet attendu
 }
-
+ttp://schedule.berkeley.edu/srchsmr.html
 void		NetworkReader::setExpectedPacket(Network::Type packetType)
 {
   _expectedPacket = packetType;

@@ -132,14 +132,6 @@ namespace Util
     thread->run(thread->getParam());
     return (NULL);
   }
-
-  template<>
-  void* launch_thread<void>(void* param)
-  {
-    Thread<void>* thread = reinterpret_cast<Thread<void>*>(param);
-    thread->run();
-    return (NULL);
-  }
 };
 
 #endif /* UTIL_THREAD */

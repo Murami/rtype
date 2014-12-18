@@ -5,7 +5,7 @@
 ## Login   <otoshigami@epitech.net>
 ## 
 ## Started on  Sun Jun 15 08:48:53 2014 otoshigami
-## Last update Wed Dec 17 14:56:29 2014 anto
+## Last update Wed Dec 17 21:31:11 2014 anto
 ##
 
 ## FILES
@@ -33,8 +33,13 @@ SRC		=	main				\
 			Game/Projectile			\
 			Game/Monster			\
 			Game/DestroyableSet		\
+			Game/CoreEventDestroy		\
+			Game/CoreEventSpawn		\
 			Util/Mutex			\
-			Util/Lock
+			Util/Lock			\
+			Util/Thread			\
+			Application/Room		\
+			Application/ClientRoom
 
 
 SRC_EXT		=	.cpp
