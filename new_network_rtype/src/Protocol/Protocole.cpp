@@ -443,7 +443,7 @@ namespace Network
 		return (value);
 	}
 
-	bool	ProtocoleTcp::unpack(const int &size, TcpSocket *socket) const
+	bool	ProtocoleTcp::unpack(const int &size, TcpSocket *socket, ITcpProtocoleObserver *obs) const
 	{
 		if (size < sizeof(Header))
 			return (false);
@@ -498,11 +498,11 @@ namespace Network
 		return (true);
 	}
 
-	void	ProtocoleTcp::onRead(TcpSocket *socket) const
+	void	ProtocoleTcp::onRead(TcpSocket *socket, ITcpProtocoleObserver *obs) const
 	{
 		if (socket->availableDataOnRead() >= sizeof(Header))
 		{
-			unpack(socket->availableDataOnRead(), socket);
+			unpack(socket->availableDataOnRead(), socket, obs);
 		}
 	}
 
@@ -565,11 +565,6 @@ namespace Network
 
 	ProtocoleUdp::ProtocoleUdp()
 	{
-	}
-
-	void	ProtocoleTcp::setup(ITcpProtocoleObserver *TcpObserver)
-	{
-		obs = TcpObserver;
 	}
 
 	void	ProtocoleUdp::setup(IUdpProtocoleObserver *UdpObserver)
