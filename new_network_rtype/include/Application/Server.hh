@@ -30,16 +30,16 @@ namespace Application
     Network::ProtocoleTcp &	getProtocole() const;
 
   private:
-    Network::Service &			_service;
-    Network::ProtocoleTcp		_protocoleTcp;
+    Network::Service &		_service;
+    Network::ProtocoleTcp	_protocoleTcp;
 
-    Network::Acceptor			_acceptor;
-    Network::UdpSocket			_udpSocket;
+    Network::Acceptor		_acceptor;
+    Network::UdpSocket		_udpSocket;
 
-    std::list<ClientServer*>		_clients;
-    // std::list<Room*>			_rooms;
+    std::list<ClientServer*>	_clients;
+    // std::list<Room*>		_rooms;
 
-    Network::Timer			_timer1;
+    Network::Timer		_timer1;
   };
 
 } /* namespace Application */

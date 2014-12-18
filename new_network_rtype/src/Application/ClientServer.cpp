@@ -24,6 +24,61 @@ namespace Application
     _server.getService().addWriteTcp(socket);
   }
 
+  void	notify(int const &type, const Network::Magic *, Network::TcpSocket *) const
+  {
+
+  }
+
+  void	notify(int const &type, const Network::User *, Network::TcpSocket *) const
+  {
+
+  }
+
+  void	notify(int const &type, const Network::Message *, Network::TcpSocket *) const
+  {
+
+  }
+
+  void	notify(int const &type, const Network::RoomConnection *, Network::TcpSocket *) const
+  {
+
+  }
+
+  void	notify(int const &type, const Network::PingPong *, Network::TcpSocket *) const
+  {
+
+  }
+
+  void	notify(int const &type, const Network::Score *, Network::TcpSocket *) const
+  {
+
+  }
+
+  void	notify(int const &type, const Network::MapChange *, Network::TcpSocket *) const
+  {
+
+  }
+
+  void	notify(int const &type, const Network::GameReadyState *, Network::TcpSocket *) const
+  {
+
+  }
+
+  void	notify(int const &type, const Network::EndGame *, Network::TcpSocket *) const
+  {
+
+  }
+
+  void	notify(int const &type, const Network::Room *, Network::TcpSocket *) const
+  {
+
+  }
+
+  void	notify(int const &type, Network::TcpSocket *) const
+  {
+
+  }
+
   // void ClientServer::setRoom(Room * room)
   // {
   //   _room = room;
