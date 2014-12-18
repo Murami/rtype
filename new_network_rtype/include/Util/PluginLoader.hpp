@@ -1,4 +1,3 @@
-
 #ifndef _PLUGIN_LOADER_HPP_
 # define _PLUGIN_LOADER_HPP_
 
@@ -71,7 +70,7 @@ public:
 	    _fileAndPluginName[*it] = hook();
 	  }
       }
-      
+
     /* j'enlève les fichiers obsolètes */
     copy = _filenameList;
     for (it = copy.begin(); it != copy.end(); it++)
