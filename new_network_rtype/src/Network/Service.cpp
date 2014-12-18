@@ -126,7 +126,6 @@ namespace Network
 
 	    tv.tv_sec = sec.count();
 	    tv.tv_usec = usec.count();
-	    std::cout << tv.tv_sec << " - " << tv.tv_usec << std::endl;
 	    if ((ret = select(fd + 1, &readfs, &writefs, NULL, &tv)) < 0)
 	      throw NetworkException("Service select failed");
 	    if (ret == 0)

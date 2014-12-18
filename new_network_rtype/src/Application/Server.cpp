@@ -29,6 +29,7 @@ namespace Application
 
   void Server::onAccept(Network::Acceptor & acceptor)
   {
+    std::cout << "on connect" << std::endl;
     Network::TcpSocket * clientSocket;
 
     acceptor.acceptSocket();

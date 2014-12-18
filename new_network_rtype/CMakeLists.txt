@@ -127,25 +127,120 @@ elseif(UNIX)
   target_link_libraries(server pthread dl)
 endif()
 
-# add_executable(
-# client
-# src/Network/Service.cpp
-# src/Network/TcpSocket.cpp
-# src/Network/Acceptor.cpp
-# src/Network/UdpSocket.cpp
-# src/Network/Timer.cpp
-# src/Util/Buffer.cpp
-# include/Network/Acceptor.hh
-# include/Network/AcceptorObserver.hh
-# include/Network/NetworkException.hh
-# include/Network/Service.hh
-# include/Network/TcpSocket.hh
-# include/Network/TcpSocketObserver.hh
-# include/Network/Timer.hh
-# include/Network/TimerObserver.hh
-# include/Network/UdpSocket.hh
-# include/Network/UdpSocketObserver.hh
-# include/Util/Buffer.hh)
-# if(WIN32)
-#   target_link_libraries(client wsock32 ws2_32)
-# endif()
+add_executable(
+client
+src/client.cpp
+src/Network/Service.cpp
+src/Network/TcpSocket.cpp
+src/Network/Acceptor.cpp
+src/Network/UdpSocket.cpp
+src/Network/Timer.cpp
+src/Game/CollisionEvent.cpp
+src/Game/CoreEventDestroy.cpp
+src/Game/DestroyableSet.cpp
+src/Game/EntityEventMove.cpp
+src/Game/Player.cpp
+src/Game/CollisionReceiver.cpp
+src/Game/CoreEventReceiver.cpp
+src/Game/Entity.cpp
+src/Game/EntityEventReceiver.cpp
+src/Game/Projectile.cpp
+src/Game/Core.cpp
+src/Game/CoreEventSpawn.cpp
+src/Game/EntityEventLife.cpp
+src/Game/Monster.cpp
+src/Physic/Body.cpp
+src/Physic/BodyEventCollide.cpp
+src/Physic/BodyEventMove.cpp
+src/Physic/BodyEventReceiver.cpp
+src/Physic/World.cpp
+src/Util/Buffer.cpp
+src/Util/Lock.cpp
+src/Util/MutexLinux.cpp
+src/Util/ThreadWin32.cpp
+src/Util/Vec2.cpp
+src/Util/IDGenerator.cpp
+src/Util/MutexWin32.cpp
+src/Util/ThreadLinux.cpp
+src/Util/APlugin.cpp
+src/Util/DynamicFile.cpp
+src/Util/LinuxDynamicFile.cpp
+src/Util/WindowDynamicFile.cpp
+src/Util/Dirent.cpp
+src/Util/LinuxDirent.cpp
+src/Util/WindowDirent.cpp
+src/Application/Server.cpp
+src/Application/ClientServer.cpp
+src/Protocol/Protocole.cpp
+include/Game/CollisionEvent.hh
+include/Game/CoreEvent.hh
+include/Game/DestroyableSet.hh
+include/Game/EntityEventReceiver.hh
+include/Game/Projectile.hh
+include/Game/CollisionReceiver.hh
+include/Game/CoreEventReceiver.hh
+include/Game/EntityEvent.hh
+include/Game/Entity.hh
+include/Game/CollisionSystem.hh
+include/Game/CoreEventSpawn.hh
+include/Game/EntityEventLife.hh
+include/Game/Monster.hh
+include/Game/CoreEventDestroy.hh
+include/Game/Core.hh
+include/Game/EntityEventMove.hh
+include/Game/Player.hh
+include/Physic/BodyContainer.hh
+include/Physic/BodyEvent.hh
+include/Physic/BodyEventReceiver.hh
+include/Physic/Shape.hh
+include/Physic/World.hh
+include/Physic/BodyEventCollide.hh
+include/Physic/BodyEventMove.hh
+include/Physic/Body.hh
+include/Physic/WorldEvent.hh
+include/Network/Acceptor.hh
+include/Network/AcceptorObserver.hh
+include/Network/NetworkException.hh
+include/Network/Service.hh
+include/Network/TcpSocket.hh
+include/Network/TcpSocketObserver.hh
+include/Network/Timer.hh
+include/Network/TimerObserver.hh
+include/Network/UdpSocket.hh
+include/Network/UdpSocketObserver.hh
+include/Util/Buffer.hh
+include/Util/Lock.hh
+include/Util/Mutex.hh
+include/Util/MutexWin32.hh
+include/Util/Observable.tpp
+include/Util/Receiver.hpp
+include/Util/ThreadLinux.hpp
+include/Util/IDGenerator.hh
+include/Util/Msg.hpp
+include/Util/MutexLinux.hh
+include/Util/Observable.hpp
+include/Util/Observer.hpp
+include/Util/Thread.hpp
+include/Util/ThreadWin32.hpp
+include/Util/Vec2.hh
+include/Util/APlugin.hh
+include/Util/IDynamicFile.hh
+include/Util/LinuxDirent.hh
+include/Util/WindowDirent.hh
+include/Util/LinuxDynamicFile.hh
+include/Util/WindowDynamicFile.hh
+include/Util/IDirent.hh
+include/Util/PluginLoader.hpp
+include/Application/ClientRoom.hh
+include/Application/Room.hh
+include/Application/Server.hh
+include/Application/ClientServer.hh
+include/Protocol/Protocole.hh
+include/Protocol/ProtocoleObserver.hh
+include/Protocol/RtypeProtocol.hh)
+
+if(WIN32)
+  target_link_libraries(client wsock32 ws2_32)
+elseif(UNIX)
+  target_link_libraries(client pthread dl)
+endif()
