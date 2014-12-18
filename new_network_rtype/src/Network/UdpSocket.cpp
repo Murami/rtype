@@ -40,7 +40,7 @@ namespace Network
   {
     int	n;
     SOCKADDR_IN from = { 0 };
-    int fromsize = sizeof from;
+    socklen_t fromsize = sizeof from;
 
     if((n = recvfrom(_socket, reinterpret_cast<char *>(data), size, 0, (SOCKADDR *)&from, &fromsize)) < 0)
       throw NetworkException("udp socket recvfrom failed");

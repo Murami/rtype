@@ -47,7 +47,7 @@ namespace Network
   {
     SOCKET	usocket;
     SOCKADDR_IN	usin = { 0 };
-    int	sinsize = sizeof usin;
+    socklen_t	sinsize = sizeof usin;
 
     usocket = accept(_asocket, (SOCKADDR *)&usin, &sinsize);
     if(usocket == INVALID_SOCKET)
