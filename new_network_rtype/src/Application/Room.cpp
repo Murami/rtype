@@ -1,33 +1,28 @@
 #include "Application/Room.hh"
-#include "Util/Time.hh"
 
 namespace Application
 {
   Room::Room(Server& server) :
     _server(server)
   {
+    _time = std::chrono::system_clock::now().time_since_epoch();
   }
 
   Room::~Room()
   {
   }
 
-  int	Room::run()
+  void	Room::onTimeout(Network::Timer& timer)
   {
-    unsigned int	time;
-    unsigned int	newTime;
+    std::chrono::system_clock::duration	time;
+    std::chrono::system_clock::duration	timediff;
 
-    time = Util::getCurrentTime();
-    while (_game.alive())
-      {
-	_game.update(static_cast<float>(time) / 1000.f);
-
-	newTime = Util::getCurrentTime();
-	if (newTime - time < updatePeriod)
-	  Util::sleep(time);
-	time = newTime;
-      }
-    return (0);
+    time = std::chrono::system_clock::now().time_since_epoch();
+    timediff = time - _time;
+    _game.update(static_cast<float>(std::chrono::duration_cast<duration_milli>(timediff).count()) / 1000.f);
+    time = std::chrono::system_clock::now().time_since_epoch();
+    timediff = time - _time;
+    timer.setTimeout(duration_milli(20) - timediff);
   }
 
   void	Room::receive(const Game::Entity& /*entity*/, const Game::EntityEvent::Move& /*event*/)
