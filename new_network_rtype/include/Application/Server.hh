@@ -27,7 +27,7 @@ namespace Application
     void			onTimeout(Network::Timer & timer);
 
     Network::Service &		getService() const;
-    Network::ProtocoleTcp &	getProtocole() const;
+    const Network::ProtocoleTcp &	getProtocole() const;
 
   private:
     Network::Service &		_service;
