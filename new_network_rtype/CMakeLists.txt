@@ -44,6 +44,13 @@ src/Util/Vec2.cpp
 src/Util/IDGenerator.cpp
 src/Util/MutexWin32.cpp
 src/Util/ThreadLinux.cpp
+src/Util/APlugin.cpp
+src/Util/DynamicFile.cpp
+src/Util/LinuxDynamicFile.cpp
+src/Util/WindowDynamicFile.cpp
+src/Util/Dirent.cpp
+src/Util/LinuxDirent.cpp
+src/Util/WindowDirent.cpp
 src/Application/Server.cpp
 src/Application/ClientServer.cpp
 src/Protocol/Protocole.cpp
@@ -98,6 +105,14 @@ include/Util/Observer.hpp
 include/Util/Thread.hpp
 include/Util/ThreadWin32.hpp
 include/Util/Vec2.hh
+include/Util/APlugin.hh
+include/Util/IDynamicFile.hh
+include/Util/LinuxDirent.hh
+include/Util/WindowDirent.hh
+include/Util/LinuxDynamicFile.hh
+include/Util/WindowDynamicFile.hh
+include/Util/IDirent.hh
+include/Util/PluginLoader.hpp
 include/Application/ClientRoom.hh
 include/Application/Room.hh
 include/Application/Server.hh
@@ -109,7 +124,7 @@ include/Protocol/RtypeProtocol.hh)
 if(WIN32)
   target_link_libraries(server wsock32 ws2_32)
 elseif(UNIX)
-  target_link_libraries(server pthread)
+  target_link_libraries(server pthread dl)
 endif()
 
 # add_executable(
