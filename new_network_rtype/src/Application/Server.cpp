@@ -60,4 +60,9 @@ namespace Application
     return (_service);
   }
 
+  const Network::ProtocoleTcp & Server::getProtocole() const
+  {
+    return (_protocoleTcp);
+  }
+
 }

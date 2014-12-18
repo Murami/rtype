@@ -102,11 +102,8 @@ namespace Network
 	{
 	public:
 		ProtocoleTcp();
-		bool	unpack(const int &size, TcpSocket *) const;
-		void	setup(ITcpProtocoleObserver *TcpObserver);
-		virtual void onRead(TcpSocket*) const;
-	private:
-		ITcpProtocoleObserver	*obs;
+		bool	unpack(const int &size, TcpSocket *, ITcpProtocoleObserver *obs) const;
+		virtual void onRead(TcpSocket *, ITcpProtocoleObserver *obs) const;
 	};
 
 	class ProtocoleUdp : public Protocole

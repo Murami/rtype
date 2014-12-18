@@ -3,6 +3,7 @@
 
 # include "TcpSocket.hh"
 # include "UdpSocket.hh"
+# include "RtypeProtocol.hh"
 
 namespace Network
 {
