@@ -73,8 +73,6 @@ namespace Network
 		magicEncoded.minor_version = hton(magic->minor_version);
 		magicEncoded.major_version = hton(magic->major_version);
 		std::cout << "avant " << magicEncoded.proto_name << std::endl;
-		for (int i = 0; i != PROTO_NAME_SIZE; i++)
-			magicEncoded.proto_name[i] = hton(magic->proto_name[i]);
 		std::cout << "apres " << magicEncoded.proto_name << std::endl;
 		return (new packet(&magicEncoded, sizeof(magicEncoded)));
 	}
@@ -175,8 +173,6 @@ namespace Network
 		magic->minor_version = ntoh(magic->minor_version);
 		magic->major_version = ntoh(magic->major_version);
 		std::cout << "avant " << magic->proto_name << std::endl;
-		for (int i = 0; i != PROTO_NAME_SIZE; i++)
-			magic->proto_name[i] = ntoh(magic->proto_name[i]);
 		std::cout << "apres " << magic->proto_name << std::endl;
 		return (magic);
 	}

@@ -28,7 +28,7 @@ namespace	RtypeProtocol
 
 static const uint32_t  minor_version = 0;
 static const uint32_t  major_version = 1;
-static const uint8_t proto_name[] = "RType";
+static const int8_t proto_name[] = "RType";
 
   enum			Type
     {
@@ -71,7 +71,7 @@ static const uint8_t proto_name[] = "RType";
   PACKED(Magic {
       uint32_t	minor_version;
       uint32_t	major_version;
-      uint8_t	proto_name[PROTO_NAME_SIZE];
+      int8_t	proto_name[PROTO_NAME_SIZE];
     };)
 
   PACKED(User {
