@@ -36,9 +36,10 @@ public:
 
     Network::packet * packet = _protocole.pack(&header);
     Network::packet * m_packet = _protocole.pack(&magic);
-    std::cout << "azeaze" << magic.proto_name << std::endl;
     _socketTCP.sendData(packet->getData(), packet->getSize());
     _socketTCP.sendData(m_packet->getData(), m_packet->getSize());
+    std::cout << "real size : " << m_packet->getSize() << std::endl;
+    std::cout << "need size : " << sizeof(RtypeProtocol::Magic) << std::endl;
     delete packet;
     delete m_packet;
   }
