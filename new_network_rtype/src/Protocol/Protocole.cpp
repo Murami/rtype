@@ -479,7 +479,7 @@ namespace Network
 			obs->notify(header->type, decode<RtypeProtocol::User>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == RtypeProtocol::T_MSG)
 			obs->notify(header->type, decode<RtypeProtocol::Message>(dataAddr, datasize, header->data_size), socket);
-		else if (header->type == RtypeProtocol::T_ROOMCONNECTION)
+		else if (header->type == RtypeProtocol::T_ROOM_JOIN)
 			obs->notify(header->type, decode<RtypeProtocol::RoomConnection>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == RtypeProtocol::T_PING ||
 				 header->type == RtypeProtocol::T_PONG)
