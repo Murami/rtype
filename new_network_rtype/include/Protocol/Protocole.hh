@@ -11,7 +11,7 @@
 
 # ifdef _WIN32
 #  include <Windows.h>
-# elif __linux__
+# elif __linux__ || __APPLE__
 #  include <netinet/in.h>
 # else
 #  error Not defined for this platform
