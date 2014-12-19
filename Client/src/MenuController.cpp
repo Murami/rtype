@@ -15,23 +15,23 @@ MenuController::MenuController(MenuView &view) : _view(view)
 MenuController::~MenuController()
 { }
 
-void MenuController::update(RTypeEvent::eButton idCallback)
+void MenuController::update(RtypeEvent::eButton idCallback)
 {
     this->manageUpdate(idCallback);
 }
 
-void MenuController::manageUpdate(RTypeEvent::eButton idCallback)
+void MenuController::manageUpdate(RtypeEvent::eButton idCallback)
 {
   switch (idCallback)
     {
-    case RTypeEvent::LOGIN:
+    case RtypeEvent::LOGIN:
       std::cout << "Login : " << _view.getLogin() << std::endl;
       _listen->onConnectFromMenu(_view.getLogin());
       break;
-    case RTypeEvent::JOIN:
+    case RtypeEvent::JOIN:
       std::cout << "Joining room : " << _view.getRoomName() << " with password : " << _view.getRoomPass() << std::endl;
       break;
-    case RTypeEvent::CREATE:
+    case RtypeEvent::CREATE:
       std::cout << "Creating room : " << _view.getRoomName() << " with password : " << _view.getRoomPass() << std::endl;
       break;
     default:

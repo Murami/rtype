@@ -30,8 +30,8 @@ public:
   void run(sf::RenderWindow &window);
   void stop();
     
-  void setActualState(RTypeEvent::eMenuState state);
-  RTypeEvent::eMenuState getActualState() const;
+  void setActualState(RtypeEvent::eMenuState state);
+  RtypeEvent::eMenuState getActualState() const;
     
 public:
   std::string getLogin() const;
@@ -64,9 +64,9 @@ private:
   tgui::Label::Ptr    _labelPlayer4;
   tgui::ChatBox::Ptr  _chatBox;
     
-  RTypeEvent::eMenuState          _actualState;
+  RtypeEvent::eMenuState          _actualState;
     
-  std::map< RTypeEvent::eMenuState, tgui::Gui* > _stateToGui;
+  std::map< RtypeEvent::eMenuState, tgui::Gui* > _stateToGui;
   bool                _run;
     
   int _width;
