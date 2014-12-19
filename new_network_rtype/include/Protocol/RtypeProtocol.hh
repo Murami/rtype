@@ -32,48 +32,69 @@ static const int8_t proto_name[] = "RType";
 
   enum			Type
     {
-      //TCP
-      T_MAGIC				                  = 0, //send magic header from client
-      T_MAGIC_BAD_VERSION             = 1, //reponse from server
-      T_MAGIC_ACCEPT                  = 2, //reponse from server
-      T_CONNECTION                    = 3, //send connection request with username from client
-      T_CONNECTION_ALREADY_CONENCTED  = 4, //reponse from server
-      T_CONNECTION_INTERNAL_ERROR     = 5, //reponse from server
-      T_CONNECTION_OK                 = 6, //reponse from server
-      T_DISCONNECTION			            = 7, //send from client
-      T_ROOMLIST			                = 8, //request room list from client
-      T_GETROOMLIST			              = 9, //request room list from client
-      T_GETROOMINFO			              = 10,//request room info from client
-      T_ROOMINFO                      = 11,//response from server with room info
-      T_ROOM_CREATE                   = 12,//client request a new room
-      T_ROOM_CREATE_ALREADY_EXIST     = 13,//response from server
-      T_ROOM_CREATE_INTERNAL_ERROR    = 14,//response from server
-      T_ROOM_CREATE_OK                = 15,//response from server
-      T_ROOM_JOIN		                 	= 16,//client request to join a room
-      T_ROOM_JOIN_NOT_FOUND           = 17,//response from server
-      T_ROOM_JOIN_IS_FULL             = 18,//response from server
-      T_ROOM_JOIN_BAD_PSWD            = 19,//response from server
-      T_ROOM_JOIN_OK                  = 20,//response from server
-      T_ROOM_EXIT                     = 21,//client request for leave the room
-      T_ROOM_EXIT_OK                  = 22,//response from server
-      T_PING                          = 25,//ping from server
-      T_PONG                          = 26,//pong from client
-      T_MSG                           = 27,//client or server send a mmessage
-      T_READY                         = 28,//client says is ready
-      T_GAMESTART                     = 29,//game start from the server
+      /// TCP ///
+      // MAGIC
+      T_MAGIC			      = 0, //send magic header				from client
+      T_MAGIC_BAD_VERSION             = 1, //reponse					from server
+      T_MAGIC_ACCEPT                  = 2, //reponse					from server
 
-      T_GAMEEND                       = 30,//game end from the server
-      T_SCORE                         = 31,//score update from server
-      T_MAPCHANGE                     = 32,//map change from server
-      T_PLAYERINFO                    = 33,//player info from server
-      //UDP
-      T_POSITION			= 34,
-      T_SPAWN				= 35,
-      T_EVENT				= 36,
-      T_DESTRUCTION			= 37,
-      T_LIFE				= 38,
-      T_BONUS				= 39,
-      T_HEADER				= 40
+      // CONNECTION
+      T_CONNECTION                    = 3, //send connection request with username	from client
+      T_CONNECTION_ALREADY_CONENCTED  = 4, //reponse					from server
+      T_CONNECTION_INTERNAL_ERROR     = 5, //reponse					from server
+      T_CONNECTION_OK                 = 6, //reponse					from server
+
+      // DISCONNECTION
+      T_DISCONNECTION		      = 7, //send					from client
+
+      // ROOM - GET
+      // Note : T_ROOMLIST was banned (cause : duplicate of T_GETROOMLIST)
+      T_GETROOMLIST		      = 9, //request room list				from client
+      T_GETROOMINFO		      = 10,//request room info				from client
+      T_ROOMINFO                      = 11,//response with room info			from server
+
+      // ROOM - CREATE
+      T_ROOM_CREATE                   = 12,//request a new room				from client
+      T_ROOM_CREATE_ALREADY_EXIST     = 13,//response					from server
+      T_ROOM_CREATE_INTERNAL_ERROR    = 14,//response					from server
+      T_ROOM_CREATE_OK                = 15,//response					from server
+
+      // ROOM - JOIN
+      T_ROOM_JOIN		      = 16,//request to join a room			from client
+      T_ROOM_JOIN_NOT_FOUND           = 17,//response					from server
+      T_ROOM_JOIN_IS_FULL             = 18,//response					from server
+      T_ROOM_JOIN_BAD_PSWD            = 19,//response					from server
+      T_ROOM_JOIN_OK                  = 20,//response					from server
+
+      // ROOM - EXIT
+      T_ROOM_EXIT                     = 21,//request for leave the room			from client
+      T_ROOM_EXIT_OK                  = 22,//response					from server
+
+      // PING-PONG
+      T_PING                          = 25,//ping					from server
+      T_PONG                          = 26,//pong					from client
+
+      // OTHERS
+      T_MSG                           = 27,//send a mmessage				from both
+      T_READY                         = 28,//notify being ready				form client
+      T_GAMESTART                     = 29,//game start					from server
+      T_GAMEEND                       = 30,//game end					from server
+      T_SCORE                         = 31,//score update				from server
+      T_MAPCHANGE                     = 32,//map change					from server
+      T_PLAYERINFO                    = 33,//player info				from server
+
+      /// UDP ///
+      T_POSITION			= 34,	//send position				from server
+      T_SPAWN				= 35,	//send spawn infos			from server
+      T_EVENT				= 36,	//send input state			from client
+      T_DESTRUCTION			= 37,	//send destruction infos		from server
+      T_LIFE				= 38,	//send life infos			from server
+      T_BONUS				= 39,	//send bonus infos			from server
+      T_HEADER				= 40,	//--					--
+      T_HIT				= 41,	//send collision infos			from server
+      T_DEATH				= 42,	//send death infos			from server
+      T_ENTITYREQUEST			= 43,	//request entity infos			from client
+      T_ENTITYINFOS			= 44	//send entity infos			from server
     };
 
   PACKED(Header {
