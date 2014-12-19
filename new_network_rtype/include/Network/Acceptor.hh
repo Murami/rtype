@@ -6,7 +6,7 @@
 #	include <winsock2.h>
   typedef int socklen_t;
   
-# elif defined (__linux__)
+# elif defined (__linux__) || defined(__APPLE__)
 
 	typedef int SOCKET;
 	typedef struct sockaddr_in SOCKADDR_IN;

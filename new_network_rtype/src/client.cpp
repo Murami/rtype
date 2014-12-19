@@ -5,8 +5,10 @@
 #include "TcpSocketObserver.hh"
 #include "UdpSocketObserver.hh"
 #include "Protocole.hh"
+# include <cstring>
 
 using namespace Network;
+using RtypeProtocol;
 
 class Client : public TcpSocketObserver
 {
@@ -22,14 +24,18 @@ public:
     _service.addWriteTcp(_socketTCP);
     _service.addReadTcp(_socketTCP);
 
-    Network::Header header;
-    Network::Magic magic;
+    Header header;
+    Magic magic;
 
-    header.type = Network::T_MAGIC;
-    header.data_size = sizeof(Network::Magic);
+    header.type = T_MAGIC;
+    header.data_size = sizeof(Magic);
+    magic.minor_version = minor_version;
+    magic.major_version = major_version;
+    std::memset(magic.proto_name, 0, PROTO_NAME_SIZE);
+    std::memcpy(magic.proto_name, proto_name, PROTO_NAME_SIZE);
 
-    Network::packet * packet = _protocole.pack(&header);
-    Network::packet * m_packet = _protocole.pack(&magic);
+    packet * packet = _protocole.pack(&header);
+    packet * m_packet = _protocole.pack(&magic);
 
     _socketTCP.sendData(packet->getData(), packet->getSize());
     _socketTCP.sendData(m_packet->getData(), m_packet->getSize());

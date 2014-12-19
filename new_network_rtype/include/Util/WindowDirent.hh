@@ -3,6 +3,7 @@
 # define _WINDOW_DIRENT_HH_
 
 # include <windows.h>
+# include <stdexcept>
 # include "IDirent.hh"
 
 class	WindowDirent : public IDirent

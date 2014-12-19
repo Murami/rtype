@@ -11,11 +11,13 @@
 
 # ifdef _WIN32
 #  include <Windows.h>
-# elif __linux__
+# elif __linux__ || __APPLE__
 #  include <netinet/in.h>
 # else
 #  error Not defined for this platform
 # endif
+
+using RtypeProtocol;
 
 namespace Network
 {
@@ -81,6 +83,14 @@ namespace Network
 		destruction		*decode(destruction *destru) const;
 		PositionEvent	*decode(PositionEvent *posEvent) const;
 		Spawn			*decode(Spawn *spawn) const;
+
+		template<typename T>
+		T	*decode(void *data, const int size, const int headerSize) const
+		{
+			if (size < sizeof(T) || headerSize != sizeof(T))
+				throw NetworkException("Error with data");
+			return (decode(static_cast<T *>(data)));
+		}
 
 		void			hton(Position *posEncoded, const Position *pos) const;
 		void			ntoh(Position *posEncoded, const Position *pos) const;

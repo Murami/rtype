@@ -15,6 +15,18 @@ RtypeClient::RtypeClient()
   _tcpConnection = new TcpConnection(_configuration);
 }
 
+void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent event)
+{
+  RtypeProtocol::Header header;
+  RtypeProtocol::Event	event;
+
+  event.eventMask = event;
+  header.type = RtypeProtocol::T_EVENT;
+  header.data_size = sizeof(event);
+  _tcpConnection->write(&header, sizeof(header));
+  _tcpConnection->write(&event, sizeof(event));
+}
+
 void	RtypeClient::onMagic(RtypeProtocol::Magic)
 {
   std::cout << __FUNCTION__ << std::endl;
@@ -62,17 +74,16 @@ void	RtypeClient::onMessage(RtypeProtocol::Message)
 
 bool	RtypeClient::onConnectFromMenu(const std::string & login)
 {
-  // Send connection datas
   RtypeProtocol::Header header;
   RtypeProtocol::User user;
 
   SoundManager::Play("bip");
   std::cout << __FUNCTION__ << " : " << login << std::endl;
-
   header.type = RtypeProtocol::T_DISCONNECTION;
   header.data_size = sizeof(RtypeProtocol::User);
   strcpy(reinterpret_cast<char *>(&user.username[0]), login.c_str());
-  //_tcpConnection->write(login.c_str(), login.size());
+  _tcpConnection->write(&header, sizeof(header));
+  _tcpConnection->write(&user, sizeof(user));
   return (true);
 }
 
@@ -117,6 +128,18 @@ void		RtypeClient::run()
     throw (std::runtime_error("Connect"));
   _menuView->addObserver(_menuController);
   _menuController->setMenuListener(this);
+
+  RtypeProtocol::Header header;
+  RtypeProtocol::Magic	magic;
+
+  header.type = T_MAGIC;
+  header.data_size = sizeof(magic);
+  magic.minor_version = 1;
+  magic.major_version = 1;
+  std::memset(&magic.proto_name[0], 0, PROTO_NAME_SIZE);
+  strcpy(&magic.proto_name[0], "rtype");
+  _tcpConnection->write(&header, sizeof(header));
+  _tcpConnection->write(&magic, sizeof(magic));
   _menuView->run(*_window);
 
   // _gameView = new GameView();
