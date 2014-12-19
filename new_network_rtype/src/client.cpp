@@ -33,8 +33,8 @@ public:
     std::memset(magic.proto_name, 0, PROTO_NAME_SIZE);
     std::memcpy(magic.proto_name, RtypeProtocol::proto_name, PROTO_NAME_SIZE);
 
-    packet * packet = _protocole.pack(&header);
-    packet * m_packet = _protocole.pack(&magic);
+    Network::packet * packet = _protocole.pack(&header);
+    Network::packet * m_packet = _protocole.pack(&magic);
 
     _socketTCP.sendData(packet->getData(), packet->getSize());
     _socketTCP.sendData(m_packet->getData(), m_packet->getSize());
