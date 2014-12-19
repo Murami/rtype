@@ -210,7 +210,7 @@ namespace Network
 		score->user_id = ntoh(score->user_id);
 		return (score);
 	}
-	RtypeProtocol::RtypeProtocol::MapChange	*Protocole::decode(RtypeProtocol::MapChange *mapChange) const
+	RtypeProtocol::MapChange	*Protocole::decode(RtypeProtocol::MapChange *mapChange) const
 	{
 		for (int i = 0; i != MAP_NAME_SIZE; i++)
 			mapChange->map_name[i] = ntoh(mapChange->map_name[i]);
@@ -246,7 +246,7 @@ namespace Network
 		return (room);
 	}
 
-	packet	*Protocole::pack(const cRtypeProtocol::Spawn *spawn) const
+	packet	*Protocole::pack(const RtypeProtocol::Spawn *spawn) const
 	{
 		RtypeProtocol::Spawn encoded;
 
@@ -446,7 +446,7 @@ namespace Network
 
 	bool	ProtocoleTcp::unpack(const int &size, TcpSocket *socket, ITcpProtocoleObserver *obs) const
 	{
-		if (size < sizeof(Header))
+		if (size < sizeof(RtypeProtocol::Header))
 			return (false);
 		char			*buffer = new char[size];
 		RtypeProtocol::Header	*header;
@@ -454,16 +454,16 @@ namespace Network
 		socket->pickData(buffer, size);
 		header = (Header *)buffer;
 		decode(header);
-		int datasize = size - sizeof(Header);
-		if (size < header->data_size + sizeof(Header))
+		int datasize = size - sizeof(RtypeProtocol::Header);
+		if (size < header->data_size + sizeof(RtypeProtocol::Header))
 		{
 			delete buffer;
 			return (false);
 		}
 		if (header->data_size > 0)
 		{
-			dataAddr = header + sizeof(Header);
-			socket->consumeData(sizeof(Header) + header->data_size);
+			dataAddr = header + sizeof(RtypeProtocol::Header);
+			socket->consumeData(sizeof(RtypeProtocol::Header) + header->data_size);
 		}
 		if (header->type == T_MAGIC)
 			obs->notify(header->type, decode<RtypeProtocol::Magic>(dataAddr, datasize, header->data_size), socket);
