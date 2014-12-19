@@ -32,6 +32,7 @@ public:
     magic.major_version = RtypeProtocol::major_version;
     std::memset(magic.proto_name, 0, PROTO_NAME_SIZE);
     std::memcpy(magic.proto_name, RtypeProtocol::proto_name, 5);
+    std::cout << magic.proto_name << std::endl;
 
     Network::packet * packet = _protocole.pack(&header);
     Network::packet * m_packet = _protocole.pack(&magic);
