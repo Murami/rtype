@@ -13,7 +13,7 @@
 
 class	IObserver {
 public:
-  virtual void update(RTypeEvent::eButton idCallback) = 0;
+  virtual void update(RtypeEvent::eButton idCallback) = 0;
 
  public:
     virtual ~IObserver() {}

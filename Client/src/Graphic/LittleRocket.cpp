@@ -8,13 +8,14 @@
 
 #include "LittleRocket.hh"
 #include "TextureManager.hh"
+#include "SoundManager.hh"
 
 LittleRocket::LittleRocket(bool friendly)
 {
     _friendly = friendly;
     _texture = TextureManager::getInstance()->getTextureRocket();
     _sprite.setTexture(_texture);
-    
+
 #ifdef __APPLE__
     _sprite.scale(2.0, 2.0);
 #endif
@@ -23,6 +24,7 @@ LittleRocket::LittleRocket(bool friendly)
         _sprite.setTextureRect(sf::IntRect(249, 105, 16, 8));
     else
         _sprite.setTextureRect(sf::IntRect(267, 105, 16, 8));
+    SoundManager::Play("laser1");
 }
 
 LittleRocket::~LittleRocket()

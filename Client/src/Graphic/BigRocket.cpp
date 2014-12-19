@@ -8,6 +8,7 @@
 
 #include "BigRocket.hh"
 #include "TextureManager.hh"
+#include "SoundManager.hh"
 
 BigRocket::BigRocket(bool friendly)
 {
@@ -23,6 +24,7 @@ BigRocket::BigRocket(bool friendly)
         _sprite.setTextureRect(sf::IntRect(168, 137, 48, 12));
     else
         _sprite.setTextureRect(sf::IntRect(316, 137, 48, 12));
+    SoundManager::Play("laser2");
 }
 
 BigRocket::~BigRocket()

@@ -1,7 +1,7 @@
 #ifndef _GAME_ENUM_HH_
 # define _GAME_ENUM_HH_
 
-namespace	RTypeEvent
+namespace	RtypeEvent
 {
   enum eKeyEvent
     {

@@ -15,16 +15,19 @@ public:
   ~SoundManager();
 
   static bool	Play(std::string, bool loop = false);
-  static bool Pause(std::string);
+  static bool	Pause(std::string);
   static bool	Stop(std::string);
+  static void	musicVolume(int volume);
+  static void	soundVolume(int volume);
 
 private:
   static std::map<std::string, std::shared_ptr<sf::SoundBuffer> >	initializeSounds();
-  static std::map<std::string, std::shared_ptr<sf::Music> >	initializeMusics();
+  static std::map<std::string, std::shared_ptr<sf::Music> >		initializeMusics();
 
   static std::map<std::string, std::shared_ptr<sf::SoundBuffer> >	_soundsMap;
   static std::map<std::string, std::shared_ptr<sf::Music> >		_musicsMap;
   static std::list<std::shared_ptr<sf::Sound> >				_trash;
+  static int								_soundVolume;
 };
 
 #endif

@@ -37,24 +37,14 @@ namespace Application
 
   void	ClientServer::notify(int const &type, const RtypeProtocol::Magic * magicRcv, Network::TcpSocket * socket)
   {
-    std::cout << "name : " << magicRcv->proto_name << std::endl << std::endl;
+    std::cout << "rcv " << type << " with Magic" << std::endl;
     RtypeProtocol::Header header;
     RtypeProtocol::Magic magic;
-
-    std::cout << "rcv " << type << " with Magic" << std::endl;
 
     magic.minor_version = RtypeProtocol::minor_version;
     magic.major_version = RtypeProtocol::major_version;
     std::memset(magic.proto_name, 0, PROTO_NAME_SIZE);
     std::memcpy(magic.proto_name, RtypeProtocol::proto_name, 5); /* attention */
-
-    std::cout << "rcv major : " << magicRcv->major_version << std::endl;
-    std::cout << "rcv minor : " << magicRcv->minor_version << std::endl;
-    std::cout << "rcv name : " << magicRcv->proto_name << std::endl << std::endl;
-
-    std::cout << "major : " << magic.major_version << std::endl;
-    std::cout << "minor : " << magic.minor_version << std::endl;
-    std::cout << "name : " << magic.proto_name << std::endl;
     if (std::memcmp(&magic, magicRcv, sizeof(RtypeProtocol::Magic)) != 0)
       {
 	header.type = RtypeProtocol::T_MAGIC_BAD_VERSION;

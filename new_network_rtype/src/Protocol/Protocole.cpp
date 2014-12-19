@@ -603,5 +603,4 @@ namespace Network
   {
     obs = UdpObserver;
   }
-
 }

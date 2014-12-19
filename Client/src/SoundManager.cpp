@@ -53,6 +53,7 @@ bool	SoundManager::Play(std::string name, bool loop)
       std::shared_ptr<sf::Sound>	sound = std::make_shared<sf::Sound>();
 
       sound->setBuffer(*_soundsMap[name]);
+      sound->setVolume(_soundVolume);
       sound->play();
       _trash.push_back(sound);
       return (true);
@@ -87,6 +88,20 @@ bool	SoundManager::Stop(std::string name)
   return (false);
 }
 
+void	SoundManager::soundVolume(int volume)
+{
+  _soundVolume = volume;
+}
+
+void	SoundManager::musicVolume(int volume)
+{
+  std::map<std::string, std::shared_ptr<sf::Music> >::iterator	it;
+
+  for (it = _musicsMap.begin(); it != _musicsMap.end(); it++)
+    it->second->setVolume(volume);
+}
+
 std::map<std::string, std::shared_ptr<sf::SoundBuffer> >	SoundManager::_soundsMap = SoundManager::initializeSounds();
 std::map<std::string, std::shared_ptr<sf::Music> >		SoundManager::_musicsMap = SoundManager::initializeMusics();
 std::list<std::shared_ptr<sf::Sound> >				SoundManager::_trash;
+int								SoundManager::_soundVolume = 100;
