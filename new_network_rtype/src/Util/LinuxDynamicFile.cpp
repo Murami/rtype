@@ -1,5 +1,4 @@
-
-#ifdef __unix__ || __APPLE__
+#if defined(__linux__) || defined(__APPLE__)
 
 # include <stdexcept>
 # include <dlfcn.h>

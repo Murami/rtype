@@ -1,4 +1,4 @@
-#ifdef __linux__ || __APPLE__
+#if defined(__linux__) || defined(__APPLE__)
 #include "Util/Mutex.hh"
 
 namespace Util
