@@ -6,19 +6,21 @@
 class		INetworkListener;
 class		TcpConnection;
 
-class		NetworkReader
+class		NetworkReader : public Thread<void>
 {
 public:
   static const int	BUFFER_SIZE;
 
 private:
   TcpConnection&	_tcpConnection;
-  RtypeProtocol::Type		_expectedPacket;
+  RtypeProtocol::Type	_expectedPacket;
   INetworkListener*	_tcpListener;
 
 public:
   NetworkReader(TcpConnection& tcpConnection);
   ~NetworkReader();
+
+  void			run();
 
   void			setTcpListener(INetworkListener*);
 
