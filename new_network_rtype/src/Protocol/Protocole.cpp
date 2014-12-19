@@ -458,6 +458,13 @@ namespace Network
 		RtypeProtocol::Header	*header;
 		void			*dataAddr = NULL;
 		socket->pickData(buffer, size);
+		std::cout << "pick" << std::endl;
+		int i = 0;
+		while (i != size)
+		{
+			std::cout << i << ":" << buffer[i] << std::endl;
+			i++;
+		}
 		header = (RtypeProtocol::Header *)buffer;
 		decode(header);
 		int datasize = size - sizeof(RtypeProtocol::Header);
