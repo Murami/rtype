@@ -31,7 +31,7 @@ static const char *chatFont = "./res/DejaVuSans.ttf";
 MenuView::MenuView(sf::RenderWindow &window)
 {
     _run = false;
-    _actualState = RTypeEvent::LOGINSTATE;
+    _actualState = RtypeEvent::LOGINSTATE;
 
     _width = sf::VideoMode::getDesktopMode().width;
     _height = sf::VideoMode::getDesktopMode().height;
@@ -49,10 +49,10 @@ MenuView::MenuView(sf::RenderWindow &window)
     _roomSelectGui = new tgui::Gui(window);
     _roomGui = new tgui::Gui(window);
 
-    _stateToGui[RTypeEvent::LOGINSTATE] = _loginGui;
-    _stateToGui[RTypeEvent::MENUSTATE] = _menuGui;
-    _stateToGui[RTypeEvent::ROOMSELECTSTATE] = _roomSelectGui;
-    _stateToGui[RTypeEvent::ROOMSTATE] = _roomGui;
+    _stateToGui[RtypeEvent::LOGINSTATE] = _loginGui;
+    _stateToGui[RtypeEvent::MENUSTATE] = _menuGui;
+    _stateToGui[RtypeEvent::ROOMSELECTSTATE] = _roomSelectGui;
+    _stateToGui[RtypeEvent::ROOMSTATE] = _roomGui;
 
     initLogin();
     initMenu();
@@ -92,7 +92,7 @@ void MenuView::initLogin()
     button->setTextSize(45);
     //button->setTextSize(60);
     button->bindCallback(tgui::Button::LeftMouseClicked);
-    button->setCallbackId(RTypeEvent::LOGIN);
+    button->setCallbackId(RtypeEvent::LOGIN);
 }
 
 void MenuView::initMenu()
@@ -111,7 +111,7 @@ void MenuView::initMenu()
     playButton->setPosition((0.115 * _width), (0.455 * _height));
     playButton->setText("Play");
     playButton->bindCallback(tgui::Button::LeftMouseClicked);
-    playButton->setCallbackId(RTypeEvent::PLAY);
+    playButton->setCallbackId(RtypeEvent::PLAY);
 
     tgui::Button::Ptr settingsButton(*_menuGui);
     settingsButton->load(blackConf);
@@ -121,7 +121,7 @@ void MenuView::initMenu()
     settingsButton->setPosition((0.115 * _width), (0.63 * _height));
     settingsButton->setText("Settings");
     settingsButton->bindCallback(tgui::Button::LeftMouseClicked);
-    settingsButton->setCallbackId(RTypeEvent::SETTINGS);
+    settingsButton->setCallbackId(RtypeEvent::SETTINGS);
 
     tgui::Button::Ptr scoresButton(*_menuGui);
     scoresButton->load(blackConf);
@@ -131,7 +131,7 @@ void MenuView::initMenu()
     scoresButton->setPosition((0.682 * _width), (0.455 * _height));
     scoresButton->setText("Scores");
     scoresButton->bindCallback(tgui::Button::LeftMouseClicked);
-    scoresButton->setCallbackId(RTypeEvent::SCORES);
+    scoresButton->setCallbackId(RtypeEvent::SCORES);
 
     tgui::Button::Ptr creditsButton(*_menuGui);
     creditsButton->load(blackConf);
@@ -141,7 +141,7 @@ void MenuView::initMenu()
     creditsButton->setPosition((0.682 * _width), (0.619 * _height));
     creditsButton->setText("Credits");
     creditsButton->bindCallback(tgui::Button::LeftMouseClicked);
-    creditsButton->setCallbackId(RTypeEvent::CREDITS);
+    creditsButton->setCallbackId(RtypeEvent::CREDITS);
 }
 
 void MenuView::initRoomSelect()
@@ -172,7 +172,7 @@ void MenuView::initRoomSelect()
     _listRoom->addItem("room2");
     _listRoom->addItem("room3");
     _listRoom->bindCallback(tgui::Button::LeftMouseClicked);
-    _listRoom->setCallbackId(RTypeEvent::LISTCHOICE);
+    _listRoom->setCallbackId(RtypeEvent::LISTCHOICE);
     _listRoom->setTextColor(sf::Color::Cyan);
 
     tgui::Button::Ptr createButton(*_roomSelectGui);
@@ -183,7 +183,7 @@ void MenuView::initRoomSelect()
     createButton->setTextSize(45);
 //    createButton->setTextSize(60);
     createButton->bindCallback(tgui::Button::LeftMouseClicked);
-    createButton->setCallbackId(RTypeEvent::JOIN);
+    createButton->setCallbackId(RtypeEvent::JOIN);
 
     tgui::Button::Ptr joinButton(*_roomSelectGui);
     joinButton->load(blackConf);
@@ -193,7 +193,7 @@ void MenuView::initRoomSelect()
     joinButton->setTextSize(45);
 //    joinButton->setTextSize(60);
     joinButton->bindCallback(tgui::Button::LeftMouseClicked);
-    joinButton->setCallbackId(RTypeEvent::CREATE);
+    joinButton->setCallbackId(RtypeEvent::CREATE);
 
 
     tgui::Button::Ptr selectButton(*_roomSelectGui);
@@ -204,7 +204,7 @@ void MenuView::initRoomSelect()
     selectButton->setTextSize(20);
 //    selectButton->setTextSize(40);
     selectButton->bindCallback(tgui::Button::LeftMouseClicked);
-    selectButton->setCallbackId(RTypeEvent::LISTCHOICE);
+    selectButton->setCallbackId(RtypeEvent::LISTCHOICE);
 }
 
 void MenuView::initRoom()
@@ -226,7 +226,7 @@ void MenuView::initRoom()
     button->setTextSize(45);
 //    button->setTextSize(60);
     button->bindCallback(tgui::Button::LeftMouseClicked);
-    button->setCallbackId(RTypeEvent::READY);
+    button->setCallbackId(RtypeEvent::READY);
 
     _roomGui->add(_chatBox);
     _chatBox->load(blackConf);
@@ -297,7 +297,7 @@ void MenuView::run(sf::RenderWindow &window)
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
-                if (_actualState == RTypeEvent::LOGINSTATE)
+                if (_actualState == RtypeEvent::LOGINSTATE)
                 {
                     _run = false;
                     window.close();
@@ -307,10 +307,10 @@ void MenuView::run(sf::RenderWindow &window)
                     this->prevState();
                 }
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && _actualState == RTypeEvent::LOGINSTATE && _editBoxUsername->getText() != "")
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && _actualState == RtypeEvent::LOGINSTATE && _editBoxUsername->getText() != "")
             {
-                _actualState = RTypeEvent::MENUSTATE;
-                this->notify(RTypeEvent::LOGIN);
+                _actualState = RtypeEvent::MENUSTATE;
+                this->notify(RtypeEvent::LOGIN);
             }
             _stateToGui[_actualState]->handleEvent(event);
         }
@@ -319,36 +319,36 @@ void MenuView::run(sf::RenderWindow &window)
         {
             switch (callback.id)
             {
-	    case RTypeEvent::LOGIN:
+	    case RtypeEvent::LOGIN:
 	      if (_editBoxUsername->getText() == "")
 		break;
-	      _actualState = RTypeEvent::MENUSTATE;
-	      this->notify(RTypeEvent::LOGIN);
+	      _actualState = RtypeEvent::MENUSTATE;
+	      this->notify(RtypeEvent::LOGIN);
 	      break;
-	    case RTypeEvent::PLAY:
-	      _actualState = RTypeEvent::ROOMSELECTSTATE;
+	    case RtypeEvent::PLAY:
+	      _actualState = RtypeEvent::ROOMSELECTSTATE;
 	      break;
-	    case RTypeEvent::SETTINGS:
+	    case RtypeEvent::SETTINGS:
 	      std::cout << "Settings button pressed" << std::endl;
 	      break;
-	    case RTypeEvent::SCORES:
+	    case RtypeEvent::SCORES:
 	      std::cout << "Scores button pressed" << std::endl;
 	      break;
-	    case RTypeEvent::CREDITS:
+	    case RtypeEvent::CREDITS:
 	      std::cout << "Credits button pressed" << std::endl;
 	      break;
-	    case RTypeEvent::CREATE:
-	      this->notify(RTypeEvent::CREATE);
-	      _actualState = RTypeEvent::ROOMSTATE;
+	    case RtypeEvent::CREATE:
+	      this->notify(RtypeEvent::CREATE);
+	      _actualState = RtypeEvent::ROOMSTATE;
 	      break;
-	    case RTypeEvent::JOIN:
-	      this->notify(RTypeEvent::JOIN);
-	      _actualState = RTypeEvent::ROOMSTATE;
+	    case RtypeEvent::JOIN:
+	      this->notify(RtypeEvent::JOIN);
+	      _actualState = RtypeEvent::ROOMSTATE;
 	      break;
-	    case RTypeEvent::BACK:
+	    case RtypeEvent::BACK:
 	      this->prevState();
 	      break;
-	    case RTypeEvent::LISTCHOICE:
+	    case RtypeEvent::LISTCHOICE:
 	      this->_editBoxRoomName->setText(this->_listRoom->getSelectedItem());
 	    default:
 	      break;
@@ -369,28 +369,28 @@ void MenuView::prevState()
 {
   switch (_actualState)
     {
-    case RTypeEvent::LOGINSTATE:
+    case RtypeEvent::LOGINSTATE:
       break;
-    case RTypeEvent::MENUSTATE:
-      _actualState = RTypeEvent::LOGINSTATE;
+    case RtypeEvent::MENUSTATE:
+      _actualState = RtypeEvent::LOGINSTATE;
       break;
-    case RTypeEvent::ROOMSELECTSTATE:
-      _actualState = RTypeEvent::MENUSTATE;
+    case RtypeEvent::ROOMSELECTSTATE:
+      _actualState = RtypeEvent::MENUSTATE;
       break;
-    case RTypeEvent::ROOMSTATE:
-      _actualState = RTypeEvent::ROOMSELECTSTATE;
+    case RtypeEvent::ROOMSTATE:
+      _actualState = RtypeEvent::ROOMSELECTSTATE;
       break;
     default:
       break;
     }
 }
 
-void MenuView::setActualState(RTypeEvent::eMenuState state)
+void MenuView::setActualState(RtypeEvent::eMenuState state)
 {
     _actualState = state;
 }
 
-RTypeEvent::eMenuState MenuView::getActualState() const
+RtypeEvent::eMenuState MenuView::getActualState() const
 {
     return _actualState;
 }

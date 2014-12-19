@@ -93,7 +93,7 @@ static const int8_t proto_name[] = "RType";
 
   PACKED(Message {
       uint32_t	room_id;
-	  uint32_t	user;
+      uint32_t	user;
       uint8_t	message[MAX_MSG_SIZE];
     };)
 
@@ -128,6 +128,7 @@ static const int8_t proto_name[] = "RType";
       uint8_t	connected_users[MAX_USERS][USERNAME_SIZE];
       uint32_t	nb_connected_users;
       uint8_t	password_flag;
+      uint8_t	pass_md5[PASS_MD5_SIZE];
       uint8_t	room_name[ROOM_NAME_SIZE];
       uint8_t	ready_users[MAX_USERS];
       uint8_t	locked;

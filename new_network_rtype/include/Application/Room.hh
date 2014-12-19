@@ -3,6 +3,7 @@
 
 #include <list>
 #include <chrono>
+#include <string>
 #include "Util/Thread.hpp"
 #include "Game/CoreEventReceiver.hh"
 #include "Game/EntityEventReceiver.hh"
@@ -26,9 +27,11 @@ namespace Application
     std::list<ClientRoom*>			_rooms;
     Game::Core					_game;
     std::chrono::system_clock::duration		_time;
+    std::string					_name;
+    std::string					_pass;
 
   public:
-    Room(Server& server);
+    Room(Server& server, const std::string& name, const std::string& pass);
     ~Room();
 
     void	onTimeout(Network::Timer& timer);
@@ -37,6 +40,7 @@ namespace Application
     void	receive(const Game::Entity& entity, const Game::EntityEvent::Life& event);
     void	receive(const Game::Core& core, const Game::CoreEvent::Spawn& event);
     void	receive(const Game::Core& core, const Game::CoreEvent::Destroy& event);
+    bool	testConnection(const std::string& name, const std::string& password);
   };
 };
 

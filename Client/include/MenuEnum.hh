@@ -9,7 +9,7 @@
 #ifndef TestSFML_MenuEnum_h
 #define TestSFML_MenuEnum_h
 
-namespace	RTypeEvent
+namespace	RtypeEvent
 {
   enum eButton {
     LOGIN = 1,

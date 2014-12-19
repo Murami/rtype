@@ -4,7 +4,7 @@
 #include "TcpSocket.hh"
 #include "TcpSocketObserver.hh"
 #include "ProtocoleObserver.hh"
-// #include "Room.hh"
+#include "Room.hh"
 
 namespace Application
 {
@@ -17,7 +17,8 @@ namespace Application
       {
 	T_MAGIC_WAITING,
 	T_DISCONNECTED,
-	T_CONNECTED
+	T_CONNECTED,
+	T_INGAME
       };
 
   public:
@@ -47,7 +48,8 @@ namespace Application
     Server &			_server;
     Network::TcpSocket &	_socket;
     State			_state;
-    // Room *			_room;
+    Room *			_room;
+    std::string			_name;
   };
 
 } /* namespace Application */
