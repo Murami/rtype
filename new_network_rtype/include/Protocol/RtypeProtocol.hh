@@ -25,6 +25,10 @@ namespace	RtypeProtocol
 
 # define	MAX_USERS	4
 
+static const uint32_t  minor_version = 0;
+static const uint32_t  major_version = 1;
+static const uint8_t proto_name[] = "RType";
+
   enum			Type
     {
       //TCP

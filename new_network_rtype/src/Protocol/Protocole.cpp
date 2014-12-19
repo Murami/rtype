@@ -466,30 +466,28 @@ namespace Network
 			socket->consumeData(sizeof(Header)+header->data_size);
 		}
 		if (header->type == T_MAGIC)
-			obs->notify(header->type, decode<Magic>(dataAddr, datasize), socket);
-		else if (header->type == T_PLAYERINFO)
-			obs->notify(header->type, decode<User>(dataAddr, datasize), socket);
+			obs->notify(header->type, decode<Magic>(dataAddr, datasize, header->data_size), socket);
+		else if (header->type == T_PLAYERINFO ||
+				 header->type == T_CONNECTION)
+			obs->notify(header->type, decode<User>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == T_MSG)
-			obs->notify(header->type, decode<Message>(dataAddr, datasize), socket);
+			obs->notify(header->type, decode<Message>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == T_ROOMCONNECTION)
-			obs->notify(header->type, decode<RoomConnection>(dataAddr, datasize), socket);
-		else if (header->type == T_PING)
-			obs->notify(header->type, decode<PingPong>(dataAddr, datasize), socket);
-		else if (header->type == T_PONG)
-			obs->notify(header->type, decode<PingPong>(dataAddr, datasize), socket);
+			obs->notify(header->type, decode<RoomConnection>(dataAddr, datasize, header->data_size), socket);
+		else if (header->type == T_PING ||
+				 header->type == T_PONG)
+			obs->notify(header->type, decode<PingPong>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == T_SCORE)
-			obs->notify(header->type, decode<Score>(dataAddr, datasize), socket);
+			obs->notify(header->type, decode<Score>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == T_MAPCHANGE)
-			obs->notify(header->type, decode<MapChange>(dataAddr, datasize), socket);
-		else if (header->type == T_MSG)
-			obs->notify(header->type, decode<GameReadyState>(dataAddr, datasize), socket);
+			obs->notify(header->type, decode<MapChange>(dataAddr, datasize, header->data_size), socket);
+		else if (header->type == T_MSG)// unknow type for the header
+			obs->notify(header->type, decode<GameReadyState>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == T_GAMEEND)
-			obs->notify(header->type, decode<EndGame>(dataAddr, datasize), socket);
+			obs->notify(header->type, decode<EndGame>(dataAddr, datasize, header->data_size, socket);
 		else if (header->type == T_ROOMINFO)
-			obs->notify(header->type, decode<Room>(dataAddr, datasize), socket);
-		else if (header->type == T_ROOMLIST)
-			obs->notify(header->type, decode<Room>(dataAddr, datasize), socket);
-		else if (true)
+			obs->notify(header->type, decode<Room>(dataAddr, datasize, header->data_size), socket);
+		else if (header->data_size == 0)
 			obs->notify(header->type, socket);
 		else
 			throw NetworkException("Unknow data");

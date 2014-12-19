@@ -17,6 +17,8 @@
 #  error Not defined for this platform
 # endif
 
+using RtypeProtocol;
+
 namespace Network
 {
 	class packet
@@ -83,9 +85,9 @@ namespace Network
 		Spawn			*decode(Spawn *spawn) const;
 
 		template<typename T>
-		T	*decode(void *data, const int size) const
+		T	*decode(void *data, const int size, const int headerSize) const
 		{
-			if (size < sizeof(T))
+			if (size < sizeof(T) || headerSize != sizeof(T))
 				throw NetworkException("Error with data");
 			return (decode(static_cast<T *>(data)));
 		}
