@@ -465,27 +465,27 @@ namespace Network
 			dataAddr = header + sizeof(RtypeProtocol::Header);
 			socket->consumeData(sizeof(RtypeProtocol::Header) + header->data_size);
 		}
-		if (header->type == T_MAGIC)
+		if (header->type == RtypeProtocol::T_MAGIC)
 			obs->notify(header->type, decode<RtypeProtocol::Magic>(dataAddr, datasize, header->data_size), socket);
-		else if (header->type == T_PLAYERINFO ||
-				 header->type == T_CONNECTION)
+		else if (header->type == RtypeProtocol::T_PLAYERINFO ||
+				 header->type == RtypeProtocol::T_CONNECTION)
 			obs->notify(header->type, decode<RtypeProtocol::User>(dataAddr, datasize, header->data_size), socket);
-		else if (header->type == T_MSG)
+		else if (header->type == RtypeProtocol::T_MSG)
 			obs->notify(header->type, decode<RtypeProtocol::Message>(dataAddr, datasize, header->data_size), socket);
-		else if (header->type == T_ROOMCONNECTION)
+		else if (header->type == RtypeProtocol::T_ROOMCONNECTION)
 			obs->notify(header->type, decode<RtypeProtocol::RoomConnection>(dataAddr, datasize, header->data_size), socket);
-		else if (header->type == T_PING ||
-				 header->type == T_PONG)
+		else if (header->type == RtypeProtocol::T_PING ||
+				 header->type == RtypeProtocol::T_PONG)
 			obs->notify(header->type, decode<RtypeProtocol::PingPong>(dataAddr, datasize, header->data_size), socket);
-		else if (header->type == T_SCORE)
+		else if (header->type == RtypeProtocol::T_SCORE)
 			obs->notify(header->type, decode<RtypeProtocol::Score>(dataAddr, datasize, header->data_size), socket);
-		else if (header->type == T_MAPCHANGE)
+		else if (header->type == RtypeProtocol::T_MAPCHANGE)
 			obs->notify(header->type, decode<RtypeProtocol::MapChange>(dataAddr, datasize, header->data_size), socket);
-		else if (header->type == T_MSG)// unknow type for the header
+		else if (header->type == RtypeProtocol::T_MSG)// unknow type for the header
 			obs->notify(header->type, decode<RtypeProtocol::GameReadyState>(dataAddr, datasize, header->data_size), socket);
-		else if (header->type == T_GAMEEND)
+		else if (header->type == RtypeProtocol::T_GAMEEND)
 			obs->notify(header->type, decode<RtypeProtocol::EndGame>(dataAddr, datasize, header->data_size, socket);
-		else if (header->type == T_ROOMINFO)
+		else if (header->type == RtypeProtocol::T_ROOMINFO)
 			obs->notify(header->type, decode<RtypeProtocol::Room>(dataAddr, datasize, header->data_size), socket);
 		else if (header->data_size == 0)
 			obs->notify(header->type, socket);
