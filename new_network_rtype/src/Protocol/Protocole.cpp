@@ -463,7 +463,7 @@ namespace Network
 		if (header->data_size > 0)
 		{
 			dataAddr = header + sizeof(Header);
-			socket->consumeData(sizeof(Header)+header->data_size);
+			socket->consumeData(sizeof(Header) + header->data_size);
 		}
 		if (header->type == T_MAGIC)
 			obs->notify(header->type, decode<Magic>(dataAddr, datasize, header->data_size), socket);
