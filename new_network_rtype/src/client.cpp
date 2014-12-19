@@ -26,12 +26,12 @@ public:
     RtypeProtocol::Header header;
     RtypeProtocol::Magic magic;
 
-    header.type = T_MAGIC;
+    header.type = RtypeProtocol::T_MAGIC;
     header.data_size = sizeof(RtypeProtocol::Magic);
-    magic.minor_version = minor_version;
-    magic.major_version = major_version;
+    magic.minor_version = RtypeProtocol::minor_version;
+    magic.major_version = RtypeProtocol::major_version;
     std::memset(magic.proto_name, 0, PROTO_NAME_SIZE);
-    std::memcpy(magic.proto_name, proto_name, PROTO_NAME_SIZE);
+    std::memcpy(magic.proto_name, RtypeProtocol::proto_name, PROTO_NAME_SIZE);
 
     packet * packet = _protocole.pack(&header);
     packet * m_packet = _protocole.pack(&magic);
