@@ -452,7 +452,7 @@ namespace Network
 		RtypeProtocol::Header	*header;
 		void			*dataAddr = NULL;
 		socket->pickData(buffer, size);
-		header = (Header *)buffer;
+		header = (RtypeProtocol::Header *)buffer;
 		decode(header);
 		int datasize = size - sizeof(RtypeProtocol::Header);
 		if (size < header->data_size + sizeof(RtypeProtocol::Header))
