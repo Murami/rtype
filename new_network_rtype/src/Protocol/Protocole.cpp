@@ -162,13 +162,13 @@ namespace Network
 		return (new packet(&roomEncoded, sizeof(roomEncoded)));
 	}
 
-	Header	*Protocole::decode(RtypeProtocol::Header *header) const
+	RtypeProtocol::Header	*Protocole::decode(RtypeProtocol::Header *header) const
 	{
 		header->type = ntoh(header->type);
 		header->data_size = ntoh(header->data_size);
 		return (header);
 	}
-	Magic	*Protocole::decode(RtypeProtocol::Magic *magic) const
+	RtypeProtocol::Magic	*Protocole::decode(RtypeProtocol::Magic *magic) const
 	{
 		magic->minor_version = ntoh(magic->minor_version);
 		magic->major_version = ntoh(magic->major_version);
@@ -176,13 +176,13 @@ namespace Network
 			magic->proto_name[i] = ntoh(magic->proto_name[i]);
 		return (magic);
 	}
-	User	*Protocole::decode(RtypeProtocol::User *user) const
+	RtypeProtocol::User	*Protocole::decode(RtypeProtocol::User *user) const
 	{
 		for (int i = 0; i != USERNAME_SIZE; i++)
 			user->username[i] = ntoh(user->username[i]);
 		return (user);
 	}
-	Message	*Protocole::decode(RtypeProtocol::Message *msg) const
+	RtypeProtocol::Message	*Protocole::decode(RtypeProtocol::Message *msg) const
 	{
 		msg->room_id = ntoh(msg->room_id);
 		msg->user = ntoh(msg->user);
@@ -190,19 +190,19 @@ namespace Network
 			msg->message[i] = ntoh(msg->message[i]);
 		return (msg);
 	}
-	RoomConnection	*Protocole::decode(RtypeProtocol::RoomConnection *roomCo) const
+	RtypeProtocol::RoomConnection	*Protocole::decode(RtypeProtocol::RoomConnection *roomCo) const
 	{
 		roomCo->id = ntoh(roomCo->id);
 		for (int i = 0; i != PASS_MD5_SIZE; i++)
 			roomCo->pass_md5[i] = ntoh(roomCo->pass_md5[i]);
 		return (roomCo);
 	}
-	PingPong	*Protocole::decode(RtypeProtocol::PingPong *pingPong) const
+	RtypeProtocol::PingPong	*Protocole::decode(RtypeProtocol::PingPong *pingPong) const
 	{
 		pingPong->id = ntoh(pingPong->id);
 		return (pingPong);
 	}
-	Score	*Protocole::decode(RtypeProtocol::Score *score) const
+	RtypeProtocol::Score	*Protocole::decode(RtypeProtocol::Score *score) const
 	{
 		RtypeProtocol::Score scoreEncoded;
 
@@ -210,23 +210,23 @@ namespace Network
 		score->user_id = ntoh(score->user_id);
 		return (score);
 	}
-	MapChange	*Protocole::decode(RtypeProtocol::MapChange *mapChange) const
+	RtypeProtocol::RtypeProtocol::MapChange	*Protocole::decode(RtypeProtocol::MapChange *mapChange) const
 	{
 		for (int i = 0; i != MAP_NAME_SIZE; i++)
 			mapChange->map_name[i] = ntoh(mapChange->map_name[i]);
 		return (mapChange);
 	}
-	GameReadyState	*Protocole::decode(RtypeProtocol::GameReadyState *gameReadyState) const
+	RtypeProtocol::GameReadyState	*Protocole::decode(RtypeProtocol::GameReadyState *gameReadyState) const
 	{
 		gameReadyState->ready = ntoh(gameReadyState->ready);
 		return (gameReadyState);
 	}
-	EndGame	*Protocole::decode(RtypeProtocol::EndGame *endGame) const
+	RtypeProtocol::EndGame	*Protocole::decode(RtypeProtocol::EndGame *endGame) const
 	{
 		endGame->victory = ntoh(endGame->victory);
 		return (endGame);
 	}
-	Room	*Protocole::decode(RtypeProtocol::Room *room) const
+	RtypeProtocol::Room	*Protocole::decode(RtypeProtocol::Room *room) const
 	{
 		room->id = ntoh(room->id);
 		for (int i = 0; i != MAX_USERS; i++)
