@@ -334,4 +334,29 @@ namespace Network
     _Acceptors.insert(std::pair<SOCKET, Acceptor*>(socket.getSocket(), &socket));
   }
 
+  void Service::deleteReadTcp(TcpSocket & socket)
+  {
+    _RSocketTcp.erase(socket.getSocket());
+  }
+
+  void Service::deleteWriteTcp(TcpSocket & socket)
+  {
+    _WSocketTcp.erase(socket.getSocket());
+  }
+
+  void Service::deleteReadUdp(UdpSocket & socket)
+  {
+    _RSocketUdp.erase(socket.getSocket());
+  }
+
+  void Service::deleteWriteUdp(UdpSocket & socket)
+  {
+    _WSocketUdp.erase(socket.getSocket());
+  }
+
+  void Service::deleteAcceptor(Acceptor & socket)
+  {
+    _Acceptors.erase(socket.getSocket());
+  }
+
 } /* namespace Network */

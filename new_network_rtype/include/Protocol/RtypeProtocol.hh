@@ -19,6 +19,7 @@ namespace	Network
 # define	MAX_MSG_SIZE	512
 
 # define	PASS_MD5_SIZE	32
+
 # define	PROTO_NAME_SIZE	32
 # define	ROOM_NAME_SIZE	32
 # define	MAP_NAME_SIZE	32
@@ -32,6 +33,9 @@ namespace	Network
     {
 	  //TCP
       T_MAGIC				= 0,
+      T_MAGIC_BAD_VERSION		= 52,
+      T_MAGIC_ACCEPT			= 53,
+
       T_CONNECTION			= 1,
       T_DISCONNECTION		= 2,
       T_ROOMLIST			= 3,

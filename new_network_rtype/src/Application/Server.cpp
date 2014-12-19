@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "Server.hh"
 
 namespace Application
@@ -54,6 +55,16 @@ namespace Application
   {
     timer.setTimeout(Network::duration_millisecond(100));
     _service.addTimeout(timer);
+  }
+
+  void Server::deleteClientServer(ClientServer * client)
+  {
+    _service.deleteReadTcp(client->getSocket());
+    _service.deleteWriteTcp(client->getSocket());
+    _clients.erase(std::find(_clients.begin(), _clients.end(), client));
+    delete client;
+    /* WARNNNNNNNING delete les timeout, l'objet MUST BE un timerObserver*/
+    /* delete les udp  aussi */
   }
 
   Network::Service & Server::getService() const

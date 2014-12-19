@@ -77,7 +77,13 @@ namespace Network
     void addWriteTcp(TcpSocket & socket);
     void addReadUdp(UdpSocket & socket);
     void addWriteUdp(UdpSocket & socket);
-    void addAcceptor(Acceptor & socket);
+    void addAcceptor(Acceptor & sOBocket);
+
+    void deleteReadTcp(TcpSocket & socket);
+    void deleteWriteTcp(TcpSocket & socket);
+    void deleteReadUdp(UdpSocket & socket);
+    void deleteWriteUdp(UdpSocket & socket);
+    void deleteAcceptor(Acceptor & socket);
 
   private:
     int  setRead(fd_set* readfs);
