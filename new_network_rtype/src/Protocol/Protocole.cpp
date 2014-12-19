@@ -49,6 +49,7 @@ namespace Network
 			i++;
 			k++;
 		}
+		return (*this);
 	}
 
 	Protocole::Protocole()
