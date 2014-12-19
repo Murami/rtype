@@ -452,19 +452,13 @@ namespace Network
 
 	bool	ProtocoleTcp::unpack(const int &size, TcpSocket *socket, ITcpProtocoleObserver *obs) const
 	{
+		std::cout << "azeazeaze" << std::endl;
 		if (size < sizeof(RtypeProtocol::Header))
 			return (false);
 		char			*buffer = new char[size];
 		RtypeProtocol::Header	*header;
 		void			*dataAddr = NULL;
 		socket->pickData(buffer, size);
-		std::cout << "pick" << std::endl;
-		int i = 0;
-		while (i != size)
-		{
-			std::cout << i << ":" << buffer[i] << std::endl;
-			i++;
-		}
 		header = (RtypeProtocol::Header *)buffer;
 		decode(header);
 		int datasize = size - sizeof(RtypeProtocol::Header);
@@ -475,7 +469,7 @@ namespace Network
 		}
 		if (header->data_size > 0)
 		{
-			dataAddr = header + sizeof(RtypeProtocol::Header);
+			dataAddr = buffer + sizeof(RtypeProtocol::Header);
 			socket->consumeData(sizeof(RtypeProtocol::Header) + header->data_size);
 		}
 		if (header->type == RtypeProtocol::T_MAGIC)
