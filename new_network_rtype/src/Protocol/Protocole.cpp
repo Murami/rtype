@@ -321,7 +321,7 @@ namespace Network
 	}
 
 
-	Position	*Protocole::decode(RtypeProtocol::Position *pos) const
+	RtypeProtocol::Position	*Protocole::decode(RtypeProtocol::Position *pos) const
 	{
 		ntoh(pos, pos);
 		return (pos);
@@ -497,7 +497,7 @@ namespace Network
 
 	void	ProtocoleTcp::onRead(TcpSocket *socket, ITcpProtocoleObserver *obs) const
 	{
-		if (socket->availableDataOnRead() >= sizeof(Header))
+		if (socket->availableDataOnRead() >= sizeof(RtypeProtocol::Header))
 		{
 			unpack(socket->availableDataOnRead(), socket, obs);
 		}
@@ -505,7 +505,7 @@ namespace Network
 
 	void	ProtocoleUdp::onRead(TcpSocket *socket) const
 	{
-		if (socket->availableDataOnRead() >= sizeof(Header))
+		if (socket->availableDataOnRead() >= sizeof(RtypeProtocol::Header))
 		{
 			unpack(socket->availableDataOnRead(), socket);
 		}
