@@ -8,6 +8,7 @@
 
 #include "LittleRocket.hh"
 #include "TextureManager.hh"
+#include "SoundManager.hh"
 
 LittleRocket::LittleRocket(bool friendly)
 {
@@ -23,7 +24,7 @@ LittleRocket::LittleRocket(bool friendly)
         _sprite.setTextureRect(sf::IntRect(249, 105, 16, 8));
     else
         _sprite.setTextureRect(sf::IntRect(267, 105, 16, 8));
-    SoundManager::Play("laser");
+    SoundManager::Play("laser1");
 }
 
 LittleRocket::~LittleRocket()
