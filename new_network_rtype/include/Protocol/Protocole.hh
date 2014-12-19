@@ -82,6 +82,14 @@ namespace Network
 		PositionEvent	*decode(PositionEvent *posEvent) const;
 		Spawn			*decode(Spawn *spawn) const;
 
+		template<typename T>
+		T	*decode(void *data, const int size) const
+		{
+			if (size < sizeof(T))
+				throw NetworkException("Error with data");
+			return (decode(static_cast<T *>(data)));
+		}
+
 		void			hton(Position *posEncoded, const Position *pos) const;
 		void			ntoh(Position *posEncoded, const Position *pos) const;
 		uint32_t		hton(uint32_t const) const;

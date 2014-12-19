@@ -3,15 +3,12 @@
 
 # include	<stdint.h>
 
-#  define PACKED(a) struct a
-
-/*
 # ifdef		WIN32
-#  define PACKED(__body__) __pragma(pack(push, 1)) struct __body__ __pragma(pack(pop))
+#  pragma pack(push, 1) 
+#  define PACKED(__body__) struct __body__
 # else
 #  define PACKED(__body__) struct __attribute__((packed)) __body__
 # endif
-*/
 
 namespace	Network
 {
