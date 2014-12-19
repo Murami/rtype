@@ -72,10 +72,8 @@ namespace Network
 
 		magicEncoded.minor_version = hton(magic->minor_version);
 		magicEncoded.major_version = hton(magic->major_version);
-		std::cout << "avant " << magic->proto_name << std::endl;
 		for (int i = 0; i != PROTO_NAME_SIZE; i++)
 			magicEncoded.proto_name[i] = hton(magic->proto_name[i]);
-		std::cout << "apres " << magicEncoded.proto_name << std::endl;
 		return (new packet(&magicEncoded, sizeof(magicEncoded)));
 	}
 	packet	*Protocole::pack(const RtypeProtocol::User *user) const
@@ -295,7 +293,7 @@ namespace Network
 	packet	*Protocole::pack(const RtypeProtocol::Bonus *bonus) const
 	{
 		RtypeProtocol::Bonus encoded;
-		
+
 		encoded.id = hton(bonus->id);
 		encoded.type = hton(bonus->type);
 		return (new packet(&encoded, sizeof(encoded)));
@@ -452,7 +450,6 @@ namespace Network
 
 	bool	ProtocoleTcp::unpack(const int &size, TcpSocket *socket, ITcpProtocoleObserver *obs) const
 	{
-		std::cout << "azeazeaze" << std::endl;
 		if (size < sizeof(RtypeProtocol::Header))
 			return (false);
 		char			*buffer = new char[size];

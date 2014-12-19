@@ -28,10 +28,8 @@ public:
 
     header.type = RtypeProtocol::T_MAGIC;
     header.data_size = sizeof(RtypeProtocol::Magic);
-    //magic.minor_version = RtypeProtocol::minor_version;
-    //magic.major_version = RtypeProtocol::major_version;
-    magic.minor_version = 42;
-    magic.major_version = 43;
+    magic.minor_version = RtypeProtocol::minor_version;
+    magic.major_version = RtypeProtocol::major_version;
     std::memset(magic.proto_name, 0, PROTO_NAME_SIZE);
     std::memcpy(magic.proto_name, RtypeProtocol::proto_name, 5);
     std::cout << magic.proto_name << std::endl;
