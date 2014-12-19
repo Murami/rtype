@@ -57,13 +57,25 @@ namespace Application
     _service.addTimeout(timer);
   }
 
+  void Server::createRoom(ClientServer* client, const RtypeProtocol::Room* roominfos)
+  {
+
+    std::string	name(reinterpret_cast<const char*>(roominfos->room_name),
+		     strnlen(reinterpret_cast<const char*>(roominfos->room_name), ROOM_NAME_SIZE));
+    std::string	pass(reinterpret_cast<const char*>(roominfos->pass_md5),
+		     strnlen(reinterpret_cast<const char*>(roominfos->pass_md5), PASS_MD5_SIZE));
+    Room*	room = new Room(*this, name, pass);
+
+    _rooms.push_back(room);
+  }
+
   void Server::deleteClientServer(ClientServer * client)
   {
     _service.deleteReadTcp(client->getSocket());
     _service.deleteWriteTcp(client->getSocket());
     _clients.erase(std::find(_clients.begin(), _clients.end(), client));
     delete client;
-    /* WARNNNNNNNING delete les timeout, l'objet MUST BE un timerObserver*/
+    /* WARNNNNNNNING delete les timeout, l'objet MUST BE un timerObserver*/ /* HAHAHAHAHA MUST BE XD */
     /* delete les udp  aussi */
   }
 
@@ -76,5 +88,4 @@ namespace Application
   {
     return (_protocoleTcp);
   }
-
 }

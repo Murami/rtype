@@ -77,14 +77,27 @@ namespace Application
     std::cout << "rcv " << type << " with User" << std::endl;
 
     if (_state != T_DISCONNECTED)
+      throw ClientException("PROTOCOL ERROR");
+
+    // if (type == RtypeProtocol::T_PLAYERINFO)
+    //   {
+    // 	//
+    //   }
+    if (type == RtypeProtocol::T_CONNECTION)
       {
-	/* error */
+	_state = T_CONNECTED;
+	_name = std::string(reinterpret_cast<const char*>(user->username),
+			    strnlen(reinterpret_cast<const char*>(user->username), USERNAME_SIZE));
+	// TODO send ok connection
       }
   }
 
   void	ClientServer::notify(int const &type, const RtypeProtocol::Message * msg, Network::TcpSocket *socket)
   {
-    std::cout << "rcv " << type << " with Message" << std::endl;
+    if (_state != T_CONNECTED)
+      throw ClientException("PROTOCOL ERROR");
+
+    // PAS DE GESTION DE MESSAGE POUR L'INSTANT
   }
 
   void	ClientServer::notify(int const &type, const RtypeProtocol::RoomConnection * roomConnection,
@@ -121,7 +134,9 @@ namespace Application
 
   void	ClientServer::notify(int const &type, const RtypeProtocol::Room * room, Network::TcpSocket * socket)
   {
-    std::cout << "rcv " << type << " with Room" << std::endl;
+    if (_state != T_CONNECTED)
+      throw ClientException("PROTOCOL ERROR");
+    _server.createRoom(this, room);
   }
 
   void	ClientServer::notify(int const &type, Network::TcpSocket * socket)

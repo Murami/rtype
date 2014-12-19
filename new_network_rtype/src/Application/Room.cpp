@@ -2,10 +2,12 @@
 
 namespace Application
 {
-  Room::Room(Server& server) :
+  Room::Room(Server& server, const std::string& name, const std::string& pass) :
     _server(server)
   {
     _time = std::chrono::system_clock::now().time_since_epoch();
+    _name = name;
+    _pass = pass;
   }
 
   Room::~Room()
@@ -27,6 +29,7 @@ namespace Application
 
   void	Room::receive(const Game::Entity& /*entity*/, const Game::EntityEvent::Move& /*event*/)
   {
+
   }
 
   void	Room::receive(const Game::Entity& /*entity*/, const Game::EntityEvent::Life& /*event*/)
@@ -39,5 +42,10 @@ namespace Application
 
   void	Room::receive(const Game::Core& /*core*/, const Game::CoreEvent::Destroy& /*event*/)
   {
+  }
+
+  bool	Room::testConnection(const std::string& name, const std::string& password)
+  {
+    return (name == _name && password == _pass);
   }
 };
