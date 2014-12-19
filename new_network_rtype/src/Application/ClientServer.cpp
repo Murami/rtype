@@ -101,18 +101,6 @@ namespace Application
     std::cout << "rcv " << type << " with PingPong" << std::endl;
   }
 
-  // A ENLEVER
-  void	ClientServer::notify(int const &type, const RtypeProtocol::Score * score, Network::TcpSocket * socket)
-  {
-    std::cout << "rcv " << type << " with Score" << std::endl;
-  }
-
-  // A ENLEVER
-  void	ClientServer::notify(int const &type, const RtypeProtocol::MapChange * map, Network::TcpSocket *socket)
-  {
-    std::cout << "rcv " << type << " with MapChange" << std::endl;
-  }
-
   void	ClientServer::notify(int const &type, const RtypeProtocol::GameReadyState * state,
 			     Network::TcpSocket * socket)
   {
