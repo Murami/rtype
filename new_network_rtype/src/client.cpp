@@ -31,7 +31,7 @@ public:
     magic.minor_version = RtypeProtocol::minor_version;
     magic.major_version = RtypeProtocol::major_version;
     std::memset(magic.proto_name, 0, PROTO_NAME_SIZE);
-    std::memcpy(magic.proto_name, RtypeProtocol::proto_name, PROTO_NAME_SIZE);
+    std::memcpy(magic.proto_name, RtypeProtocol::proto_name, 5);
 
     Network::packet * packet = _protocole.pack(&header);
     Network::packet * m_packet = _protocole.pack(&magic);
