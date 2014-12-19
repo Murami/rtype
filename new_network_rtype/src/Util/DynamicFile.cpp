@@ -22,7 +22,7 @@ IDynamicFile*	create(const std::string& filename)
 
 IDynamicFile*	create()
 {
-#if defined(__unix__)
+#if defined(__unix__) || defined(__APPLE__)
   return (new LinuxDynamicFile());
 #elif defined(_WIN32) || defined(WIN32)
   return (new WindowDynamicFile());
