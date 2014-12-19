@@ -13,7 +13,7 @@ NetworkReader::NetworkReader(TcpConnection& tcpConnection) :
   _tcpListener = NULL;
 }
 
-void			NetworkReader::start()
+void			NetworkReader::run()
 {
   // Lancement du thread de lecture sur la socket
   // Le thread notifira NetworkReader lors de la lecture d'un packet

@@ -3,17 +3,13 @@
 
 # include	<stdint.h>
 
-#  define PACKED(a) struct a
-
-/*
 # ifdef		WIN32
 #  define PACKED(__body__) __pragma(pack(push, 1)) struct __body__ __pragma(pack(pop))
 # else
 #  define PACKED(__body__) struct __attribute__((packed)) __body__
 # endif
-*/
 
-namespace	Network
+namespace	RtypeProtocol
 {
 
 # define	MAX_MSG_SIZE	512
@@ -30,16 +26,16 @@ namespace	Network
 
   enum			Type
     {
-	  //TCP
+      //TCP
       T_MAGIC				= 0,
       T_CONNECTION			= 1,
-      T_DISCONNECTION		= 2,
+      T_DISCONNECTION			= 2,
       T_ROOMLIST			= 3,
       T_GETROOMLIST			= 4,
       T_GETROOMINFO			= 5,
       T_ROOMINFO			= 6,
-      T_ROOMCONNECTION		= 7,
-      T_ROOMDISCONNECTION	= 8,
+      T_ROOMCONNECTION			= 7,
+      T_ROOMDISCONNECTION		= 8,
       T_PING				= 9,
       T_PONG				= 10,
       T_GAMESTART			= 11,
@@ -47,18 +43,19 @@ namespace	Network
       T_SCORE				= 13,
       T_MAPCHANGE			= 14,
       T_PLAYERINFO			= 15,
-      T_MSG					= 16,
-	  //UDP
-	  T_POSITION			= 17,
-	  T_SPAWN				= 18,
-	  T_EVENT				= 19,
-	  T_DESTRUCTION			= 20,
-	  T_LIFE				= 21,
-	  T_BONUS				= 22
+      T_MSG				= 16,
+      T_HEADER				= 17,
+      //UDP
+      T_POSITION			= 18,
+      T_SPAWN				= 19,
+      T_EVENT				= 20,
+      T_DESTRUCTION			= 21,
+      T_LIFE				= 22,
+      T_BONUS				= 23
     };
 
   PACKED(Header {
-	  uint32_t	type;
+      uint32_t	type;
       uint32_t	data_size;
     };)
 
@@ -113,57 +110,57 @@ namespace	Network
       uint8_t	ready_users[MAX_USERS];
       uint8_t	locked;
       uint32_t	users_id[MAX_USERS];
-	};)
+    };)
 
-		//UDP
+  //UDP
 
-		PACKED(Position{
-		int32_t		x;
-		int32_t		y;
-		int8_t		orientation;
-		int32_t		state;
-	};)
+  PACKED(Position{
+      int32_t		x;
+      int32_t		y;
+      int8_t		orientation;
+      int32_t		state;
+    };)
 
-		PACKED(Spawn{
-		uint32_t	id;
-		uint32_t	type;
-		Position	position;
-		uint32_t	life;
-	};)
+  PACKED(Spawn{
+      uint32_t	id;
+      uint32_t	type;
+      Position	position;
+      uint32_t	life;
+    };)
 
-		PACKED(PositionEvent{
-		uint32_t	id;
-		Position	position;
-	};)
+  PACKED(PositionEvent{
+      uint32_t	id;
+      Position	position;
+    };)
 
-		PACKED(destruction{
-		uint32_t	id;
-	};)
+  PACKED(destruction{
+      uint32_t	id;
+    };)
 
-		PACKED(EntityRequest{
-		uint32_t	id;
-	};)
+  PACKED(EntityRequest{
+      uint32_t	id;
+    };)
 
-		PACKED(Life{
-		uint32_t	id;
-		uint32_t	life;
-	};)
+  PACKED(Life{
+      uint32_t	id;
+      uint32_t	life;
+    };)
 
-		PACKED(Bonus{
-		uint32_t	id;
-		uint32_t	type;
-	};)
+  PACKED(Bonus{
+      uint32_t	id;
+      uint32_t	type;
+    };)
 
-		PACKED(PingElem{
-		uint32_t	id;
-		Position	pos;
-		uint32_t	life;
-	};)
+  PACKED(PingElem{
+      uint32_t	id;
+      Position	pos;
+      uint32_t	life;
+    };)
 
-		PACKED(State{
-		uint32_t	id;
-		uint32_t	state;
-	};)
+  PACKED(State{
+      uint32_t	id;
+      uint32_t	state;
+    };)
 }
 
 #endif

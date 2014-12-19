@@ -5,6 +5,7 @@
 # include	"IMenuListener.hh"
 # include	"ConnectionConfiguration.hh"
 # include	"INetworkListener.hh"
+# include	"IKeyListener.hh"
 
 class		MenuController;
 class		MenuView;
@@ -12,8 +13,9 @@ class		TcpConnection;
 class		GameView;
 class		GameController;
 
-class		RtypeClient : public IMenuListener,
-			      public INetworkListener
+class		RtypeClient :	public IMenuListener,
+				public INetworkListener,
+				public IKeyListener
 {
 private:
   ConnectionConfiguration	_configuration;
@@ -23,6 +25,10 @@ private:
   GameController*		_gameController;
   GameView*			_gameView;
   sf::RenderWindow*		_window;
+
+  //IKeyListener
+public:
+  virtual void	onKeyEvent(RtypeEvent::eKeyEvent);
 
   // INetworkListener
 public:
