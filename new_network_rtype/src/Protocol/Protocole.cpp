@@ -58,17 +58,17 @@ namespace Network
 	Protocole::~Protocole()
 	{}
 
-	packet	*Protocole::pack(const struct Header *header) const
+	packet	*Protocole::pack(const RtypeProtocol::Header *header) const
 	{
-		struct Header	EncodedHeader;
+		RtypeProtocol::Header	EncodedHeader;
 
 		EncodedHeader.type = hton(header->type);
 		EncodedHeader.data_size = hton(header->data_size);
 		return (new packet(&EncodedHeader, sizeof(EncodedHeader)));
 	}
-	packet	*Protocole::pack(const struct Magic *magic) const
+	packet	*Protocole::pack(const RtypeProtocol::Magic *magic) const
 	{
-		struct Magic magicEncoded;
+		RtypeProtocol::Magic magicEncoded;
 
 		magicEncoded.minor_version = hton(magic->minor_version);
 		magicEncoded.major_version = hton(magic->major_version);
@@ -76,17 +76,17 @@ namespace Network
 			magicEncoded.proto_name[i] = hton(magic->proto_name[i]);
 		return (new packet(&magicEncoded, sizeof(magicEncoded)));
 	}
-	packet	*Protocole::pack(const struct User *user) const
+	packet	*Protocole::pack(const RtypeProtocol::User *user) const
 	{
-		struct User	userEncoded;
+		RtypeProtocol::User	userEncoded;
 
 		for (int i = 0; i != USERNAME_SIZE; i++)
 			userEncoded.username[i] = hton(user->username[i]);
 		return (new packet(&userEncoded, sizeof(userEncoded)));
 	}
-	packet	*Protocole::pack(const struct Message *msg) const
+	packet	*Protocole::pack(const RtypeProtocol::Message *msg) const
 	{
-		struct Message	msgEncoded;
+		RtypeProtocol::Message	msgEncoded;
 
 		msgEncoded.room_id = hton(msg->room_id);
 		msgEncoded.user = hton(msg->user);
@@ -94,55 +94,55 @@ namespace Network
 			msgEncoded.message[i] = hton(msg->message[i]);
 		return (new packet(&msgEncoded, sizeof(msgEncoded)));
 	}
-	packet	*Protocole::pack(const struct RoomConnection *roomCo) const
+	packet	*Protocole::pack(const RtypeProtocol::RoomConnection *roomCo) const
 	{
-		struct RoomConnection	roomCoEncoded;
+		RtypeProtocol::RoomConnection	roomCoEncoded;
 
 		roomCoEncoded.id = hton(roomCo->id);
 		for (int i = 0; i != PASS_MD5_SIZE; i++)
 			roomCoEncoded.pass_md5[i] = hton(roomCo->pass_md5[i]);
 		return (new packet(&roomCoEncoded, sizeof(roomCoEncoded)));
 	}
-	packet	*Protocole::pack(const struct PingPong *pingPong) const
+	packet	*Protocole::pack(const RtypeProtocol::PingPong *pingPong) const
 	{
-		struct PingPong pingPongEncoded;
+		RtypeProtocol::PingPong pingPongEncoded;
 
 		pingPongEncoded.id = hton(pingPong->id);
 		return (new packet(&pingPongEncoded, sizeof(pingPongEncoded)));
 	}
-	packet	*Protocole::pack(const struct Score *score) const
+	packet	*Protocole::pack(const RtypeProtocol::Score *score) const
 	{
-		struct Score scoreEncoded;
+		RtypeProtocol::Score scoreEncoded;
 
 		scoreEncoded.score = hton(score->score);
 		scoreEncoded.user_id = hton(score->user_id);
 		return (new packet(&scoreEncoded, sizeof(scoreEncoded)));
 	}
-	packet	*Protocole::pack(const struct MapChange *mapChange) const
+	packet	*Protocole::pack(const RtypeProtocol::MapChange *mapChange) const
 	{
-		struct MapChange mapChangeEncoded;
+		RtypeProtocol::MapChange mapChangeEncoded;
 
 		for (int i = 0; i != MAP_NAME_SIZE; i++)
 			mapChangeEncoded.map_name[i] = hton(mapChange->map_name[i]);
 		return (new packet(&mapChangeEncoded, sizeof(mapChangeEncoded)));
 	}
-	packet	*Protocole::pack(const struct GameReadyState *gameReadyState) const
+	packet	*Protocole::pack(const RtypeProtocol::GameReadyState *gameReadyState) const
 	{
-		struct GameReadyState gameReadyStateEncoded;
+		RtypeProtocol::GameReadyState gameReadyStateEncoded;
 
 		gameReadyStateEncoded.ready = hton(gameReadyState->ready);
 		return (new packet(&gameReadyStateEncoded, sizeof(gameReadyStateEncoded)));
 	}
-	packet	*Protocole::pack(const struct EndGame *endGame) const
+	packet	*Protocole::pack(const RtypeProtocol::EndGame *endGame) const
 	{
-		struct EndGame endGameEncoded;
+		RtypeProtocol::EndGame endGameEncoded;
 
 		endGameEncoded.victory = hton(endGame->victory);
 		return (new packet(&endGameEncoded, sizeof(endGameEncoded)));
 	}
-	packet	*Protocole::pack(const struct Room *room) const
+	packet	*Protocole::pack(const RtypeProtocol::Room *room) const
 	{
-		struct Room roomEncoded;
+		RtypeProtocol::Room roomEncoded;
 
 		roomEncoded.id = hton(room->id);
 		for (int i = 0; i != MAX_USERS; i++)
@@ -162,13 +162,13 @@ namespace Network
 		return (new packet(&roomEncoded, sizeof(roomEncoded)));
 	}
 
-	Header	*Protocole::decode(struct Header *header) const
+	Header	*Protocole::decode(RtypeProtocol::Header *header) const
 	{
 		header->type = ntoh(header->type);
 		header->data_size = ntoh(header->data_size);
 		return (header);
 	}
-	Magic	*Protocole::decode(struct Magic *magic) const
+	Magic	*Protocole::decode(RtypeProtocol::Magic *magic) const
 	{
 		magic->minor_version = ntoh(magic->minor_version);
 		magic->major_version = ntoh(magic->major_version);
@@ -176,13 +176,13 @@ namespace Network
 			magic->proto_name[i] = ntoh(magic->proto_name[i]);
 		return (magic);
 	}
-	User	*Protocole::decode(struct User *user) const
+	User	*Protocole::decode(RtypeProtocol::User *user) const
 	{
 		for (int i = 0; i != USERNAME_SIZE; i++)
 			user->username[i] = ntoh(user->username[i]);
 		return (user);
 	}
-	Message	*Protocole::decode(struct Message *msg) const
+	Message	*Protocole::decode(RtypeProtocol::Message *msg) const
 	{
 		msg->room_id = ntoh(msg->room_id);
 		msg->user = ntoh(msg->user);
@@ -190,43 +190,43 @@ namespace Network
 			msg->message[i] = ntoh(msg->message[i]);
 		return (msg);
 	}
-	RoomConnection	*Protocole::decode(struct RoomConnection *roomCo) const
+	RoomConnection	*Protocole::decode(RtypeProtocol::RoomConnection *roomCo) const
 	{
 		roomCo->id = ntoh(roomCo->id);
 		for (int i = 0; i != PASS_MD5_SIZE; i++)
 			roomCo->pass_md5[i] = ntoh(roomCo->pass_md5[i]);
 		return (roomCo);
 	}
-	PingPong	*Protocole::decode(struct PingPong *pingPong) const
+	PingPong	*Protocole::decode(RtypeProtocol::PingPong *pingPong) const
 	{
 		pingPong->id = ntoh(pingPong->id);
 		return (pingPong);
 	}
-	Score	*Protocole::decode(struct Score *score) const
+	Score	*Protocole::decode(RtypeProtocol::Score *score) const
 	{
-		struct Score scoreEncoded;
+		RtypeProtocol::Score scoreEncoded;
 
 		score->score = ntoh(score->score);
 		score->user_id = ntoh(score->user_id);
 		return (score);
 	}
-	MapChange	*Protocole::decode(struct MapChange *mapChange) const
+	MapChange	*Protocole::decode(RtypeProtocol::MapChange *mapChange) const
 	{
 		for (int i = 0; i != MAP_NAME_SIZE; i++)
 			mapChange->map_name[i] = ntoh(mapChange->map_name[i]);
 		return (mapChange);
 	}
-	GameReadyState	*Protocole::decode(struct GameReadyState *gameReadyState) const
+	GameReadyState	*Protocole::decode(RtypeProtocol::GameReadyState *gameReadyState) const
 	{
 		gameReadyState->ready = ntoh(gameReadyState->ready);
 		return (gameReadyState);
 	}
-	EndGame	*Protocole::decode(struct EndGame *endGame) const
+	EndGame	*Protocole::decode(RtypeProtocol::EndGame *endGame) const
 	{
 		endGame->victory = ntoh(endGame->victory);
 		return (endGame);
 	}
-	Room	*Protocole::decode(struct Room *room) const
+	Room	*Protocole::decode(RtypeProtocol::Room *room) const
 	{
 		room->id = ntoh(room->id);
 		for (int i = 0; i != MAX_USERS; i++)
@@ -246,9 +246,9 @@ namespace Network
 		return (room);
 	}
 
-	packet	*Protocole::pack(const Spawn *spawn) const
+	packet	*Protocole::pack(const cRtypeProtocol::Spawn *spawn) const
 	{
-		Spawn encoded;
+		RtypeProtocol::Spawn encoded;
 
 		encoded.id = hton(spawn->id);
 		encoded.life = hton(spawn->life);
@@ -256,78 +256,78 @@ namespace Network
 		encoded.type = hton(spawn->type);
 		return (new packet(&encoded, sizeof(encoded)));
 	}
-	packet	*Protocole::pack(const PositionEvent *posEvent) const
+	packet	*Protocole::pack(const RtypeProtocol::PositionEvent *posEvent) const
 	{
-		PositionEvent encoded;
+		RtypeProtocol::PositionEvent encoded;
 
 		encoded.id = hton(posEvent->id);
 		hton(&encoded.position, &posEvent->position);
 		return (new packet(&encoded, sizeof(encoded)));
 	}
-	packet	*Protocole::pack(const destruction *destru) const
+	packet	*Protocole::pack(const RtypeProtocol::destruction *destru) const
 	{
-		destruction encoded;
+		RtypeProtocol::destruction encoded;
 
 		encoded.id = hton(destru->id);
 		return (new packet(&encoded, sizeof(encoded)));
 	}
-	packet	*Protocole::pack(const EntityRequest *entity) const
+	packet	*Protocole::pack(const RtypeProtocol::EntityRequest *entity) const
 	{
-		EntityRequest encoded;
+		RtypeProtocol::EntityRequest encoded;
 
 		encoded.id = hton(entity->id);
 		return (new packet(&encoded, sizeof(encoded)));
 	}
-	packet	*Protocole::pack(const Life *life) const
+	packet	*Protocole::pack(const RtypeProtocol::Life *life) const
 	{
-		Life encoded;
+		RtypeProtocol::Life encoded;
 
 		encoded.id = hton(life->id);
 		encoded.life = hton(life->life);
 		return (new packet(&encoded, sizeof(encoded)));
 	}
-	packet	*Protocole::pack(const Bonus *bonus) const
+	packet	*Protocole::pack(const RtypeProtocol::Bonus *bonus) const
 	{
-		Bonus encoded;
+		RtypeProtocol::Bonus encoded;
 		
 		encoded.id = hton(bonus->id);
 		encoded.type = hton(bonus->type);
 		return (new packet(&encoded, sizeof(encoded)));
 	}
-	packet	*Protocole::pack(const PingElem *ping) const
+	packet	*Protocole::pack(const RtypeProtocol::PingElem *ping) const
 	{
-		PingElem encoded;
+		RtypeProtocol::PingElem encoded;
 
 		encoded.id = hton(ping->id);
 		encoded.life = hton(ping->life);
 		hton(&encoded.pos, &ping->pos);
 		return (new packet(&encoded, sizeof(encoded)));
 	}
-	packet	*Protocole::pack(const State *state) const
+	packet	*Protocole::pack(const RtypeProtocol::State *state) const
 	{
-		State encoded;
+		RtypeProtocol::State encoded;
 
 		encoded.id = hton(state->id);
 		encoded.state = hton(state->state);
 		return (new packet(&encoded, sizeof(encoded)));
 	}
 
-	packet	*Protocole::pack(const Position *pos) const
+	packet	*Protocole::pack(const RtypeProtocol::Position *pos) const
 	{
-		Position encoded;
+		RtypeProtocol::Position encoded;
 
 		hton(&encoded, pos);
 		return (new packet(&encoded, sizeof(encoded)));
 	}
 
 
-	Position	*Protocole::decode(Position *pos) const
+	Position	*Protocole::decode(RtypeProtocol::Position *pos) const
 	{
 		ntoh(pos, pos);
 		return (pos);
 	}
 
-	Spawn	*Protocole::decode(Spawn *spawn) const
+	RtypeProtocol::Spawn	*Protocole::decode(RtypeProtocol::Spawn *spawn) const
 	{
 		spawn->id = ntoh(spawn->id);
 		spawn->life = ntoh(spawn->life);
@@ -335,42 +335,42 @@ namespace Network
 		spawn->type = ntoh(spawn->type);
 		return (spawn);
 	}
-	PositionEvent	*Protocole::decode(PositionEvent *posEvent) const
+	RtypeProtocol::PositionEvent	*Protocole::decode(RtypeProtocol::PositionEvent *posEvent) const
 	{
 		posEvent->id = ntoh(posEvent->id);
 		ntoh(&posEvent->position, &posEvent->position);
 		return (posEvent);
 	}
-	destruction	*Protocole::decode(destruction *destru) const
+	RtypeProtocol::destruction	*Protocole::decode(RtypeProtocol::destruction *destru) const
 	{
 		destru->id = ntoh(destru->id);
 		return (destru);
 	}
-	EntityRequest	*Protocole::decode(EntityRequest *entity) const
+	RtypeProtocol::EntityRequest	*Protocole::decode(RtypeProtocol::EntityRequest *entity) const
 	{
 		entity->id = ntoh(entity->id);
 		return (entity);
 	}
-	Life	*Protocole::decode(Life *life) const
+	RtypeProtocol::Life	*Protocole::decode(RtypeProtocol::Life *life) const
 	{
 		life->id = ntoh(life->id);
 		life->life = ntoh(life->life);
 		return (life);
 	}
-	Bonus	*Protocole::decode(Bonus *bonus) const
+	RtypeProtocol::Bonus	*Protocole::decode(RtypeProtocol::Bonus *bonus) const
 	{
 		bonus->id = ntoh(bonus->id);
 		bonus->type = ntoh(bonus->type);
 		return (bonus);
 	}
-	PingElem	*Protocole::decode(PingElem *ping) const
+	RtypeProtocol::PingElem	*Protocole::decode(RtypeProtocol::PingElem *ping) const
 	{
 		ping->id = ntoh(ping->id);
 		ping->life = ntoh(ping->life);
 		ntoh(&ping->pos, &ping->pos);
 		return (ping);
 	}
-	State	*Protocole::decode(State *state) const
+	RtypeProtocol::State	*Protocole::decode(RtypeProtocol::State *state) const
 	{
 		state->id = ntoh(state->id);
 		state->state = ntoh(state->state);
@@ -378,7 +378,7 @@ namespace Network
 	}
 
 
-	void			Protocole::hton(Position *posEncoded, const Position *pos) const
+	void			Protocole::hton(RtypeProtocol::Position *posEncoded, const RtypeProtocol::Position *pos) const
 	{
 		posEncoded->x = hton(pos->x);
 		posEncoded->y = hton(pos->y);
@@ -386,7 +386,7 @@ namespace Network
 		posEncoded->state = hton(pos->state);
 	}
 
-	void			Protocole::ntoh(Position *posEncoded, const Position *pos) const
+	void			Protocole::ntoh(RtypeProtocol::Position *posEncoded, const RtypeProtocol::Position *pos) const
 	{
 		posEncoded->x = ntoh(pos->x);
 		posEncoded->y = ntoh(pos->y);
@@ -449,7 +449,7 @@ namespace Network
 		if (size < sizeof(Header))
 			return (false);
 		char			*buffer = new char[size];
-		struct Header	*header;
+		RtypeProtocol::Header	*header;
 		void			*dataAddr = NULL;
 		socket->pickData(buffer, size);
 		header = (Header *)buffer;
@@ -466,27 +466,27 @@ namespace Network
 			socket->consumeData(sizeof(Header) + header->data_size);
 		}
 		if (header->type == T_MAGIC)
-			obs->notify(header->type, decode<Magic>(dataAddr, datasize, header->data_size), socket);
+			obs->notify(header->type, decode<RtypeProtocol::Magic>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == T_PLAYERINFO ||
 				 header->type == T_CONNECTION)
-			obs->notify(header->type, decode<User>(dataAddr, datasize, header->data_size), socket);
+			obs->notify(header->type, decode<RtypeProtocol::User>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == T_MSG)
-			obs->notify(header->type, decode<Message>(dataAddr, datasize, header->data_size), socket);
+			obs->notify(header->type, decode<RtypeProtocol::Message>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == T_ROOMCONNECTION)
-			obs->notify(header->type, decode<RoomConnection>(dataAddr, datasize, header->data_size), socket);
+			obs->notify(header->type, decode<RtypeProtocol::RoomConnection>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == T_PING ||
 				 header->type == T_PONG)
-			obs->notify(header->type, decode<PingPong>(dataAddr, datasize, header->data_size), socket);
+			obs->notify(header->type, decode<RtypeProtocol::PingPong>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == T_SCORE)
-			obs->notify(header->type, decode<Score>(dataAddr, datasize, header->data_size), socket);
+			obs->notify(header->type, decode<RtypeProtocol::Score>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == T_MAPCHANGE)
-			obs->notify(header->type, decode<MapChange>(dataAddr, datasize, header->data_size), socket);
+			obs->notify(header->type, decode<RtypeProtocol::MapChange>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == T_MSG)// unknow type for the header
-			obs->notify(header->type, decode<GameReadyState>(dataAddr, datasize, header->data_size), socket);
+			obs->notify(header->type, decode<RtypeProtocol::GameReadyState>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == T_GAMEEND)
-			obs->notify(header->type, decode<EndGame>(dataAddr, datasize, header->data_size, socket);
+			obs->notify(header->type, decode<RtypeProtocol::EndGame>(dataAddr, datasize, header->data_size, socket);
 		else if (header->type == T_ROOMINFO)
-			obs->notify(header->type, decode<Room>(dataAddr, datasize, header->data_size), socket);
+			obs->notify(header->type, decode<RtypeProtocol::Room>(dataAddr, datasize, header->data_size), socket);
 		else if (header->data_size == 0)
 			obs->notify(header->type, socket);
 		else
@@ -517,7 +517,7 @@ namespace Network
 		if (size < sizeof(Header))
 			return (false);
 		char			*buffer = new char[size];
-		struct Header	*header;
+		RtypeProtocol::Header	*header;
 		void			*dataAddr = NULL;
 		socket->pickData(buffer, size);
 		header = (Header *)buffer;
