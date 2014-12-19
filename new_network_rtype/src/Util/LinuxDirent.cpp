@@ -1,5 +1,5 @@
 
-#ifdef __unix__
+#ifdef __unix__ || __APPLE__
 
 # include <stdexcept>
 # include <string.h>
@@ -49,4 +49,4 @@ std::list<std::string>	LinuxDirent::getFilesNameByExtension(std::string ext)
   return (res);  
 }
 
-#endif /* __unix__ */
+#endif /* __unix__ __APPLE__*/

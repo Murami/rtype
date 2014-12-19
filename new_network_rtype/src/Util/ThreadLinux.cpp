@@ -1,4 +1,4 @@
-#ifdef __linux__
+#ifdef __linux__ || __APPLE__
 #include "Util/Thread.hpp"
 
 namespace Util
