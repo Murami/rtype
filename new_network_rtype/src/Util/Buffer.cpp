@@ -1,5 +1,7 @@
 #include "Buffer.hh"
 
+#include <iostream>
+
 namespace Util
 {
 
@@ -19,7 +21,10 @@ namespace Util
   void  Buffer::write(const char *buffer, int size)
   {
     for (int i = 0; i < size; ++i)
-      _buffer.push_back(buffer[i]);
+      {
+	std::cout << "buffer[" << i << "] = " << buffer[i] << std::endl;
+	_buffer.push_back(buffer[i]);
+      }
   }
 
   void	Buffer::pick(char *buffer, int size)
@@ -27,8 +32,12 @@ namespace Util
     std::deque<char>::iterator it;
     int i;
 
+    std::cout << "pick data" << std::endl;
     for (i = 0, it = _buffer.begin(); i < size && it != _buffer.end(); ++it, ++i)
-      buffer[i] = *it;
+      {
+	buffer[i] = *it;
+	std::cout << "buffer[" << i << "] = " << buffer[i] << std::endl;
+      }
   }
 
   void	Buffer::consume(int size)

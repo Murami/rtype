@@ -11,10 +11,6 @@
 #include "ClientServer.hh"
 #include "Protocole.hh"
 
-#define MINOR_VERSION 1.0
-#define MAJOR_VERSION 1.0
-#define PROTO_NAME "rtype"
-
 namespace Application
 {
   class Server : Network::AcceptorObserver, public Network::UdpSocketObserver, public Network::TimerObserver

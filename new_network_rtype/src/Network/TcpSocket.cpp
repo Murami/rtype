@@ -80,6 +80,7 @@ namespace Network
 
     if((n = recv(_socket, buffer, 4096, 0)) <= 0)
       throw NetworkException("tcp read failed");
+    std::cout << "notify read" << std::endl;
     _readbuf.write(buffer, n);
     _observer->onRead(*this);
   }
