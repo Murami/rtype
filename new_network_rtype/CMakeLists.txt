@@ -247,5 +247,4 @@ if(WIN32)
   target_link_libraries(client wsock32 ws2_32)
 elseif(UNIX)
   target_link_libraries(client pthread dl)
->>>>>>> 219031ed8f1cd5d75b60e3918480fdb2e6496b7f
 endif()
