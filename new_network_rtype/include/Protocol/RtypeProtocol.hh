@@ -72,7 +72,8 @@ static const int8_t proto_name[] = "RType";
       T_EVENT				= 36,
       T_DESTRUCTION			= 37,
       T_LIFE				= 38,
-      T_BONUS				= 39
+      T_BONUS				= 39,
+      T_HEADER				= 40
     };
 
   PACKED(Header {

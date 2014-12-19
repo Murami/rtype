@@ -1,10 +1,34 @@
 #include	<SFML/System/Time.hpp>
 
+#include	"Thread.hpp"
 #include	"ConnectionConfiguration.hh"
 #include	"TcpConnection.hh"
 
-TcpConnection::TcpConnection(const ConnectionConfiguration& conf) : _conf(conf)
+TcpConnection::TcpConnection(const ConnectionConfiguration& conf) :
+  _conf(conf)
 {
+  _reader = new NetworkReader(*this);
+}
+
+void		TcpConnection::startRead()
+{
+  _reader->start();
+  _running = true;
+}
+
+void		TcpConnection::stopRead()
+{
+  _running = false;
+}
+
+void		TcpConnection::joinRead()
+{
+  _reader->join();
+}
+
+bool		TcpConnection::isRunning() const
+{
+  return (_running);
 }
 
 sf::TcpSocket&	TcpConnection::socket()

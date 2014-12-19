@@ -239,6 +239,7 @@ include/Application/Server.hh
 include/Application/ClientServer.hh
 include/Protocol/Protocole.hh
 include/Protocol/ProtocoleObserver.hh
+include/Protocol/ProtocolException.hh
 include/Protocol/RtypeProtocol.hh)
 
 if(WIN32)

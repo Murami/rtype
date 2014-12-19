@@ -15,7 +15,7 @@ add_executable(
 	src/Graphic/BigRocket.cpp
 	src/Graphic/LittleRocket.cpp
 	src/Graphic/Player.cpp
-	src/Graphic/PlayerPowerUp.cpp	
+	src/Graphic/PlayerPowerUp.cpp
 	src/Graphic/ScrollingBackground.cpp
 	src/Graphic/TextureManager.cpp
 	src/Graphic/Monster.cpp
@@ -28,8 +28,34 @@ add_executable(
 	src/SoundManager.cpp
 	src/GameView.cpp
 	src/GameController.cpp
+	src/ThreadLinux.cpp
+	src/ThreadWin32.cpp
 	src/NetworkReader.cpp
 	src/main.cpp
+	include/ConfigurationParser.hh
+	include/ConnectionConfiguration.hh
+	include/GameController.hh
+	include/GameEnum.hh
+	include/GameObservable.hh
+	include/GameView.hh
+	include/IGameObserver.hh
+	include/IKeyListener.hh
+	include/IMenuListener.hh
+	include/INetworkListener.hh
+	include/IObserver.hh
+	include/MenuController.hh
+	include/MenuEnum.hh
+	include/MenuView.hh
+	include/MyIniParser.hh
+	include/NetworkReader.hh
+	include/Observable.hh
+	include/RtypeClient.hh
+	include/RtypeProtocol.hh
+	include/SoundManager.hh
+	include/TcpConnection.hh
+	include/Thread.hpp
+	include/ThreadLinux.hpp
+	include/ThreadWin32.hpp
 )
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})

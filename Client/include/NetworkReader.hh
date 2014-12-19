@@ -1,12 +1,13 @@
 #ifndef		__NETWORKREADER__HH__
 # define	__NETWORKREADER__HH__
 
+# include	"Thread.hpp"
 # include	"RtypeProtocol.hh"
 
 class		INetworkListener;
 class		TcpConnection;
 
-class		NetworkReader : public Thread<void>
+class		NetworkReader : public Util::Thread<void>
 {
 public:
   static const int	BUFFER_SIZE;
@@ -20,14 +21,13 @@ public:
   NetworkReader(TcpConnection& tcpConnection);
   ~NetworkReader();
 
-  void			run();
+  int			run();
 
   void			setTcpListener(INetworkListener*);
 
   void			setExpectedPacket(RtypeProtocol::Type packetType);
   RtypeProtocol::Type	getExpectedPacket();
 
-  void			start();
   void			onReadData(void *data, std::size_t size);
 };
 

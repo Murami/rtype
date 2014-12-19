@@ -3,9 +3,9 @@
 
 # include <cstring>
 
-# include "NetworkException.hh"
+# include "ProtocolException.hh"
 # include "RtypeProtocol.hh"
-# include "TcpSocket.hh"
+# include "Network/TcpSocket.hh"
 # include "UdpSocket.hh"
 # include "ProtocoleObserver.hh"
 
@@ -86,7 +86,7 @@ namespace Network
 		T	*decode(void *data, const int size, const int headerSize) const
 		{
 			if (size < sizeof(T) || headerSize != sizeof(T))
-				throw NetworkException("Error with data");
+			  throw RtypeProtocol::ProtocolException("Error with data");
 			return (decode(static_cast<T *>(data)));
 		}
 

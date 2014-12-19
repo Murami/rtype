@@ -295,7 +295,7 @@ namespace Network
 	packet	*Protocole::pack(const RtypeProtocol::Bonus *bonus) const
 	{
 		RtypeProtocol::Bonus encoded;
-		
+
 		encoded.id = hton(bonus->id);
 		encoded.type = hton(bonus->type);
 		return (new packet(&encoded, sizeof(encoded)));
@@ -497,7 +497,7 @@ namespace Network
 		else if (header->data_size == 0)
 			obs->notify(header->type, socket);
 		else
-			throw NetworkException("Unknow data");
+		  throw RtypeProtocol::ProtocolException("Unknown data");
 		delete buffer;
 		return (true);
 	}

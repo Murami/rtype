@@ -1,7 +1,8 @@
 #include	<cstring>
 #include	<stdexcept>
 
-#include	"RtypeProtocol.hh"
+#include	<arpa/inet.h>
+
 #include	"MenuController.hh"
 #include	"MenuView.hh"
 #include	"TcpConnection.hh"
@@ -9,18 +10,17 @@
 #include	"SoundManager.hh"
 #include	"GameController.hh"
 #include	"GameView.hh"
+#include	"RtypeProtocol.hh"
 
 RtypeClient::RtypeClient()
 {
   _tcpConnection = new TcpConnection(_configuration);
 }
 
-void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent event)
+void	RtypeClient::onKeyEvent(RTypeEvent::eKeyEvent event)
 {
   RtypeProtocol::Header header;
-  RtypeProtocol::Event	event;
 
-  event.eventMask = event;
   header.type = RtypeProtocol::T_EVENT;
   header.data_size = sizeof(event);
   _tcpConnection->write(&header, sizeof(header));
@@ -79,10 +79,10 @@ bool	RtypeClient::onConnectFromMenu(const std::string & login)
 
   SoundManager::Play("bip");
   std::cout << __FUNCTION__ << " : " << login << std::endl;
-  header.type = RtypeProtocol::T_DISCONNECTION;
+  header.type = RtypeProtocol::T_CONNECTION;
   header.data_size = sizeof(RtypeProtocol::User);
   strcpy(reinterpret_cast<char *>(&user.username[0]), login.c_str());
-  _tcpConnection->write(&header, sizeof(header));
+  _tcpConnection->write(&header,  sizeof(header));
   _tcpConnection->write(&user, sizeof(user));
   return (true);
 }
@@ -117,6 +117,9 @@ bool	RtypeClient::onUserMessageFromMenu(RtypeProtocol::Message)
 
 void		RtypeClient::run()
 {
+  RtypeProtocol::Header header;
+  RtypeProtocol::Magic	magic;
+
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
 					       sf::VideoMode::getDesktopMode().height), "Rtype");
   SoundManager::Play("scoring");
@@ -126,32 +129,32 @@ void		RtypeClient::run()
   _menuController = new MenuController(*_menuView);
   if (!_tcpConnection->connect())
     throw (std::runtime_error("Connect"));
+
   _menuView->addObserver(_menuController);
   _menuController->setMenuListener(this);
-
-  RtypeProtocol::Header header;
-  RtypeProtocol::Magic	magic;
-
-  header.type = T_MAGIC;
+  header.type = RtypeProtocol::T_MAGIC;
   header.data_size = sizeof(magic);
-  magic.minor_version = 1;
-  magic.major_version = 1;
+  magic.minor_version = htons(RtypeProtocol::minor_version);
+  magic.major_version = htons(RtypeProtocol::major_version);
   std::memset(&magic.proto_name[0], 0, PROTO_NAME_SIZE);
-  strcpy(&magic.proto_name[0], "rtype");
-  _tcpConnection->write(&header, sizeof(header));
-  _tcpConnection->write(&magic, sizeof(magic));
+  std::memcpy(reinterpret_cast<char *>(&magic.proto_name[0]),
+	      RtypeProtocol::proto_name,
+	      std::strlen(reinterpret_cast<const char *>(RtypeProtocol::proto_name)));
+
+  char *buffer = new char[sizeof(header) + sizeof(magic)];
+  std::memcpy(&buffer[0], &header, sizeof(header));
+  std::memcpy(&buffer[sizeof(header)], &magic, sizeof(magic));
+
+  _tcpConnection->startRead();
+
+  _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(magic));
+
   _menuView->run(*_window);
-
-  // _gameView = new GameView();
-  // _gameController = new GameController(*_gameView);
-  // _gameView->addObserver(_gameController);
-  // _gameView->run(*_window);
-
 }
 
 RtypeClient::~RtypeClient()
 {
-  // delete _menuView;
-  // delete _menuController;
-  // delete _window;
+  delete _menuView;
+  delete _menuController;
+  delete _window;
 }
