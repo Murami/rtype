@@ -8,7 +8,6 @@
 # include <cstring>
 
 using namespace Network;
-using RtypeProtocol;
 
 class Client : public TcpSocketObserver
 {
@@ -24,11 +23,11 @@ public:
     _service.addWriteTcp(_socketTCP);
     _service.addReadTcp(_socketTCP);
 
-    Header header;
-    Magic magic;
+    RtypeProtocol::Header header;
+    RtypeProtocol::Magic magic;
 
     header.type = T_MAGIC;
-    header.data_size = sizeof(Magic);
+    header.data_size = sizeof(RtypeProtocol::Magic);
     magic.minor_version = minor_version;
     magic.major_version = major_version;
     std::memset(magic.proto_name, 0, PROTO_NAME_SIZE);
