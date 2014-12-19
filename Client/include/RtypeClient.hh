@@ -28,7 +28,7 @@ private:
 
   //IKeyListener
 public:
-  virtual void	onKeyEvent(RTypeEvent::eKeyEvent);
+  virtual void	onKeyEvent(RtypeEvent::eKeyEvent);
 
   // INetworkListener
 public:

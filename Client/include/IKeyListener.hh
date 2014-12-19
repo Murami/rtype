@@ -6,7 +6,7 @@
 class		IKeyListener
 {
 public:
-  virtual void	onKeyEvent(RTypeEvent::eKeyEvent) = 0;
+  virtual void	onKeyEvent(RtypeEvent::eKeyEvent) = 0;
 };
 
 #endif

@@ -17,7 +17,7 @@ RtypeClient::RtypeClient()
   _tcpConnection = new TcpConnection(_configuration);
 }
 
-void	RtypeClient::onKeyEvent(RTypeEvent::eKeyEvent event)
+void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent event)
 {
   RtypeProtocol::Header header;
 
