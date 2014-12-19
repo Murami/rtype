@@ -484,7 +484,7 @@ namespace Network
 		else if (header->type == RtypeProtocol::T_MSG)// unknow type for the header
 			obs->notify(header->type, decode<RtypeProtocol::GameReadyState>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == RtypeProtocol::T_GAMEEND)
-			obs->notify(header->type, decode<RtypeProtocol::EndGame>(dataAddr, datasize, header->data_size, socket);
+			obs->notify(header->type, decode<RtypeProtocol::EndGame>(dataAddr, datasize, header->data_size), socket);
 		else if (header->type == RtypeProtocol::T_ROOMINFO)
 			obs->notify(header->type, decode<RtypeProtocol::Room>(dataAddr, datasize, header->data_size), socket);
 		else if (header->data_size == 0)
