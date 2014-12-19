@@ -34,23 +34,23 @@ namespace Application
     _server.getService().addWriteTcp(socket);
   }
 
-  void	ClientServer::notify(int const &type, const Network::Magic * magic, Network::TcpSocket * socket)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::Magic * magic, Network::TcpSocket * socket)
   {
-    Network::Header header;
+    RtypeProtocol::Header header;
 
     std::cout << "rcv " << type << " with Magic" << std::endl;
 
     if (magic->minor_version != MINOR_VERSION || magic->major_version != MAJOR_VERSION ||
 	std::string((char*)magic->proto_name, PROTO_NAME_SIZE) != std::string(PROTO_NAME, PROTO_NAME_SIZE))
       {
-	header.type = Network::T_MAGIC_BAD_VERSION;
+	header.type = RtypeProtocol::T_MAGIC_BAD_VERSION;
 	header.data_size = 0;
 	throw ClientException("MAGIC ERROR");
       }
     else
       {
 	_state = T_DISCONNECTED;
-	header.type = Network::T_MAGIC_ACCEPT;
+	header.type = RtypeProtocol::T_MAGIC_ACCEPT;
 	header.data_size = 0;
       }
 
@@ -58,7 +58,7 @@ namespace Application
     _socket.sendData(packet->getData(), packet->getSize());
   }
 
-  void	ClientServer::notify(int const &type, const Network::User * user, Network::TcpSocket * socket)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::User * user, Network::TcpSocket * socket)
   {
     std::cout << "rcv " << type << " with User" << std::endl;
 
@@ -68,44 +68,44 @@ namespace Application
       }
   }
 
-  void	ClientServer::notify(int const &type, const Network::Message * msg, Network::TcpSocket *socket)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::Message * msg, Network::TcpSocket *socket)
   {
     std::cout << "rcv " << type << " with Message" << std::endl;
   }
 
-  void	ClientServer::notify(int const &type, const Network::RoomConnection * roomConnection,
+  void	ClientServer::notify(int const &type, const RtypeProtocol::RoomConnection * roomConnection,
 			     Network::TcpSocket * socket)
   {
     std::cout << "rcv " << type << " with RoomConnection" << std::endl;
   }
 
-  void	ClientServer::notify(int const &type, const Network::PingPong * ping, Network::TcpSocket * socket)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::PingPong * ping, Network::TcpSocket * socket)
   {
     std::cout << "rcv " << type << " with PingPong" << std::endl;
   }
 
-  void	ClientServer::notify(int const &type, const Network::Score * score, Network::TcpSocket * socket)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::Score * score, Network::TcpSocket * socket)
   {
     std::cout << "rcv " << type << " with Score" << std::endl;
   }
 
-  void	ClientServer::notify(int const &type, const Network::MapChange * map, Network::TcpSocket *socket)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::MapChange * map, Network::TcpSocket *socket)
   {
     std::cout << "rcv " << type << " with MapChange" << std::endl;
   }
 
-  void	ClientServer::notify(int const &type, const Network::GameReadyState * state,
+  void	ClientServer::notify(int const &type, const RtypeProtocol::GameReadyState * state,
 			     Network::TcpSocket * socket)
   {
     std::cout << "rcv " << type << " with GameReadyState" << std::endl;
   }
 
-  void	ClientServer::notify(int const &type, const Network::EndGame * end, Network::TcpSocket * socket)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::EndGame * end, Network::TcpSocket * socket)
   {
     std::cout << "rcv " << type << " with EndGame" << std::endl;
   }
 
-  void	ClientServer::notify(int const &type, const Network::Room * room, Network::TcpSocket * socket)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::Room * room, Network::TcpSocket * socket)
   {
     std::cout << "rcv " << type << " with Room" << std::endl;
   }

@@ -27,16 +27,16 @@ namespace Application
     void	onRead(Network::TcpSocket & socket);
     void	onWrite(Network::TcpSocket & socket);
 
-    void	notify(int const & type, const Network::Magic *, Network::TcpSocket *) ;
-    void	notify(int const & type, const Network::User *, Network::TcpSocket *) ;
-    void	notify(int const & type, const Network::Message *, Network::TcpSocket *) ;
-    void	notify(int const & type, const Network::RoomConnection *, Network::TcpSocket *) ;
-    void	notify(int const & type, const Network::PingPong *, Network::TcpSocket *) ;
-    void	notify(int const & type, const Network::Score *, Network::TcpSocket *) ;
-    void	notify(int const & type, const Network::MapChange *, Network::TcpSocket *) ;
-    void	notify(int const & type, const Network::GameReadyState *, Network::TcpSocket *) ;
-    void	notify(int const & type, const Network::EndGame *, Network::TcpSocket *) ;
-    void	notify(int const & type, const Network::Room *, Network::TcpSocket *) ;
+    void	notify(int const & type, const RtypeProtocol::Magic *, Network::TcpSocket *) ;
+    void	notify(int const & type, const RtypeProtocol::User *, Network::TcpSocket *) ;
+    void	notify(int const & type, const RtypeProtocol::Message *, Network::TcpSocket *) ;
+    void	notify(int const & type, const RtypeProtocol::RoomConnection *, Network::TcpSocket *) ;
+    void	notify(int const & type, const RtypeProtocol::PingPong *, Network::TcpSocket *) ;
+    void	notify(int const & type, const RtypeProtocol::Score *, Network::TcpSocket *) ;
+    void	notify(int const & type, const RtypeProtocol::MapChange *, Network::TcpSocket *) ;
+    void	notify(int const & type, const RtypeProtocol::GameReadyState *, Network::TcpSocket *) ;
+    void	notify(int const & type, const RtypeProtocol::EndGame *, Network::TcpSocket *) ;
+    void	notify(int const & type, const RtypeProtocol::Room *, Network::TcpSocket *) ;
     void	notify(int const & type, Network::TcpSocket *) ;
 
     Network::TcpSocket & getSocket() const;

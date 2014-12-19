@@ -12,16 +12,16 @@ namespace Network
 	public:
 	  ~ITcpProtocoleObserver()
 	  {}
-	  virtual void	notify(int const &type, const Magic *, TcpSocket *) = 0;
-	  virtual void	notify(int const &type, const User *, TcpSocket *) = 0;
-	  virtual void	notify(int const &type, const Message *, TcpSocket *) = 0;
-	  virtual void	notify(int const &type, const RoomConnection *, TcpSocket *) = 0;
-	  virtual void	notify(int const &type, const PingPong *, TcpSocket *) = 0;
-	  virtual void	notify(int const &type, const Score *, TcpSocket *) = 0;
-	  virtual void	notify(int const &type, const MapChange *, TcpSocket *) = 0;
-	  virtual void	notify(int const &type, const GameReadyState *, TcpSocket *) = 0;
-	  virtual void	notify(int const &type, const EndGame *, TcpSocket *) = 0;
-	  virtual void	notify(int const &type, const Room *, TcpSocket *) = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::Magic *, TcpSocket *) = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::User *, TcpSocket *) = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::Message *, TcpSocket *) = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::RoomConnection *, TcpSocket *) = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::PingPong *, TcpSocket *) = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::Score *, TcpSocket *) = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::MapChange *, TcpSocket *) = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::GameReadyState *, TcpSocket *) = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::EndGame *, TcpSocket *) = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::Room *, TcpSocket *) = 0;
 	  virtual void	notify(int const &type, TcpSocket *) = 0;
 	};
 
@@ -30,12 +30,12 @@ namespace Network
 	public:
 	  ~IUdpProtocoleObserver()
 	  {}
-	  virtual void	notify(int const &type, const PositionEvent *, UdpSocket *) const = 0;
-	  virtual void	notify(int const &type, const Spawn *, UdpSocket *) const = 0;
-	  virtual void	notify(int const &type, const Position *, UdpSocket *) const = 0;
-	  virtual void	notify(int const &type, const destruction *, UdpSocket *) const = 0;
-	  virtual void	notify(int const &type, const Life *, UdpSocket *) const = 0;
-	  virtual void	notify(int const &type, const Bonus *, UdpSocket *) const = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::PositionEvent *, UdpSocket *) const = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::Spawn *, UdpSocket *) const = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::Position *, UdpSocket *) const = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::destruction *, UdpSocket *) const = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::Life *, UdpSocket *) const = 0;
+	  virtual void	notify(int const &type, const RtypeProtocol::Bonus *, UdpSocket *) const = 0;
 	  virtual void	notify(int const &type, UdpSocket *) const = 0;
 	};
 }

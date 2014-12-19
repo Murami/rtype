@@ -4,7 +4,7 @@
 # include	<stdint.h>
 
 # ifdef		WIN32
-#  pragma pack(push, 1) 
+#  pragma pack(push, 1)
 #  define PACKED(__body__) struct __body__
 # else
 #  define PACKED(__body__) struct __attribute__((packed)) __body__

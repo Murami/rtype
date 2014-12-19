@@ -17,8 +17,6 @@
 #  error Not defined for this platform
 # endif
 
-using RtypeProtocol;
-
 namespace Network
 {
 	class packet
@@ -41,48 +39,48 @@ namespace Network
 		~Protocole();
 
 		//Tcp
-		packet	*pack(const struct Header *) const;
-		packet	*pack(const struct Magic *) const;
-		packet	*pack(const struct User *) const;
-		packet	*pack(const struct Message *) const;
-		packet	*pack(const struct RoomConnection *) const;
-		packet	*pack(const struct PingPong *) const;
-		packet	*pack(const struct Score *) const;
-		packet	*pack(const struct MapChange *) const;
-		packet	*pack(const struct GameReadyState *) const;
-		packet	*pack(const struct EndGame *) const;
-		packet	*pack(const struct Room *) const;
-		Header			*decode(struct Header *) const;
-		Magic			*decode(struct Magic *) const;
-		User			*decode(struct User *) const;
-		Message			*decode(struct Message *) const;
-		RoomConnection	*decode(struct RoomConnection *) const;
-		PingPong		*decode(struct PingPong *) const;
-		Score			*decode(struct Score *) const;
-		MapChange		*decode(struct MapChange *) const;
-		GameReadyState	*decode(struct GameReadyState *) const;
-		EndGame			*decode(struct EndGame *) const;
-		Room			*decode(struct Room *) const;
+		packet	*pack(const RtypeProtocol::Header *) const;
+		packet	*pack(const RtypeProtocol::Magic *) const;
+		packet	*pack(const RtypeProtocol::User *) const;
+		packet	*pack(const RtypeProtocol::Message *) const;
+		packet	*pack(const RtypeProtocol::RoomConnection *) const;
+		packet	*pack(const RtypeProtocol::PingPong *) const;
+		packet	*pack(const RtypeProtocol::Score *) const;
+		packet	*pack(const RtypeProtocol::MapChange *) const;
+		packet	*pack(const RtypeProtocol::GameReadyState *) const;
+		packet	*pack(const RtypeProtocol::EndGame *) const;
+		packet	*pack(const RtypeProtocol::Room *) const;
+		RtypeProtocol::Header			*decode(RtypeProtocol::Header *) const;
+		RtypeProtocol::Magic			*decode(RtypeProtocol::Magic *) const;
+		RtypeProtocol::User			*decode(RtypeProtocol::User *) const;
+		RtypeProtocol::Message			*decode(RtypeProtocol::Message *) const;
+		RtypeProtocol::RoomConnection	*decode(RtypeProtocol::RoomConnection *) const;
+		RtypeProtocol::PingPong		*decode(RtypeProtocol::PingPong *) const;
+		RtypeProtocol::Score			*decode(RtypeProtocol::Score *) const;
+		RtypeProtocol::MapChange		*decode(RtypeProtocol::MapChange *) const;
+		RtypeProtocol::GameReadyState	*decode(RtypeProtocol::GameReadyState *) const;
+		RtypeProtocol::EndGame			*decode(RtypeProtocol::EndGame *) const;
+		RtypeProtocol::Room			*decode(RtypeProtocol::Room *) const;
 
 		//Udp
-		packet	*pack(const struct Spawn *) const;
-		packet	*pack(const struct PositionEvent *) const;
-		packet	*pack(const struct destruction *) const;
-		packet	*pack(const struct EntityRequest *) const;
-		packet	*pack(const struct Life *) const;
-		packet	*pack(const struct Bonus *) const;
-		packet	*pack(const struct PingElem *) const;
-		packet	*pack(const struct State *) const;
-		packet	*pack(const struct Position *) const;
-		Position		*decode(Position *state) const;
-		State			*decode(State *state) const;
-		PingElem		*decode(PingElem *ping) const;
-		Bonus			*decode(Bonus *bonus) const;
-		Life			*decode(Life *life) const;
-		EntityRequest	*decode(EntityRequest *entity) const;
-		destruction		*decode(destruction *destru) const;
-		PositionEvent	*decode(PositionEvent *posEvent) const;
-		Spawn			*decode(Spawn *spawn) const;
+		packet	*pack(const RtypeProtocol::Spawn *) const;
+		packet	*pack(const RtypeProtocol::PositionEvent *) const;
+		packet	*pack(const RtypeProtocol::destruction *) const;
+		packet	*pack(const RtypeProtocol::EntityRequest *) const;
+		packet	*pack(const RtypeProtocol::Life *) const;
+		packet	*pack(const RtypeProtocol::Bonus *) const;
+		packet	*pack(const RtypeProtocol::PingElem *) const;
+		packet	*pack(const RtypeProtocol::State *) const;
+		packet	*pack(const RtypeProtocol::Position *) const;
+		RtypeProtocol::Position		*decode(RtypeProtocol::Position *state) const;
+		RtypeProtocol::State			*decode(RtypeProtocol::State *state) const;
+		RtypeProtocol::PingElem		*decode(RtypeProtocol::PingElem *ping) const;
+		RtypeProtocol::Bonus			*decode(RtypeProtocol::Bonus *bonus) const;
+		RtypeProtocol::Life			*decode(RtypeProtocol::Life *life) const;
+		RtypeProtocol::EntityRequest	*decode(RtypeProtocol::EntityRequest *entity) const;
+		RtypeProtocol::destruction		*decode(RtypeProtocol::destruction *destru) const;
+		RtypeProtocol::PositionEvent	*decode(RtypeProtocol::PositionEvent *posEvent) const;
+		RtypeProtocol::Spawn			*decode(RtypeProtocol::Spawn *spawn) const;
 
 		template<typename T>
 		T	*decode(void *data, const int size, const int headerSize) const
@@ -92,8 +90,8 @@ namespace Network
 			return (decode(static_cast<T *>(data)));
 		}
 
-		void			hton(Position *posEncoded, const Position *pos) const;
-		void			ntoh(Position *posEncoded, const Position *pos) const;
+	  void			hton(RtypeProtocol::Position *posEncoded, const RtypeProtocol::Position *pos) const;
+		void			ntoh(RtypeProtocol::Position *posEncoded, const RtypeProtocol::Position *pos) const;
 		uint32_t		hton(uint32_t const) const;
 		uint16_t		hton(uint16_t const) const;
 		uint8_t			hton(uint8_t const) const;
