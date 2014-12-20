@@ -289,13 +289,13 @@ void MenuView::initSetting()
 {
   sf::Font font;
   font.loadFromFile(chatFont);
-  
+
   _settingGui->setGlobalFont(fontPath);
-  
+
   tgui::Picture::Ptr picture(*_settingGui);
   picture->load(backgroundRoom);
   picture->setSize(_width, _height);
-  
+
   tgui::Label::Ptr labelMusic(*_settingGui);
   labelMusic->load(blackConf);
   labelMusic->setSize((0.104 * _width), (0.027 * _height));
@@ -311,7 +311,7 @@ void MenuView::initSetting()
   labelEffect->setText("Effect :");
   labelEffect->setTextColor(sf::Color::Cyan);
   labelEffect->setTextSize(40);
-  
+
   _settingGui->add(_effectSlider);
   _effectSlider->load(blackConf);
   _effectSlider->setVerticalScroll(false);
@@ -358,7 +358,7 @@ void MenuView::run(sf::RenderWindow &window)
                 {
                     _run = false;
                     window.close();
-                }
+		}
                 else
                 {
                     this->prevState();
@@ -439,6 +439,7 @@ void MenuView::prevState()
       break;
     case RtypeEvent::SETTINGSTATE:
       _actualState = RtypeEvent::MENUSTATE;
+      break;
     default:
       break;
     }
