@@ -528,6 +528,7 @@ namespace Network
 
   void	ProtocoleTcp::onRead(TcpSocket *socket, ITcpProtocoleObserver *obs) const
   {
+    std::cout << socket->availableDataOnRead() << " / " << sizeof(RtypeProtocol::Header) << std::endl;
     if (socket->availableDataOnRead() >= sizeof(RtypeProtocol::Header))
       {
 	unpack(socket->availableDataOnRead(), socket, obs);
