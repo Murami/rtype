@@ -359,25 +359,29 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	    if (event.type == sf::Event::KeyPressed)
 	      {
-                if (_actualState == RtypeEvent::LOGINSTATE)
+		if (event.key.code == sf::Keyboard::Escape)
 		  {
-                    _run = false;
-                    window.close();
+		    if (_actualState == RtypeEvent::LOGINSTATE)
+		      {
+			_run = false;
+			window.close();
+		      }
+		    else
+		      {
+			this->prevState();
+		      }
 		  }
-                else
+		else if (event.key.code == sf::Keyboard::Return && _actualState == RtypeEvent::LOGINSTATE && _editBoxUsername->getText() != "")
 		  {
-                    this->prevState();
+		    _actualState = RtypeEvent::MENUSTATE;
+		    this->notify(RtypeEvent::LOGIN);		    
 		  }
-	      }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && _actualState == RtypeEvent::LOGINSTATE && _editBoxUsername->getText() != "")
-	      {
-                _actualState = RtypeEvent::MENUSTATE;
-                this->notify(RtypeEvent::LOGIN);
 	      }
             _stateToGui[_actualState]->handleEvent(event);
         }
+
         tgui::Callback callback;
         while (_stateToGui[_actualState]->pollCallback(callback))
 	  {
