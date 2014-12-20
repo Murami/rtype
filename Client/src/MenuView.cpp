@@ -302,7 +302,7 @@ void MenuView::initSetting()
   labelMusic->setPosition((_width / 4.5), (0.472 * _height));
   labelMusic->setText("Music :");
   labelMusic->setTextColor(sf::Color::Cyan);
-  labelMusic->setTextSize(65);
+  labelMusic->setTextSize(40);
 
   tgui::Label::Ptr labelEffect(*_settingGui);
   labelEffect->load(blackConf);
@@ -310,7 +310,7 @@ void MenuView::initSetting()
   labelEffect->setPosition((_width / 4.5), (0.694 * _height));
   labelEffect->setText("Effect :");
   labelEffect->setTextColor(sf::Color::Cyan);
-  labelEffect->setTextSize(65);
+  labelEffect->setTextSize(40);
   
   _settingGui->add(_effectSlider);
   _effectSlider->load(blackConf);
