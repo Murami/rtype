@@ -313,23 +313,23 @@ void MenuView::initSetting()
   labelEffect->setTextColor(sf::Color::Cyan);
   labelEffect->setTextSize(40);
 
-  _settingGui->add(_effectSlider);
-  _effectSlider->load(blackConf);
-  _effectSlider->setVerticalScroll(false);
-  _effectSlider->setPosition((_width/2 - ((0.3125 * _width) / 2)), (0.472 * _height));
-  _effectSlider->setSize((0.3125 * _width), (0.027 * _height));
-  _effectSlider->setMinimum(0);
-  _effectSlider->setMaximum(100);
-  _effectSlider->setValue(50);
-
   _settingGui->add(_musicSlider);
   _musicSlider->load(blackConf);
   _musicSlider->setVerticalScroll(false);
-  _musicSlider->setPosition((_width/2 - ((0.3125 * _width) / 2)), (0.694 * _height));
+  _musicSlider->setPosition((_width/2 - ((0.3125 * _width) / 2)), (0.472 * _height));
   _musicSlider->setSize((0.3125 * _width), (0.027 * _height));
   _musicSlider->setMinimum(0);
   _musicSlider->setMaximum(100);
-  _musicSlider->setValue(50);
+  _musicSlider->setValue(100);
+
+  _settingGui->add(_effectSlider);
+  _effectSlider->load(blackConf);
+  _effectSlider->setVerticalScroll(false);
+  _effectSlider->setPosition((_width/2 - ((0.3125 * _width) / 2)), (0.694 * _height));
+  _effectSlider->setSize((0.3125 * _width), (0.027 * _height));
+  _effectSlider->setMinimum(0);
+  _effectSlider->setMaximum(100);
+  _effectSlider->setValue(100);
 
   tgui::Button::Ptr applyButton(*_settingGui);
   applyButton->load(blackConf);
