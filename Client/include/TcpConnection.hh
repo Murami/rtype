@@ -3,7 +3,13 @@
 
 # include	<SFML/Network.hpp>
 
+# include	"NetworkWriter.hh"
 # include	"NetworkReader.hh"
+
+namespace	Util
+{
+  class		Mutex;
+}
 
 class		ConnectionConfiguration;
 
@@ -13,10 +19,11 @@ private:
   const ConnectionConfiguration&	_conf;
   sf::TcpSocket				_socket;
   NetworkReader*			_reader;
-  bool					_running;
+  NetworkWriter*			_writer;
+  bool					_reading;
 
 public:
-  TcpConnection(const ConnectionConfiguration&);
+  TcpConnection(const ConnectionConfiguration&, Util::Mutex*);
   ~TcpConnection();
 
   bool			connect();
@@ -25,7 +32,7 @@ public:
   void			startRead();
   void			joinRead();
   void			stopRead();
-  bool			isRunning() const;
+  bool			isReading() const;
 
   sf::TcpSocket&	socket();
 };

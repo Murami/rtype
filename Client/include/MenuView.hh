@@ -16,39 +16,44 @@
 # include "Observable.hh"
 # include "MenuEnum.hh"
 
+namespace	Util
+{
+  class		Mutex;
+}
+
 class MenuView : public Observable
 {
 public:
   MenuView(sf::RenderWindow &window);
   ~MenuView();
-    
+
   void initLogin();
   void initMenu();
   void initRoomSelect();
   void initRoom();
   void initSetting();
-    
-  void run(sf::RenderWindow &window);
+
+  void run(sf::RenderWindow &window, Util::Mutex*);
   void stop();
-    
+
   void setActualState(RtypeEvent::eMenuState state);
   RtypeEvent::eMenuState getActualState() const;
-    
+
 public:
   std::string getLogin() const;
   std::string getRoomName() const;
   std::string getRoomPass() const;
-    
-    
+
+
   void setRoomName(std::string name);
   void setPlayerLabe1(std::string name);
   void setPlayerLabe2(std::string name);
   void setPlayerLabe3(std::string name);
   void setPlayerLabe4(std::string name);
-    
+
 private:
   void prevState();
-    
+
 private:
   tgui::Gui           *_loginGui;
   tgui::Gui           *_menuGui;
@@ -66,12 +71,12 @@ private:
   tgui::ChatBox::Ptr  _chatBox;
   tgui::Slider::Ptr _effectSlider;
   tgui::Slider::Ptr _musicSlider;
-    
+
   RtypeEvent::eMenuState          _actualState;
-    
+
   std::map< RtypeEvent::eMenuState, tgui::Gui* > _stateToGui;
   bool                _run;
-    
+
   int _width;
   int _height;
 };

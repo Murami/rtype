@@ -6,6 +6,7 @@
 #include "GameEnum.hh"
 #include "SoundManager.hh"
 #include "BigRocket.hh"
+#include "Mutex.hh"
 
 GameView::GameView()
 {
@@ -31,7 +32,7 @@ GameView::~GameView()
   //   delete (*itBack);
 }
 
-void	GameView::run(sf::RenderWindow& window)
+void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
 {
   _run = true;
   while (_run)
@@ -63,7 +64,9 @@ void	GameView::run(sf::RenderWindow& window)
       window.clear();
       this->update();
       this->render(window);
+      mutex->unlock();
       window.display();
+      mutex->lock();
     }
 }
 

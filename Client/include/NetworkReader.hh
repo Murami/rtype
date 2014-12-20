@@ -1,27 +1,29 @@
 #ifndef		__NETWORKREADER__HH__
 # define	__NETWORKREADER__HH__
 
+# include	<deque>
+
 # include	"Thread.hpp"
 # include	"RtypeProtocol.hh"
+# include	"Mutex.hh"
 
 class		INetworkListener;
 class		TcpConnection;
 
-class		NetworkReader : public Util::Thread<void>
+class		NetworkReader : public Util::Thread<Util::Mutex*>
 {
-public:
-  static const int	BUFFER_SIZE;
-
 private:
   TcpConnection&	_tcpConnection;
   RtypeProtocol::Type	_expectedPacket;
   INetworkListener*	_tcpListener;
+  std::deque<char>	_buffer;
+  Util::Mutex*		_mutex;
 
 public:
   NetworkReader(TcpConnection& tcpConnection);
   ~NetworkReader();
 
-  int			run();
+  int			run(Util::Mutex*);
 
   void			setTcpListener(INetworkListener*);
 

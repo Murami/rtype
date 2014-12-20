@@ -14,7 +14,8 @@
 
 RtypeClient::RtypeClient()
 {
-  _tcpConnection = new TcpConnection(_configuration);
+  _mutex.lock();
+  _tcpConnection = new TcpConnection(_configuration, &_mutex);
 }
 
 RtypeClient::~RtypeClient()
@@ -22,6 +23,47 @@ RtypeClient::~RtypeClient()
   delete _menuView;
   delete _menuController;
   delete _window;
+}
+
+void		RtypeClient::run()
+{
+  RtypeProtocol::Header header;
+  RtypeProtocol::Magic	magic;
+
+  _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
+					       sf::VideoMode::getDesktopMode().height),
+				 "Rtype");
+
+  _window->setKeyRepeatEnabled(false);
+
+  _menuView = new MenuView(*_window);
+  _menuController = new MenuController(*_menuView);
+
+  _menuView->addObserver(_menuController);
+  _menuController->setMenuListener(this);
+
+  if (!_tcpConnection->connect())
+    throw (std::runtime_error("Connect"));
+
+  header.type = RtypeProtocol::T_MAGIC;
+  header.data_size = sizeof(magic);
+  magic.minor_version = htons(RtypeProtocol::minor_version);
+  magic.major_version = htons(RtypeProtocol::major_version);
+  std::memset(&magic.proto_name[0], 0, PROTO_NAME_SIZE);
+  std::memcpy(reinterpret_cast<char *>(&magic.proto_name[0]),
+  	      RtypeProtocol::proto_name,
+  	      std::strlen(reinterpret_cast<const char *>(RtypeProtocol::proto_name)));
+  char *buffer = new char[sizeof(header) + sizeof(magic)];
+  std::memcpy(&buffer[0], &header, sizeof(header));
+  std::memcpy(&buffer[sizeof(header)], &magic, sizeof(magic));
+
+  _tcpConnection->startRead();
+  _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(magic));
+
+  SoundManager::Play("theme", true);
+  _menuView->run(*_window, &_mutex);
+  _tcpConnection->stopRead();
+  _tcpConnection->joinRead();
 }
 
 void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent event)
@@ -120,45 +162,4 @@ bool	RtypeClient::onUserMessageFromMenu(RtypeProtocol::Message)
   // Send user message
   std::cout << __FUNCTION__ << std::endl;
   return (true);
-}
-
-void		RtypeClient::run()
-{
-  RtypeProtocol::Header header;
-  RtypeProtocol::Magic	magic;
-
-  _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
-					       sf::VideoMode::getDesktopMode().height),
-				 "Rtype", sf::Style::Fullscreen);
-
-  _window->setKeyRepeatEnabled(false);
-
-  _menuView = new MenuView(*_window);
-  _menuController = new MenuController(*_menuView);
-
-  _menuView->addObserver(_menuController);
-  _menuController->setMenuListener(this);
-
-  if (!_tcpConnection->connect())
-    throw (std::runtime_error("Connect"));
-
-  header.type = RtypeProtocol::T_MAGIC;
-  header.data_size = sizeof(magic);
-  magic.minor_version = htons(RtypeProtocol::minor_version);
-  magic.major_version = htons(RtypeProtocol::major_version);
-  std::memset(&magic.proto_name[0], 0, PROTO_NAME_SIZE);
-  std::memcpy(reinterpret_cast<char *>(&magic.proto_name[0]),
-  	      RtypeProtocol::proto_name,
-  	      std::strlen(reinterpret_cast<const char *>(RtypeProtocol::proto_name)));
-  char *buffer = new char[sizeof(header) + sizeof(magic)];
-  std::memcpy(&buffer[0], &header, sizeof(header));
-  std::memcpy(&buffer[sizeof(header)], &magic, sizeof(magic));
-
-  _tcpConnection->startRead();
-  _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(magic));
-
-  SoundManager::Play("theme", true);
-  _menuView->run(*_window);
-  _tcpConnection->stopRead();
-  _tcpConnection->joinRead();
 }

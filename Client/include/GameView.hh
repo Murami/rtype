@@ -7,6 +7,11 @@
 # include "GameObservable.hh"
 # include "ScrollingBackground.hh"
 
+namespace	Util
+{
+  class		Mutex;
+}
+
 class	IObject;
 
 class	GameView : public GameObservable
@@ -16,7 +21,7 @@ public:
   ~GameView();
 
 public:
-  void	run(sf::RenderWindow&);
+  void	run(sf::RenderWindow&, Util::Mutex*);
   void	add(int id, IObject*);
   void	erase(int id);
 

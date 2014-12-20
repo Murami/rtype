@@ -6,6 +6,7 @@
 # include	"ConnectionConfiguration.hh"
 # include	"INetworkListener.hh"
 # include	"IKeyListener.hh"
+# include	"Mutex.hh"
 
 class		MenuController;
 class		MenuView;
@@ -25,6 +26,7 @@ private:
   GameController*		_gameController;
   GameView*			_gameView;
   sf::RenderWindow*		_window;
+  Util::Mutex			_mutex;
 
   //IKeyListener
 public:

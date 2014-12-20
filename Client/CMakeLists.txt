@@ -31,6 +31,10 @@ add_executable(
 	src/ThreadLinux.cpp
 	src/ThreadWin32.cpp
 	src/NetworkReader.cpp
+	src/NetworkWriter.cpp
+	src/MutexWin32.cpp
+	src/MutexLinux.cpp
+	src/Lock.cpp
 	src/main.cpp
 	include/ConfigurationParser.hh
 	include/ConnectionConfiguration.hh
@@ -56,6 +60,11 @@ add_executable(
 	include/Thread.hpp
 	include/ThreadLinux.hpp
 	include/ThreadWin32.hpp
+	include/NetworkWriter.hh
+	include/Mutex.hh
+	include/MutexLinux.hh
+	include/MutexWin32.hh
+	include/Lock.hh
 )
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})

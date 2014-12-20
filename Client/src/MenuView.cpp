@@ -8,6 +8,7 @@
 
 #include "MenuView.hh"
 #include "SoundManager.hh"
+#include "Mutex.hh"
 
 #ifdef __APPLE__
 static const char *blackConf = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/widgets/Black.conf";
@@ -26,7 +27,6 @@ static const char *backgroundRoom = "./res/room.jpg";
 static const char *fontPath = "./res/Tr2n.ttf";
 static const char *chatFont = "./res/DejaVuSans.ttf";
 #endif
-
 
 
 MenuView::MenuView(sf::RenderWindow &window)
@@ -347,7 +347,7 @@ void MenuView::initSetting()
   applyButton->setCallbackId(RtypeEvent::APPLY);
 }
 
-void MenuView::run(sf::RenderWindow &window)
+void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 {
     _run = true;
     while (_run == true && window.isOpen())
@@ -359,25 +359,29 @@ void MenuView::run(sf::RenderWindow &window)
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	    if (event.type == sf::Event::KeyPressed)
 	      {
-                if (_actualState == RtypeEvent::LOGINSTATE)
+		if (event.key.code == sf::Keyboard::Escape)
 		  {
-                    _run = false;
-                    window.close();
+		    if (_actualState == RtypeEvent::LOGINSTATE)
+		      {
+			_run = false;
+			window.close();
+		      }
+		    else
+		      {
+			this->prevState();
+		      }
 		  }
-                else
+		else if (event.key.code == sf::Keyboard::Return && _actualState == RtypeEvent::LOGINSTATE && _editBoxUsername->getText() != "")
 		  {
-                    this->prevState();
+		    _actualState = RtypeEvent::MENUSTATE;
+		    this->notify(RtypeEvent::LOGIN);		    
 		  }
-	      }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && _actualState == RtypeEvent::LOGINSTATE && _editBoxUsername->getText() != "")
-	      {
-                _actualState = RtypeEvent::MENUSTATE;
-                this->notify(RtypeEvent::LOGIN);
 	      }
             _stateToGui[_actualState]->handleEvent(event);
         }
+
         tgui::Callback callback;
         while (_stateToGui[_actualState]->pollCallback(callback))
 	  {
@@ -423,7 +427,9 @@ void MenuView::run(sf::RenderWindow &window)
 	  }
         window.clear();
         _stateToGui[_actualState]->draw();
+	mutex->unlock();
         window.display();
+	mutex->lock();
     }
 }
 
