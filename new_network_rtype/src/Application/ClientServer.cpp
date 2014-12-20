@@ -55,7 +55,7 @@ namespace Application
 	RtypeProtocol::Magic magic;
 
 	if (_state != T_MAGIC_WAITING)
-	  throw ClientException("PROTOCOL ERROR");
+	  throw ClientException("MAGIC PROTOCOL ERROR");
 
 	magic.minor_version = RtypeProtocol::minor_version;
 	magic.major_version = RtypeProtocol::major_version;
@@ -80,7 +80,7 @@ namespace Application
       {
 	std::cout << "connection" << std::endl;
 	if (_state != T_DISCONNECTED)
-	  throw ClientException("PROTOCOL ERROR");
+	  throw ClientException("CONNECTION PROTOCOL ERROR");
 
 	Util::stringncopy(_name, user->username, USERNAME_SIZE);
 	_state = T_CONNECTED;
