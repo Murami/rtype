@@ -126,12 +126,17 @@ void		RtypeClient::run()
   _window->setKeyRepeatEnabled(false);
   _menuView = new MenuView(*_window);
   _menuController = new MenuController(*_menuView);
+  std::cout << "one" << std::endl;
   if (!_tcpConnection->connect())
-    throw (std::runtime_error("Connect"));
+    {
+      std::cout << "two" << std::endl;
+      throw (std::runtime_error("Connect"));
+      std::cout << "three" << std::endl;
+    }
+  std::cout << "four" << std::endl;
 
   _menuView->addObserver(_menuController);
   _menuController->setMenuListener(this);
-  SoundManager::Play("theme", true);
 
   header.type = RtypeProtocol::T_MAGIC;
   header.data_size = sizeof(magic);
@@ -153,6 +158,7 @@ void		RtypeClient::run()
   _tcpConnection->joinRead();
 
   _menuView->run(*_window);
+  SoundManager::Play("theme", true);
 }
 
 RtypeClient::~RtypeClient()
