@@ -14,23 +14,34 @@
 
 namespace Application
 {
-  class Server : public Network::AcceptorObserver, public Network::UdpSocketObserver, public Network::TimerObserver
+  class Server : public Network::AcceptorObserver,
+		 public Network::UdpSocketObserver,
+		 public Network::TimerObserver
   {
   public:
     Server(Network::Service & service);
     ~Server();
 
     void				run();
+
+    // Network events
     void				onAccept(Network::Acceptor & socket);
     void				onRead(Network::UdpSocket & socket);
     void				onWrite(Network::UdpSocket & socket);
     void				onTimeout(Network::Timer & timer);
 
-    void				deleteClientServer(ClientServer * client);
-    void				createRoom(ClientServer* client, const RtypeProtocol::Room* room);
-
+    // Get composite objects
     Network::Service &			getService() const;
     const Network::ProtocoleTcp &	getProtocole() const;
+
+    // ClientServer
+    void				deleteClientServer(ClientServer * client);
+
+    // Room
+    void				createRoom(ClientServer* client, const RtypeProtocol::Room* room);
+    Room*				getRoom(unsigned int roomID) const;
+    void				addClientRoom(ClientRoom* clientroom);
+    void				deleteClientRoom(ClientRoom* clientroom);
 
   private:
     Network::Service &			_service;
@@ -40,7 +51,8 @@ namespace Application
     Network::UdpSocket			_udpSocket;
 
     std::list<ClientServer*>		_clients;
-    std::list<Room*>			_rooms;
+    std::list<ClientRoom*>		_clientsroom; // a transformer en map
+    std::map<unsigned int, Room*>	_rooms;
 
     Network::Timer			_timer1;
   };

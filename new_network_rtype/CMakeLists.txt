@@ -4,7 +4,6 @@ set (EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/..)
 set (CTEST_CUSTOM_MAXIMUM_NUMBER_OF_ERRORS 5)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 include_directories(include)
-# todo refaire tous les includes ...
 include_directories(include/Network)
 include_directories(include/Util)
 include_directories(include/Application)
@@ -51,6 +50,7 @@ add_executable(
   src/Util/Dirent.cpp
   src/Util/LinuxDirent.cpp
   src/Util/WindowDirent.cpp
+  src/Util/Util.cpp
   src/Application/Server.cpp
   src/Application/ClientServer.cpp
   src/Application/Room.cpp
@@ -115,6 +115,7 @@ add_executable(
   include/Util/WindowDynamicFile.hh
   include/Util/IDirent.hh
   include/Util/PluginLoader.hpp
+  include/Util/Util.hh
   include/Application/ClientRoom.hh
   include/Application/Room.hh
   include/Application/Server.hh
@@ -171,6 +172,7 @@ add_executable(
   src/Util/Dirent.cpp
   src/Util/LinuxDirent.cpp
   src/Util/WindowDirent.cpp
+  src/Util/Util.cpp
   src/Application/Server.cpp
   src/Application/ClientServer.cpp
   src/Application/Room.cpp
@@ -235,6 +237,7 @@ add_executable(
   include/Util/WindowDynamicFile.hh
   include/Util/IDirent.hh
   include/Util/PluginLoader.hpp
+  include/Util/Util.hh
   include/Application/ClientRoom.hh
   include/Application/Room.hh
   include/Application/Server.hh
