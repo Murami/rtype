@@ -290,29 +290,54 @@ void MenuView::initSetting()
   sf::Font font;
   font.loadFromFile(chatFont);
 
-  _roomGui->setGlobalFont(fontPath);
+  _settingGui->setGlobalFont(fontPath);
 
   tgui::Picture::Ptr picture(*_settingGui);
   picture->load(backgroundRoom);
   picture->setSize(_width, _height);
 
-  tgui::Label::Ptr label(*_settingGui);
-  label->load(blackConf);
-  label->setSize((0.104 * _width), (0.027 * _height));
-  label->setPosition((0.381 * _width), (0.027 * _height));
-  label->setText("LabelTOTO");
-  label->setTextColor(sf::Color::Cyan);
-  label->setTextSize(25);
+  tgui::Label::Ptr labelMusic(*_settingGui);
+  labelMusic->load(blackConf);
+  labelMusic->setSize((0.104 * _width), (0.027 * _height));
+  labelMusic->setPosition((_width / 4.5), (0.472 * _height));
+  labelMusic->setText("Music :");
+  labelMusic->setTextColor(sf::Color::Cyan);
+  labelMusic->setTextSize(65);
 
-  tgui::Slider::Ptr slider(*_settingGui);
-  _settingGui->add(_slider);
-  _slider->load(blackConf);
-  _slider->setVerticalScroll(false);
-  _slider->setPosition((_width/2 - (0.3125 * _width)), 850);
-  _slider->setSize((0.3125 * _width), 50);
-  _slider->setMinimum(0);
-  _slider->setMaximum(100);
-  _slider->setValue(50);
+  tgui::Label::Ptr labelEffect(*_settingGui);
+  labelEffect->load(blackConf);
+  labelEffect->setSize((0.124 * _width), (0.027 * _height));
+  labelEffect->setPosition((_width / 4.5), (0.694 * _height));
+  labelEffect->setText("Effect :");
+  labelEffect->setTextColor(sf::Color::Cyan);
+  labelEffect->setTextSize(65);
+
+  _settingGui->add(_effectSlider);
+  _effectSlider->load(blackConf);
+  _effectSlider->setVerticalScroll(false);
+  _effectSlider->setPosition((_width/2 - ((0.3125 * _width) / 2)), (0.472 * _height));
+  _effectSlider->setSize((0.3125 * _width), (0.027 * _height));
+  _effectSlider->setMinimum(0);
+  _effectSlider->setMaximum(100);
+  _effectSlider->setValue(50);
+
+  _settingGui->add(_musicSlider);
+  _musicSlider->load(blackConf);
+  _musicSlider->setVerticalScroll(false);
+  _musicSlider->setPosition((_width/2 - ((0.3125 * _width) / 2)), (0.694 * _height));
+  _musicSlider->setSize((0.3125 * _width), (0.027 * _height));
+  _musicSlider->setMinimum(0);
+  _musicSlider->setMaximum(100);
+  _musicSlider->setValue(50);
+
+  tgui::Button::Ptr applyButton(*_settingGui);
+  applyButton->load(blackConf);
+  applyButton->setSize((0.190 * _width), (0.05 * _height));
+  applyButton->setPosition((_width / 2) - ((0.190 * _width) / 2), (0.833 * _height));
+  applyButton->setText("Apply");
+  applyButton->setTextSize(45);
+  applyButton->bindCallback(tgui::Button::LeftMouseClicked);
+  applyButton->setCallbackId(RtypeEvent::APPLY);
 }
 
 void MenuView::run(sf::RenderWindow &window)

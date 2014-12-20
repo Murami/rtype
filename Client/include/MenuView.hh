@@ -64,7 +64,8 @@ private:
   tgui::Label::Ptr    _labelPlayer3;
   tgui::Label::Ptr    _labelPlayer4;
   tgui::ChatBox::Ptr  _chatBox;
-  tgui::Slider::Ptr _slider;
+  tgui::Slider::Ptr _effectSlider;
+  tgui::Slider::Ptr _musicSlider;
     
   RtypeEvent::eMenuState          _actualState;
     

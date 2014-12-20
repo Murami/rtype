@@ -121,7 +121,7 @@ void		RtypeClient::run()
   RtypeProtocol::Magic	magic;
 
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
-					       sf::VideoMode::getDesktopMode().height), "Rtype");
+					       sf::VideoMode::getDesktopMode().height), "Rtype", sf::Style::Fullscreen);
   SoundManager::Play("theme", true);
 
   _window->setKeyRepeatEnabled(false);

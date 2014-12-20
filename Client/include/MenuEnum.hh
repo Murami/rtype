@@ -21,6 +21,7 @@ namespace	RtypeEvent
     JOIN,
     READY,
     LISTCHOICE,
+    APPLY,
     BACK
   };
 
