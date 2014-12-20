@@ -22,6 +22,7 @@ namespace Application
 
   void	ClientServer::onRead(Network::TcpSocket & socket)
   {
+    std::cout << "ClientServer::onRead()" << std::endl;
     _server.getService().addReadTcp(socket);
     try
       {
