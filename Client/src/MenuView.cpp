@@ -439,6 +439,7 @@ void MenuView::prevState()
       break;
     case RtypeEvent::SETTINGSTATE:
       _actualState = RtypeEvent::MENUSTATE;
+      break;
     default:
       break;
     }
