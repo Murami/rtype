@@ -63,6 +63,10 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 find_package(SFML 2.1 REQUIRED system window graphics network audio)
 find_package(TGUI 0.6 REQUIRED)
 
+if (UNIX)
+	target_link_libraries(client pthread)
+endif()
+
 if(SFML_FOUND)
 	include_directories(
 		${SFML_INCLUDE_DIR}
