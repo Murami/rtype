@@ -8,6 +8,7 @@ TcpConnection::TcpConnection(const ConnectionConfiguration& conf) :
   _conf(conf)
 {
   _reader = new NetworkReader(*this);
+  _socket.setBlocking(false);
 }
 
 void		TcpConnection::startRead()
@@ -18,6 +19,7 @@ void		TcpConnection::startRead()
 
 void		TcpConnection::stopRead()
 {
+  _reader->cancel();
   _running = false;
 }
 

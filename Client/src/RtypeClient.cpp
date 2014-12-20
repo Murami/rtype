@@ -151,14 +151,11 @@ void		RtypeClient::run()
 
   _tcpConnection->startRead();
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(magic));
-  _tcpConnection->joinRead();
 
-  _menuView->run(*_window);
-<<<<<<< HEAD
   SoundManager::Play("theme", true);
-=======
+  _menuView->run(*_window);
   _tcpConnection->stopRead();
->>>>>>> 01bb9ea1dd1f44fb48551cf6d25f27fbdc06b4d1
+  _tcpConnection->joinRead();
 }
 
 RtypeClient::~RtypeClient()
