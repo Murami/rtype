@@ -26,6 +26,7 @@ public:
   void initMenu();
   void initRoomSelect();
   void initRoom();
+  void initSetting();
     
   void run(sf::RenderWindow &window);
   void stop();
@@ -53,7 +54,7 @@ private:
   tgui::Gui           *_menuGui;
   tgui::Gui           *_roomSelectGui;
   tgui::Gui           *_roomGui;
-    
+  tgui::Gui *_settingGui;
   tgui::EditBox::Ptr  _editBoxUsername;
   tgui::EditBox::Ptr  _editBoxRoomName;
   tgui::EditBox::Ptr  _editBoxRoomPass;
@@ -63,6 +64,7 @@ private:
   tgui::Label::Ptr    _labelPlayer3;
   tgui::Label::Ptr    _labelPlayer4;
   tgui::ChatBox::Ptr  _chatBox;
+  tgui::Slider::Ptr _slider;
     
   RtypeEvent::eMenuState          _actualState;
     

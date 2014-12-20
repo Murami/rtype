@@ -48,16 +48,19 @@ MenuView::MenuView(sf::RenderWindow &window)
     _menuGui = new tgui::Gui(window);
     _roomSelectGui = new tgui::Gui(window);
     _roomGui = new tgui::Gui(window);
+    _settingGui = new tgui::Gui(window);
 
     _stateToGui[RtypeEvent::LOGINSTATE] = _loginGui;
     _stateToGui[RtypeEvent::MENUSTATE] = _menuGui;
     _stateToGui[RtypeEvent::ROOMSELECTSTATE] = _roomSelectGui;
     _stateToGui[RtypeEvent::ROOMSTATE] = _roomGui;
+    _stateToGui[RtypeEvent::SETTINGSTATE] = _settingGui;
 
     initLogin();
     initMenu();
     initRoomSelect();
     initRoom();
+    initSetting();
 
     window.setKeyRepeatEnabled(false);
 }
@@ -195,7 +198,6 @@ void MenuView::initRoomSelect()
     joinButton->bindCallback(tgui::Button::LeftMouseClicked);
     joinButton->setCallbackId(RtypeEvent::CREATE);
 
-
     tgui::Button::Ptr selectButton(*_roomSelectGui);
     selectButton->load(blackConf);
     selectButton->setSize(100, 100);
@@ -283,6 +285,36 @@ void MenuView::initRoom()
 
 }
 
+void MenuView::initSetting()
+{
+  sf::Font font;
+  font.loadFromFile(chatFont);
+  
+  _roomGui->setGlobalFont(fontPath);
+  
+  tgui::Picture::Ptr picture(*_settingGui);
+  picture->load(backgroundRoom);
+  picture->setSize(_width, _height);
+  
+  tgui::Label::Ptr label(*_settingGui);
+  label->load(blackConf);
+  label->setSize((0.104 * _width), (0.027 * _height));
+  label->setPosition((0.381 * _width), (0.027 * _height));
+  label->setText("LabelTOTO");
+  label->setTextColor(sf::Color::Cyan);
+  label->setTextSize(25);
+  
+  tgui::Slider::Ptr slider(*_settingGui);
+  _settingGui->add(_slider);
+  _slider->load(blackConf);
+  _slider->setVerticalScroll(false);
+  _slider->setPosition((_width/2 - (0.3125 * _width)), 850);
+  _slider->setSize((0.3125 * _width), 50);
+  _slider->setMinimum(0);
+  _slider->setMaximum(100);
+  _slider->setValue(50);
+}
+
 void MenuView::run(sf::RenderWindow &window)
 {
     _run = true;
@@ -329,7 +361,7 @@ void MenuView::run(sf::RenderWindow &window)
 	      _actualState = RtypeEvent::ROOMSELECTSTATE;
 	      break;
 	    case RtypeEvent::SETTINGS:
-	      std::cout << "Settings button pressed" << std::endl;
+	      _actualState = RtypeEvent::SETTINGSTATE;
 	      break;
 	    case RtypeEvent::SCORES:
 	      std::cout << "Scores button pressed" << std::endl;
@@ -380,6 +412,8 @@ void MenuView::prevState()
     case RtypeEvent::ROOMSTATE:
       _actualState = RtypeEvent::ROOMSELECTSTATE;
       break;
+    case RtypeEvent::SETTINGSTATE:
+      _actualState = RtypeEvent::MENUSTATE;
     default:
       break;
     }

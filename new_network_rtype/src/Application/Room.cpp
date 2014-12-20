@@ -1,4 +1,6 @@
 #include "Application/Room.hh"
+#include "Application/ClientServer.hh"
+#include "Application/ClientRoom.hh"
 
 namespace Application
 {
@@ -8,6 +10,7 @@ namespace Application
     _time = std::chrono::system_clock::now().time_since_epoch();
     _name = name;
     _pass = pass;
+    _id = _generator.generate();
   }
 
   Room::~Room()
@@ -44,8 +47,43 @@ namespace Application
   {
   }
 
-  bool	Room::testConnection(const std::string& name, const std::string& password)
+  bool	Room::testConnection(const std::string& password) const
   {
-    return (name == _name && password == _pass);
+    return (password == _pass);
+  }
+
+  bool	Room::isFull() const
+  {
+    return (_clients.size() == 4);
+  }
+
+  unsigned int	Room::getID() const
+  {
+    return (_id);
+  }
+
+  ClientRoom*	Room::addClient(ClientServer* clientserver)
+  {
+    ClientRoom*	clientroom = new ClientRoom(*this, *clientserver);
+
+    _clients.push_back(clientroom);
+    return (clientroom);
+  }
+
+  Game::Core&	Room::getGame()
+  {
+    return (_game);
+  }
+
+  void		Room::startGame()
+  {
+    _time = std::chrono::system_clock::now().time_since_epoch();
+    _timer.setTimeout(duration_milli(0));
+  }
+
+  void		Room::stopGame()
+  {
+    // TODO le timer cancel !!!!!
+    // _timer.cancel();
   }
 };

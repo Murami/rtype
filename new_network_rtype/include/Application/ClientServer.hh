@@ -6,11 +6,14 @@
 #include "ProtocoleObserver.hh"
 #include "Room.hh"
 
+#define send(sock, data)		(sock.sendData(&data, sizeof(data)))
+
 namespace Application
 {
   class Server;
 
-  class ClientServer : public Network::TcpSocketObserver, public Network::ITcpProtocoleObserver
+  class ClientServer : public Network::TcpSocketObserver,
+		       public Network::ITcpProtocoleObserver
   {
   public:
     enum State
@@ -18,6 +21,7 @@ namespace Application
 	T_MAGIC_WAITING,
 	T_DISCONNECTED,
 	T_CONNECTED,
+	T_INROOM,
 	T_INGAME
       };
 
@@ -33,22 +37,20 @@ namespace Application
     void	notify(int const & type, const RtypeProtocol::Message *, Network::TcpSocket *) ;
     void	notify(int const & type, const RtypeProtocol::RoomConnection *, Network::TcpSocket *) ;
     void	notify(int const & type, const RtypeProtocol::PingPong *, Network::TcpSocket *) ;
-    void	notify(int const & type, const RtypeProtocol::Score *, Network::TcpSocket *) ;
-    void	notify(int const & type, const RtypeProtocol::MapChange *, Network::TcpSocket *) ;
     void	notify(int const & type, const RtypeProtocol::GameReadyState *, Network::TcpSocket *) ;
     void	notify(int const & type, const RtypeProtocol::EndGame *, Network::TcpSocket *) ;
     void	notify(int const & type, const RtypeProtocol::Room *, Network::TcpSocket *) ;
     void	notify(int const & type, Network::TcpSocket *) ;
 
-    Network::TcpSocket & getSocket() const;
-
-    // void			setRoom(Room * room);
+    void		sendHeader(int type);
+    Network::TcpSocket& getSocket() const;
+    void		setClientRoom(ClientRoom* clientroom);
 
   private:
     Server &			_server;
     Network::TcpSocket &	_socket;
     State			_state;
-    Room *			_room;
+    ClientRoom*			_clientroom;
     std::string			_name;
   };
 
