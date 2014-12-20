@@ -3,6 +3,7 @@
 #include "ClientException.hh"
 #include "Server.hh"
 #include "Util/Util.hh"
+#include "ClientRoom.hh"
 
 namespace Application
 {
@@ -38,10 +39,17 @@ namespace Application
     _server.getService().addWriteTcp(socket);
   }
 
+  void	ClientServer::onTimeout(Network::Timer& timer)
+  {
+    // TIMEOUT DU CLIENT ON DECO TOUT !!!!!
+  }
+
   void	ClientServer::notify(int const &type, const RtypeProtocol::Magic * magicRcv, Network::TcpSocket * socket)
   {
     if (type == RtypeProtocol::T_MAGIC)
       {
+	std::cout << "magic" << std::endl;
+
 	RtypeProtocol::Header header;
 	RtypeProtocol::Magic magic;
 
@@ -69,6 +77,7 @@ namespace Application
   {
     if (type == RtypeProtocol::T_CONNECTION)
       {
+	std::cout << "connection" << std::endl;
 	if (_state != T_DISCONNECTED)
 	  throw ClientException("PROTOCOL ERROR");
 
@@ -82,6 +91,7 @@ namespace Application
   {
     if (type == RtypeProtocol::T_MSG)
       {
+	std::cout << "msg" << std::endl;
 	if (_state != T_CONNECTED)
 	  throw ClientException("PROTOCOL ERROR");
 
@@ -94,6 +104,11 @@ namespace Application
   {
     if (type == RtypeProtocol::T_ROOM_JOIN)
       {
+	std::cout << "room join" << std::endl;
+
+	if (_state != T_CONNECTED)
+	  throw ClientException("Join in non-connected state");
+
 	Room*		room = _server.getRoom(roomConnection->id);
 	std::string	pass;
 
@@ -111,8 +126,13 @@ namespace Application
 	  {
 	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_IS_FULL);
 	  }
+	else if (room->isGameStarted())		// GAME ALREADY STARTED
+	  {
+	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_STARTED);
+	  }
 	else					// OK
 	  {
+	    _state = T_INROOM;
 	    _clientroom = room->addClient(this);
 	    _server.addClientRoom(_clientroom);
 	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_OK);
@@ -122,30 +142,65 @@ namespace Application
 
   void	ClientServer::notify(int const &type, const RtypeProtocol::PingPong * ping, Network::TcpSocket * socket)
   {
-    std::cout << "rcv " << type << " with PingPong" << std::endl;
-  }
+    if (type == RtypeProtocol::T_PONG)
+      {
+	std::cout << "pong" << std::endl;
 
-  void	ClientServer::notify(int const &type, const RtypeProtocol::GameReadyState * state,
-			     Network::TcpSocket * socket)
-  {
-    std::cout << "rcv " << type << " with GameReadyState" << std::endl;
-  }
-
-  void	ClientServer::notify(int const &type, const RtypeProtocol::EndGame * end, Network::TcpSocket * socket)
-  {
-    std::cout << "rcv " << type << " with EndGame" << std::endl;
+	_timer.setTimeout(std::chrono::duration<int, std::ratio<1> >(3));
+	this->sendHeader(RtypeProtocol::T_PING);
+      }
   }
 
   void	ClientServer::notify(int const &type, const RtypeProtocol::Room * room, Network::TcpSocket * socket)
   {
-    if (_state != T_CONNECTED)
-      throw ClientException("PROTOCOL ERROR");
-    _server.createRoom(this, room);
+    if (type == RtypeProtocol::T_ROOM_CREATE)
+      {
+	std::cout << "create room" << std::endl;
+
+	std::string	roomname;
+
+	if (_state != T_CONNECTED)
+	  throw ClientException("Room creation in non-connected state");
+
+	Util::stringncopy(roomname, room->room_name, ROOM_NAME_SIZE);
+
+	if (_server.roomExists(roomname))
+	  {
+	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_NOT_FOUND);
+	  }
+	else
+	  {
+	    _server.createRoom(this, room);
+	    this->sendHeader(RtypeProtocol::T_ROOM_CREATE_OK);
+	  }
+      }
   }
 
   void	ClientServer::notify(int const &type, Network::TcpSocket * socket)
   {
-    std::cout << "rcv " << type << " with Nothing" << std::endl;
+    if (type == RtypeProtocol::T_READY)
+      {
+	std::cout << "ready" << std::endl;
+
+	if (_state != T_INROOM)
+	  throw ClientException("");
+      }
+    if (type == RtypeProtocol::T_ROOM_EXIT)
+      {
+	std::cout << "room exit" << std::endl;
+
+	if (_state != T_INROOM)
+	  throw ClientException("");
+      }
+    if (type == RtypeProtocol::T_GETROOMLIST)
+      {
+	std::cout << "get room list" << std::endl;
+
+	if (_state != T_CONNECTED)
+	  throw ClientException("");
+
+	_server.sendAllRoomInfos(this);
+      }
   }
 
   Network::TcpSocket & ClientServer::getSocket() const
@@ -162,14 +217,38 @@ namespace Application
     send(this->_socket, header);
   }
 
+  void	ClientServer::sendRoomInfos(Room* room)
+  {
+    RtypeProtocol::Room				roominfos;
+    std::list<ClientRoom*>::const_iterator	it;
+
+    roominfos.id = room->getID();
+    roominfos.locked = room->isGameStarted();
+    roominfos.nb_connected_users = room->getNbClient();
+
+    if (room->getPass() == "")
+      roominfos.password_flag = 0;
+    else
+      roominfos.password_flag = 1;
+
+    room->getName().copy(reinterpret_cast<char*>(roominfos.pass_md5), PASS_MD5_SIZE);
+    room->getName().copy(reinterpret_cast<char*>(roominfos.room_name), ROOM_NAME_SIZE);
+
+    for (it = room->getClients().begin(); it != room->getClients().end(); it++)
+      {
+	unsigned int	idx = std::distance(room->getClients().begin(), it);
+	(*it)->getName().copy(reinterpret_cast<char*>(roominfos.ready_users[idx]), USERNAME_SIZE);
+      }
+  }
+
   void	ClientServer::setClientRoom(ClientRoom* clientroom)
   {
     _clientroom = clientroom;
   }
 
-  // void ClientServer::setRoom(Room * room)
-  // {
-  //   _room = room;
-  // }
+  const std::string&	ClientServer::getName() const
+  {
+    return (_name);
+  }
 
 } /* namespace Application */

@@ -11,6 +11,7 @@ namespace Application
     _name = name;
     _pass = pass;
     _id = _generator.generate();
+    _gamestarted = false;
   }
 
   Room::~Room()
@@ -79,11 +80,38 @@ namespace Application
   {
     _time = std::chrono::system_clock::now().time_since_epoch();
     _timer.setTimeout(duration_milli(0));
+    _gamestarted = true;
   }
 
   void		Room::stopGame()
   {
-    // TODO le timer cancel !!!!!
+    // TODO Timer::cancel()
     // _timer.cancel();
+    _gamestarted = false;
+  }
+
+  const std::string&	Room::getName() const
+  {
+    return (_name);
+  }
+
+  const std::list<ClientRoom*>&	Room::getClients() const
+  {
+    return (_clients);
+  }
+
+  bool	Room::isGameStarted() const
+  {
+    return (_gamestarted);
+  }
+
+  unsigned int	Room::getNbClient() const
+  {
+    return (_clients.size());
+  }
+
+  const std::string&	Room::getPass() const
+  {
+    return (_pass);
   }
 };

@@ -1,5 +1,6 @@
 #include <algorithm>
 #include "Server.hh"
+#include "Util/Util.hh"
 
 namespace Application
 {
@@ -72,10 +73,12 @@ namespace Application
   // Room
   void Server::createRoom(ClientServer* client, const RtypeProtocol::Room* roominfos)
   {
-    std::string	name(reinterpret_cast<const char*>(roominfos->room_name),
-		     strnlen(reinterpret_cast<const char*>(roominfos->room_name), ROOM_NAME_SIZE));
-    std::string	pass(reinterpret_cast<const char*>(roominfos->pass_md5),
-		     strnlen(reinterpret_cast<const char*>(roominfos->pass_md5), PASS_MD5_SIZE));
+    std::string	name;
+    std::string	pass;
+
+    Util::stringncopy(name, roominfos->room_name, ROOM_NAME_SIZE);
+    Util::stringncopy(pass, roominfos->pass_md5, PASS_MD5_SIZE);
+
     Room*	room = new Room(*this, name, pass);
 
     _rooms[room->getID()] = room;
@@ -86,6 +89,16 @@ namespace Application
     if (_rooms.find(roomID) == _rooms.end())
       return (NULL);
     return (_rooms.at(roomID));
+  }
+
+  bool	Server::roomExists(const std::string& name) const
+  {
+    std::map<unsigned int, Room*>::const_iterator	it;
+
+    for (it = _rooms.begin(); it != _rooms.end(); it++)
+      if ((it->second)->getName() == name)
+	return (true);
+    return (false);
   }
 
   // Get composite objects
@@ -107,5 +120,13 @@ namespace Application
   void	Server::deleteClientRoom(ClientRoom* clientroom)
   {
     _clientsroom.remove(clientroom);
+  }
+
+  void	Server::sendAllRoomInfos(ClientServer* clientserver) const
+  {
+    std::map<unsigned int, Room*>::const_iterator	it;
+
+    for (it = _rooms.begin(); it != _rooms.end(); it++)
+      clientserver->sendRoomInfos(it->second);
   }
 }

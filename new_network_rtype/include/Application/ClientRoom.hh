@@ -1,6 +1,7 @@
 #ifndef CLIENT_ROOM
 #define CLIENT_ROOM
 
+#include <string>
 #include "Game/Player.hh"
 
 namespace Application
@@ -18,6 +19,8 @@ namespace Application
   public:
     ClientRoom(Room& room, ClientServer& clientserver);
     ~ClientRoom();
+
+    const std::string&	getName() const;
   };
 };
 

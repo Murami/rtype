@@ -34,23 +34,34 @@ namespace Application
     std::string					_name;
     std::string					_pass;
     Network::Timer				_timer;
+    bool					_gamestarted;
 
   public:
     Room(Server& server, const std::string& name, const std::string& pass);
     ~Room();
 
-    void		startGame();
-    void		stopGame();
-    void		onTimeout(Network::Timer& timer);
-    void		receive(const Game::Entity& entity, const Game::EntityEvent::Move& event);
-    void		receive(const Game::Entity& entity, const Game::EntityEvent::Life& event);
-    void		receive(const Game::Core& core, const Game::CoreEvent::Spawn& event);
-    void		receive(const Game::Core& core, const Game::CoreEvent::Destroy& event);
-    unsigned int	getID() const;
-    bool		testConnection(const std::string& password) const;
-    bool		isFull() const;
-    ClientRoom*		addClient(ClientServer* clientserver);
-    Game::Core&		getGame();
+    void				startGame();
+    void				stopGame();
+    bool				isGameStarted() const;
+
+    void				onTimeout(Network::Timer& timer);
+    void				receive(const Game::Entity& entity, const Game::EntityEvent::Move& event);
+    void				receive(const Game::Entity& entity, const Game::EntityEvent::Life& event);
+    void				receive(const Game::Core& core, const Game::CoreEvent::Spawn& event);
+    void				receive(const Game::Core& core, const Game::CoreEvent::Destroy& event);
+
+    ClientRoom*				addClient(ClientServer* clientserver);
+
+    unsigned int			getID() const;
+    const std::string&			getPass() const;
+    const std::string&			getName() const;
+    const std::list<ClientRoom*>&	getClients() const;
+    unsigned int			getNbClient() const;
+
+    bool				testConnection(const std::string& password) const;
+    bool				isFull() const;
+
+    Game::Core&				getGame();
   };
 };
 
