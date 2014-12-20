@@ -121,13 +121,8 @@ void		RtypeClient::run()
   RtypeProtocol::Magic	magic;
 
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
-<<<<<<< HEAD
-					       sf::VideoMode::getDesktopMode().height), "Rtype", sf::Style::Fullscreen);
-  SoundManager::Play("scoring");
-=======
 					       sf::VideoMode::getDesktopMode().height), "Rtype");
   SoundManager::Play("theme", true);
->>>>>>> c1832acf8403075991e191718e449f6ffda662f1
 
   _window->setKeyRepeatEnabled(false);
   _menuView = new MenuView(*_window);
