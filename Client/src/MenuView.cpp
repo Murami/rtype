@@ -7,6 +7,7 @@
 //
 
 #include "MenuView.hh"
+#include "SoundManager.hh"
 
 #ifdef __APPLE__
 static const char *blackConf = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/widgets/Black.conf";
@@ -408,8 +409,8 @@ void MenuView::run(sf::RenderWindow &window)
 	    case RtypeEvent::LISTCHOICE:
 	      this->_editBoxRoomName->setText(this->_listRoom->getSelectedItem());
 	    case RtypeEvent::APPLY:
-	      SoundManager::MusicVolume(_sliderMusic.getValue());
-	      SoundManager::SoundVolume(_sliderSound.getValue());
+	      SoundManager::MusicVolume(_musicSlider->getValue());
+	      SoundManager::SoundVolume(_effectSlider->getValue());
 	    default:
 	      break;
             }

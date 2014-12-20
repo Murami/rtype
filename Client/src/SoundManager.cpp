@@ -93,7 +93,7 @@ void	SoundManager::SoundVolume(int volume)
   _soundVolume = volume;
 }
 
-void	SoundManager::MmusicVolume(int volume)
+void	SoundManager::MusicVolume(int volume)
 {
   std::map<std::string, std::shared_ptr<sf::Music> >::iterator	it;
 
