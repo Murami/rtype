@@ -57,8 +57,11 @@ void		RtypeClient::run()
   std::memcpy(&buffer[0], &header, sizeof(header));
   std::memcpy(&buffer[sizeof(header)], &magic, sizeof(magic));
 
+  std::cout << "Begin to read" << std::endl;
   _tcpConnection->startRead();
+  std::cout << "Sending magic number..." << std::endl;
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(magic));
+  std::cout << "Magic number sent" << std::endl;
 
   SoundManager::Play("theme", true);
   _menuView->run(*_window, &_mutex);
