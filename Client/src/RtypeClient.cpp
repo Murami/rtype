@@ -122,7 +122,6 @@ void		RtypeClient::run()
 
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
 					       sf::VideoMode::getDesktopMode().height), "Rtype", sf::Style::Fullscreen);
-
   SoundManager::Play("theme", true);
 
   _window->setKeyRepeatEnabled(false);
@@ -138,6 +137,7 @@ void		RtypeClient::run()
 
   _menuView->addObserver(_menuController);
   _menuController->setMenuListener(this);
+  SoundManager::Play("theme", true);
 
   header.type = RtypeProtocol::T_MAGIC;
   header.data_size = sizeof(magic);
