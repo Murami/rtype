@@ -51,8 +51,7 @@ namespace Application
       {
 	std::cout << "magic" << std::endl;
 
-	RtypeProtocol::Header header;
-	RtypeProtocol::Magic magic;
+	RtypeProtocol::Magic	magic;
 
 	if (_state != T_MAGIC_WAITING)
 	  throw ClientException("MAGIC PROTOCOL ERROR");
@@ -60,7 +59,7 @@ namespace Application
 	magic.minor_version = RtypeProtocol::minor_version;
 	magic.major_version = RtypeProtocol::major_version;
 	std::memset(magic.proto_name, 0, PROTO_NAME_SIZE);
-	std::memcpy(magic.proto_name, RtypeProtocol::proto_name, 5); /* attention */
+	std::memcpy(magic.proto_name, RtypeProtocol::proto_name, 5);
 
 	if (std::memcmp(&magic, magicRcv, sizeof(RtypeProtocol::Magic)) != 0)
 	  {
