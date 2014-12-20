@@ -480,11 +480,11 @@ namespace Network
     switch (header->type)
       {
       case RtypeProtocol::T_MAGIC:
-	obs->notify(header->type, decode<RtypeProtocol::Magic>(data), socket);
+	obs->notify(header->type, decode<RtypeProtocol::Magic>(data, datasize, header->data_size), socket);
 	break;
 
       case RtypeProtocol::T_CONNECTION:
-	obs->notify(header->type, decode<RtypeProtocol::User>(data), socket);
+	obs->notify(header->type, decode<RtypeProtocol::User>(data, datasize, header->data_size), socket);
 	break;
 
       case RtypeProtocol::T_DISCONNECTION:
@@ -496,7 +496,7 @@ namespace Network
 	break;
 
       case RtypeProtocol::T_ROOM_JOIN:
-	obs->notify(header->type, decode<RtypeProtocol::RoomConnection>(data), socket);
+	obs->notify(header->type, decode<RtypeProtocol::RoomConnection>(data, datasize, header->data_size), socket);
 	break;
 
       case RtypeProtocol::T_ROOM_EXIT:
@@ -504,7 +504,7 @@ namespace Network
 	break;
 
       case RtypeProtocol::T_PONG:
-	obs->notify(header->type, decode<RtypeProtocol::PingPong>(data), socket);
+	obs->notify(header->type, decode<RtypeProtocol::PingPong>(data, datasize, header->data_size), socket);
 	break;
 
       case RtypeProtocol::T_READY:
@@ -512,11 +512,11 @@ namespace Network
 	break;
 
       case RtypeProtocol::T_MSG:
-	obs->notify(header->type, decode<RtypeProtocol::Message>(data), socket);
+	obs->notify(header->type, decode<RtypeProtocol::Message>(data, datasize, header->data_size), socket);
 	break;
 
       case RtypeProtocol::T_ROOM_CREATE:
-	obs->notify(header->type, decode<RtypeProtocol::Room>(data), socket);
+	obs->notify(header->type, decode<RtypeProtocol::Room>(data, datasize, header->data_size), socket);
 	break;
 
       default:
