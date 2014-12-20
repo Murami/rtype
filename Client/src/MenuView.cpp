@@ -376,7 +376,7 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 		else if (event.key.code == sf::Keyboard::Return && _actualState == RtypeEvent::LOGINSTATE && _editBoxUsername->getText() != "")
 		  {
 		    _actualState = RtypeEvent::MENUSTATE;
-		    this->notify(RtypeEvent::LOGIN);		    
+		    this->notify(RtypeEvent::LOGIN);
 		  }
 	      }
             _stateToGui[_actualState]->handleEvent(event);
