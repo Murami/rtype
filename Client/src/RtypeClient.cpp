@@ -122,13 +122,19 @@ void		RtypeClient::run()
 
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
 					       sf::VideoMode::getDesktopMode().height), "Rtype", sf::Style::Fullscreen);
+
   SoundManager::Play("theme", true);
 
   _window->setKeyRepeatEnabled(false);
+
   _menuView = new MenuView(*_window);
   _menuController = new MenuController(*_menuView);
+
   if (!_tcpConnection->connect())
-    throw (std::runtime_error("Connect"));
+    {
+      _window->close();
+      throw (std::runtime_error("Connect"));
+    }
 
   _menuView->addObserver(_menuController);
   _menuController->setMenuListener(this);
@@ -141,18 +147,16 @@ void		RtypeClient::run()
   std::memcpy(reinterpret_cast<char *>(&magic.proto_name[0]),
   	      RtypeProtocol::proto_name,
   	      std::strlen(reinterpret_cast<const char *>(RtypeProtocol::proto_name)));
-
   char *buffer = new char[sizeof(header) + sizeof(magic)];
   std::memcpy(&buffer[0], &header, sizeof(header));
   std::memcpy(&buffer[sizeof(header)], &magic, sizeof(magic));
 
   _tcpConnection->startRead();
-
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(magic));
-
   _tcpConnection->joinRead();
 
   _menuView->run(*_window);
+  _tcpConnection->stopRead();
 }
 
 RtypeClient::~RtypeClient()

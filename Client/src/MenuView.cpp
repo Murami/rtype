@@ -68,10 +68,10 @@ MenuView::MenuView(sf::RenderWindow &window)
 
 MenuView::~MenuView()
 {
-    _loginGui->removeAllWidgets();
-    _menuGui->removeAllWidgets();
-    _roomSelectGui->removeAllWidgets();
-    _roomGui->removeAllWidgets();
+    // _loginGui->removeAllWidgets();
+    // _menuGui->removeAllWidgets();
+    // _roomSelectGui->removeAllWidgets();
+    // _roomGui->removeAllWidgets();
 }
 
 void MenuView::initLogin()
@@ -354,71 +354,75 @@ void MenuView::run(sf::RenderWindow &window)
                 window.close();
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-            {
+	      {
                 if (_actualState == RtypeEvent::LOGINSTATE)
-                {
+		  {
                     _run = false;
                     window.close();
-		}
+		  }
                 else
-                {
+		  {
                     this->prevState();
-                }
-            }
+		  }
+	      }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && _actualState == RtypeEvent::LOGINSTATE && _editBoxUsername->getText() != "")
-            {
+	      {
                 _actualState = RtypeEvent::MENUSTATE;
                 this->notify(RtypeEvent::LOGIN);
-            }
+	      }
             _stateToGui[_actualState]->handleEvent(event);
         }
         tgui::Callback callback;
         while (_stateToGui[_actualState]->pollCallback(callback))
-        {
+	  {
             switch (callback.id)
-            {
-	    case RtypeEvent::LOGIN:
-	      if (_editBoxUsername->getText() == "")
+	      {
+	      case RtypeEvent::LOGIN:
+		if (_editBoxUsername->getText() == "")
+		  break;
+		_actualState = RtypeEvent::MENUSTATE;
+		this->notify(RtypeEvent::LOGIN);
 		break;
-	      _actualState = RtypeEvent::MENUSTATE;
-	      this->notify(RtypeEvent::LOGIN);
-	      break;
-	    case RtypeEvent::PLAY:
-	      _actualState = RtypeEvent::ROOMSELECTSTATE;
-	      break;
-	    case RtypeEvent::SETTINGS:
-	      _actualState = RtypeEvent::SETTINGSTATE;
-	      break;
-	    case RtypeEvent::SCORES:
-	      std::cout << "Scores button pressed" << std::endl;
-	      break;
-	    case RtypeEvent::CREDITS:
-	      std::cout << "Credits button pressed" << std::endl;
-	      break;
-	    case RtypeEvent::CREATE:
-	      this->notify(RtypeEvent::CREATE);
-	      _actualState = RtypeEvent::ROOMSTATE;
-	      break;
-	    case RtypeEvent::JOIN:
-	      this->notify(RtypeEvent::JOIN);
-	      _actualState = RtypeEvent::ROOMSTATE;
-	      break;
-	    case RtypeEvent::BACK:
-	      this->prevState();
-	      break;
-	    case RtypeEvent::LISTCHOICE:
-	      this->_editBoxRoomName->setText(this->_listRoom->getSelectedItem());
-	    case RtypeEvent::APPLY:
-	      SoundManager::MusicVolume(_musicSlider->getValue());
-	      SoundManager::SoundVolume(_effectSlider->getValue());
-	    default:
-	      break;
-            }
-         }
+	      case RtypeEvent::PLAY:
+		_actualState = RtypeEvent::ROOMSELECTSTATE;
+		break;
+	      case RtypeEvent::SETTINGS:
+		_actualState = RtypeEvent::SETTINGSTATE;
+		break;
+	      case RtypeEvent::SCORES:
+		std::cout << "Scores button pressed" << std::endl;
+		break;
+	      case RtypeEvent::CREDITS:
+		std::cout << "Credits button pressed" << std::endl;
+		break;
+	      case RtypeEvent::CREATE:
+		this->notify(RtypeEvent::CREATE);
+		_actualState = RtypeEvent::ROOMSTATE;
+		break;
+	      case RtypeEvent::JOIN:
+		this->notify(RtypeEvent::JOIN);
+		_actualState = RtypeEvent::ROOMSTATE;
+		break;
+	      case RtypeEvent::BACK:
+		this->prevState();
+		break;
+	      case RtypeEvent::LISTCHOICE:
+		this->_editBoxRoomName->setText(this->_listRoom->getSelectedItem());
+	      case RtypeEvent::APPLY:
+		SoundManager::MusicVolume(_musicSlider->getValue());
+		SoundManager::SoundVolume(_effectSlider->getValue());
+	      default:
+		break;
+	      }
+	  }
         window.clear();
         _stateToGui[_actualState]->draw();
         window.display();
     }
+    _loginGui->removeAllWidgets();
+    _menuGui->removeAllWidgets();
+    _roomSelectGui->removeAllWidgets();
+    _roomGui->removeAllWidgets();
 }
 
 void	MenuView::stop()
