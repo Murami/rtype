@@ -303,9 +303,11 @@ namespace Network
     for (it = _Timers.begin(); it != _Timers.end(); it++)
       if ((*(*it))->getTime() > timer.getTime())
 	{
+	  timer.setService(this);
 	  _Timers.insert(it, TimerRAII(&timer));
 	  return;
 	}
+    timer.setService(this);
     _Timers.insert(it, TimerRAII(&timer));
   }
 
@@ -332,6 +334,17 @@ namespace Network
   void Service::addAcceptor(Acceptor & socket)
   {
     _Acceptors.insert(std::pair<SOCKET, Acceptor*>(socket.getSocket(), &socket));
+  }
+
+  void Service::deleteTimeout(Timer & timer)
+  {
+    std::list<TimerRAII>::iterator it;
+
+    for (it = _Timers.begin(); it != _Timers.end(); ++it)
+      {
+	if (*(*it) == &timer)
+	  _Timers.erase(it);
+      }
   }
 
   void Service::deleteReadTcp(TcpSocket & socket)

@@ -79,6 +79,7 @@ namespace Network
     void addWriteUdp(UdpSocket & socket);
     void addAcceptor(Acceptor & sOBocket);
 
+    void deleteTimeout(Timer & timer);
     void deleteReadTcp(TcpSocket & socket);
     void deleteWriteTcp(TcpSocket & socket);
     void deleteReadUdp(UdpSocket & socket);

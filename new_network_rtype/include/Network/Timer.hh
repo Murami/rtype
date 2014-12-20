@@ -10,6 +10,7 @@ namespace Network
   typedef std::chrono::duration<int, std::micro >      duration_microsecond;
 
   class TimerObserver;
+  class Service;
 
   class Timer
   {
@@ -22,10 +23,13 @@ namespace Network
 
     void					setObserver(TimerObserver * observer);
     void					notify();
+    void					setService(Service * service);
+    void					cancel();
 
   private:
     std::chrono::system_clock::duration		_time;
     TimerObserver *				_observer;
+    Service *					_service;
   };
 
 } /* namespace Network */
