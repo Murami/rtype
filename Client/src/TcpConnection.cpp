@@ -40,6 +40,7 @@ sf::TcpSocket&	TcpConnection::socket()
 
 bool		TcpConnection::connect()
 {
+  std::cout << "Attempting to connect to " << _conf.getIp() << ":" << _conf.getPort() << "..." << std::endl;
   if (_socket.connect(_conf.getIp(), _conf.getPort()) != sf::Socket::Done)
     {
       std::cerr << "Unable to connect to remote host : "

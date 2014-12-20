@@ -128,22 +128,19 @@ void		RtypeClient::run()
   RtypeProtocol::Magic	magic;
 
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
-					       sf::VideoMode::getDesktopMode().height), "Rtype", sf::Style::Fullscreen);
+					       sf::VideoMode::getDesktopMode().height),
+				 "Rtype", sf::Style::Fullscreen);
 
   _window->setKeyRepeatEnabled(false);
 
   _menuView = new MenuView(*_window);
   _menuController = new MenuController(*_menuView);
 
-  if (!_tcpConnection->connect())
-    {
-      _window->close();
-      throw (std::runtime_error("Connect"));
-    }
-
-  std::cout << "Apres throw" << std::endl;
   _menuView->addObserver(_menuController);
   _menuController->setMenuListener(this);
+
+  if (!_tcpConnection->connect())
+    xthrow (std::runtime_error("Connect"));
 
   header.type = RtypeProtocol::T_MAGIC;
   header.data_size = sizeof(magic);
