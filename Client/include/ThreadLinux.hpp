@@ -50,7 +50,7 @@ namespace Util
     {
       if (_started)
 	{
-	  pthread_cancel(&_thread);
+	  pthread_cancel(_thread);
 	  _started = false;
 	}
     }
@@ -59,8 +59,8 @@ namespace Util
     {
       if (_started)
 	{
-	  pthread_join(&_thread, NULL);
-	  pthread_detach(&_thread);
+	  pthread_join(_thread, NULL);
+	  pthread_detach(_thread);
 	  _started = false;
 	}
     }

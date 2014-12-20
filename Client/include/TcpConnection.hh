@@ -3,6 +3,7 @@
 
 # include	<SFML/Network.hpp>
 
+# include	"NetworkWriter.hh"
 # include	"NetworkReader.hh"
 
 class		ConnectionConfiguration;
@@ -13,7 +14,8 @@ private:
   const ConnectionConfiguration&	_conf;
   sf::TcpSocket				_socket;
   NetworkReader*			_reader;
-  bool					_running;
+  NetworkWriter*			_writer;
+  bool					_reading;
 
 public:
   TcpConnection(const ConnectionConfiguration&);
@@ -25,7 +27,7 @@ public:
   void			startRead();
   void			joinRead();
   void			stopRead();
-  bool			isRunning() const;
+  bool			isReading() const;
 
   sf::TcpSocket&	socket();
 };

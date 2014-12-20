@@ -8,18 +8,20 @@ TcpConnection::TcpConnection(const ConnectionConfiguration& conf) :
   _conf(conf)
 {
   _reader = new NetworkReader(*this);
+  _reader->setParam(NULL);
+  _writer = new NetworkWriter(*this);
 }
 
 void		TcpConnection::startRead()
 {
   _reader->start();
-  _running = true;
+  _reading = true;
 }
 
 void		TcpConnection::stopRead()
 {
   _reader->cancel();
-  _running = false;
+  _reading = false;
 }
 
 void		TcpConnection::joinRead()
@@ -27,9 +29,9 @@ void		TcpConnection::joinRead()
   _reader->join();
 }
 
-bool		TcpConnection::isRunning() const
+bool		TcpConnection::isReading() const
 {
-  return (_running);
+  return (_reading);
 }
 
 sf::TcpSocket&	TcpConnection::socket()

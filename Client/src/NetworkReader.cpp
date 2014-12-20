@@ -4,8 +4,6 @@
 #include	"INetworkListener.hh"
 #include	"RtypeProtocol.hh"
 
-const int	NetworkReader::BUFFER_SIZE = 4096;
-
 NetworkReader::NetworkReader(TcpConnection& tcpConnection) :
   _tcpConnection(tcpConnection)
 {
@@ -13,18 +11,20 @@ NetworkReader::NetworkReader(TcpConnection& tcpConnection) :
   _tcpListener = NULL;
 }
 
-int			NetworkReader::run()
+int			NetworkReader::run(Util::Mutex* mutex)
 {
   char			buffer[4096];
   std::size_t		received;
 
   // Faire le buffer tournant circulaire
   std::cout << "\033[42mBeginning to read...\033[0m" << std::endl;
-  while (_tcpConnection.isRunning() &&
+  while (_tcpConnection.isReading() &&
 	 _tcpConnection.socket().receive(buffer, 4096, received) == sf::Socket::Done)
     {
+      mutex->lock();
       std::cout << "\033[43mTreating datas...\033[0m" << std::endl;
       onReadData(buffer, received);
+      mutex->unlock();
     }
   std::cout << "\033[44mEnding Thread...\033[0m" << std::endl;
   return (0);
