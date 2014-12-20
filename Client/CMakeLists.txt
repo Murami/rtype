@@ -3,7 +3,7 @@ project(R-Type)
 
 include_directories(include/ include/Graphic)
 
-SET(CMAKE_CXX_FLAGS "-W -Wall -Wextra -std=c++11")
+SET(CMAKE_CXX_FLAGS "-W -Wall -Wextra -std=c++11 -ggdb -g3")
 
 set(EXECUTABLE_NAME "client")
 set(EXECUTABLE_OUTPUT_PATH "../")

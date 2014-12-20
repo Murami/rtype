@@ -289,13 +289,13 @@ void MenuView::initSetting()
 {
   sf::Font font;
   font.loadFromFile(chatFont);
-  
+
   _roomGui->setGlobalFont(fontPath);
-  
+
   tgui::Picture::Ptr picture(*_settingGui);
   picture->load(backgroundRoom);
   picture->setSize(_width, _height);
-  
+
   tgui::Label::Ptr label(*_settingGui);
   label->load(blackConf);
   label->setSize((0.104 * _width), (0.027 * _height));
@@ -303,7 +303,7 @@ void MenuView::initSetting()
   label->setText("LabelTOTO");
   label->setTextColor(sf::Color::Cyan);
   label->setTextSize(25);
-  
+
   tgui::Slider::Ptr slider(*_settingGui);
   _settingGui->add(_slider);
   _slider->load(blackConf);
@@ -333,7 +333,7 @@ void MenuView::run(sf::RenderWindow &window)
                 {
                     _run = false;
                     window.close();
-                }
+		}
                 else
                 {
                     this->prevState();
