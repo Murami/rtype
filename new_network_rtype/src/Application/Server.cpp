@@ -28,6 +28,7 @@ namespace Application
     _service.run();
   }
 
+  // Network events
   void Server::onAccept(Network::Acceptor & acceptor)
   {
     std::cout << "on connect" << std::endl;
@@ -57,18 +58,7 @@ namespace Application
     _service.addTimeout(timer);
   }
 
-  void Server::createRoom(ClientServer* client, const RtypeProtocol::Room* roominfos)
-  {
-
-    std::string	name(reinterpret_cast<const char*>(roominfos->room_name),
-		     strnlen(reinterpret_cast<const char*>(roominfos->room_name), ROOM_NAME_SIZE));
-    std::string	pass(reinterpret_cast<const char*>(roominfos->pass_md5),
-		     strnlen(reinterpret_cast<const char*>(roominfos->pass_md5), PASS_MD5_SIZE));
-    Room*	room = new Room(*this, name, pass);
-
-    _rooms.push_back(room);
-  }
-
+  // ClientServer
   void Server::deleteClientServer(ClientServer * client)
   {
     _service.deleteReadTcp(client->getSocket());
@@ -76,10 +66,30 @@ namespace Application
     _clients.erase(std::find(_clients.begin(), _clients.end(), client));
     delete client;
     /* WARNNNNNNNING delete les timeout, l'objet MUST BE un timerObserver*/ /* HAHAHAHAHA MUST BE XD */
-    /* delete les udp  aussi */
+    /* delete les udp aussi */
   }
 
-  Network::Service & Server::getService() const
+  // Room
+  void Server::createRoom(ClientServer* client, const RtypeProtocol::Room* roominfos)
+  {
+    std::string	name(reinterpret_cast<const char*>(roominfos->room_name),
+		     strnlen(reinterpret_cast<const char*>(roominfos->room_name), ROOM_NAME_SIZE));
+    std::string	pass(reinterpret_cast<const char*>(roominfos->pass_md5),
+		     strnlen(reinterpret_cast<const char*>(roominfos->pass_md5), PASS_MD5_SIZE));
+    Room*	room = new Room(*this, name, pass);
+
+    _rooms[room->getID()] = room;
+  }
+
+  Room*	Server::getRoom(unsigned int roomID) const
+  {
+    if (_rooms.find(roomID) == _rooms.end())
+      return (NULL);
+    return (_rooms.at(roomID));
+  }
+
+  // Get composite objects
+  Network::Service &		Server::getService() const
   {
     return (_service);
   }
@@ -87,5 +97,15 @@ namespace Application
   const Network::ProtocoleTcp & Server::getProtocole() const
   {
     return (_protocoleTcp);
+  }
+
+  void	Server::addClientRoom(ClientRoom* clientroom)
+  {
+    _clientsroom.push_back(clientroom);
+  }
+
+  void	Server::deleteClientRoom(ClientRoom* clientroom)
+  {
+    _clientsroom.remove(clientroom);
   }
 }

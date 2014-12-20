@@ -2,9 +2,12 @@
 #include "ClientServer.hh"
 #include "ClientException.hh"
 #include "Server.hh"
+#include "Util/Util.hh"
 
 namespace Application
 {
+
+  Util::IDGenerator	Room::_generator = Util::IDGenerator();
 
   ClientServer::ClientServer(Server & server, Network::TcpSocket & socket) : _server(server), _socket(socket)
   {
@@ -37,63 +40,84 @@ namespace Application
 
   void	ClientServer::notify(int const &type, const RtypeProtocol::Magic * magicRcv, Network::TcpSocket * socket)
   {
-    std::cout << "rcv " << type << " with Magic" << std::endl;
-    RtypeProtocol::Header header;
-    RtypeProtocol::Magic magic;
-
-    magic.minor_version = RtypeProtocol::minor_version;
-    magic.major_version = RtypeProtocol::major_version;
-    std::memset(magic.proto_name, 0, PROTO_NAME_SIZE);
-    std::memcpy(magic.proto_name, RtypeProtocol::proto_name, 5); /* attention */
-    if (std::memcmp(&magic, magicRcv, sizeof(RtypeProtocol::Magic)) != 0)
+    if (type == RtypeProtocol::T_MAGIC)
       {
-	header.type = RtypeProtocol::T_MAGIC_BAD_VERSION;
-	header.data_size = 0;
-	throw ClientException("MAGIC ERROR");
-      }
-    else
-      {
-	_state = T_DISCONNECTED;
-	header.type = RtypeProtocol::T_MAGIC_ACCEPT;
-	header.data_size = 0;
-      }
+	RtypeProtocol::Header header;
+	RtypeProtocol::Magic magic;
 
-    Network::packet * packet = _server.getProtocole().pack(&header);
-    _socket.sendData(packet->getData(), packet->getSize());
+	if (_state != T_MAGIC_WAITING)
+	  throw ClientException("PROTOCOL ERROR");
+
+	magic.minor_version = RtypeProtocol::minor_version;
+	magic.major_version = RtypeProtocol::major_version;
+	std::memset(magic.proto_name, 0, PROTO_NAME_SIZE);
+	std::memcpy(magic.proto_name, RtypeProtocol::proto_name, 5); /* attention */
+
+	if (std::memcmp(&magic, magicRcv, sizeof(RtypeProtocol::Magic)) != 0)
+	  {
+	    this->sendHeader(RtypeProtocol::T_MAGIC_BAD_VERSION);
+	  }
+	else
+	  {
+	    _state = T_DISCONNECTED;
+	    this->sendHeader(RtypeProtocol::T_MAGIC_ACCEPT);
+	  }
+      }
   }
 
   void	ClientServer::notify(int const &type, const RtypeProtocol::User * user, Network::TcpSocket * socket)
   {
-    std::cout << "rcv " << type << " with User" << std::endl;
-
-    if (_state != T_DISCONNECTED)
-      throw ClientException("PROTOCOL ERROR");
-
-    // if (type == RtypeProtocol::T_PLAYERINFO)
-    //   {
-    // 	//
-    //   }
     if (type == RtypeProtocol::T_CONNECTION)
       {
+	if (_state != T_DISCONNECTED)
+	  throw ClientException("PROTOCOL ERROR");
+
+	Util::stringncopy(_name, user->username, USERNAME_SIZE);
 	_state = T_CONNECTED;
-	_name = std::string(reinterpret_cast<const char*>(user->username),
-			    strnlen(reinterpret_cast<const char*>(user->username), USERNAME_SIZE));
-	// TODO send ok connection
+	this->sendHeader(RtypeProtocol::T_CONNECTION_OK);
       }
   }
 
   void	ClientServer::notify(int const &type, const RtypeProtocol::Message * msg, Network::TcpSocket *socket)
   {
-    if (_state != T_CONNECTED)
-      throw ClientException("PROTOCOL ERROR");
+    if (type == RtypeProtocol::T_MSG)
+      {
+	if (_state != T_CONNECTED)
+	  throw ClientException("PROTOCOL ERROR");
 
-    // PAS DE GESTION DE MESSAGE POUR L'INSTANT
+	// TODO send msg
+      }
   }
 
   void	ClientServer::notify(int const &type, const RtypeProtocol::RoomConnection * roomConnection,
 			     Network::TcpSocket * socket)
   {
-    std::cout << "rcv " << type << " with RoomConnection" << std::endl;
+    if (type == RtypeProtocol::T_ROOM_JOIN)
+      {
+	Room*		room = _server.getRoom(roomConnection->id);
+	std::string	pass;
+
+	Util::stringncopy(pass, roomConnection->pass_md5, PASS_MD5_SIZE);
+
+	if (room == NULL)			// NOT FOUND
+	  {
+	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_NOT_FOUND);
+	  }
+	else if (!room->testConnection(pass))	// BAD PASS
+	  {
+	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_BAD_PSWD);
+	  }
+	else if (room->isFull())		// IS FULL
+	  {
+	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_IS_FULL);
+	  }
+	else					// OK
+	  {
+	    _clientroom = room->addClient(this);
+	    _server.addClientRoom(_clientroom);
+	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_OK);
+	  }
+      }
   }
 
   void	ClientServer::notify(int const &type, const RtypeProtocol::PingPong * ping, Network::TcpSocket * socket)
@@ -127,6 +151,20 @@ namespace Application
   Network::TcpSocket & ClientServer::getSocket() const
   {
     return (_socket);
+  }
+
+  void	ClientServer::sendHeader(int type)
+  {
+    RtypeProtocol::Header	header;
+
+    header.type = type;
+    header.type = 0;
+    send(this->_socket, header);
+  }
+
+  void	ClientServer::setClientRoom(ClientRoom* clientroom)
+  {
+    _clientroom = clientroom;
   }
 
   // void ClientServer::setRoom(Room * room)

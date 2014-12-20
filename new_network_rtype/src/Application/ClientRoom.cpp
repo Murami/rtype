@@ -1,4 +1,5 @@
 #include "Application/ClientRoom.hh"
+#include "Application/Room.hh"
 
 namespace Application
 {
@@ -6,6 +7,7 @@ namespace Application
     _room(room),
     _clientserver(clientserver)
   {
+    _player = &room.getGame().addPlayer();
   }
 
   ClientRoom::~ClientRoom()

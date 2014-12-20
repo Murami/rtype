@@ -1,6 +1,8 @@
 #ifndef CLIENT_ROOM
 #define CLIENT_ROOM
 
+#include "Game/Player.hh"
+
 namespace Application
 {
   class Room;
@@ -11,6 +13,7 @@ namespace Application
   private:
     Room&		_room;
     ClientServer&	_clientserver;
+    Game::Player*	_player;
 
   public:
     ClientRoom(Room& room, ClientServer& clientserver);
