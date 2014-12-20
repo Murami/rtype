@@ -6,6 +6,7 @@ namespace Application
 {
   Server::Server(Network::Service & service) : _service(service), _acceptor(3278)
   {
+    std::cout << "server start" << std::endl;
     _acceptor.setObserver(this);
     _udpSocket.setObserver(this);
 
@@ -20,7 +21,7 @@ namespace Application
 
   Server::~Server()
   {
-
+    std::cout << "server end" << std::endl;
   }
 
   void Server::run()
