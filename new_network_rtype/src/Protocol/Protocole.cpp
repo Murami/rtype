@@ -455,9 +455,11 @@ namespace Network
     if (size < sizeof(RtypeProtocol::Header))
       return (false);
 
+    // WHY NEW A BUFFER IN A FUNTCION ????!!!!!
     char			*buffer = new char[size];
     RtypeProtocol::Header	*header;
     void			*dataAddr = NULL;
+
     socket->pickData(buffer, size);
     header = (RtypeProtocol::Header *)buffer;
     decode(header);
@@ -465,14 +467,17 @@ namespace Network
 
     if (size < header->data_size + sizeof(RtypeProtocol::Header))
       {
+	std::cout << "size_data < expected_data"  << std::endl;
 	delete buffer;
 	return (false);
       }
     if (header->data_size > 0)
       {
+	std::cout << "data consumation" << std::endl;
 	dataAddr = buffer + sizeof(RtypeProtocol::Header);
 	socket->consumeData(sizeof(RtypeProtocol::Header) + header->data_size);
       }
+    std::cout << "header type : " << header->type << std::endl;
     switch (header->type)
       {
       case RtypeProtocol::T_MAGIC:
