@@ -72,6 +72,12 @@ MenuView::~MenuView()
     // _menuGui->removeAllWidgets();
     // _roomSelectGui->removeAllWidgets();
     // _roomGui->removeAllWidgets();
+
+    delete _loginGui;
+    delete _menuGui;
+    delete _roomSelectGui;
+    delete _roomGui;
+    delete _settingGui;
 }
 
 void MenuView::initLogin()
@@ -419,11 +425,6 @@ void MenuView::run(sf::RenderWindow &window)
         _stateToGui[_actualState]->draw();
         window.display();
     }
-    _loginGui->removeAllWidgets();
-    _menuGui->removeAllWidgets();
-    _roomSelectGui->removeAllWidgets();
-    _roomGui->removeAllWidgets();
-    std::cout << "end menu" << std::endl;
 }
 
 void	MenuView::stop()

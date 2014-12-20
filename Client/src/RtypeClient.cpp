@@ -17,6 +17,13 @@ RtypeClient::RtypeClient()
   _tcpConnection = new TcpConnection(_configuration);
 }
 
+RtypeClient::~RtypeClient()
+{
+  delete _menuView;
+  delete _menuController;
+  delete _window;
+}
+
 void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent event)
 {
   RtypeProtocol::Header header;
@@ -122,18 +129,19 @@ void		RtypeClient::run()
 
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
 					       sf::VideoMode::getDesktopMode().height), "Rtype", sf::Style::Fullscreen);
-  SoundManager::Play("theme", true);
 
   _window->setKeyRepeatEnabled(false);
 
   _menuView = new MenuView(*_window);
   _menuController = new MenuController(*_menuView);
+
   if (!_tcpConnection->connect())
     {
       _window->close();
       throw (std::runtime_error("Connect"));
     }
 
+  std::cout << "Apres throw" << std::endl;
   _menuView->addObserver(_menuController);
   _menuController->setMenuListener(this);
 
@@ -156,11 +164,4 @@ void		RtypeClient::run()
   _menuView->run(*_window);
   _tcpConnection->stopRead();
   _tcpConnection->joinRead();
-}
-
-RtypeClient::~RtypeClient()
-{
-  // delete _menuView;
-  // delete _menuController;
-  // delete _window;
 }

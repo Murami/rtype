@@ -26,7 +26,7 @@ public:
    void setMenuListener(IMenuListener *);
 
 private:
-    MenuView _view;
+    MenuView& _view;
     IMenuListener *_listen;
 };
 
