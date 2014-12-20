@@ -6,6 +6,11 @@
 # include	"NetworkWriter.hh"
 # include	"NetworkReader.hh"
 
+namespace	Util
+{
+  class		Mutex;
+}
+
 class		ConnectionConfiguration;
 
 class		TcpConnection
@@ -18,7 +23,7 @@ private:
   bool					_reading;
 
 public:
-  TcpConnection(const ConnectionConfiguration&);
+  TcpConnection(const ConnectionConfiguration&, Util::Mutex*);
   ~TcpConnection();
 
   bool			connect();

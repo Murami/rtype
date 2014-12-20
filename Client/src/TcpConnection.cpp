@@ -4,11 +4,11 @@
 #include	"ConnectionConfiguration.hh"
 #include	"TcpConnection.hh"
 
-TcpConnection::TcpConnection(const ConnectionConfiguration& conf) :
+TcpConnection::TcpConnection(const ConnectionConfiguration& conf, Util::Mutex *mutex) :
   _conf(conf)
 {
   _reader = new NetworkReader(*this);
-  _reader->setParam(NULL);
+  _reader->setParam(mutex);
   _writer = new NetworkWriter(*this);
 }
 

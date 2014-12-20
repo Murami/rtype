@@ -14,7 +14,8 @@
 
 RtypeClient::RtypeClient()
 {
-  _tcpConnection = new TcpConnection(_configuration);
+  _mutex.lock();
+  _tcpConnection = new TcpConnection(_configuration, &_mutex);
 }
 
 RtypeClient::~RtypeClient()
@@ -60,7 +61,7 @@ void		RtypeClient::run()
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(magic));
 
   SoundManager::Play("theme", true);
-  _menuView->run(*_window);
+  _menuView->run(*_window, &_mutex);
   _tcpConnection->stopRead();
   _tcpConnection->joinRead();
 }

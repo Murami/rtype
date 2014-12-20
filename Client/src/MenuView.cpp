@@ -8,6 +8,7 @@
 
 #include "MenuView.hh"
 #include "SoundManager.hh"
+#include "Mutex.hh"
 
 #ifdef __APPLE__
 static const char *blackConf = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/widgets/Black.conf";
@@ -26,7 +27,6 @@ static const char *backgroundRoom = "./res/room.jpg";
 static const char *fontPath = "./res/Tr2n.ttf";
 static const char *chatFont = "./res/DejaVuSans.ttf";
 #endif
-
 
 
 MenuView::MenuView(sf::RenderWindow &window)
@@ -347,7 +347,7 @@ void MenuView::initSetting()
   applyButton->setCallbackId(RtypeEvent::APPLY);
 }
 
-void MenuView::run(sf::RenderWindow &window)
+void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 {
     _run = true;
     while (_run == true && window.isOpen())
@@ -423,7 +423,9 @@ void MenuView::run(sf::RenderWindow &window)
 	  }
         window.clear();
         _stateToGui[_actualState]->draw();
+	mutex->unlock();
         window.display();
+	mutex->lock();
     }
 }
 
