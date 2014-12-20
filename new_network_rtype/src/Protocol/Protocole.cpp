@@ -73,10 +73,8 @@ namespace Network
 
     magicEncoded.minor_version = hton(magic->minor_version);
     magicEncoded.major_version = hton(magic->major_version);
-    std::cout << "avant " << magic->proto_name << std::endl;
     for (int i = 0; i != PROTO_NAME_SIZE; i++)
       magicEncoded.proto_name[i] = hton(magic->proto_name[i]);
-    std::cout << "apres " << magicEncoded.proto_name << std::endl;
     return (new packet(&magicEncoded, sizeof(magicEncoded)));
   }
   packet	*Protocole::pack(const RtypeProtocol::User *user) const
@@ -176,11 +174,7 @@ namespace Network
     magic->minor_version = ntoh(magic->minor_version);
     magic->major_version = ntoh(magic->major_version);
     for (int i = 0; i != PROTO_NAME_SIZE; i++)
-      std::cout << magic->proto_name[i] << std::endl;
-    std::cout << "avant " << magic->proto_name << std::endl;
-    for (int i = 0; i != PROTO_NAME_SIZE; i++)
       magic->proto_name[i] = ntoh(magic->proto_name[i]);
-    std::cout << "apres " << magic->proto_name << std::endl;
     return (magic);
   }
   RtypeProtocol::User	*Protocole::decode(RtypeProtocol::User *user) const
