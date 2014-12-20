@@ -64,6 +64,7 @@ namespace Application
 
 	if (std::memcmp(&magic, magicRcv, sizeof(RtypeProtocol::Magic)) != 0)
 	  {
+	    std::cout << "ERROR MAGIC" << std::endl;
 	    this->sendHeader(RtypeProtocol::T_MAGIC_BAD_VERSION);
 	  }
 	else
