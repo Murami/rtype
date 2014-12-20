@@ -219,7 +219,7 @@ namespace Application
     RtypeProtocol::Header	header;
 
     header.type = type;
-    header.size = 0;
+    header.data_size = 0;
     send(this->_socket, header);
   }
 

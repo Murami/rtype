@@ -64,7 +64,7 @@ bool		TcpConnection::connect()
   return (true);
 }
 
-bool		TcpConnection::write(const void *data, std::size_t count)
+bool		TcpConnection::write(void *data, std::size_t count)
 {
   sf::Socket::Status	ret;
 
@@ -87,6 +87,7 @@ bool		TcpConnection::write(const void *data, std::size_t count)
   	}
     }
   return (true);
+  //_writer->sendData(data, count);
 }
 
 std::ostream&	operator<<(std::ostream& os, const ConnectionConfiguration& conf)

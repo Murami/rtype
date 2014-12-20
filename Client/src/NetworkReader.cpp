@@ -1,4 +1,6 @@
 #include	<iostream>
+#include	<cstring>
+
 #include	"TcpConnection.hh"
 #include	"NetworkReader.hh"
 #include	"INetworkListener.hh"
@@ -30,9 +32,28 @@ int			NetworkReader::run(Util::Mutex* mutex)
   return (0);
 }
 
-void			NetworkReader::onReadData(void *, std::size_t)
+void			NetworkReader::onReadData(void *data, std::size_t)
 {
+  RtypeProtocol::Header	header;
+  RtypeProtocol::Magic	magic;
+
   std::cout << "\033[41m" << __FUNCTION__ << "\033[0m" << std::endl;
+  std::memcpy(&header, data, sizeof(header));
+  std::memcpy(&magic, static_cast<char *>(data) + sizeof(header), sizeof(magic));
+
+  switch (header.type)
+    {
+    case RtypeProtocol::T_MAGIC_BAD_VERSION:
+      std::cout << "Received bad magic version" << std::endl;
+      break;
+    case RtypeProtocol::T_MAGIC_ACCEPT:
+      std::cout << "Received good magic number" << std::endl;
+      break;
+    default:
+      std::cout << "unknown header" << std::endl;
+      break;
+    }
+
   // Lors de la reception d'un packet, cette methode sera appelee.
   // Elle construira la bonne structure pour l'envoyer au RtypeClient (listener)
   // Et en fonction du type recu, il faudra changer le type de packet attendu
