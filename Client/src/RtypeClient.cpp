@@ -133,22 +133,24 @@ void		RtypeClient::run()
   _menuView->addObserver(_menuController);
   _menuController->setMenuListener(this);
 
-  // header.type = RtypeProtocol::T_MAGIC;
-  // header.data_size = sizeof(magic);
-  // magic.minor_version = htons(RtypeProtocol::minor_version);
-  // magic.major_version = htons(RtypeProtocol::major_version);
-  // std::memset(&magic.proto_name[0], 0, PROTO_NAME_SIZE);
-  // std::memcpy(reinterpret_cast<char *>(&magic.proto_name[0]),
-  // 	      RtypeProtocol::proto_name,
-  // 	      std::strlen(reinterpret_cast<const char *>(RtypeProtocol::proto_name)));
+  header.type = RtypeProtocol::T_MAGIC;
+  header.data_size = sizeof(magic);
+  magic.minor_version = htons(RtypeProtocol::minor_version);
+  magic.major_version = htons(RtypeProtocol::major_version);
+  std::memset(&magic.proto_name[0], 0, PROTO_NAME_SIZE);
+  std::memcpy(reinterpret_cast<char *>(&magic.proto_name[0]),
+  	      RtypeProtocol::proto_name,
+  	      std::strlen(reinterpret_cast<const char *>(RtypeProtocol::proto_name)));
 
-  // char *buffer = new char[sizeof(header) + sizeof(magic)];
-  // std::memcpy(&buffer[0], &header, sizeof(header));
-  // std::memcpy(&buffer[sizeof(header)], &magic, sizeof(magic));
+  char *buffer = new char[sizeof(header) + sizeof(magic)];
+  std::memcpy(&buffer[0], &header, sizeof(header));
+  std::memcpy(&buffer[sizeof(header)], &magic, sizeof(magic));
 
-  // _tcpConnection->startRead();
+  _tcpConnection->startRead();
 
-  // _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(magic));
+  _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(magic));
+
+  _tcpConnection->joinRead();
 
   _menuView->run(*_window);
 }
