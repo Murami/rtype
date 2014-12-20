@@ -17,8 +17,8 @@ public:
   static bool	Play(std::string, bool loop = false);
   static bool	Pause(std::string);
   static bool	Stop(std::string);
-  static void	musicVolume(int volume);
-  static void	soundVolume(int volume);
+  static void	MusicVolume(int volume);
+  static void	SoundVolume(int volume);
 
 private:
   static std::map<std::string, std::shared_ptr<sf::SoundBuffer> >	initializeSounds();
