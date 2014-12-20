@@ -452,9 +452,9 @@ namespace Network
 
   bool	ProtocoleTcp::unpack(const int &size, TcpSocket *socket, ITcpProtocoleObserver *obs) const
   {
-    std::cout << "azeazeaze" << std::endl;
     if (size < sizeof(RtypeProtocol::Header))
       return (false);
+
     char			*buffer = new char[size];
     RtypeProtocol::Header	*header;
     void			*dataAddr = NULL;
@@ -462,6 +462,7 @@ namespace Network
     header = (RtypeProtocol::Header *)buffer;
     decode(header);
     int datasize = size - sizeof(RtypeProtocol::Header);
+
     if (size < header->data_size + sizeof(RtypeProtocol::Header))
       {
 	delete buffer;

@@ -4,7 +4,6 @@
 
 namespace Application
 {
-
   Server::Server(Network::Service & service) : _service(service), _acceptor(3278)
   {
     _acceptor.setObserver(this);
@@ -32,7 +31,7 @@ namespace Application
   // Network events
   void Server::onAccept(Network::Acceptor & acceptor)
   {
-    std::cout << "on connect" << std::endl;
+    std::cout << "accept" << std::endl;
     Network::TcpSocket * clientSocket;
 
     acceptor.acceptSocket();
