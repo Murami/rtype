@@ -407,6 +407,9 @@ void MenuView::run(sf::RenderWindow &window)
 	      break;
 	    case RtypeEvent::LISTCHOICE:
 	      this->_editBoxRoomName->setText(this->_listRoom->getSelectedItem());
+	    case RtypeEvent::APPLY:
+	      SoundManager::MusicVolume(_sliderMusic.getValue());
+	      SoundManager::SoundVolume(_sliderSound.getValue());
 	    default:
 	      break;
             }

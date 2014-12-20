@@ -88,12 +88,12 @@ bool	SoundManager::Stop(std::string name)
   return (false);
 }
 
-void	SoundManager::soundVolume(int volume)
+void	SoundManager::SoundVolume(int volume)
 {
   _soundVolume = volume;
 }
 
-void	SoundManager::musicVolume(int volume)
+void	SoundManager::MmusicVolume(int volume)
 {
   std::map<std::string, std::shared_ptr<sf::Music> >::iterator	it;
 
