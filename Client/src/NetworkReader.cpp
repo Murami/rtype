@@ -20,7 +20,8 @@ int			NetworkReader::run()
 
   // Faire le buffer tournant circulaire
   std::cout << "\033[42mBeginning to read...\033[0m" << std::endl;
-  while (_tcpConnection.socket().receive(buffer, 4096, received) == sf::Socket::Done)
+  while (_tcpConnection.isRunning() &&
+	 _tcpConnection.socket().receive(buffer, 4096, received) == sf::Socket::Done)
     {
       std::cout << "\033[43mTreating datas...\033[0m" << std::endl;
       onReadData(buffer, received);
