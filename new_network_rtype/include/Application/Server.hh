@@ -42,6 +42,8 @@ namespace Application
     Room*				getRoom(unsigned int roomID) const;
     void				addClientRoom(ClientRoom* clientroom);
     void				deleteClientRoom(ClientRoom* clientroom);
+    bool				roomExists(const std::string& name) const;
+    void				sendAllRoomInfos(ClientServer* server) const;
 
   private:
     Network::Service &			_service;

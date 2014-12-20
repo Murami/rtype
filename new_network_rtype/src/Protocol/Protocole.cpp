@@ -490,10 +490,6 @@ namespace Network
 	obs->notify(header->type, socket);
 	break;
 
-      case RtypeProtocol::T_GETROOMINFO:
-	obs->notify(header->type, decode<RtypeProtocol::RoomConnection>(dataAddr, datasize, header->data_size), socket);
-	break;
-
       case RtypeProtocol::T_ROOM_JOIN:
 	obs->notify(header->type, decode<RtypeProtocol::RoomConnection>(dataAddr, datasize, header->data_size), socket);
 	break;
@@ -522,7 +518,7 @@ namespace Network
 	if (header->data_size == 0)
 	  obs->notify(header->type, socket);
 	else
-	  throw RtypeProtocol::ProtocolException("Unknow data");
+	  throw RtypeProtocol::ProtocolException("Unknown data");
 	break;
       }
     delete buffer;

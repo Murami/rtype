@@ -1,10 +1,14 @@
 #include "Timer.hh"
 #include "TimerObserver.hh"
+#include "Service.hh"
 
 namespace Network
 {
 
-  Timer::Timer() {}
+  Timer::Timer()
+  {
+    _service = NULL;
+  }
 
   Timer::~Timer() {}
 
@@ -29,6 +33,17 @@ namespace Network
   void		Timer::notify()
   {
     _observer->onTimeout(*this);
+  }
+
+  void		Timer::setService(Service * service)
+  {
+    _service = service;
+  }
+
+  void		Timer::cancel()
+  {
+    if (_service != NULL)
+      _service->deleteTimeout(*this);
   }
 
 } /* namespace Network */

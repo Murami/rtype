@@ -1,5 +1,6 @@
 #include "Application/ClientRoom.hh"
 #include "Application/Room.hh"
+#include "Application/ClientServer.hh"
 
 namespace Application
 {
@@ -13,4 +14,9 @@ namespace Application
   ClientRoom::~ClientRoom()
   {
   }
+
+  const std::string&	ClientRoom::getName() const
+  {
+    return (_clientserver.getName());
+  };
 };

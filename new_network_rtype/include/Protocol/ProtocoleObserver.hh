@@ -17,8 +17,6 @@ namespace Network
     virtual void	notify(int const &type, const RtypeProtocol::Message *, TcpSocket *) = 0;
     virtual void	notify(int const &type, const RtypeProtocol::RoomConnection *, TcpSocket *) = 0;
     virtual void	notify(int const &type, const RtypeProtocol::PingPong *, TcpSocket *) = 0;
-    virtual void	notify(int const &type, const RtypeProtocol::GameReadyState *, TcpSocket *) = 0;
-    virtual void	notify(int const &type, const RtypeProtocol::EndGame *, TcpSocket *) = 0;
     virtual void	notify(int const &type, const RtypeProtocol::Room *, TcpSocket *) = 0;
     virtual void	notify(int const &type, TcpSocket *) = 0;
   };

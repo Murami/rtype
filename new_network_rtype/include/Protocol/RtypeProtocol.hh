@@ -94,7 +94,11 @@ static const int8_t proto_name[] = "RType";
       T_HIT				= 41,	//send collision infos			from server
       T_DEATH				= 42,	//send death infos			from server
       T_ENTITYREQUEST			= 43,	//request entity infos			from client
-      T_ENTITYINFOS			= 44	//send entity infos			from server
+      T_ENTITYINFOS			= 44,	//send entity infos			from server
+
+      /// OUBLIS (REFAIRE LE PROTO AU PROPRE)
+      // ROOM++
+      T_ROOM_JOIN_STARTED	      = 45 //game already started			from server
     };
 
   PACKED(Header {
@@ -195,6 +199,7 @@ static const int8_t proto_name[] = "RType";
       uint32_t	type;
     };)
 
+  // obsolete !!!!!!!!
   PACKED(PingElem{
       uint32_t	id;
       Position	pos;

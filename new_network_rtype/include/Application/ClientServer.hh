@@ -13,7 +13,8 @@ namespace Application
   class Server;
 
   class ClientServer : public Network::TcpSocketObserver,
-		       public Network::ITcpProtocoleObserver
+		       public Network::ITcpProtocoleObserver,
+		       public Network::TimerObserver
   {
   public:
     enum State
@@ -29,22 +30,24 @@ namespace Application
     ClientServer(Server & server, Network::TcpSocket & socket);
     ~ClientServer();
 
+    void	onTimeout(Network::Timer& timer);
     void	onRead(Network::TcpSocket & socket);
     void	onWrite(Network::TcpSocket & socket);
 
-    void	notify(int const & type, const RtypeProtocol::Magic *, Network::TcpSocket *) ;
-    void	notify(int const & type, const RtypeProtocol::User *, Network::TcpSocket *) ;
-    void	notify(int const & type, const RtypeProtocol::Message *, Network::TcpSocket *) ;
-    void	notify(int const & type, const RtypeProtocol::RoomConnection *, Network::TcpSocket *) ;
-    void	notify(int const & type, const RtypeProtocol::PingPong *, Network::TcpSocket *) ;
-    void	notify(int const & type, const RtypeProtocol::GameReadyState *, Network::TcpSocket *) ;
-    void	notify(int const & type, const RtypeProtocol::EndGame *, Network::TcpSocket *) ;
-    void	notify(int const & type, const RtypeProtocol::Room *, Network::TcpSocket *) ;
+    void	notify(int const & type, const RtypeProtocol::Magic *, Network::TcpSocket *);
+    void	notify(int const & type, const RtypeProtocol::User *, Network::TcpSocket *);
+    void	notify(int const & type, const RtypeProtocol::Message *, Network::TcpSocket *);
+    void	notify(int const & type, const RtypeProtocol::RoomConnection *, Network::TcpSocket *);
+    void	notify(int const & type, const RtypeProtocol::PingPong *, Network::TcpSocket *);
+    void	notify(int const & type, const RtypeProtocol::Room *, Network::TcpSocket *);
     void	notify(int const & type, Network::TcpSocket *) ;
 
-    void		sendHeader(int type);
     Network::TcpSocket& getSocket() const;
+
     void		setClientRoom(ClientRoom* clientroom);
+    void		sendHeader(int type);
+    void		sendRoomInfos(Room* room);
+    const std::string&	getName() const;
 
   private:
     Server &			_server;
@@ -52,6 +55,7 @@ namespace Application
     State			_state;
     ClientRoom*			_clientroom;
     std::string			_name;
+    Network::Timer		_timer;
   };
 
 } /* namespace Application */
