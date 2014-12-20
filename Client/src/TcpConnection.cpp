@@ -43,10 +43,6 @@ bool		TcpConnection::connect()
 
   if ((ret = _socket.connect(_conf.getIp(), _conf.getPort())) != sf::Socket::Done)
     {
-      // std::cerr << "Unable to connect to remote host : "
-      // 		<< std::endl << _conf << std::endl;
-      // return (false);
-
       switch (ret)
   	{
   	case sf::Socket::NotReady:
@@ -58,6 +54,8 @@ bool		TcpConnection::connect()
   	case sf::Socket::Error:
   	  std::cerr << "Socket write error: socket is on error" << std::endl;
   	  break;
+	default:
+	  break;
 	}
       return (false);
     }

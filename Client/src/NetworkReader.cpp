@@ -27,9 +27,10 @@ int			NetworkReader::run()
       onReadData(buffer, received);
     }
   std::cout << "\033[44mEnding Thread...\033[0m" << std::endl;
+  return (0);
 }
 
-void			NetworkReader::onReadData(void *data, std::size_t size)
+void			NetworkReader::onReadData(void *, std::size_t)
 {
   std::cout << "\033[41m" << __FUNCTION__ << "\033[0m" << std::endl;
   // Lors de la reception d'un packet, cette methode sera appelee.
