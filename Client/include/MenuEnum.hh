@@ -29,6 +29,7 @@ namespace	RtypeEvent
     MENUSTATE,
     ROOMSELECTSTATE,
     ROOMSTATE,
+    SETTINGSTATE,
     UNKNOWSTATE,
   };
 }
