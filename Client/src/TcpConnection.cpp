@@ -8,7 +8,6 @@ TcpConnection::TcpConnection(const ConnectionConfiguration& conf) :
   _conf(conf)
 {
   _reader = new NetworkReader(*this);
-  _socket.setBlocking(false);
 }
 
 void		TcpConnection::startRead()
@@ -40,10 +39,24 @@ sf::TcpSocket&	TcpConnection::socket()
 
 bool		TcpConnection::connect()
 {
-  if (_socket.connect(_conf.getIp(), _conf.getPort()) != sf::Socket::Done)
+  sf::Socket::Status ret;
+
+  if ((ret = _socket.connect(_conf.getIp(), _conf.getPort())) != sf::Socket::Done)
     {
-      std::cerr << "Unable to connect to remote host : "
-  		<< std::endl << _conf << std::endl;
+      switch (ret)
+  	{
+  	case sf::Socket::NotReady:
+  	  std::cerr << "Socket write error: socket is not ready" << std::endl;
+  	  break;
+  	case sf::Socket::Disconnected:
+  	  std::cerr << "Socket write error: socket is disconnected" << std::endl;
+  	  break;
+  	case sf::Socket::Error:
+  	  std::cerr << "Socket write error: socket is on error" << std::endl;
+  	  break;
+	default:
+	  break;
+	}
       return (false);
     }
   return (true);

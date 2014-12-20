@@ -56,7 +56,7 @@ bool			ConfigurationParser::parse(const std::string& filename)
 
 const std::string&	ConfigurationParser::getValueByName(const std::string& value)
 {
-  std::map<std::string, std::string>::key_compare comp = _datas.key_comp();
+  //std::map<std::string, std::string>::key_compare comp = _datas.key_comp();
   for (std::map<std::string, std::string>::iterator it = _datas.begin();
        it != _datas.end(); it++)
     {
