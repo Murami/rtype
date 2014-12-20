@@ -140,7 +140,7 @@ void		RtypeClient::run()
   _menuController->setMenuListener(this);
 
   if (!_tcpConnection->connect())
-    xthrow (std::runtime_error("Connect"));
+    throw (std::runtime_error("Connect"));
 
   header.type = RtypeProtocol::T_MAGIC;
   header.data_size = sizeof(magic);
