@@ -68,7 +68,10 @@ namespace Application
 	  }
 	else
 	  {
+	    std::cout << _state << std::endl;
+	    std::cout << "PASSING TO DISCONNECTED STATE" << std::endl;
 	    _state = T_DISCONNECTED;
+	    std::cout << _state << std::endl;
 	    this->sendHeader(RtypeProtocol::T_MAGIC_ACCEPT);
 	  }
       }
@@ -79,6 +82,8 @@ namespace Application
     if (type == RtypeProtocol::T_CONNECTION)
       {
 	std::cout << "connection" << std::endl;
+
+	std::cout << _state << std::endl;
 	if (_state != T_DISCONNECTED)
 	  throw ClientException("CONNECTION PROTOCOL ERROR");
 
