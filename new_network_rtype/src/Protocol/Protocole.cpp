@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "Protocole.hh"
 
 namespace Network
@@ -452,40 +453,44 @@ namespace Network
 
   bool	ProtocoleTcp::unpack(const int &size, TcpSocket *socket, ITcpProtocoleObserver *obs) const
   {
+    char			buffer[4096];
+    RtypeProtocol::Header*	header;
+    void*			data;
+    unsigned int		datasize;
+
+    // not enough data for a header
     if (size < sizeof(RtypeProtocol::Header))
       return (false);
 
-    // WHY NEW A BUFFER IN A FUNTCION ????!!!!!
-    char			*buffer = new char[size];
-    RtypeProtocol::Header	*header;
-    void			*dataAddr = NULL;
-
+    // data pick
     socket->pickData(buffer, size);
-    header = (RtypeProtocol::Header *)buffer;
-    decode(header);
-    int datasize = size - sizeof(RtypeProtocol::Header);
 
-    if (size < header->data_size + sizeof(RtypeProtocol::Header))
+    // pointer bind
+    header = reinterpret_cast<RtypeProtocol::Header*>(buffer);
+    data = buffer + sizeof(RtypeProtocol::Header);
+
+    // data integrity check
+    datasize = size -sizeof(RtypeProtocol::Header);
+    if (datasize < header->data_size)
       {
-	std::cout << "size_data < expected_data"  << std::endl;
-	delete buffer;
-	return (false);
+    	std::cout << "size_data < expected_data"  << std::endl;
+    	return (false);
       }
-    if (header->data_size > 0)
-      {
-	std::cout << "data consumation" << std::endl;
-	dataAddr = buffer + sizeof(RtypeProtocol::Header);
-	socket->consumeData(sizeof(RtypeProtocol::Header) + header->data_size);
-      }
+
+    // data consumation
+    std::cout << "data consumation" << std::endl;
+    socket->consumeData(sizeof(RtypeProtocol::Header) + header->data_size);
+
+    // notification
     std::cout << "header type : " << header->type << std::endl;
     switch (header->type)
       {
       case RtypeProtocol::T_MAGIC:
-	obs->notify(header->type, decode<RtypeProtocol::Magic>(dataAddr, datasize, header->data_size), socket);
+	obs->notify(header->type, decode<RtypeProtocol::Magic>(data, datasize, header->data_size), socket);
 	break;
 
       case RtypeProtocol::T_CONNECTION:
-	obs->notify(header->type, decode<RtypeProtocol::User>(dataAddr, datasize, header->data_size), socket);
+	obs->notify(header->type, decode<RtypeProtocol::User>(data, datasize, header->data_size), socket);
 	break;
 
       case RtypeProtocol::T_DISCONNECTION:
@@ -497,7 +502,7 @@ namespace Network
 	break;
 
       case RtypeProtocol::T_ROOM_JOIN:
-	obs->notify(header->type, decode<RtypeProtocol::RoomConnection>(dataAddr, datasize, header->data_size), socket);
+	obs->notify(header->type, decode<RtypeProtocol::RoomConnection>(data, datasize, header->data_size), socket);
 	break;
 
       case RtypeProtocol::T_ROOM_EXIT:
@@ -505,7 +510,7 @@ namespace Network
 	break;
 
       case RtypeProtocol::T_PONG:
-	obs->notify(header->type, decode<RtypeProtocol::PingPong>(dataAddr, datasize, header->data_size), socket);
+	obs->notify(header->type, decode<RtypeProtocol::PingPong>(data, datasize, header->data_size), socket);
 	break;
 
       case RtypeProtocol::T_READY:
@@ -513,11 +518,11 @@ namespace Network
 	break;
 
       case RtypeProtocol::T_MSG:
-	obs->notify(header->type, decode<RtypeProtocol::Message>(dataAddr, datasize, header->data_size), socket);
+	obs->notify(header->type, decode<RtypeProtocol::Message>(data, datasize, header->data_size), socket);
 	break;
 
       case RtypeProtocol::T_ROOM_CREATE:
-	obs->notify(header->type, decode<RtypeProtocol::Room>(dataAddr, datasize, header->data_size), socket);
+	obs->notify(header->type, decode<RtypeProtocol::Room>(data, datasize, header->data_size), socket);
 	break;
 
       default:
@@ -527,7 +532,6 @@ namespace Network
 	  throw RtypeProtocol::ProtocolException("Unknown data");
 	break;
       }
-    delete buffer;
     return (true);
   }
 
