@@ -61,8 +61,8 @@ namespace Application
 	std::memset(magic.proto_name, 0, PROTO_NAME_SIZE);
 	std::memcpy(magic.proto_name, RtypeProtocol::proto_name, 5);
 
-	std::cout << "minor " << magic.minor_version << std::endl;
-	std::cout << "major " << magic.major_version << std::endl;
+	std::cout << "minor " << magicRcv->minor_version << std::endl;
+	std::cout << "major " << magicRcv->major_version << std::endl;
 
 	if (std::memcmp(&magic, magicRcv, sizeof(RtypeProtocol::Magic)) != 0)
 	  {
