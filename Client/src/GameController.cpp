@@ -5,7 +5,7 @@
 GameController::GameController(GameView& view)
   : _view(view)
 {
-    
+  (void)_view;
 }
 
 GameController::~GameController()
@@ -16,4 +16,9 @@ GameController::~GameController()
 void	GameController::update()
 {
   
+}
+
+void	GameController::setGameListener(IGameListener* listener)
+{
+  _listener = listener;
 }
