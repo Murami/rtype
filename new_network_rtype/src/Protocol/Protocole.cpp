@@ -550,6 +550,8 @@ namespace Network
     int datasize = 0;
 
     socket->recvDataFrom(buffer, size, port, host);
+    if (port != RtypeProtocol::UdpPort)
+      throw RtypeProtocol::ProtocolException("Wrong port");
     if (size < sizeof(RtypeProtocol::Header))
       throw RtypeProtocol::ProtocolException("Insufisiant Udp data");
     RtypeProtocol::Header	*header;
