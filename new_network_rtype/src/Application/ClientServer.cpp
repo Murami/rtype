@@ -51,24 +51,30 @@ namespace Application
       {
 	std::cout << "magic" << std::endl;
 
-	RtypeProtocol::Header header;
-	RtypeProtocol::Magic magic;
+	RtypeProtocol::Magic	magic;
 
 	if (_state != T_MAGIC_WAITING)
-	  throw ClientException("PROTOCOL ERROR");
+	  throw ClientException("MAGIC PROTOCOL ERROR");
 
 	magic.minor_version = RtypeProtocol::minor_version;
 	magic.major_version = RtypeProtocol::major_version;
 	std::memset(magic.proto_name, 0, PROTO_NAME_SIZE);
-	std::memcpy(magic.proto_name, RtypeProtocol::proto_name, 5); /* attention */
+	std::memcpy(magic.proto_name, RtypeProtocol::proto_name, 5);
+
+	std::cout << "minor " << magicRcv->minor_version << std::endl;
+	std::cout << "major " << magicRcv->major_version << std::endl;
 
 	if (std::memcmp(&magic, magicRcv, sizeof(RtypeProtocol::Magic)) != 0)
 	  {
+	    std::cout << "ERROR MAGIC" << std::endl;
 	    this->sendHeader(RtypeProtocol::T_MAGIC_BAD_VERSION);
 	  }
 	else
 	  {
+	    std::cout << _state << std::endl;
+	    std::cout << "PASSING TO DISCONNECTED STATE" << std::endl;
 	    _state = T_DISCONNECTED;
+	    std::cout << _state << std::endl;
 	    this->sendHeader(RtypeProtocol::T_MAGIC_ACCEPT);
 	  }
       }
@@ -79,12 +85,15 @@ namespace Application
     if (type == RtypeProtocol::T_CONNECTION)
       {
 	std::cout << "connection" << std::endl;
+
+	std::cout << _state << std::endl;
 	if (_state != T_DISCONNECTED)
-	  throw ClientException("PROTOCOL ERROR");
+	  throw ClientException("CONNECTION PROTOCOL ERROR");
 
 	Util::stringncopy(_name, user->username, USERNAME_SIZE);
 	_state = T_CONNECTED;
 	this->sendHeader(RtypeProtocol::T_CONNECTION_OK);
+	_server.sendAllRoomInfos(this);
       }
   }
 
@@ -193,15 +202,16 @@ namespace Application
 	if (_state != T_INROOM)
 	  throw ClientException("");
       }
-    if (type == RtypeProtocol::T_GETROOMLIST)
-      {
-	std::cout << "get room list" << std::endl;
+    // now obselete
+    // if (type == RtypeProtocol::T_GETROOMLIST)
+    //   {
+    // 	std::cout << "get room list" << std::endl;
 
-	if (_state != T_CONNECTED)
-	  throw ClientException("");
+    // 	if (_state != T_CONNECTED)
+    // 	  throw ClientException("");
 
-	_server.sendAllRoomInfos(this);
-      }
+    // 	_server.sendAllRoomInfos(this);
+    //   }
   }
 
   Network::TcpSocket & ClientServer::getSocket() const
@@ -214,7 +224,7 @@ namespace Application
     RtypeProtocol::Header	header;
 
     header.type = type;
-    header.type = 0;
+    header.data_size = 0;
     send(this->_socket, header);
   }
 

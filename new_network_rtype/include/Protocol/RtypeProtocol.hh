@@ -150,6 +150,7 @@ static const int8_t proto_name[] = "RType";
 
   PACKED(Room {
       uint32_t	id;
+      uint32_t	alive;
       uint8_t	connected_users[MAX_USERS][USERNAME_SIZE];
       uint32_t	nb_connected_users;
       uint8_t	password_flag;

@@ -27,7 +27,7 @@ public:
   ~TcpConnection();
 
   bool			connect();
-  bool			write(const void *data, std::size_t count);
+  bool			write(void *data, std::size_t count);
 
   void			startRead();
   void			joinRead();
