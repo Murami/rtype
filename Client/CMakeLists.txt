@@ -3,7 +3,11 @@ project(R-Type)
 
 include_directories(include/ include/Graphic ../new_network_rtype/include/Protocol)
 
-SET(CMAKE_CXX_FLAGS "-W -Wall -Wextra -std=c++11 -ggdb -g3")
+if(WIN32)
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -mno-ms-bitfields")
+elseif(UNIX)
+	SET(CMAKE_CXX_FLAGS "-W -Wall -Wextra -std=c++11 -ggdb -g3")
+endif()
 
 set(EXECUTABLE_NAME "client")
 set(EXECUTABLE_OUTPUT_PATH "../")
