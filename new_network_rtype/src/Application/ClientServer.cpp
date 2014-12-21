@@ -93,9 +93,6 @@ namespace Application
 	Util::stringncopy(_name, user->username, USERNAME_SIZE);
 	_state = T_CONNECTED;
 	this->sendHeader(RtypeProtocol::T_CONNECTION_OK);
-	this->sendHeader(RtypeProtocol::T_CONNECTION_OK);
-	this->sendHeader(RtypeProtocol::T_CONNECTION_OK);
-	this->sendHeader(RtypeProtocol::T_CONNECTION_OK);
 	_server.sendAllRoomInfos(this);
       }
   }
