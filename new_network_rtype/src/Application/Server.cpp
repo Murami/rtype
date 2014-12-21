@@ -84,7 +84,9 @@ namespace Application
 
     Room*	room = new Room(*this, name, pass);
 
-    _rooms[room->getID()] = room;
+    std::cout << "Create room aaaaaaaaaaaaaaaaaaaaaa" << std::endl;
+
+    _rooms.insert(std::pair<unsigned int, Room *>(room->getID(), room));
     return (room);
   }
 
@@ -100,8 +102,11 @@ namespace Application
     std::map<unsigned int, Room*>::const_iterator	it;
 
     for (it = _rooms.begin(); it != _rooms.end(); it++)
+    {
+      std::cout << it->second->getName() << std::endl;
       if ((it->second)->getName() == name)
 	return (true);
+}
     return (false);
   }
 
