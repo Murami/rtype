@@ -7,14 +7,14 @@
 TcpConnection::TcpConnection(const ConnectionConfiguration& conf, Util::Mutex *mutex) :
   _conf(conf)
 {
-  _reader = new NetworkReader(*this);
+  _reader = new TcpNetworkReader(*this);
   _reader->setParam(mutex);
-  _writer = new NetworkWriter(*this);
+  _writer = new TcpNetworkWriter(*this);
 }
 
-void		TcpConnection::setNetworkListener(INetworkListener *listener)
+void		TcpConnection::setTcpNetworkListener(ITcpNetworkListener *listener)
 {
-  _reader->setNetworkListener(listener);
+  _reader->setTcpNetworkListener(listener);
 }
 
 void		TcpConnection::startRead()

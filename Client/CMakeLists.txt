@@ -30,12 +30,14 @@ add_executable(
 	src/GameController.cpp
 	src/ThreadLinux.cpp
 	src/ThreadWin32.cpp
-	src/NetworkReader.cpp
-	src/NetworkWriter.cpp
+	src/TcpNetworkReader.cpp
+	src/TcpNetworkWriter.cpp
 	src/MutexWin32.cpp
 	src/MutexLinux.cpp
 	src/Lock.cpp
 	src/UdpConnection.cpp
+	src/UdpNetworkReader.cpp
+	src/UdpNetworkWriter.cpp
 	src/main.cpp
 	include/ConfigurationParser.hh
 	include/ConnectionConfiguration.hh
@@ -46,13 +48,13 @@ add_executable(
 	include/IGameObserver.hh
 	include/IKeyListener.hh
 	include/IMenuListener.hh
-	include/INetworkListener.hh
+	include/ITcpNetworkListener.hh
 	include/IMenuObserver.hh
 	include/MenuController.hh
 	include/MenuEnum.hh
 	include/MenuView.hh
 	include/MyIniParser.hh
-	include/NetworkReader.hh
+	include/TcpNetworkReader.hh
 	include/MenuObservable.hh
 	include/RtypeClient.hh
 	include/SoundManager.hh
@@ -60,12 +62,15 @@ add_executable(
 	include/Thread.hpp
 	include/ThreadLinux.hpp
 	include/ThreadWin32.hpp
-	include/NetworkWriter.hh
+	include/TcpNetworkWriter.hh
 	include/Mutex.hh
 	include/MutexLinux.hh
 	include/MutexWin32.hh
 	include/Lock.hh
 	include/UdpConnection.hh
+	include/UdpNetworkReader.hh
+	include/UdpNetworkWriter.hh
+	include/IUdpNetworkListener.hh
 )
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
