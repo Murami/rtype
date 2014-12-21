@@ -118,9 +118,8 @@ namespace Network
   {
   public:
     ProtocoleUdp();
-    bool			unpack(const int &size, TcpSocket *) const;
-    void			setup(IUdpProtocoleObserver *UdpObserver);
-    virtual void		onRead(TcpSocket*) const;
+    bool			unpack(UdpSocket *, IUdpProtocoleObserver *obs) const;
+    virtual void		onRead(UdpSocket *, IUdpProtocoleObserver *obs) const;
   private:
     IUdpProtocoleObserver	*obs;
   };
