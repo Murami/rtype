@@ -5,14 +5,18 @@
 # include "Thread.hpp"
 # include "Mutex.hh"
 
+class	UdpConnection;
+
 class	UdpNetworkReader : public Util::Thread<Util::Mutex*>
 {
 public:
   UdpNetworkReader();
   ~UdpNetworkReader();
 
-private:
+  int	run(Util::Mutex&);
 
+private:
+  // UdpConnection&	_udpConnection;
 };
 
 #endif /* _UDP_NETWORK_READER_HH_ */
