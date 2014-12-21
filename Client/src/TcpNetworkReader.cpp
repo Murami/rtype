@@ -2,11 +2,11 @@
 #include	<cstring>
 
 #include	"TcpConnection.hh"
-#include	"NetworkReader.hh"
-#include	"INetworkListener.hh"
+#include	"TcpNetworkReader.hh"
+#include	"ITcpNetworkListener.hh"
 #include	"RtypeProtocol.hh"
 
-NetworkReader::NetworkReader(TcpConnection& tcpConnection) :
+TcpNetworkReader::TcpNetworkReader(TcpConnection& tcpConnection) :
   _tcpConnection(tcpConnection)
 {
   _expectedPacket = RtypeProtocol::T_HEADER;
@@ -14,7 +14,7 @@ NetworkReader::NetworkReader(TcpConnection& tcpConnection) :
   _tcpListener = NULL;
 }
 
-int			NetworkReader::run(Util::Mutex* mutex)
+int			TcpNetworkReader::run(Util::Mutex* mutex)
 {
   char			buffer[4096];
   std::size_t		received;
@@ -34,7 +34,7 @@ int			NetworkReader::run(Util::Mutex* mutex)
   return (0);
 }
 
-void			NetworkReader::onReadData()
+void			TcpNetworkReader::onReadData()
 {
   std::cout << "\033[41m" << __FUNCTION__ << "\033[0m" << std::endl;
 
@@ -57,7 +57,7 @@ void			NetworkReader::onReadData()
     }
 }
 
-void			NetworkReader::onReadPing()
+void			TcpNetworkReader::onReadPing()
 {
   // RtypeProtocol::Header		header;
   // RtypeProtocol::PingPong	pingPong;
@@ -66,7 +66,7 @@ void			NetworkReader::onReadPing()
   // header.data_size = sizeof(RtypeProtocol::PingPong);
 }
 
-void			NetworkReader::onReadRoom()
+void			TcpNetworkReader::onReadRoom()
 {
   RtypeProtocol::Room	room;
 
@@ -80,7 +80,7 @@ void			NetworkReader::onReadRoom()
   _tcpListener->onRoomInfo(room);
 }
 
-void			NetworkReader::onReadHeader()
+void			TcpNetworkReader::onReadHeader()
 {
   RtypeProtocol::Header	header;
 
@@ -183,26 +183,26 @@ void			NetworkReader::onReadHeader()
     }
 }
 
-void			NetworkReader::setExpectedPacket(RtypeProtocol::Type packetType)
+void			TcpNetworkReader::setExpectedPacket(RtypeProtocol::Type packetType)
 {
   _expectedPacket = packetType;
 }
 
-void			NetworkReader::setNetworkListener(INetworkListener *listener)
+void			TcpNetworkReader::setTcpNetworkListener(ITcpNetworkListener *listener)
 {
   _tcpListener = listener;
 }
 
-RtypeProtocol::Type	NetworkReader::getExpectedPacket()
+RtypeProtocol::Type	TcpNetworkReader::getExpectedPacket()
 {
   return (_expectedPacket);
 }
 
-void			NetworkReader::_changeExpectedData(RtypeProtocol::Type type,
+void			TcpNetworkReader::_changeExpectedData(RtypeProtocol::Type type,
 							   std::size_t size)
 {
   _expectedPacket = type;
   _expectedSize = size;
 }
 
-NetworkReader::~NetworkReader() {}
+TcpNetworkReader::~TcpNetworkReader() {}

@@ -1,9 +1,9 @@
-#ifndef		__INETWORK_LISTENER_HH__
-# define	__INETWORK_LISTENER_HH__
+#ifndef		__ITCPNETWORK_LISTENER_HH__
+# define	__ITCPNETWORK_LISTENER_HH__
 
 # include	"RtypeProtocol.hh"
 
-class		INetworkListener
+class		ITcpNetworkListener
 {
 public:
   virtual void	onMagicBadVersion() = 0;

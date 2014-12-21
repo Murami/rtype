@@ -4,7 +4,7 @@
 # include	<SFML/Graphics.hpp>
 # include	"IMenuListener.hh"
 # include	"ConnectionConfiguration.hh"
-# include	"INetworkListener.hh"
+# include	"ITcpNetworkListener.hh"
 # include	"IKeyListener.hh"
 # include	"Mutex.hh"
 
@@ -15,7 +15,7 @@ class		GameView;
 class		GameController;
 
 class		RtypeClient :	public IMenuListener,
-				public INetworkListener,
+				public ITcpNetworkListener,
 				public IKeyListener
 {
 private:
@@ -32,7 +32,7 @@ private:
 public:
   virtual void	onKeyEvent(RtypeEvent::eKeyEvent);
 
-  // INetworkListener
+  // ITcpNetworkListener
 public:
   virtual void	onMagicBadVersion();
   virtual void	onMagicAccept();

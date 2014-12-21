@@ -3,15 +3,15 @@
 
 # include	<SFML/Network.hpp>
 
-# include	"NetworkWriter.hh"
-# include	"NetworkReader.hh"
+# include	"TcpNetworkWriter.hh"
+# include	"TcpNetworkReader.hh"
 
 namespace	Util
 {
   class		Mutex;
 }
 
-class		INetworkListener;
+class		ITcpNetworkListener;
 class		ConnectionConfiguration;
 
 class		TcpConnection
@@ -19,8 +19,8 @@ class		TcpConnection
 private:
   const ConnectionConfiguration&	_conf;
   sf::TcpSocket				_socket;
-  NetworkReader*			_reader;
-  NetworkWriter*			_writer;
+  TcpNetworkReader*			_reader;
+  TcpNetworkWriter*			_writer;
   bool					_reading;
 
 public:
@@ -37,7 +37,7 @@ public:
 
   sf::TcpSocket&	socket();
 
-  void			setNetworkListener(INetworkListener *);
+  void			setTcpNetworkListener(ITcpNetworkListener *);
 };
 
 #endif

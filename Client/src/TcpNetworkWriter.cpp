@@ -1,18 +1,18 @@
 #include	<iostream>
-#include	"NetworkWriter.hh"
+#include	"TcpNetworkWriter.hh"
 #include	"Mutex.hh"
 #include	"Lock.hh"
 #include	"TcpConnection.hh"
 
-NetworkWriter::NetworkWriter(TcpConnection& connection) :
+TcpNetworkWriter::TcpNetworkWriter(TcpConnection& connection) :
   _tcpConnection(connection)
 {
   _cond.lock();
 }
 
-NetworkWriter::~NetworkWriter() {}
+TcpNetworkWriter::~TcpNetworkWriter() {}
 
-int		NetworkWriter::run()
+int		TcpNetworkWriter::run()
 {
   char		buffer[4096];
   std::size_t	i;
@@ -33,7 +33,7 @@ int		NetworkWriter::run()
   return (0);
 }
 
-void		NetworkWriter::sendData(void *data, std::size_t size)
+void		TcpNetworkWriter::sendData(void *data, std::size_t size)
 {
   Util::Lock	lock(_mutex);
   bool		empty;

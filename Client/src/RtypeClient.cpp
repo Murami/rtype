@@ -21,7 +21,7 @@ RtypeClient::RtypeClient()
 {
   _mutex.lock();
   _tcpConnection = new TcpConnection(_configuration, &_mutex);
-  _tcpConnection->setNetworkListener(this);
+  _tcpConnection->setTcpNetworkListener(this);
 
   (void)_gameView;
   (void)_gameController;

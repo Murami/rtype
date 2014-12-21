@@ -1,5 +1,5 @@
-#ifndef		__NETWORKWRITER_HH__
-# define	__NETWORKWRITER_HH__
+#ifndef		__TCPNETWORKWRITER_HH__
+# define	__TCPNETWORKWRITER_HH__
 
 # include	<deque>
 
@@ -9,7 +9,7 @@
 
 class		TcpConnection;
 
-class		NetworkWriter : public Util::Thread<void>
+class		TcpNetworkWriter : public Util::Thread<void>
 {
 private:
   TcpConnection&	_tcpConnection;
@@ -18,8 +18,8 @@ private:
   Util::Mutex		_cond;
 
 public:
-  NetworkWriter(TcpConnection& connection);
-  ~NetworkWriter();
+  TcpNetworkWriter(TcpConnection& connection);
+  ~TcpNetworkWriter();
 
   int			run();
   void			sendData(void *data, std::size_t size);
