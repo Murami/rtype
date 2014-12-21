@@ -11,7 +11,9 @@
 class		ITcpNetworkListener;
 class		TcpConnection;
 
-// typedef	void (ITcpNetworkListener::*)()	TcpCallback;
+class		TcpNetworkReader;
+
+typedef		void (TcpNetworkReader::*TcpCallback)();
 
 class		TcpNetworkReader : public Util::Thread<Util::Mutex*>
 {
@@ -22,7 +24,7 @@ private:
   ITcpNetworkListener*				_tcpListener;
   std::deque<char>				_buffer;
   Util::Mutex*					_mutex;
-  //std::map<RtypeProtocol::Type, TcpCallback>	_callback;
+  std::map<RtypeProtocol::Type, TcpCallback>	_callback;
 
 public:
   TcpNetworkReader(TcpConnection& tcpConnection);
@@ -39,10 +41,27 @@ public:
 
 private:
   void			onReadData();
-
   void			onReadHeader();
+
+  void			onMagicBadVersion();
+  void			onMagicAccept();
   void			onReadRoom();
   void			onReadPing();
+  void			onReadConnectionAlreadyConnected();
+  void			onReadConnectionInternalError();
+  void			onReadConnectionOk();
+  void			onReadRoomCreateAlreadyExist();
+  void			onReadRoomCreateInternalError();
+  void			onReadRoomCreateOk();
+  void			onReadRoomJoinNotFound();
+  void			onReadRoomJoinIsFull();
+  void			onReadRoomJoinBadPswd();
+  void			onReadRoomJoinOk();
+  void			onReadMessage();
+  void			onReadGameStart();
+  void			onReadGameEnd();
+  void			onReadScore();
+  void			onReadPlayerInfo();
 
 private:
   void		_changeExpectedData(RtypeProtocol::Type, std::size_t);

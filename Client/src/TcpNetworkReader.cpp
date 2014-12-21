@@ -20,25 +20,20 @@ int			TcpNetworkReader::run(Util::Mutex* mutex)
   char			buffer[4096];
   std::size_t		received;
 
-  std::cout << "\033[42mBeginning to read...\033[0m" << std::endl;
   while (_tcpConnection.isReading() &&
 	 _tcpConnection.socket().receive(&buffer[0], 4096, received) == sf::Socket::Done)
     {
-      std::cout << "\033[43mTreating datas...\033[0m" << std::endl;
       mutex->lock();
       for (size_t i = 0; i < received; i++)
 	_buffer.push_back(buffer[i]);
       onReadData();
       mutex->unlock();
     }
-  std::cout << "\033[44mEnding Thread...\033[0m" << std::endl;
   return (0);
 }
 
 void			TcpNetworkReader::onReadData()
 {
-  std::cout << "\033[41m" << __FUNCTION__ << "\033[0m" << std::endl;
-
   while (_buffer.size() >= _expectedSize)
     {
       switch (_expectedPacket)
@@ -58,13 +53,18 @@ void			TcpNetworkReader::onReadData()
     }
 }
 
-void			TcpNetworkReader::onReadPing()
+void			TcpNetworkReader::onMagicBadVersion()
 {
-  // RtypeProtocol::Header		header;
-  // RtypeProtocol::PingPong	pingPong;
+  std::cout << "Received bad magic version" << std::endl;
+  _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
+  _tcpListener->onMagicBadVersion();
+}
 
-  // header.type = RtypeProtocol::T_PONG;
-  // header.data_size = sizeof(RtypeProtocol::PingPong);
+void			TcpNetworkReader::onMagicAccept()
+{
+  std::cout << "Received good magic number" << std::endl;
+  _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
+  _tcpListener->onMagicAccept();
 }
 
 void			TcpNetworkReader::onReadRoom()
@@ -77,8 +77,72 @@ void			TcpNetworkReader::onReadRoom()
       _buffer.pop_front();
     }
   _expectedPacket = RtypeProtocol::T_HEADER;
-  _expectedSize = sizeof(RtypeProtocol::Room);
+  _expectedSize = sizeof(RtypeProtocol::Header);
   _tcpListener->onRoomInfo(room);
+}
+
+void			TcpNetworkReader::onReadPing()
+{
+}
+
+void			TcpNetworkReader::onReadConnectionAlreadyConnected()
+{
+}
+
+void			TcpNetworkReader::onReadConnectionInternalError()
+{
+}
+
+void			TcpNetworkReader::onReadConnectionOk()
+{
+}
+
+void			TcpNetworkReader::onReadRoomCreateAlreadyExist()
+{
+}
+
+void			TcpNetworkReader::onReadRoomCreateInternalError()
+{
+}
+
+void			TcpNetworkReader::onReadRoomCreateOk()
+{
+}
+
+void			TcpNetworkReader::onReadRoomJoinNotFound()
+{
+}
+
+void			TcpNetworkReader::onReadRoomJoinIsFull()
+{
+}
+
+void			TcpNetworkReader::onReadRoomJoinBadPswd()
+{
+}
+
+void			TcpNetworkReader::onReadRoomJoinOk()
+{
+}
+
+void			TcpNetworkReader::onReadMessage()
+{
+}
+
+void			TcpNetworkReader::onReadGameStart()
+{
+}
+
+void			TcpNetworkReader::onReadGameEnd()
+{
+}
+
+void			TcpNetworkReader::onReadScore()
+{
+}
+
+void			TcpNetworkReader::onReadPlayerInfo()
+{
 }
 
 void			TcpNetworkReader::onReadHeader()
@@ -90,98 +154,8 @@ void			TcpNetworkReader::onReadHeader()
       reinterpret_cast<char *>(&header)[i] = _buffer.front();
       _buffer.pop_front();
     }
-  switch (header.type)
-    {
-    case RtypeProtocol::T_MAGIC_BAD_VERSION:
-      std::cout << "Received bad magic version" << std::endl;
-      _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
-      _tcpListener->onMagicBadVersion();
-      break;
-
-    case RtypeProtocol::T_MAGIC_ACCEPT:
-      std::cout << "Received good magic number" << std::endl;
-      _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
-      _tcpListener->onMagicAccept();
-      break;
-
-    case RtypeProtocol::T_CONNECTION_ALREADY_CONNECTED:
-      std::cout << "This user is already connected" << std::endl;
-      break;
-
-    case RtypeProtocol::T_CONNECTION_INTERNAL_ERROR:
-      std::cout << "CONNECTION: internal error" << std::endl;
-      break;
-
-    case RtypeProtocol::T_CONNECTION_OK:
-      std::cout << "Connection success" << std::endl;
-      _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
-      break;
-    case RtypeProtocol::T_ROOMINFO:
-      std::cout << "Received room info" << std::endl;
-      _changeExpectedData(RtypeProtocol::T_ROOMINFO, sizeof(RtypeProtocol::Room));
-      break;
-
-    case RtypeProtocol::T_ROOM_CREATE_ALREADY_EXIST:
-      std::cout << "Room creation failed : already exist" << std::endl;
-      break;
-
-    case RtypeProtocol::T_ROOM_CREATE_INTERNAL_ERROR:
-      std::cout << "Room creating failed : internal error" << std::endl;
-      break;
-
-    case RtypeProtocol::T_ROOM_CREATE_OK:
-      std::cout << "Room creation success" << std::endl;
-      break;
-
-    case RtypeProtocol::T_ROOM_JOIN_NOT_FOUND:
-      std::cout << "Joining room failed : Room not found" << std::endl;
-      break;
-
-    case RtypeProtocol::T_ROOM_JOIN_IS_FULL:
-      std::cout << "Joining room failed : Room is full" << std::endl;
-      break;
-
-    case RtypeProtocol::T_ROOM_JOIN_BAD_PSWD:
-      std::cout << "Joining room failed : Bad password" << std::endl;
-      break;
-
-    case RtypeProtocol::T_ROOM_JOIN_OK:
-      std::cout << "Joining room success" << std::endl;
-      break;
-
-    case RtypeProtocol::T_ROOM_EXIT_OK:
-      std::cout << "Exiting room" << std::endl;
-      break;
-
-    case RtypeProtocol::T_PING:
-      std::cout << "Pinging server" << std::endl;
-      _changeExpectedData(RtypeProtocol::T_PING, sizeof(RtypeProtocol::PingPong));
-      break;
-
-    case RtypeProtocol::T_MSG:
-      std::cout << "Message received" << std::endl;
-      break;
-
-    case RtypeProtocol::T_GAMESTART:
-      std::cout << "Game starting" << std::endl;
-      break;
-
-    case RtypeProtocol::T_GAMEEND:
-      std::cout << "Game ending" << std::endl;
-      break;
-
-    case RtypeProtocol::T_SCORE:
-      std::cout << "Score" << std::endl;
-      break;
-
-    case RtypeProtocol::T_PLAYERINFO:
-      std::cout << "Player informations" << std::endl;
-      break;
-
-    default:
-      std::cout << "unknown header" << std::endl;
-      break;
-    }
+  if (_callback.find(static_cast<RtypeProtocol::Type>(header.type)) != _callback.end())
+    (this->*_callback[static_cast<RtypeProtocol::Type>(header.type)])();
 }
 
 void			TcpNetworkReader::setExpectedPacket(RtypeProtocol::Type packetType)
@@ -208,7 +182,25 @@ void			TcpNetworkReader::_changeExpectedData(RtypeProtocol::Type type,
 
 void			TcpNetworkReader::_initCallbacks()
 {
-  // _callback[RtypeProtocol::T_MAGIC_BAD_VERSION] = &ITcpNetworkListener::onMagicBadVersion;
+  _callback[RtypeProtocol::T_MAGIC_BAD_VERSION]			= &TcpNetworkReader::onMagicBadVersion;
+  _callback[RtypeProtocol::T_MAGIC_ACCEPT]			= &TcpNetworkReader::onMagicAccept;
+  _callback[RtypeProtocol::T_ROOMINFO]				= &TcpNetworkReader::onReadRoom;
+  _callback[RtypeProtocol::T_PING]				= &TcpNetworkReader::onReadPing;
+  _callback[RtypeProtocol::T_CONNECTION_ALREADY_CONNECTED]	= &TcpNetworkReader::onReadConnectionAlreadyConnected;
+  _callback[RtypeProtocol::T_CONNECTION_INTERNAL_ERROR]		= &TcpNetworkReader::onReadConnectionInternalError;
+  _callback[RtypeProtocol::T_CONNECTION_OK]			= &TcpNetworkReader::onReadConnectionOk;
+  _callback[RtypeProtocol::T_ROOM_CREATE_ALREADY_EXIST]		= &TcpNetworkReader::onReadRoomCreateAlreadyExist;
+  _callback[RtypeProtocol::T_ROOM_CREATE_INTERNAL_ERROR]	= &TcpNetworkReader::onReadRoomCreateInternalError;
+  _callback[RtypeProtocol::T_ROOM_CREATE_OK]			= &TcpNetworkReader::onReadRoomCreateOk;
+  _callback[RtypeProtocol::T_ROOM_JOIN_NOT_FOUND]		= &TcpNetworkReader::onReadRoomJoinNotFound;
+  _callback[RtypeProtocol::T_ROOM_JOIN_IS_FULL]			= &TcpNetworkReader::onReadRoomJoinIsFull;
+  _callback[RtypeProtocol::T_ROOM_JOIN_BAD_PSWD]		= &TcpNetworkReader::onReadRoomJoinBadPswd;
+  _callback[RtypeProtocol::T_ROOM_JOIN_OK]			= &TcpNetworkReader::onReadRoomJoinOk;
+  _callback[RtypeProtocol::T_MSG]				= &TcpNetworkReader::onReadMessage;
+  _callback[RtypeProtocol::T_GAMESTART]				= &TcpNetworkReader::onReadGameStart;
+  _callback[RtypeProtocol::T_GAMEEND]				= &TcpNetworkReader::onReadGameEnd;
+  _callback[RtypeProtocol::T_SCORE]				= &TcpNetworkReader::onReadScore;
+  _callback[RtypeProtocol::T_PLAYERINFO]			= &TcpNetworkReader::onReadPlayerInfo;
 }
 
 TcpNetworkReader::~TcpNetworkReader() {}
