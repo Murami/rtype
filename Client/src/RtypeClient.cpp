@@ -271,10 +271,21 @@ bool	RtypeClient::onDisconnectFromMenu()
   return (true);
 }
 
-bool	RtypeClient::onRoomConnectFromMenu(RtypeProtocol::RoomConnection)
+bool	RtypeClient::onRoomConnectFromMenu(int id, const std::string& pass)
 {
-  // Send data informing connection to a room
+  RtypeProtocol::Header header;
+  RtypeProtocol::RoomConnection room;
+  char buffer[sizeof(header) + sizeof(room)];
+
   std::cout << __FUNCTION__ << std::endl;
+
+  header.type = RtypeProtocol::T_ROOM_JOIN;
+  header.data_size = sizeof(room);
+  room.id = id;
+  strcpy(reinterpret_cast<char *>(room.pass_md5), pass.c_str());
+  std::memcpy(&buffer[0], &header, sizeof(header));
+  std::memcpy(&buffer[sizeof(header)], &room, sizeof(room));
+  _tcpConnection->write(&buffer, sizeof(header) + sizeof(room));
   return (true);
 }
 
@@ -282,9 +293,10 @@ bool	RtypeClient::onRoomLeaveFromMenu()
 {
   RtypeProtocol::Header header;
 
+  std::cout << __FUNCTION__ << std::endl;
+
   header.type = RtypeProtocol::T_ROOM_EXIT;
   header.data_size = 0;
-  std::cout << __FUNCTION__ << std::endl;
   _tcpConnection->write(&header, sizeof(header));
   return (true);
 }

@@ -11,7 +11,6 @@
 
 namespace	RtypeProtocol
 {
-
 # define	MAX_MSG_SIZE	512
 
 # define	PASS_MD5_SIZE	32

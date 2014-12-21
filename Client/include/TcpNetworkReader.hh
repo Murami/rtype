@@ -1,6 +1,7 @@
 #ifndef		__TCPNETWORKREADER__HH__
 # define	__TCPNETWORKREADER__HH__
 
+# include	<map>
 # include	<deque>
 
 # include	"Thread.hpp"
@@ -10,15 +11,18 @@
 class		ITcpNetworkListener;
 class		TcpConnection;
 
+// typedef	void (ITcpNetworkListener::*)()	TcpCallback;
+
 class		TcpNetworkReader : public Util::Thread<Util::Mutex*>
 {
 private:
-  TcpConnection&	_tcpConnection;
-  RtypeProtocol::Type	_expectedPacket;
-  size_t		_expectedSize;
-  ITcpNetworkListener*	_tcpListener;
-  std::deque<char>	_buffer;
-  Util::Mutex*		_mutex;
+  TcpConnection&				_tcpConnection;
+  RtypeProtocol::Type				_expectedPacket;
+  size_t					_expectedSize;
+  ITcpNetworkListener*				_tcpListener;
+  std::deque<char>				_buffer;
+  Util::Mutex*					_mutex;
+  //std::map<RtypeProtocol::Type, TcpCallback>	_callback;
 
 public:
   TcpNetworkReader(TcpConnection& tcpConnection);
@@ -42,6 +46,7 @@ private:
 
 private:
   void		_changeExpectedData(RtypeProtocol::Type, std::size_t);
+  void		_initCallbacks();
 };
 
 #endif
