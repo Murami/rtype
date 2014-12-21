@@ -18,6 +18,7 @@ namespace	RtypeEvent
     SCORES,
     CREDITS,
     CREATE,
+    LEAVE,
     JOIN,
     READY,
     LISTCHOICE,
