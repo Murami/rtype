@@ -22,6 +22,7 @@ private:
   TcpNetworkReader*			_reader;
   TcpNetworkWriter*			_writer;
   bool					_reading;
+  bool					_writing;
 
 public:
   TcpConnection(const ConnectionConfiguration&, Util::Mutex*);
@@ -34,6 +35,11 @@ public:
   void			joinRead();
   void			stopRead();
   bool			isReading() const;
+
+  void			startWrite();
+  void			joinWrite();
+  void			stopWrite();
+  bool			isWriting() const;
 
   sf::TcpSocket&	socket();
 

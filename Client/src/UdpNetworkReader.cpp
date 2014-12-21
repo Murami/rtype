@@ -10,3 +10,8 @@ UdpNetworkReader::~UdpNetworkReader()
 {
 
 }
+
+int	UdpNetworkReader::run(Util::Mutex&)
+{
+  return (0);
+}

@@ -19,14 +19,14 @@ void		TcpConnection::setTcpNetworkListener(ITcpNetworkListener *listener)
 
 void		TcpConnection::startRead()
 {
-  _reader->start();
   _reading = true;
+  _reader->start();
 }
 
 void		TcpConnection::stopRead()
 {
-  _reader->cancel();
   _reading = false;
+  _reader->cancel();
 }
 
 void		TcpConnection::joinRead()
@@ -37,6 +37,28 @@ void		TcpConnection::joinRead()
 bool		TcpConnection::isReading() const
 {
   return (_reading);
+}
+
+void		TcpConnection::startWrite()
+{
+  _writing = true;
+  _writer->start();
+}
+
+void		TcpConnection::stopWrite()
+{
+  _writing = false;
+  _writer->cancel();
+}
+
+void		TcpConnection::joinWrite()
+{
+  _writer->join();
+}
+
+bool		TcpConnection::isWriting() const
+{
+  return (_writing);
 }
 
 sf::TcpSocket&	TcpConnection::socket()
@@ -71,28 +93,8 @@ bool		TcpConnection::connect()
 
 bool		TcpConnection::write(void *data, std::size_t count)
 {
-  sf::Socket::Status	ret;
-
-  if ((ret = _socket.send(data, count)) != sf::Socket::Done)
-    {
-      switch (ret)
-  	{
-  	case sf::Socket::NotReady:
-  	  std::cerr << "Socket write error: socket is not ready" << std::endl;
-  	  break;
-  	case sf::Socket::Disconnected:
-  	  std::cerr << "Socket write error: socket is disconnected" << std::endl;
-  	  break;
-  	case sf::Socket::Error:
-  	  std::cerr << "Socket write error: socket is on error" << std::endl;
-  	  break;
-  	default:
-  	  break;
-  	  return (false);
-  	}
-    }
+  _writer->sendData(data, count);
   return (true);
-  //_writer->sendData(data, count);
 }
 
 std::ostream&	operator<<(std::ostream& os, const ConnectionConfiguration& conf)
