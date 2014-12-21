@@ -28,9 +28,6 @@ private:
   sf::RenderWindow*		_window;
   Util::Mutex			_mutex;
 
-private:
-  void		_changeExpectedData(RtypeProtocol::Type, std::size_t);
-
   //IKeyListener
 public:
   virtual void	onKeyEvent(RtypeEvent::eKeyEvent);

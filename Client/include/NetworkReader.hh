@@ -39,6 +39,9 @@ private:
   void			onReadHeader();
   void			onReadRoom();
   void			onReadPing();
+
+private:
+  void		_changeExpectedData(RtypeProtocol::Type, std::size_t);
 };
 
 #endif
