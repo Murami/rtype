@@ -16,6 +16,7 @@ class		GameController;
 
 class		RtypeClient :	public IMenuListener,
 				public ITcpNetworkListener,
+				public IUdpNetworkListener,
 				public IKeyListener
 {
 private:
@@ -27,6 +28,18 @@ private:
   GameView*			_gameView;
   sf::RenderWindow*		_window;
   Util::Mutex			_mutex;
+
+  // IUdpNetworkListener
+public:
+  virtual void	onPlayerInfo();
+  virtual void	onPosition();
+  virtual void	onSpawn();
+  virtual void	onDestruction();
+  virtual void	onLife();
+  virtual void	onBonus();
+  virtual void	onHit();
+  virtual void	onDeath();
+  virtual void	onEntityInfo();
 
   //IKeyListener
 public:
