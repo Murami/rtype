@@ -26,8 +26,8 @@ namespace Network
   public:
     ~IUdpProtocoleObserver()
     {}
-    virtual void  notify(int const &type, const RtypeProtocol::State *, const unsigned int & port, const std::string & host) const = 0;
-    virtual void  notify(int const &type, const RtypeProtocol::EntityRequest *, const unsigned int & port, const std::string & host) const = 0;
+    virtual void  notify(int const &type, const RtypeProtocol::State *, const unsigned int & port, const std::string & host) = 0;
+    virtual void  notify(int const &type, const RtypeProtocol::EntityRequest *, const unsigned int & port, const std::string & host) = 0;
     /*
     unused on server side :
     virtual void	notify(int const &type, const RtypeProtocol::PositionEvent *, const unsigned int & port, const std::string & host) const = 0;
