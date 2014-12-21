@@ -71,8 +71,8 @@ namespace Network
     packet	*pack(const RtypeProtocol::Bonus *) const;
     packet	*pack(const RtypeProtocol::PingElem *) const;
     packet	*pack(const RtypeProtocol::State *) const;
-    packet	*pack(const RtypeProtocol::Position *) const;
-    RtypeProtocol::Position			*decode(RtypeProtocol::Position *state) const;
+    packet  *pack(const RtypeProtocol::Position *) const;
+    RtypeProtocol::Position     *decode(RtypeProtocol::Position *state) const;
     RtypeProtocol::State			*decode(RtypeProtocol::State *state) const;
     RtypeProtocol::PingElem			*decode(RtypeProtocol::PingElem *ping) const;
     RtypeProtocol::Bonus			*decode(RtypeProtocol::Bonus *bonus) const;
