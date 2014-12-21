@@ -74,7 +74,7 @@ namespace Application
   }
 
   // Room
-  Room* Server::createRoom(ClientServer* client, const RtypeProtocol::Room* roominfos)
+  Room* Server::createRoom(ClientServer *, const RtypeProtocol::Room* roominfos)
   {
     std::string	name;
     std::string	pass;
@@ -169,7 +169,7 @@ namespace Application
       }
   }
 
-  void	Server::notify(int const & type, const RtypeProtocol::State* state, const unsigned int & port, const std::string& host)
+  void	Server::notify(int const &, const RtypeProtocol::State* state, const unsigned int &, const std::string& host)
   {
     std::cout << "UDP state" << std::endl;
     if (_clientsroom.find(host) == _clientsroom.end())
@@ -177,7 +177,7 @@ namespace Application
     _clientsroom[host]->notify(state);
   }
 
-  void	Server::notify(int const & type, const RtypeProtocol::EntityRequest* request, const unsigned int & port, const std::string& host)
+  void	Server::notify(int const &, const RtypeProtocol::EntityRequest* request, const unsigned int &, const std::string& host)
   {
     std::cout << "UDP request" << std::endl;
     if (_clientsroom.find(host) == _clientsroom.end())

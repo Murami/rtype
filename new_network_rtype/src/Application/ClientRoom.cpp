@@ -26,7 +26,7 @@ namespace Application
     notifyState(state->state);
   }
 
-  void		ClientRoom::notify(const RtypeProtocol::EntityRequest* request)
+  void		ClientRoom::notify(const RtypeProtocol::EntityRequest*)
   {
     // TODO request entity (BONUS --- )
   }

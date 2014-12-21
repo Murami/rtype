@@ -24,7 +24,7 @@ namespace Network
 
   void UdpSocket::sendDataTo(const void *data, int size, unsigned int port, const std::string & host)
   {
-    SOCKADDR_IN to = { 0 };
+    SOCKADDR_IN to;
 
     to.sin_addr.s_addr = inet_addr(host.c_str());
     to.sin_port = htons(port);
@@ -39,7 +39,7 @@ namespace Network
   int UdpSocket::recvDataFrom(void *data, int size, unsigned int & port, std::string & host)
   {
     int	n;
-    SOCKADDR_IN from = { 0 };
+    SOCKADDR_IN from;
     socklen_t fromsize = sizeof from;
 
     if((n = recvfrom(_socket, reinterpret_cast<char *>(data), size, 0, (SOCKADDR *)&from, &fromsize)) < 0)
@@ -51,7 +51,7 @@ namespace Network
 
   void UdpSocket::bindSocket(unsigned int port)
   {
-    SOCKADDR_IN sin = { 0 };
+    SOCKADDR_IN sin;
 
     sin.sin_addr.s_addr = htonl(INADDR_ANY);
     sin.sin_family = AF_INET;

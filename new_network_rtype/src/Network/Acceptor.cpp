@@ -46,7 +46,7 @@ namespace Network
   void Acceptor::acceptSocket()
   {
     SOCKET	usocket;
-    SOCKADDR_IN	usin = { 0 };
+    SOCKADDR_IN	usin;
     socklen_t	sinsize = sizeof usin;
 
     usocket = accept(_asocket, (SOCKADDR *)&usin, &sinsize);

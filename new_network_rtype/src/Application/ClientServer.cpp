@@ -45,12 +45,12 @@ namespace Application
     _server.getService().addWriteTcp(socket);
   }
 
-  void	ClientServer::onTimeout(Network::Timer& timer)
+  void	ClientServer::onTimeout(Network::Timer&)
   {
     // TIMEOUT DU CLIENT ON DECO TOUT !!!!!
   }
 
-  void	ClientServer::notify(int const &type, const RtypeProtocol::Magic * magicRcv, Network::TcpSocket * socket)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::Magic * magicRcv, Network::TcpSocket *)
   {
     if (type == RtypeProtocol::T_MAGIC)
       {
@@ -85,7 +85,7 @@ namespace Application
       }
   }
 
-  void	ClientServer::notify(int const &type, const RtypeProtocol::User * user, Network::TcpSocket * socket)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::User * user, Network::TcpSocket *)
   {
     if (type == RtypeProtocol::T_CONNECTION)
       {
@@ -102,11 +102,11 @@ namespace Application
       }
   }
 
-  void	ClientServer::notify(int const &type, const RtypeProtocol::Message * msg, Network::TcpSocket *socket)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::Message * msg, Network::TcpSocket *)
   {
     if (type == RtypeProtocol::T_MSG)
       {
-	std::cout << "msg" << std::endl;
+	std::cout << "msg : " << msg->message << std::endl;
 	if (_state != T_CONNECTED)
 	  throw ClientException("PROTOCOL ERROR");
 
@@ -115,7 +115,7 @@ namespace Application
   }
 
   void	ClientServer::notify(int const &type, const RtypeProtocol::RoomConnection * roomConnection,
-			     Network::TcpSocket * socket)
+			     Network::TcpSocket *)
   {
     if (type == RtypeProtocol::T_ROOM_JOIN)
       {
@@ -155,7 +155,7 @@ namespace Application
       }
   }
 
-  void	ClientServer::notify(int const &type, const RtypeProtocol::PingPong * ping, Network::TcpSocket * socket)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::PingPong *, Network::TcpSocket *)
   {
     if (type == RtypeProtocol::T_PONG)
       {
@@ -166,7 +166,7 @@ namespace Application
       }
   }
 
-  void	ClientServer::notify(int const &type, const RtypeProtocol::Room * room, Network::TcpSocket * socket)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::Room * room, Network::TcpSocket *)
   {
     if (type == RtypeProtocol::T_ROOM_CREATE)
       {
@@ -197,7 +197,7 @@ namespace Application
       }
   }
 
-  void	ClientServer::notify(int const &type, Network::TcpSocket * socket)
+  void	ClientServer::notify(int const &type, Network::TcpSocket *)
   {
     if (type == RtypeProtocol::T_READY)
       {
@@ -223,7 +223,7 @@ namespace Application
 	_server.deleteClientRoom(_clientroom);
 	_state = T_CONNECTED;
 	this->sendHeader(RtypeProtocol::T_ROOM_EXIT_OK);
-	if (_clientroom->isHost())
+	if (isHost)
 	    _server.sendRoomToAllClients(room, false);
 	  {
 	    _clientroom = NULL;

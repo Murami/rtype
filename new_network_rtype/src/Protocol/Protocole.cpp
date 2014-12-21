@@ -206,8 +206,6 @@ namespace Network
   }
   RtypeProtocol::Score	*Protocole::decode(RtypeProtocol::Score *score) const
   {
-    RtypeProtocol::Score scoreEncoded;
-
     score->score = ntoh(score->score);
     score->user_id = ntoh(score->user_id);
     return (score);
@@ -455,7 +453,7 @@ namespace Network
     unsigned int		datasize;
 
     // not enough data for a header
-    if (size < sizeof(RtypeProtocol::Header))
+    if (static_cast<unsigned>(size) < sizeof(RtypeProtocol::Header))
       return (false);
 
     // data pick
@@ -529,7 +527,7 @@ namespace Network
 
   void	ProtocoleTcp::onRead(TcpSocket *socket, ITcpProtocoleObserver *obs) const
   {
-    if (socket->availableDataOnRead() >= sizeof(RtypeProtocol::Header))
+    if (static_cast<unsigned>(socket->availableDataOnRead()) >= sizeof(RtypeProtocol::Header))
       {
 	unpack(socket->availableDataOnRead(), socket, obs);
       }
@@ -552,14 +550,14 @@ namespace Network
     socket->recvDataFrom(buffer, size, port, host);
     if (port != RtypeProtocol::UdpPort)
       throw RtypeProtocol::ProtocolException("Wrong port");
-    if (size < sizeof(RtypeProtocol::Header))
+    if (static_cast<unsigned>(size) < sizeof(RtypeProtocol::Header))
       throw RtypeProtocol::ProtocolException("Insufisiant Udp data");
     RtypeProtocol::Header	*header;
     void			*dataAddr = NULL;
     header = reinterpret_cast<RtypeProtocol::Header *>(buffer);
     decode(header);
     datasize = size - sizeof(RtypeProtocol::Header);
-    if (datasize < header->data_size)
+    if (static_cast<unsigned>(datasize) < header->data_size)
       throw RtypeProtocol::ProtocolException("Insufisiant Udp data");
     if (header->data_size > 0)
       dataAddr = header + sizeof(RtypeProtocol::Header);
