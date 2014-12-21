@@ -92,12 +92,6 @@ void	GameView::update()
 
   for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
     (*itBack)->update(sf::Vector2<float>(0, 0));
-  for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
-    {
-      sf::Vector2<float>	pos = {100, 100};
-
-      itObj->second->update(pos);
-    }
 }
 
 void	GameView::render(sf::RenderWindow& window)

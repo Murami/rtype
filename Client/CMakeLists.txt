@@ -23,6 +23,7 @@ add_executable(
 	src/Graphic/ScrollingBackground.cpp
 	src/Graphic/TextureManager.cpp
 	src/Graphic/Monster.cpp
+	src/Graphic/Camera.cpp
 	src/ConnectionConfiguration.cpp
 	src/MenuController.cpp
 	src/MenuView.cpp
@@ -44,6 +45,15 @@ add_executable(
 	src/UdpNetworkWriter.cpp
 	src/main.cpp
 	include/ConfigurationParser.hh
+	include/Graphic/AObject.hh
+	include/Graphic/BigRocket.hh
+	include/Graphic/LittleRocket.hh
+	include/Graphic/Player.hh
+	include/Graphic/PlayerPowerUp.hh
+	include/Graphic/ScrollingBackground.hh
+	include/Graphic/TextureManager.hh
+	include/Graphic/Monster.hh
+	include/Graphic/Camera.hh
 	include/ConnectionConfiguration.hh
 	include/GameController.hh
 	include/GameEnum.hh
