@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Game/Player.hh"
+#include "Protocol/RtypeProtocol.hh"
 
 namespace Application
 {
@@ -21,8 +22,11 @@ namespace Application
     ClientRoom(Room& room, ClientServer& clientserver, bool host);
     ~ClientRoom();
 
+    void		notify(const RtypeProtocol::State* state);
+    void		notify(const RtypeProtocol::EntityRequest* request);
+
     const std::string&	getName() const;
-    const void		notifyState(unsigned int state) const;
+    void		notifyState(unsigned int state);
     bool		isHost() const;
     ClientServer&	getClientServer() const;
     Room*		getRoom() const;

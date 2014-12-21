@@ -167,10 +167,16 @@ namespace Application
   void	Server::notify(int const & type, const RtypeProtocol::State* state, const unsigned int & port, const std::string& host)
   {
     std::cout << "UDP state" << std::endl;
+    if (_clientsroom.find(host) == _clientsroom.end())
+      throw (std::runtime_error("Invalid peer")); // TODO a catch et faire une exception server
+    _clientsroom[host]->notify(state);
   }
 
   void	Server::notify(int const & type, const RtypeProtocol::EntityRequest* request, const unsigned int & port, const std::string& host)
   {
     std::cout << "UDP request" << std::endl;
+    if (_clientsroom.find(host) == _clientsroom.end())
+      throw (std::runtime_error("Invalid peer")); // TODO a catch et faire une exception server
+    _clientsroom[host]->notify(request);
   }
 }

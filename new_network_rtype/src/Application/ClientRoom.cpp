@@ -21,7 +21,17 @@ namespace Application
     return (_clientserver.getName());
   };
 
-  const void		ClientRoom::notifyState(unsigned int state) const
+  void		ClientRoom::notify(const RtypeProtocol::State* state)
+  {
+    notifyState(state->state);
+  }
+
+  void		ClientRoom::notify(const RtypeProtocol::EntityRequest* request)
+  {
+    // TODO request entity (BONUS --- )
+  }
+
+  void		ClientRoom::notifyState(unsigned int state)
   {
     // DANS L'IDEAL UNE MAP
     _player->clearInput();
