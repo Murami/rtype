@@ -47,8 +47,10 @@ void		RtypeClient::run()
 
   header.type = RtypeProtocol::T_MAGIC;
   header.data_size = sizeof(magic);
-  magic.minor_version = htons(RtypeProtocol::minor_version);
-  magic.major_version = htons(RtypeProtocol::major_version);
+
+  magic.minor_version = htonl(RtypeProtocol::minor_version);
+  magic.major_version = htonl(RtypeProtocol::major_version);
+
   std::memset(&magic.proto_name[0], 0, PROTO_NAME_SIZE);
   std::memcpy(reinterpret_cast<char *>(&magic.proto_name[0]),
   	      RtypeProtocol::proto_name,
@@ -57,11 +59,8 @@ void		RtypeClient::run()
   std::memcpy(&buffer[0], &header, sizeof(header));
   std::memcpy(&buffer[sizeof(header)], &magic, sizeof(magic));
 
-  std::cout << "Begin to read" << std::endl;
   _tcpConnection->startRead();
-  std::cout << "Sending magic number..." << std::endl;
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(magic));
-  std::cout << "Magic number sent" << std::endl;
 
   SoundManager::Play("theme", true);
   _menuView->run(*_window, &_mutex);
@@ -94,9 +93,13 @@ void	RtypeClient::onDisconnection()
   std::cout << __FUNCTION__ << std::endl;
 }
 
-void	RtypeClient::onRoomInfo(RtypeProtocol::Room)
+void	RtypeClient::onRoomInfo(RtypeProtocol::Room room)
 {
   std::cout << __FUNCTION__ << std::endl;
+  if (room.alive)
+    _menuController->addToRoomList(room);
+  else
+    _menuController->deleteFromRoomList(room);
 }
 
 void	RtypeClient::onPingPong(RtypeProtocol::PingPong)
@@ -130,7 +133,6 @@ bool	RtypeClient::onConnectFromMenu(const std::string & login)
   RtypeProtocol::User user;
 
   SoundManager::Play("bip");
-  std::cout << __FUNCTION__ << " : " << login << std::endl;
   header.type = RtypeProtocol::T_CONNECTION;
   header.data_size = sizeof(RtypeProtocol::User);
   strcpy(reinterpret_cast<char *>(&user.username[0]), login.c_str());

@@ -18,8 +18,8 @@ class MenuController : public IObserver
 {
 
 public:
-    MenuController(MenuView &view);
-    virtual ~MenuController();
+  MenuController(MenuView &view);
+  virtual ~MenuController();
   void update(RtypeEvent::eButton idCallback);
   void manageUpdate(RtypeEvent::eButton idCallback);
 
