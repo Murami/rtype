@@ -55,6 +55,7 @@ namespace Application
   private:
     Network::Service &			_service;
     Network::ProtocoleUdp		_protocoleUdp;
+    Network::ProtocoleTcp		_protocoleTcp;
 
     Network::Acceptor			_acceptor;
     Network::UdpSocket			_udpSocket;
