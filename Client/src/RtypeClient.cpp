@@ -1,7 +1,13 @@
 #include	<cstring>
 #include	<stdexcept>
 
-#include	<arpa/inet.h>
+#if defined(__linux__) || defined(__APPLE__)
+# include	<arpa/inet.h>
+#elif defined(WIN32)
+# include <Winsock2.h.h>
+#endif
+# include <Winsock2.h>
+# include <windows.h>
 
 #include	"MenuController.hh"
 #include	"MenuView.hh"

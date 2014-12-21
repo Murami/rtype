@@ -1,5 +1,5 @@
 #ifdef _WIN32
-#include "Util/Mutex.hh"
+#include "Mutex.hh"
 
 namespace Util
 {
