@@ -9,7 +9,7 @@ namespace Network
   class TcpSocketObserver
   {
   public:
-    virtual void onRead(TcpSocket &) = 0;
+    virtual void onRead(TcpSocket &, const bool error = false) = 0;
     virtual void onWrite(TcpSocket &) = 0;
   };
 

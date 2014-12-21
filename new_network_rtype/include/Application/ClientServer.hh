@@ -31,7 +31,7 @@ namespace Application
     ~ClientServer();
 
     void	onTimeout(Network::Timer& timer);
-    void	onRead(Network::TcpSocket & socket);
+    void	onRead(Network::TcpSocket & socket, const bool error = false);
     void	onWrite(Network::TcpSocket & socket);
 
     void	notify(int const & type, const RtypeProtocol::Magic *, Network::TcpSocket *);

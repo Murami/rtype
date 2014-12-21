@@ -20,18 +20,23 @@ namespace Application
 
   ClientServer::~ClientServer() {}
 
-  void	ClientServer::onRead(Network::TcpSocket & socket)
+  void	ClientServer::onRead(Network::TcpSocket & socket, const bool error)
   {
+    if (error)
+    {
+      _server.deleteClientServer(this);
+      return ;
+    }
     std::cout << "ClientServer::onRead()" << std::endl;
     _server.getService().addReadTcp(socket);
     try
       {
-	_server.getProtocole().onRead(&socket, this);
+	       _server.getProtocole().onRead(&socket, this);
       }
     catch (ClientException e)
       {
-	std::cout << e.what() << std::endl;
-	_server.deleteClientServer(this);
+	       std::cout << e.what() << std::endl;
+	       _server.deleteClientServer(this);
      }
   }
 
