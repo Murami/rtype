@@ -256,7 +256,7 @@ namespace Application
     else
       roominfos.password_flag = 1;
 
-    room->getName().copy(reinterpret_cast<char*>(roominfos.pass_md5), PASS_MD5_SIZE);
+    room->getPass().copy(reinterpret_cast<char*>(roominfos.pass_md5), PASS_MD5_SIZE);
     room->getName().copy(reinterpret_cast<char*>(roominfos.room_name), ROOM_NAME_SIZE);
 
     for (it = room->getClients().begin(); it != room->getClients().end(); it++)
@@ -264,6 +264,7 @@ namespace Application
 	unsigned int	idx = std::distance(room->getClients().begin(), it);
 	(*it)->getName().copy(reinterpret_cast<char*>(roominfos.ready_users[idx]), USERNAME_SIZE);
       }
+    std::cout << "room name size : " << room->getName().size() << std::endl;
     std::cout << "send room infos -----> " << roominfos.room_name << std::endl;
     this->sendHeader(RtypeProtocol::T_ROOMINFO, sizeof(RtypeProtocol::Room));
     send(this->_socket, roominfos);
