@@ -10,7 +10,7 @@ namespace Network
   class ITcpProtocoleObserver
   {
   public:
-    ~ITcpProtocoleObserver()
+    virtual ~ITcpProtocoleObserver()
     {}
     virtual void	notify(int const &type, const RtypeProtocol::Magic *, TcpSocket *) = 0;
     virtual void	notify(int const &type, const RtypeProtocol::User *, TcpSocket *) = 0;
@@ -24,7 +24,7 @@ namespace Network
   class IUdpProtocoleObserver
   {
   public:
-    ~IUdpProtocoleObserver()
+    virtual ~IUdpProtocoleObserver()
     {}
     virtual void  notify(int const &type, const RtypeProtocol::State *, const unsigned int & port, const std::string & host) = 0;
     virtual void  notify(int const &type, const RtypeProtocol::EntityRequest *, const unsigned int & port, const std::string & host) = 0;
