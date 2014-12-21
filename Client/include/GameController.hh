@@ -15,7 +15,7 @@ public:
 
   void	update();
 
-  void	setGameController(IGameListener*);
+  void	setGameListener(IGameListener*);
 
 private:
   GameView&		_view;

@@ -17,3 +17,8 @@ void	GameController::update()
 {
   
 }
+
+void	GameController::setGameListener(IGameListener* listener)
+{
+  _listener = listener;
+}
