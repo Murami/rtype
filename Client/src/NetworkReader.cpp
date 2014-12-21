@@ -18,7 +18,6 @@ int			NetworkReader::run(Util::Mutex* mutex)
   char			buffer[4096];
   std::size_t		received;
 
-  // Faire le buffer tournant circulaire
   std::cout << "\033[42mBeginning to read...\033[0m" << std::endl;
   while (_tcpConnection.isReading() &&
 	 _tcpConnection.socket().receive(buffer, 4096, received) == sf::Socket::Done)
@@ -48,6 +47,27 @@ void			NetworkReader::onReadData(void *data, std::size_t)
       break;
     case RtypeProtocol::T_MAGIC_ACCEPT:
       std::cout << "Received good magic number" << std::endl;
+      break;
+    case RtypeProtocol::T_CONNECTION_ALREADY_CONNECTED:
+
+      break;
+    case RtypeProtocol::T_CONNECTION_INTERNAL_ERROR:
+
+      break;
+    case RtypeProtocol::T_CONNECTION_OK:
+
+      break;
+    case RtypeProtocol::T_ROOMINFO:
+
+      break;
+    case RtypeProtocol::T_ROOM_CREATE_ALREADY_EXIST:
+
+      break;
+    case RtypeProtocol::T_ROOM_CREATE_INTERNAL_ERROR:
+
+      break;
+    case RtypeProtocol::T_ROOM_CREATE_OK:
+
       break;
     default:
       std::cout << "unknown header" << std::endl;

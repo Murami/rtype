@@ -40,7 +40,7 @@ static const int8_t proto_name[] = "RType";
 
       // CONNECTION
       T_CONNECTION                    = 3, //send connection request with username	from client
-      T_CONNECTION_ALREADY_CONENCTED  = 4, //reponse					from server
+      T_CONNECTION_ALREADY_CONNECTED  = 4, //reponse					from server
       T_CONNECTION_INTERNAL_ERROR     = 5, //reponse					from server
       T_CONNECTION_OK                 = 6, //reponse					from server
 
