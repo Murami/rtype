@@ -21,6 +21,7 @@ namespace Application
     ~ClientRoom();
 
     const std::string&	getName() const;
+    const void		notifyState(unsigned int state) const;
   };
 };
 

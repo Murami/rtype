@@ -26,6 +26,17 @@ namespace	RtypeProtocol
 
 # define	MAX_USERS	4
 
+# define	NO_FLAG
+# define	FLAG(a)	(1 << a)
+
+# define	INPUT_NONE		NO_FLAG
+# define	INPUT_FORWARD		FLAG(0)
+# define	INPUT_BACKWARD		FLAG(1)
+# define	INPUT_LEFT		FLAG(2)
+# define	INPUT_RIGHT		FLAG(3)
+# define	INPUT_PRIMARYFIRE	FLAG(4)
+# define	INPUT_SECONDARYFIRE	FLAG(5)
+
 static const uint32_t  minor_version = 0;
 static const uint32_t  major_version = 1;
 static const int8_t proto_name[] = "RType";
