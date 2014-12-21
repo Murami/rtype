@@ -32,6 +32,7 @@ void MenuController::manageUpdate(RtypeEvent::eButton idCallback)
       // Creer un RtypeProtocol::RoomConnect ICI et l'envoyer
       std::cout << "Joining room : " << _view.getRoomName() << " with password : " << _view.getRoomPass() << std::endl;
       //_listen->onRoomConnectFromMenu(_view.getLogin());
+      //      _listen->onRoomConnectFromMenu(_view.getLogin());
       break;
     case RtypeEvent::CREATE:
       std::cout << "Creating room : " << _view.getRoomName() << " with password : " << _view.getRoomPass() << std::endl;
@@ -44,4 +45,28 @@ void MenuController::manageUpdate(RtypeEvent::eButton idCallback)
 void MenuController::setMenuListener(IMenuListener *listen)
 {
    _listen = listen;
+}
+
+void MenuController::addToRoomList(RtypeProtocol::Room room)
+{
+  _roomList[room.id] = room;
+  std::cout << "Add room : " << room.room_name << std::endl;
+  this->updateRoomList();
+}
+
+void MenuController::updateRoomList()
+{
+  _view.resetRoomList();
+  for (std::map<int, RtypeProtocol::Room>::iterator it = _roomList.begin(); it != _roomList.end(); it++)
+    _view.addRoom(std::string(reinterpret_cast<char*>(it->second.room_name)));
+}
+
+void MenuController::deleteFromRoomList(RtypeProtocol::Room room)
+{
+  if (_roomList.find(room.id) != _roomList.end())
+    {
+      _roomList.erase(room.id);
+      std::cout << "erase room : " << room.room_name << std::endl;
+      this->updateRoomList();
+    }
 }
