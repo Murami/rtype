@@ -28,6 +28,7 @@ public:
   void setMenuListener(IMenuListener *);
   void addToRoomList(RtypeProtocol::Room room);
   void deleteFromRoomList(RtypeProtocol::Room room);
+  void updateRoomList();
   
 private:
   MenuView& _view;

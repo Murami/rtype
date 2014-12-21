@@ -50,6 +50,14 @@ void MenuController::addToRoomList(RtypeProtocol::Room room)
 {
   _roomList[room.id] = room;
   std::cout << "Add room : " << room.room_name << std::endl;
+  this->updateRoomList();
+}
+
+void MenuController::updateRoomList()
+{
+  _view.resetRoomList();
+  for (std::map<int, RtypeProtocol::Room>::iterator it = _roomList.begin(); it != _roomList.end(); it++)
+    _view.addRoom(std::string(reinterpret_cast<char*>(it->second.room_name)));
 }
 
 void MenuController::deleteFromRoomList(RtypeProtocol::Room room)
@@ -58,6 +66,6 @@ void MenuController::deleteFromRoomList(RtypeProtocol::Room room)
     {
       _roomList.erase(room.id);
       std::cout << "erase room : " << room.room_name << std::endl;
+      this->updateRoomList();
     }
-
 }

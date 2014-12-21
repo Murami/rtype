@@ -178,9 +178,6 @@ void MenuView::initRoomSelect()
     _listRoom->load(blackConf);
     _listRoom->setSize((0.34 * _width), (0.388 * _height));
     _listRoom->setPosition((_width / 3) - (0.225 * _width), (0.316 * _height));
-    _listRoom->addItem("room1");
-    _listRoom->addItem("room2");
-    _listRoom->addItem("room3");
     _listRoom->bindCallback(tgui::Button::LeftMouseClicked);
     _listRoom->setCallbackId(RtypeEvent::LISTCHOICE);
     _listRoom->setTextColor(sf::Color::Cyan);
