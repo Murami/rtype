@@ -321,14 +321,13 @@ namespace Network
     return (new packet(&encoded, sizeof(encoded)));
   }
 
-
   RtypeProtocol::Position	*Protocole::decode(RtypeProtocol::Position *pos) const
   {
     ntoh(pos, pos);
     return (pos);
   }
 
-  RtypeProtocol::Spawn	*Protocole::decode(RtypeProtocol::Spawn *spawn) const
+  RtypeProtocol::Spawn  *Protocole::decode(RtypeProtocol::Spawn *spawn) const
   {
     spawn->id = ntoh(spawn->id);
     spawn->life = ntoh(spawn->life);
@@ -336,6 +335,7 @@ namespace Network
     spawn->type = ntoh(spawn->type);
     return (spawn);
   }
+
   RtypeProtocol::PositionEvent	*Protocole::decode(RtypeProtocol::PositionEvent *posEvent) const
   {
     posEvent->id = ntoh(posEvent->id);
@@ -561,12 +561,16 @@ namespace Network
       dataAddr = header + sizeof(RtypeProtocol::Header);
     if (dataAddr)
     {
-    if (header->type == RtypeProtocol::T_POSITION)
+    if (header->type == RtypeProtocol::T_EVENT)
+    obs->notify(header->type, decode<RtypeProtocol::State>(dataAddr, datasize, header->data_size), port, host);
+    else if (header->type == RtypeProtocol::T_ENTITYREQUEST)
+    obs->notify(header->type, decode<RtypeProtocol::EntityRequest>(dataAddr, datasize, header->data_size), port, host);
+    
+      //unused on server side :
+    else if (header->type == RtypeProtocol::T_POSITION)
     obs->notify(header->type, decode<RtypeProtocol::PositionEvent>(dataAddr, datasize, header->data_size), port, host);
     else if (header->type == RtypeProtocol::T_SPAWN)
     obs->notify(header->type, decode<RtypeProtocol::Spawn>(dataAddr, datasize, header->data_size), port, host);
-    else if (header->type == RtypeProtocol::T_EVENT)
-    obs->notify(header->type, decode<RtypeProtocol::Position>(dataAddr, datasize, header->data_size), port, host);
     else if (header->type == RtypeProtocol::T_DESTRUCTION)
     obs->notify(header->type, decode<RtypeProtocol::destruction>(dataAddr, datasize, header->data_size), port, host);
     else if (header->type == RtypeProtocol::T_LIFE)
