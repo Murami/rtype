@@ -12,6 +12,7 @@ TcpNetworkReader::TcpNetworkReader(TcpConnection& tcpConnection) :
   _expectedPacket = RtypeProtocol::T_HEADER;
   _expectedSize = sizeof(RtypeProtocol::Header);
   _tcpListener = NULL;
+  _initCallbacks();
 }
 
 int			TcpNetworkReader::run(Util::Mutex* mutex)
@@ -203,6 +204,11 @@ void			TcpNetworkReader::_changeExpectedData(RtypeProtocol::Type type,
 {
   _expectedPacket = type;
   _expectedSize = size;
+}
+
+void			TcpNetworkReader::_initCallbacks()
+{
+  // _callback[RtypeProtocol::T_MAGIC_BAD_VERSION] = &ITcpNetworkListener::onMagicBadVersion;
 }
 
 TcpNetworkReader::~TcpNetworkReader() {}
