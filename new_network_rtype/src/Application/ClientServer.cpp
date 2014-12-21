@@ -143,7 +143,7 @@ namespace Application
 	else					// OK
 	  {
 	    _state = T_INROOM;
-	    _clientroom = room->addClient(this);
+	    _clientroom = room->addClient(this, false);
 	    _server.addClientRoom(_clientroom);
 	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_OK);
 	  }
@@ -183,10 +183,12 @@ namespace Application
 	    Room*	serverroom;
 
 	    serverroom = _server.createRoom(this, room);
+	    _server.sendRoomToAllClients(serverroom, true);
+	    _clientroom = serverroom->addClient(this, true);
+	    _server.addClientRoom(_clientroom);
+	    _state = T_INROOM;
 	    this->sendHeader(RtypeProtocol::T_ROOM_CREATE_OK);
-	    _server.sendRoomToAllClients(serverroom);
 	  }
-	// TODO le joueur rejoint la room qu'il a créé
       }
   }
 
@@ -203,19 +205,23 @@ namespace Application
       {
 	std::cout << "room exit" << std::endl;
 
-	if (_state != T_INROOM)
+	if (_state != T_INROOM) // TODO leave en jeu aussi ? ...
 	  throw ClientException("");
+
+	Room*	room = _clientroom->getRoom();
+	bool	isHost = _clientroom->isHost();
+
+	room->deleteClient(this);
+	_server.deleteClientRoom(_clientroom);
+	_state = T_CONNECTED;
+	this->sendHeader(RtypeProtocol::T_ROOM_EXIT_OK);
+	if (_clientroom->isHost())
+	    _server.sendRoomToAllClients(room, false);
+	  {
+	    _clientroom = NULL;
+	    _server.deleteRoom(room);
+	  }
       }
-    // now obselete
-    // if (type == RtypeProtocol::T_GETROOMLIST)
-    //   {
-    // 	std::cout << "get room list" << std::endl;
-
-    // 	if (_state != T_CONNECTED)
-    // 	  throw ClientException("");
-
-    // 	_server.sendAllRoomInfos(this);
-    //   }
   }
 
   Network::TcpSocket & ClientServer::getSocket() const
@@ -232,12 +238,13 @@ namespace Application
     send(this->_socket, header);
   }
 
-  void	ClientServer::sendRoomInfos(const Room* room)
+  void	ClientServer::sendRoomInfos(const Room* room, bool alive)
   {
     RtypeProtocol::Room				roominfos;
     std::list<ClientRoom*>::const_iterator	it;
 
     roominfos.id = room->getID();
+    roominfos.alive = alive;
     roominfos.locked = room->isGameStarted();
     roominfos.nb_connected_users = room->getNbClient();
 
@@ -268,4 +275,13 @@ namespace Application
     return (_name);
   }
 
+  Server&		ClientServer::getServer() const
+  {
+    return (_server);
+  }
+
+  ClientRoom*		ClientServer::getClientRoom() const
+  {
+    return (_clientroom);
+  }
 } /* namespace Application */

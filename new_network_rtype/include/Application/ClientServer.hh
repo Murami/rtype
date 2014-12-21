@@ -44,10 +44,12 @@ namespace Application
 
     Network::TcpSocket& getSocket() const;
 
+    ClientRoom*		getClientRoom() const;
     void		setClientRoom(ClientRoom* clientroom);
     void		sendHeader(int type, unsigned int size = 0);
-    void		sendRoomInfos(const Room* room);
+    void		sendRoomInfos(const Room* room, bool alive);
     const std::string&	getName() const;
+    Server&		getServer() const;
 
   private:
     Server &			_server;

@@ -131,15 +131,31 @@ namespace Application
     for (it = _rooms.begin(); it != _rooms.end(); it++)
       {
 	std::cout << "send one room" << std::endl;
-	clientserver->sendRoomInfos(it->second);
+	clientserver->sendRoomInfos(it->second, true);
       }
   }
 
-  void	Server::sendRoomToAllClients(const Room* room)
+  void	Server::sendRoomToAllClients(const Room* room, bool alive)
   {
     std::list<ClientServer*>::iterator	it;
 
     for (it = _clients.begin(); it != _clients.end(); it++)
-      (*it)->sendRoomInfos(room);
+      (*it)->sendRoomInfos(room, alive);
+  }
+
+  void	Server::deleteRoom(Room* room)
+  {
+    std::map<unsigned int, Room*>::iterator	it;
+
+    for (it = _rooms.begin(); it != _rooms.end(); it++)
+      {
+	if (it->second == room)
+	  {
+	    room->close();
+	    delete (room);
+	    _rooms.erase(it);
+	    return;
+	  }
+      }
   }
 }

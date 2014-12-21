@@ -4,9 +4,10 @@
 
 namespace Application
 {
-  ClientRoom::ClientRoom(Room& room, ClientServer& clientserver) :
+  ClientRoom::ClientRoom(Room& room, ClientServer& clientserver, bool host) :
     _room(room),
-    _clientserver(clientserver)
+    _clientserver(clientserver),
+    _host(host)
   {
     _player = &room.getGame().addPlayer();
   }
@@ -36,5 +37,20 @@ namespace Application
       _player->addInput(Game::Player::PrimaryFire);
     if (state & INPUT_SECONDARYFIRE)
       _player->addInput(Game::Player::SecondaryFire);
+  }
+
+  bool			ClientRoom::isHost() const
+  {
+    return (_host);
+  }
+
+  ClientServer&		ClientRoom::getClientServer() const
+  {
+    return (_clientserver);
+  }
+
+  Room*			ClientRoom::getRoom() const
+  {
+    return (&_room);
   }
 };

@@ -151,6 +151,7 @@ namespace Network
 	for (int k = 0; k != USERNAME_SIZE; k++)
 	  roomEncoded.connected_users[i][k] = hton(room->connected_users[i][k]);
       }
+    roomEncoded.alive = hton(room->alive);
     roomEncoded.nb_connected_users = hton(room->nb_connected_users);
     roomEncoded.password_flag = hton(room->password_flag);
     for (int i = 0; i != ROOM_NAME_SIZE; i++)
@@ -235,6 +236,7 @@ namespace Network
 	for (int k = 0; k != USERNAME_SIZE; k++)
 	  room->connected_users[i][k] = ntoh(room->connected_users[i][k]);
       }
+    room->alive = ntoh(room->alive);
     room->nb_connected_users = ntoh(room->nb_connected_users);
     room->password_flag = ntoh(room->password_flag);
     for (int i = 0; i != ROOM_NAME_SIZE; i++)
