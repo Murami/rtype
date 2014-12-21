@@ -67,17 +67,7 @@ void PlayerPowerUp::setIndex(int index)
     _index = index;
 }
 
-void PlayerPowerUp::setPosition(float posX, float posY)
-{
-    _sprite.setPosition(posX, posY);
-}
-
 int PlayerPowerUp::getIndex() const
 {
     return _index;
-}
-
-sf::Vector2<float> PlayerPowerUp::getPosition() const
-{
-    return _sprite.getPosition();
 }

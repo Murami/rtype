@@ -20,10 +20,8 @@ public:
   virtual void update(sf::Vector2<float> pos);
   
   void setIndex(int index);
-  virtual void setPosition(float posX, float posY);
   int getIndex() const;
-  sf::Vector2<float> getPosition() const;
-  
+
 private:
     int						_index;
     size_t					_anim;
