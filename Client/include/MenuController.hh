@@ -12,11 +12,11 @@
 #include <map>
 #include "IMenuListener.hh"
 #include "MenuEnum.hh"
-#include "IObserver.hh"
+#include "IMenuObserver.hh"
 #include "MenuView.hh"
 #include "RtypeProtocol.hh"
 
-class MenuController : public IObserver
+class MenuController : public IMenuObserver
 {
 
 public:

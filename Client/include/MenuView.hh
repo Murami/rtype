@@ -13,7 +13,7 @@
 # include <SFML/Graphics.hpp>
 # include <map>
 # include <string>
-# include "Observable.hh"
+# include "MenuObservable.hh"
 # include "MenuEnum.hh"
 
 namespace	Util
@@ -21,7 +21,7 @@ namespace	Util
   class		Mutex;
 }
 
-class MenuView : public Observable
+class MenuView : public MenuObservable
 {
 public:
   MenuView(sf::RenderWindow &window);
