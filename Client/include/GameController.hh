@@ -17,7 +17,7 @@ public:
   void	update();
   void	setGameListener(IGameListener*);
 
-  void spawnEntity();
+  void spawnEntity(int id, RtypeProtocol::Entity entity);
   void updateEntityPosition(int id, RtypeProtocol::Position);
 
 private:
