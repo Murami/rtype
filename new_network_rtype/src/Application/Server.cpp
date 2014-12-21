@@ -71,7 +71,7 @@ namespace Application
   }
 
   // Room
-  void Server::createRoom(ClientServer* client, const RtypeProtocol::Room* roominfos)
+  Room* Server::createRoom(ClientServer* client, const RtypeProtocol::Room* roominfos)
   {
     std::string	name;
     std::string	pass;
@@ -82,6 +82,7 @@ namespace Application
     Room*	room = new Room(*this, name, pass);
 
     _rooms[room->getID()] = room;
+    return (room);
   }
 
   Room*	Server::getRoom(unsigned int roomID) const
@@ -132,5 +133,13 @@ namespace Application
 	std::cout << "send one room" << std::endl;
 	clientserver->sendRoomInfos(it->second);
       }
+  }
+
+  void	Server::sendRoomToAllClients(const Room* room)
+  {
+    std::list<ClientServer*>::iterator	it;
+
+    for (it = _clients.begin(); it != _clients.end(); it++)
+      (*it)->sendRoomInfos(room);
   }
 }

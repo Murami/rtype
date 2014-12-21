@@ -180,8 +180,11 @@ namespace Application
 	  }
 	else
 	  {
-	    _server.createRoom(this, room);
+	    Room*	serverroom;
+
+	    serverroom = _server.createRoom(this, room);
 	    this->sendHeader(RtypeProtocol::T_ROOM_CREATE_OK);
+	    _server.sendRoomToAllClients(serverroom);
 	  }
 	// TODO le joueur rejoint la room qu'il a créé
       }
@@ -229,7 +232,7 @@ namespace Application
     send(this->_socket, header);
   }
 
-  void	ClientServer::sendRoomInfos(Room* room)
+  void	ClientServer::sendRoomInfos(const Room* room)
   {
     RtypeProtocol::Room				roominfos;
     std::list<ClientRoom*>::const_iterator	it;

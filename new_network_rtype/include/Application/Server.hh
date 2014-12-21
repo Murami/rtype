@@ -38,12 +38,13 @@ namespace Application
     void				deleteClientServer(ClientServer * client);
 
     // Room
-    void				createRoom(ClientServer* client, const RtypeProtocol::Room* room);
+    Room*				createRoom(ClientServer* client, const RtypeProtocol::Room* room);
     Room*				getRoom(unsigned int roomID) const;
     void				addClientRoom(ClientRoom* clientroom);
     void				deleteClientRoom(ClientRoom* clientroom);
     bool				roomExists(const std::string& name) const;
     void				sendAllRoomInfos(ClientServer* server) const;
+    void				sendRoomToAllClients(const Room* room);
 
   private:
     Network::Service &			_service;

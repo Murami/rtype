@@ -46,7 +46,7 @@ namespace Application
 
     void		setClientRoom(ClientRoom* clientroom);
     void		sendHeader(int type);
-    void		sendRoomInfos(Room* room);
+    void		sendRoomInfos(const Room* room);
     const std::string&	getName() const;
 
   private:
