@@ -6,6 +6,7 @@
 # include <SFML/Graphics.hpp>
 # include "GameObservable.hh"
 # include "ScrollingBackground.hh"
+# include "RtypeProtocol.hh"
 
 namespace	Util
 {
@@ -24,6 +25,9 @@ public:
   void	run(sf::RenderWindow&, Util::Mutex*);
   void	add(int id, IObject*);
   void	erase(int id);
+
+public:
+  void	updateById(int id, RtypeProtocol::Position pos);
 
 private:
   void	update();

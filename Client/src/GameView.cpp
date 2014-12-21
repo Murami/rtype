@@ -94,6 +94,15 @@ void	GameView::update()
     (*itBack)->update(sf::Vector2<float>(0, 0));
 }
 
+void	GameView::updateById(int id, RtypeProtocol::Position pos)
+{
+  if (_objectMap.find(id) != _objectMap.end())
+    {
+      sf::Vector2<float> tmp(pos.x, pos.y);
+      _objectMap[id]->update(tmp);
+    }
+}
+
 void	GameView::render(sf::RenderWindow& window)
 {
   std::map<int, IObject*>::iterator		itObj;
