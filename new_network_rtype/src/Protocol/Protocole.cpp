@@ -566,7 +566,8 @@ namespace Network
     else if (header->type == RtypeProtocol::T_ENTITYREQUEST)
     obs->notify(header->type, decode<RtypeProtocol::EntityRequest>(dataAddr, datasize, header->data_size), port, host);
     
-      //unused on server side :
+    /*
+    unused on server side :
     else if (header->type == RtypeProtocol::T_POSITION)
     obs->notify(header->type, decode<RtypeProtocol::PositionEvent>(dataAddr, datasize, header->data_size), port, host);
     else if (header->type == RtypeProtocol::T_SPAWN)
@@ -577,11 +578,15 @@ namespace Network
     obs->notify(header->type, decode<RtypeProtocol::Life>(dataAddr, datasize, header->data_size), port, host);
     else if (header->type == RtypeProtocol::T_BONUS)
     obs->notify(header->type, decode<RtypeProtocol::Bonus>(dataAddr, datasize, header->data_size), port, host);
+    */
     else
     throw RtypeProtocol::ProtocolException("Unknow Udp data");
     }
     else
-    obs->notify(header->type, port, host);
+    {
+      throw RtypeProtocol::ProtocolException("Missing Udp data");
+      //obs->notify(header->type, port, host);
+    }
     return (true);
   }
 
