@@ -48,13 +48,36 @@ void			NetworkReader::onReadData()
 	case RtypeProtocol::T_ROOMINFO:
 	  onReadRoom();
 	  break;
+	case RtypeProtocol::T_PING:
+	  onReadPing();
+	  break;
 	default:
 	  break;
 	}
     }
-  // Lors de la reception d'un packet, cette methode sera appelee.
-  // Elle construira la bonne structure pour l'envoyer au RtypeClient (listener)
-  // Et en fonction du type recu, il faudra changer le type de packet attendu
+}
+
+void			NetworkReader::onReadPing()
+{
+  RtypeProtocol::Header		header;
+  RtypeProtocol::PingPong	pingPong;
+
+  header.type = RtypeProtocol::T_PONG;
+  header.data_size = sizeof(RtypeProtocol::PingPong);
+}
+
+void			NetworkReader::onReadRoom()
+{
+  RtypeProtocol::Room	room;
+
+  for (size_t i = 0; i < sizeof(room); i++)
+    {
+      reinterpret_cast<char *>(&room)[i] = _buffer.front();
+      _buffer.pop_front();
+    }
+  _expectedPacket = RtypeProtocol::T_HEADER;
+  _expectedSize = sizeof(RtypeProtocol::Room);
+  _tcpListener->onRoomInfo(room);
 }
 
 void			NetworkReader::onReadHeader()
@@ -89,7 +112,6 @@ void			NetworkReader::onReadHeader()
       _expectedPacket = RtypeProtocol::T_HEADER;
       _expectedSize = sizeof(RtypeProtocol::Header);
       break;
-
     case RtypeProtocol::T_ROOMINFO:
       std::cout << "Received room info" << std::endl;
       _expectedPacket = RtypeProtocol::T_ROOMINFO;
@@ -130,6 +152,8 @@ void			NetworkReader::onReadHeader()
 
     case RtypeProtocol::T_PING:
       std::cout << "Pinging server" << std::endl;
+      _expectedPacket = RtypeProtocol::T_PING;
+      _expectedSize = sizeof(RtypeProtocol::PingPong);
       break;
 
     case RtypeProtocol::T_MSG:
@@ -156,20 +180,6 @@ void			NetworkReader::onReadHeader()
       std::cout << "unknown header" << std::endl;
       break;
     }
-}
-
-void			NetworkReader::onReadRoom()
-{
-  RtypeProtocol::Room	room;
-
-  for (size_t i = 0; i < sizeof(room); i++)
-    {
-      reinterpret_cast<char *>(&room)[i] = _buffer.front();
-      _buffer.pop_front();
-    }
-  _expectedPacket = RtypeProtocol::T_HEADER;
-  _expectedSize = sizeof(RtypeProtocol::Room);
-  _tcpListener->onRoomInfo(room);
 }
 
 void			NetworkReader::setExpectedPacket(RtypeProtocol::Type packetType)

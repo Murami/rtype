@@ -36,8 +36,8 @@ Player::Player(int nb) : _powerUp(1)
     _sprite.setTextureRect(playerSprite[nb]);
     _texture.setSmooth(false);
     _sprite.setPosition(100, 100);
-    _powerUp.setPosition(_sprite.getPosition().x + _sprite.getLocalBounds().width,
-                         _sprite.getPosition().y + _sprite.getLocalBounds().height / 2);
+    _powerUp.setPosition(sf::Vector2<float>(_sprite.getPosition().x + _sprite.getLocalBounds().width,
+					    _sprite.getPosition().y + _sprite.getLocalBounds().height / 2));
 }
 
 Player::~Player()

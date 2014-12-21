@@ -54,7 +54,6 @@ public:
   void addRoom(std::string name);
   void resetRoomList();
 
-private:
   void prevState();
 
 private:

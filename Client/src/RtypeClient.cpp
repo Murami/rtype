@@ -4,10 +4,9 @@
 #if defined(__linux__) || defined(__APPLE__)
 # include	<arpa/inet.h>
 #elif defined(WIN32)
-# include <Winsock2.h.h>
-#endif
 # include <Winsock2.h>
 # include <windows.h>
+#endif
 
 #include	"MenuController.hh"
 #include	"MenuView.hh"
@@ -208,8 +207,14 @@ bool	RtypeClient::onConnectFromMenu(const std::string & login)
 
 bool	RtypeClient::onDisconnectFromMenu()
 {
+  RtypeProtocol::Header header;
+
   // Send disconnection datas
   std::cout << __FUNCTION__ << std::endl;
+
+  header.type = RtypeProtocol::T_DISCONNECTION;
+  header.data_size = 0;
+  _tcpConnection->write(&header, sizeof(header));
   return (true);
 }
 
@@ -220,10 +225,27 @@ bool	RtypeClient::onRoomConnectFromMenu(RtypeProtocol::RoomConnection)
   return (true);
 }
 
+bool	RtypeClient::onRoomLeaveFromMenu()
+{
+  RtypeProtocol::Header header;
+
+  header.type = RtypeProtocol::T_ROOM_EXIT;
+  header.data_size = 0;
+  std::cout << __FUNCTION__ << std::endl;
+  _tcpConnection->write(&header, sizeof(header));
+  return (true);
+}
+
 bool	RtypeClient::onUserReadyFromMenu(RtypeProtocol::User)
 {
+  RtypeProtocol::Header header;
+
   // Send signal data notifying user ready
   std::cout << __FUNCTION__ << std::endl;
+
+  header.type = RtypeProtocol::T_READY;
+  header.data_size = 0;
+  _tcpConnection->write(&header, sizeof(header));
   return (true);
 }
 

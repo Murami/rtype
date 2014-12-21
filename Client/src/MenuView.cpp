@@ -63,16 +63,11 @@ MenuView::MenuView(sf::RenderWindow &window)
     initRoom();
     initSetting();
 
-    window.setKeyRepeatEnabled(false);
+    window.setKeyRepeatEnabled(true);
 }
 
 MenuView::~MenuView()
 {
-    // _loginGui->removeAllWidgets();
-    // _menuGui->removeAllWidgets();
-    // _roomSelectGui->removeAllWidgets();
-    // _roomGui->removeAllWidgets();
-
     delete _loginGui;
     delete _menuGui;
     delete _roomSelectGui;
@@ -92,7 +87,7 @@ void MenuView::initLogin()
     _editBoxUsername->load(blackConf);
     _editBoxUsername->setSize((0.27 * _width), (0.044 * _height));
     _editBoxUsername->setPosition((_width / 2) - (0.138 * _width), (0.77 * _height));
-    _editBoxUsername->setMaximumCharacters(16);
+    _editBoxUsername->setMaximumCharacters(15);
 
     tgui::Button::Ptr button(*_loginGui);
     button->load(blackConf);
@@ -100,7 +95,6 @@ void MenuView::initLogin()
     button->setPosition((_width / 2) - (0.045 * _width), (0.83 * _height));
     button->setText("Login");
     button->setTextSize(45);
-    //button->setTextSize(60);
     button->bindCallback(tgui::Button::LeftMouseClicked);
     button->setCallbackId(RtypeEvent::LOGIN);
 }
@@ -116,7 +110,6 @@ void MenuView::initMenu()
     tgui::Button::Ptr playButton(*_menuGui);
     playButton->load(blackConf);
     playButton->setTextSize(70);
-//    playButton->setTextSize(90);
     playButton->setSize((0.20 * _width), (0.12 * _height));
     playButton->setPosition((0.115 * _width), (0.455 * _height));
     playButton->setText("Play");
@@ -126,7 +119,6 @@ void MenuView::initMenu()
     tgui::Button::Ptr settingsButton(*_menuGui);
     settingsButton->load(blackConf);
     settingsButton->setTextSize(70);
-//    settingsButton->setTextSize(90);
     settingsButton->setSize((0.20 * _width), (0.12 * _height));
     settingsButton->setPosition((0.115 * _width), (0.63 * _height));
     settingsButton->setText("Settings");
@@ -136,7 +128,6 @@ void MenuView::initMenu()
     tgui::Button::Ptr scoresButton(*_menuGui);
     scoresButton->load(blackConf);
     scoresButton->setTextSize(70);
-//    scoresButton->setTextSize(90);
     scoresButton->setSize((0.20 * _width), (0.12 * _height));
     scoresButton->setPosition((0.682 * _width), (0.455 * _height));
     scoresButton->setText("Scores");
@@ -146,7 +137,6 @@ void MenuView::initMenu()
     tgui::Button::Ptr creditsButton(*_menuGui);
     creditsButton->load(blackConf);
     creditsButton->setTextSize(70);
-//    creditsButton->setTextSize(90);
     creditsButton->setSize((0.20 * _width), (0.12 * _height));
     creditsButton->setPosition((0.682 * _width), (0.619 * _height));
     creditsButton->setText("Credits");
@@ -166,15 +156,16 @@ void MenuView::initRoomSelect()
     _editBoxRoomName->load(blackConf);
     _editBoxRoomName->setSize((0.277 * _width), (0.044 * _height));
     _editBoxRoomName->setPosition((_width / 3) * 2 - (0.069 * _width), (0.388 * _height));
+    _editBoxRoomName->setMaximumCharacters(16);
 
     _roomSelectGui->add(_editBoxRoomPass);
     _editBoxRoomPass->load(blackConf);
     _editBoxRoomPass->setSize((0.277 * _width), (0.044 * _height));
     _editBoxRoomPass->setPosition((_width / 3) * 2 - (0.069 * _width), (0.61 * _height));
+    _editBoxRoomPass->setMaximumCharacters(16);
 
     _roomSelectGui->add(_listRoom);
     _listRoom->setItemHeight(35);
-//    _listRoom->setItemHeight(55);
     _listRoom->load(blackConf);
     _listRoom->setSize((0.34 * _width), (0.388 * _height));
     _listRoom->setPosition((_width / 3) - (0.225 * _width), (0.316 * _height));
@@ -403,12 +394,20 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 		std::cout << "Credits button pressed" << std::endl;
 		break;
 	      case RtypeEvent::CREATE:
-		this->notify(RtypeEvent::CREATE);
-		_actualState = RtypeEvent::ROOMSTATE;
+		if (_editBoxRoomName->getText() != "")
+		  {
+		    this->notify(RtypeEvent::CREATE);
+		    _actualState = RtypeEvent::ROOMSTATE;
+		  }
 		break;
 	      case RtypeEvent::JOIN:
-		this->notify(RtypeEvent::JOIN);
-		_actualState = RtypeEvent::ROOMSTATE;
+		if (_editBoxRoomName->getText() != "")
+		  {
+		    this->notify(RtypeEvent::JOIN);
+		    _actualState = RtypeEvent::ROOMSTATE;
+		    _editBoxRoomName->setText("");
+		    _editBoxRoomPass->setText("");
+		  }
 		break;
 	      case RtypeEvent::BACK:
 		this->prevState();
@@ -445,6 +444,7 @@ void MenuView::prevState()
       _actualState = RtypeEvent::LOGINSTATE;
       break;
     case RtypeEvent::ROOMSELECTSTATE:
+      //      _listen->on
       _actualState = RtypeEvent::MENUSTATE;
       break;
     case RtypeEvent::ROOMSTATE:
