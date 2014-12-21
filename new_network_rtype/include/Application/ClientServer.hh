@@ -51,7 +51,7 @@ namespace Application
     const std::string&	getName() const;
     Server&		getServer() const;
     State		getState() const;
-
+    const std::string&	getIP() const;
 
   private:
     Server &			_server;

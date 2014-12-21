@@ -1,6 +1,7 @@
 #include <algorithm>
 #include "Server.hh"
 #include "Util/Util.hh"
+#include "Application/ClientRoom.hh"
 
 namespace Application
 {
@@ -115,12 +116,14 @@ namespace Application
 
   void	Server::addClientRoom(ClientRoom* clientroom)
   {
-    _clientsroom.push_back(clientroom);
+    std::string	ip = clientroom->getClientServer().getIP();
+
+    _clientsroom[ip] = clientroom;
   }
 
   void	Server::deleteClientRoom(ClientRoom* clientroom)
   {
-    _clientsroom.remove(clientroom);
+    _clientsroom.erase(clientroom->getClientServer().getIP());
   }
 
   void	Server::sendAllRoomInfos(ClientServer* clientserver) const

@@ -55,7 +55,7 @@ namespace Application
     Network::UdpSocket			_udpSocket;
 
     std::list<ClientServer*>		_clients;
-    std::list<ClientRoom*>		_clientsroom; // a transformer en map
+    std::map<std::string, ClientRoom*>	_clientsroom;
     std::map<unsigned int, Room*>	_rooms;
 
     Network::Timer			_timer1;
