@@ -88,7 +88,7 @@ namespace Network
       std::cout << "size : " << size << std::endl;
       std::cout << "sizeof : " << sizeof(T) << std::endl;
       std::cout << "headerSize : " << headerSize << std::endl;
-      if (size < sizeof(T) || headerSize != sizeof(T))
+      if (static_cast<unsigned>(size) < sizeof(T) || static_cast<unsigned>(headerSize) != sizeof(T))
 	throw RtypeProtocol::ProtocolException("Error with data");
       return (decode(static_cast<T *>(data)));
     }
@@ -123,8 +123,6 @@ namespace Network
     ProtocoleUdp();
     bool			unpack(UdpSocket *, IUdpProtocoleObserver *obs) const;
     virtual void		onRead(UdpSocket *, IUdpProtocoleObserver *obs) const;
-  private:
-    IUdpProtocoleObserver	*obs;
   };
 }
 
