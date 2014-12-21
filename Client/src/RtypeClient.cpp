@@ -77,6 +77,55 @@ void		RtypeClient::run()
   _tcpConnection->joinRead();
 }
 
+// IUdpNetworkListener
+
+void	RtypeClient::onPlayerInfo()
+{
+
+}
+
+void	RtypeClient::onPosition()
+{
+
+}
+
+void	RtypeClient::onSpawn()
+{
+
+}
+
+void	RtypeClient::onDestruction()
+{
+
+}
+
+void	RtypeClient::onLife()
+{
+
+}
+
+void	RtypeClient::onBonus()
+{
+
+}
+
+void	RtypeClient::onHit()
+{
+
+}
+
+void	RtypeClient::onDeath()
+{
+
+}
+
+void	RtypeClient::onEntityInfo()
+{
+
+}
+
+// IKeyListener
+
 void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent event)
 {
   RtypeProtocol::Header header;
@@ -87,6 +136,8 @@ void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent event)
   _tcpConnection->write(&header, sizeof(header));
   _tcpConnection->write(&event, sizeof(event));
 }
+
+// ITcpNetworkListener
 
 void	RtypeClient::onMagicBadVersion()
 {
