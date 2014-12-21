@@ -131,4 +131,19 @@ namespace Application
   {
     _clients.remove(clientserver->getClientRoom());
   }
+
+  bool			Room::isReady() const
+  {
+    std::list<ClientRoom*>::const_iterator	it;
+
+    if (_clients.empty())
+      return (false);
+
+    for (it = _clients.begin(); it != _clients.end(); it++)
+      {
+	if ((*it)->getClientServer().getState() != ClientServer::T_INGAME)
+	  return (false);
+      }
+    return (true);
+  }
 };
