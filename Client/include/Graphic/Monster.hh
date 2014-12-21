@@ -1,13 +1,13 @@
 //
-//  Monster.h
-//  TestSFML
+//  Monster.hh
+//  RType
 //
 //  Created by Charles Fournier on 10/12/2014.
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#ifndef __TestSFML__Monster__
-#define __TestSFML__Monster__
+#ifndef __RType__Monster__
+#define __RType__Monster__
 
 #include "AObject.hh"
 #include <map>
@@ -33,4 +33,4 @@ private:
     void initMonster2();
 };
 
-#endif /* defined(__TestSFML__Monster__) */
+#endif /* defined(__RType__Monster__) */

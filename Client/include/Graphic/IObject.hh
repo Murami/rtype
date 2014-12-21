@@ -1,13 +1,13 @@
 //
-//  IObject.h
-//  TestSFML
+//  IObject.hh
+//  RType
 //
 //  Created by Charles Fournier on 09/12/2014.
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#ifndef TestSFML_IObject_h
-#define TestSFML_IObject_h
+#ifndef RType_IObject_h
+#define RType_IObject_h
 
 #include <SFML/Graphics.hpp>
 

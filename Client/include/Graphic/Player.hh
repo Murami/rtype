@@ -1,13 +1,13 @@
 //
 //  Player.hh
-//  TestSFML
+//  RType
 //
 //  Created by Charles Fournier on 05/12/2014.
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#ifndef __TestSFML__Player__
-#define __TestSFML__Player__
+#ifndef __RType__Player__
+#define __RType__Player__
 
 #include <string>
 #include <SFML/Graphics.hpp>
@@ -16,7 +16,6 @@
 
 class Player : public AObject
 {
-
 public:
     Player(int nb = 1);
     virtual ~Player();
@@ -31,4 +30,4 @@ private:
     PlayerPowerUp   _powerUp;
 };
 
-#endif /* defined(__TestSFML__Player__) */
+#endif /* defined(__RType__Player__) */

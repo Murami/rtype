@@ -1,6 +1,6 @@
 //
 //  MenuView.cpp
-//  TestSFML
+//  RType
 //
 //  Created by Charles Fournier on 02/12/2014.
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
@@ -168,7 +168,6 @@ void MenuView::initRoomSelect()
     createButton->setPosition((_width / 3) - (0.095 * _width), (0.833 * _height));
     createButton->setText("Join Room");
     createButton->setTextSize(45);
-//    createButton->setTextSize(60);
     createButton->bindCallback(tgui::Button::LeftMouseClicked);
     createButton->setCallbackId(RtypeEvent::JOIN);
 
@@ -178,7 +177,6 @@ void MenuView::initRoomSelect()
     joinButton->setPosition((_width / 3) * 2 - (0.095 * _width), (0.833 * _height));
     joinButton->setText("Create Room");
     joinButton->setTextSize(45);
-//    joinButton->setTextSize(60);
     joinButton->bindCallback(tgui::Button::LeftMouseClicked);
     joinButton->setCallbackId(RtypeEvent::CREATE);
 
@@ -188,7 +186,6 @@ void MenuView::initRoomSelect()
     selectButton->setPosition(_width / 2 - (0.017 * _width), _height / 2);
     selectButton->setText("Select");
     selectButton->setTextSize(20);
-//    selectButton->setTextSize(40);
     selectButton->bindCallback(tgui::Button::LeftMouseClicked);
     selectButton->setCallbackId(RtypeEvent::LISTCHOICE);
 }
@@ -210,7 +207,6 @@ void MenuView::initRoom()
     button->setPosition((_width / 2) - (0.045 * _width), (0.851 * _height));
     button->setText("Ready");
     button->setTextSize(45);
-//    button->setTextSize(60);
     button->bindCallback(tgui::Button::LeftMouseClicked);
     button->setCallbackId(RtypeEvent::READY);
 
@@ -218,7 +214,6 @@ void MenuView::initRoom()
     _chatBox->load(blackConf);
     _chatBox->setSize((0.399 * _width), (0.194 * _height));
     _chatBox->setTextSize(22);
-//    _chatBox->setTextSize(30);
     _chatBox->setTextFont(font);
     _chatBox->setTextColor(sf::Color::Cyan);
     _chatBox->setPosition((_width / 3) - (0.173 * _width), (0.611 * _height));
@@ -234,7 +229,6 @@ void MenuView::initRoom()
     _labelPlayer1->setTextColor(sf::Color::Cyan);
     _labelPlayer1->setText("Player1");
     _labelPlayer1->setTextSize(25);
-//    _labelPlayer1->setTextSize(50);
 
     _roomGui->add(_labelPlayer2);
     _labelPlayer2->load(blackConf);
@@ -243,7 +237,6 @@ void MenuView::initRoom()
     _labelPlayer2->setTextColor(sf::Color::Cyan);
     _labelPlayer2->setText("Player2");
     _labelPlayer2->setTextSize(25);
-//    _labelPlayer2->setTextSize(50);
 
     _roomGui->add(_labelPlayer3);
     _labelPlayer3->load(blackConf);
@@ -252,7 +245,6 @@ void MenuView::initRoom()
     _labelPlayer3->setTextColor(sf::Color::Cyan);
     _labelPlayer3->setText("Player3");
     _labelPlayer3->setTextSize(25);
-//    _labelPlayer3->setTextSize(50);
 
     _roomGui->add(_labelPlayer4);
     _labelPlayer4->load(blackConf);
@@ -261,11 +253,6 @@ void MenuView::initRoom()
     _labelPlayer4->setTextColor(sf::Color::Cyan);
     _labelPlayer4->setText("Player4");
     _labelPlayer4->setTextSize(25);
-//    _labelPlayer4->setTextSize(50);
-
-
-    //    tgui::Picture::Ptr themePreview(*_roomGui);
-    //    themePreview->setSize(300, 600);
 
 }
 

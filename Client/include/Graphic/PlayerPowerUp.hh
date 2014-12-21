@@ -1,13 +1,13 @@
 //
-//  PlayerPowerUp.h
-//  TestSFML
+//  PlayerPowerUp.hh
+//  RType
 //
 //  Created by Charles Fournier on 17/12/2014.
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#ifndef __TestSFML__PlayerPowerUp__
-#define __TestSFML__PlayerPowerUp__
+#ifndef __RType__PlayerPowerUp__
+#define __RType__PlayerPowerUp__
 
 #include <map>
 #include "AObject.hh"
@@ -36,4 +36,4 @@ private:
     
 };
 
-#endif /* defined(__TestSFML__PlayerPowerUp__) */
+#endif /* defined(__RType__PlayerPowerUp__) */

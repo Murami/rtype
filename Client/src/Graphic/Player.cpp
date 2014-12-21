@@ -1,6 +1,6 @@
 //
 //  Player.cpp
-//  TestSFML
+//  RType
 //
 //  Created by Charles Fournier on 05/12/2014.
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
