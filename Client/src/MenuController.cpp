@@ -37,7 +37,7 @@ void MenuController::manageUpdate(RtypeEvent::eButton idCallback)
       break;
     case RtypeEvent::CREATE:
       std::cout << "Creating room : " << _view.getRoomName() << " with password : " << _view.getRoomPass() << std::endl;
-      _listen->onCreateRoom(_view->getRoomName(), _view->getRoomPass());
+      _listen->onCreateRoomFromMenu(_view.getRoomName(), _view.getRoomPass());
       break;
     default:
       break;
