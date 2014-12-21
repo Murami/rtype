@@ -5,7 +5,7 @@
 
 class IUdpNetworkListener
 {
-public:x
+public:
   virtual void	onPlayerInfo() = 0;
   virtual void	onPosition() = 0;
   virtual void	onSpawn() = 0;
