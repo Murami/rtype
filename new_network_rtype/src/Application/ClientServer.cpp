@@ -176,7 +176,7 @@ namespace Application
 
 	if (_server.roomExists(roomname))
 	  {
-	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_NOT_FOUND);
+	    this->sendHeader(RtypeProtocol::T_ROOM_CREATE_ALREADY_EXIST);
 	  }
 	else
 	  {

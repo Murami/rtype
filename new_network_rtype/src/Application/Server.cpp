@@ -126,7 +126,11 @@ namespace Application
   {
     std::map<unsigned int, Room*>::const_iterator	it;
 
+    std::cout << "send all room infos" << std::endl;
     for (it = _rooms.begin(); it != _rooms.end(); it++)
-      clientserver->sendRoomInfos(it->second);
+      {
+	std::cout << "send one room" << std::endl;
+	clientserver->sendRoomInfos(it->second);
+      }
   }
 }
