@@ -5,7 +5,7 @@
 GameController::GameController(GameView& view)
   : _view(view)
 {
-    
+  (void)_view;
 }
 
 GameController::~GameController()
