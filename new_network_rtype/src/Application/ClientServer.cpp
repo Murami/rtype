@@ -251,6 +251,8 @@ namespace Application
 	unsigned int	idx = std::distance(room->getClients().begin(), it);
 	(*it)->getName().copy(reinterpret_cast<char*>(roominfos.ready_users[idx]), USERNAME_SIZE);
       }
+    this->sendHeader(RtypeProtocol::T_ROOMINFO);
+    send(this->_socket, roominfos);
   }
 
   void	ClientServer::setClientRoom(ClientRoom* clientroom)
