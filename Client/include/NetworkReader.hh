@@ -15,6 +15,7 @@ class		NetworkReader : public Util::Thread<Util::Mutex*>
 private:
   TcpConnection&	_tcpConnection;
   RtypeProtocol::Type	_expectedPacket;
+  size_t		_expectedSize;
   INetworkListener*	_tcpListener;
   std::deque<char>	_buffer;
   Util::Mutex*		_mutex;
@@ -30,7 +31,13 @@ public:
   void			setExpectedPacket(RtypeProtocol::Type packetType);
   RtypeProtocol::Type	getExpectedPacket();
 
-  void			onReadData(void *data, std::size_t size);
+  void			setNetworkListener(INetworkListener *listener);
+
+private:
+  void			onReadData();
+
+  void			onReadHeader();
+  void			onReadRoom();
 };
 
 #endif
