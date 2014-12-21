@@ -1,10 +1,11 @@
 #include <algorithm>
 #include "Server.hh"
 #include "Util/Util.hh"
+#include "RtypeProtocol.hh"
 
 namespace Application
 {
-  Server::Server(Network::Service & service) : _service(service), _acceptor(3278)
+  Server::Server(Network::Service & service) : _service(service), _acceptor(RtypeProtocol::TcpPort)
   {
     std::cout << "server start" << std::endl;
     _acceptor.setObserver(this);
