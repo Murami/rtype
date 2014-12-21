@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(R-Type)
 
-include_directories(include/ include/Graphic)
+include_directories(include/ include/Graphic ../new_network_rtype/include/Protocol)
 
 SET(CMAKE_CXX_FLAGS "-W -Wall -Wextra -std=c++11 -ggdb -g3")
 
@@ -55,7 +55,6 @@ add_executable(
 	include/NetworkReader.hh
 	include/Observable.hh
 	include/RtypeClient.hh
-	include/RtypeProtocol.hh
 	include/SoundManager.hh
 	include/TcpConnection.hh
 	include/Thread.hpp
@@ -66,6 +65,7 @@ add_executable(
 	include/MutexLinux.hh
 	include/MutexWin32.hh
 	include/Lock.hh
+
 )
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
@@ -75,6 +75,8 @@ find_package(TGUI 0.6 REQUIRED)
 
 if (UNIX)
 	target_link_libraries(client pthread)
+elseif(WIN32)
+  target_link_libraries(client wsock32 ws2_32)
 endif()
 
 if(SFML_FOUND)
