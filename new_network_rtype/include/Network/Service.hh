@@ -87,8 +87,8 @@ namespace Network
     void deleteAcceptor(Acceptor & socket);
 
   private:
-    int  setRead(fd_set* readfs);
-    int  setWrite(fd_set* writefs);
+	SOCKET  setRead(fd_set* readfs);
+	SOCKET  setWrite(fd_set* writefs);
     void notifyRTcp(fd_set * readfs);
     void notifyWTcp(fd_set * writefs);
     void notifyRUdp(fd_set * readfs);

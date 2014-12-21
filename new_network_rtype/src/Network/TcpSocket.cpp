@@ -21,7 +21,10 @@ namespace Network
       throw NetworkException("tcp connect failed");
   }
 
-  TcpSocket::TcpSocket(SOCKET socket, SOCKADDR_IN usin) : _socket(socket), _usin(usin) {}
+  TcpSocket::TcpSocket(SOCKET socket, SOCKADDR_IN usin) : _socket(socket), _usin(usin)
+  {
+    
+  }
 
   TcpSocket::~TcpSocket()
   {

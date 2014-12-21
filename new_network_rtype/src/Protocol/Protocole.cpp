@@ -469,16 +469,16 @@ namespace Network
     datasize = size -sizeof(RtypeProtocol::Header);
     if (datasize < header->data_size)
       {
-    	std::cout << "size_data < expected_data"  << std::endl;
+    	//std::cout << "size_data < expected_data"  << std::endl;
     	return (false);
       }
 
     // data consumation
-    std::cout << "data consumation" << std::endl;
+    //std::cout << "data consumation" << std::endl;
     socket->consumeData(sizeof(RtypeProtocol::Header) + header->data_size);
 
     // notification
-    std::cout << "header type : " << header->type << std::endl;
+    //std::cout << "header type : " << header->type << std::endl;
     switch (header->type)
       {
       case RtypeProtocol::T_MAGIC:

@@ -66,6 +66,7 @@ namespace Network
     SOCKADDR_IN		_usin;
     Util::Buffer	_readbuf;
     Util::Buffer	_writebuf;
+    std::string   _ip;
   };
 
 } /* namespace Network */

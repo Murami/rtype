@@ -20,7 +20,9 @@ namespace Util
 
   bool	Mutex::trylock()
   {
-    return (TryEnterCriticalSection(&_section));
+	  if (TryEnterCriticalSection(&_section))
+		  return (true);
+	  return (false);
   }
 
   void	Mutex::unlock()

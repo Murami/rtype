@@ -149,9 +149,9 @@ namespace Network
       }
   }
 
-  int  Service::setRead(fd_set* readfs)
+  SOCKET  Service::setRead(fd_set* readfs)
   {
-    int fd = 0;
+	SOCKET fd = 0;
     std::map<SOCKET, TcpSocket *>::iterator tcpIt;
     std::map<SOCKET, UdpSocket *>::iterator udpIt;
     std::map<SOCKET,Acceptor *>::iterator  accIt;
@@ -176,9 +176,9 @@ namespace Network
     return fd;
   }
 
-  int  Service::setWrite(fd_set* writefs)
+  SOCKET  Service::setWrite(fd_set* writefs)
   {
-    int fd = 0;
+	 SOCKET fd = 0;
     std::map<SOCKET, TcpSocket *>::iterator tcpIt;
     std::map<SOCKET, UdpSocket *>::iterator udpIt;
 

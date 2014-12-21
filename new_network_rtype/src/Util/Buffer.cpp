@@ -41,7 +41,7 @@ namespace Util
 
   int   Buffer::size()
   {
-    return (_buffer.size());
+    return (static_cast<int>(_buffer.size()));
   }
 
 } /* namespace Util */
