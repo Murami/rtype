@@ -1,6 +1,7 @@
 #include "Application/Room.hh"
 #include "Application/ClientServer.hh"
 #include "Application/ClientRoom.hh"
+#include "Application/Server.hh"
 
 namespace Application
 {
@@ -63,9 +64,9 @@ namespace Application
     return (_id);
   }
 
-  ClientRoom*	Room::addClient(ClientServer* clientserver)
+  ClientRoom*	Room::addClient(ClientServer* clientserver, bool host)
   {
-    ClientRoom*	clientroom = new ClientRoom(*this, *clientserver);
+    ClientRoom*	clientroom = new ClientRoom(*this, *clientserver, host);
 
     _clients.push_back(clientroom);
     return (clientroom);
@@ -85,8 +86,7 @@ namespace Application
 
   void		Room::stopGame()
   {
-    // TODO Timer::cancel()
-    // _timer.cancel();
+    _timer.cancel();
     _gamestarted = false;
   }
 
@@ -113,5 +113,22 @@ namespace Application
   const std::string&	Room::getPass() const
   {
     return (_pass);
+  }
+
+  void			Room::close()
+  {
+    std::list<ClientRoom*>::iterator	it;
+
+    for (it = _clients.begin(); it != _clients.end(); it++)
+      {
+	(*it)->getClientServer().sendHeader(RtypeProtocol::T_ROOM_HOST_LEAVED);
+	(*it)->getClientServer().setClientRoom(NULL);
+	(*it)->getClientServer().getServer().deleteClientRoom(*it);
+      }
+  }
+
+  void			Room::deleteClient(ClientServer* clientserver)
+  {
+    _clients.remove(clientserver->getClientRoom());
   }
 };

@@ -15,13 +15,17 @@ namespace Application
     Room&		_room;
     ClientServer&	_clientserver;
     Game::Player*	_player;
+    bool		_host;
 
   public:
-    ClientRoom(Room& room, ClientServer& clientserver);
+    ClientRoom(Room& room, ClientServer& clientserver, bool host);
     ~ClientRoom();
 
     const std::string&	getName() const;
     const void		notifyState(unsigned int state) const;
+    bool		isHost() const;
+    ClientServer&	getClientServer() const;
+    Room*		getRoom() const;
   };
 };
 

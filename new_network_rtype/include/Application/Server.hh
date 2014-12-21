@@ -44,7 +44,8 @@ namespace Application
     void				deleteClientRoom(ClientRoom* clientroom);
     bool				roomExists(const std::string& name) const;
     void				sendAllRoomInfos(ClientServer* server) const;
-    void				sendRoomToAllClients(const Room* room);
+    void				sendRoomToAllClients(const Room* room, bool alive);
+    void				deleteRoom(Room* room);
 
   private:
     Network::Service &			_service;

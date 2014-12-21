@@ -50,7 +50,8 @@ namespace Application
     void				receive(const Game::Core& core, const Game::CoreEvent::Spawn& event);
     void				receive(const Game::Core& core, const Game::CoreEvent::Destroy& event);
 
-    ClientRoom*				addClient(ClientServer* clientserver);
+    ClientRoom*				addClient(ClientServer* clientserver, bool host);
+    void				deleteClient(ClientServer* clientserver);
 
     unsigned int			getID() const;
     const std::string&			getPass() const;
@@ -62,6 +63,8 @@ namespace Application
     bool				isFull() const;
 
     Game::Core&				getGame();
+
+    void				close();
   };
 };
 
