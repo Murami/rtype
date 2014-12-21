@@ -510,3 +510,13 @@ void MenuView::setPlayerLabe4(std::string name)
 {
     this->_labelPlayer4->setText(sf::String(name));
 }
+
+void MenuView::addRoom(std::string name)
+{
+  _listRoom->addItem(name);
+}
+
+void MenuView::resetRoomList()
+{
+  _listRoom->removeAllItems();
+}

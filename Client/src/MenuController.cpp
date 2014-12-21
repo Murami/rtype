@@ -31,7 +31,7 @@ void MenuController::manageUpdate(RtypeEvent::eButton idCallback)
     case RtypeEvent::JOIN:
       // Creer un RtypeProtocol::RoomConnect ICI et l'envoyer
       std::cout << "Joining room : " << _view.getRoomName() << " with password : " << _view.getRoomPass() << std::endl;
-      _listen->onRoomConnectFromMenu(_view.getLogin());
+      //      _listen->onRoomConnectFromMenu(_view.getLogin());
       break;
     case RtypeEvent::CREATE:
       std::cout << "Creating room : " << _view.getRoomName() << " with password : " << _view.getRoomPass() << std::endl;
