@@ -45,7 +45,7 @@ namespace Application
     Network::TcpSocket& getSocket() const;
 
     void		setClientRoom(ClientRoom* clientroom);
-    void		sendHeader(int type);
+    void		sendHeader(int type, unsigned int size = 0);
     void		sendRoomInfos(const Room* room);
     const std::string&	getName() const;
 

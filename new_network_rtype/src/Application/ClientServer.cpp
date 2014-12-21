@@ -223,12 +223,12 @@ namespace Application
     return (_socket);
   }
 
-  void	ClientServer::sendHeader(int type)
+  void	ClientServer::sendHeader(int type, unsigned int size)
   {
     RtypeProtocol::Header	header;
 
     header.type = type;
-    header.data_size = 0;
+    header.data_size = size;
     send(this->_socket, header);
   }
 
@@ -254,7 +254,7 @@ namespace Application
 	unsigned int	idx = std::distance(room->getClients().begin(), it);
 	(*it)->getName().copy(reinterpret_cast<char*>(roominfos.ready_users[idx]), USERNAME_SIZE);
       }
-    this->sendHeader(RtypeProtocol::T_ROOMINFO);
+    this->sendHeader(RtypeProtocol::T_ROOMINFO, sizeof(RtypeProtocol::Room));
     send(this->_socket, roominfos);
   }
 
