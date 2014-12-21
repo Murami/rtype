@@ -1,6 +1,7 @@
 #ifndef UTIL_THREAD
 #define UTIL_THREAD
 
+#include <winsock2.h>
 #include <windows.h>
 
 namespace Util
