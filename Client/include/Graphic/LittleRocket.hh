@@ -1,13 +1,13 @@
 //
-//  LittleRocket.h
-//  TestSFML
+//  LittleRocket.hh
+//  RType
 //
 //  Created by Charles Fournier on 10/12/2014.
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#ifndef __TestSFML__LittleRocket__
-#define __TestSFML__LittleRocket__
+#ifndef __RType__LittleRocket__
+#define __RType__LittleRocket__
 
 #include "AObject.hh"
 
@@ -23,4 +23,4 @@ private:
     
 };
 
-#endif /* defined(__TestSFML__LittleRocket__) */
+#endif /* defined(__RType__LittleRocket__) */

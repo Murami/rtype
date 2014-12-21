@@ -1,13 +1,13 @@
 //
-//  ScrollingBackground.h
-//  TestSFML
+//  ScrollingBackground.hh
+//  RType
 //
 //  Created by Charles Fournier on 04/12/2014.
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#ifndef __TestSFML__ScrollingBackground__
-#define __TestSFML__ScrollingBackground__
+#ifndef __RType__ScrollingBackground__
+#define __RType__ScrollingBackground__
 
 #include <string>
 #include <SFML/Graphics.hpp>
@@ -34,4 +34,4 @@ private:
     int             _repeat;
 };
 
-#endif /* defined(__TestSFML__ScrollingBackground__) */
+#endif /* defined(__RType__ScrollingBackground__) */

@@ -1,13 +1,13 @@
 //
-//  AObject.h
-//  TestSFML
+//  AObject.hh
+//  RType
 //
 //  Created by Charles Fournier on 10/12/2014.
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#ifndef __TestSFML__AObject__
-#define __TestSFML__AObject__
+#ifndef __RType__AObject__
+#define __RType__AObject__
 
 #include "IObject.hh"
 
@@ -29,4 +29,4 @@ protected:
 
 };
 
-#endif /* defined(__TestSFML__AObject__) */
+#endif /* defined(__RType__AObject__) */

@@ -1,6 +1,6 @@
 //
 //  Monster.cpp
-//  TestSFML
+//  RType
 //
 //  Created by Charles Fournier on 10/12/2014.
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
@@ -48,7 +48,7 @@ void Monster::initMonster1()
     _sprite.setTextureRect(sf::IntRect(4, 4, 252, 192));
     
 #ifdef __APPLE__
-    _sprite.scale(2.0, 2.0);
+    _sprite.scale(3.0, 3.0);
 #endif
     
     _anim = 0;

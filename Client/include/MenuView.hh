@@ -1,13 +1,13 @@
 //
-//  MenuView.h
-//  TestSFML
+//  MenuView.hh
+//  RType
 //
 //  Created by Charles Fournier on 02/12/2014.
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#ifndef TestSFML_MenuView_h
-# define TestSFML_MenuView_h
+#ifndef RType_MenuView_h
+# define RType_MenuView_h
 
 # include <TGUI/TGUI.hpp>
 # include <SFML/Graphics.hpp>

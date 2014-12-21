@@ -1,13 +1,13 @@
 //
-//  TextureManager.h
-//  TestSFML
+//  TextureManager.hh
+//  RType
 //
 //  Created by Charles Fournier on 09/12/2014.
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#ifndef __TestSFML__TextureManager__
-#define __TestSFML__TextureManager__
+#ifndef __RType__TextureManager__
+#define __RType__TextureManager__
 
 #include <SFML/Graphics.hpp>
 
@@ -43,4 +43,4 @@ private:
 
 };
 
-#endif /* defined(__TestSFML__TextureManager__) */
+#endif /* defined(__RType__TextureManager__) */

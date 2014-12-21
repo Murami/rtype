@@ -1,13 +1,13 @@
 //
-//  MenuController.h
-//  TestSFML
+//  MenuController.hh
+//  RType
 //
 //  Created by Charles Fournier on 02/12/2014.
 //  Copyright (c) 2014 Charles Fournier. All rights reserved.
 //
 
-#ifndef __TestSFML__MenuController__
-#define __TestSFML__MenuController__
+#ifndef __RType__MenuController__
+#define __RType__MenuController__
 
 #include <map>
 #include "IMenuListener.hh"
@@ -37,4 +37,4 @@ private:
 };
 
 
-#endif /* defined(__TestSFML__MenuController__) */
+#endif /* defined(__RType__MenuController__) */
