@@ -227,14 +227,19 @@ bool	RtypeClient::onUserMessageFromMenu(RtypeProtocol::Message)
   return (true);
 }
 
-bool	RtypeClient::onCreateRoomFromMenu(RtypeProtocol::Room room)
+bool	RtypeClient::onCreateRoomFromMenu(const std::string& roomName,
+					  const std::string& password)
 {
   RtypeProtocol::Header header;
+  RtypeProtocol::Room	room;
   char			buffer[sizeof(header) + sizeof(room)];
 
   std::cout << __FUNCTION__ << std::endl;
   header.type = RtypeProtocol::T_ROOM_CREATE;
   header.data_size = sizeof(room);
+  std::memset(&room, 0, sizeof(room));
+  strcpy(reinterpret_cast<char *>(room.room_name), roomName.c_str());
+  strcpy(reinterpret_cast<char *>(room.pass_md5), password.c_str());
   std::memcpy(&buffer[0], &header, sizeof(header));
   std::memcpy(&buffer[sizeof(header)], &room, sizeof(room));
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(room));

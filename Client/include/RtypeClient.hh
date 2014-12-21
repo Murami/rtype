@@ -62,7 +62,7 @@ public:
   virtual bool	onRoomConnectFromMenu(RtypeProtocol::RoomConnection);
   virtual bool	onUserReadyFromMenu(RtypeProtocol::User);
   virtual bool	onUserMessageFromMenu(RtypeProtocol::Message);
-  virtual bool	onCreateRoomFromMenu(RtypeProtocol::Room);
+  virtual bool	onCreateRoomFromMenu(const std::string& roomName, const std::string& password);
 
 public:
   void		run();
