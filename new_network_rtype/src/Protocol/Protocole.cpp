@@ -527,63 +527,57 @@ namespace Network
 
   void	ProtocoleTcp::onRead(TcpSocket *socket, ITcpProtocoleObserver *obs) const
   {
-    std::cout << socket->availableDataOnRead() << " / " << sizeof(RtypeProtocol::Header) << std::endl;
     if (socket->availableDataOnRead() >= sizeof(RtypeProtocol::Header))
       {
 	unpack(socket->availableDataOnRead(), socket, obs);
       }
   }
 
-  void	ProtocoleUdp::onRead(TcpSocket *socket) const
+  void	ProtocoleUdp::onRead(UdpSocket *socket, IUdpProtocoleObserver *obs) const
   {
-    if (socket->availableDataOnRead() >= sizeof(RtypeProtocol::Header))
-      {
-	unpack(socket->availableDataOnRead(), socket);
-      }
+    unpack(socket, obs);
   }
 
-  bool	ProtocoleUdp::unpack(const int &size, TcpSocket *socket) const
+  bool	ProtocoleUdp::unpack(UdpSocket *socket, IUdpProtocoleObserver *obs) const
   {
-    /*
-      if (size < sizeof(Header))
-      return (false);
-      char			*buffer = new char[size];
-      RtypeProtocol::Header	*header;
-      void			*dataAddr = NULL;
-      socket->pickData(buffer, size);
-      header = (Header *)buffer;
-      decode(header);
-      if (size < header->data_size + sizeof(Header))
-      {
-      delete buffer;
-      return (false);
-      }
-      if (header->data_size > 0)
-      {
-      dataAddr = header + sizeof(Header);
-      socket->consumeData(sizeof(Header)+header->data_size);
-      }
-      if (dataAddr)
-      {
-      if (header->type == T_POSITION)
-      obs->notify(header->type, decode((PositionEvent *)dataAddr), socket);
-      else if (header->type == T_SPAWN)
-      obs->notify(header->type, decode((Spawn *)dataAddr), socket);
-      else if (header->type == T_EVENT)
-      obs->notify(header->type, decode((Position *)dataAddr), socket);
-      else if (header->type == T_DESTRUCTION)
-      obs->notify(header->type, decode((destruction *)dataAddr), socket);
-      else if (header->type == T_LIFE)
-      obs->notify(header->type, decode((Life *)dataAddr), socket);
-      else if (header->type == T_BONUS)
-      obs->notify(header->type, decode((Bonus *)dataAddr), socket);
-      else
-      throw NetworkException("Unknow data");
-      }
-      else
-      obs->notify(header->type, socket);
-      delete buffer;
-    */
+    char  buffer[4096];
+    std::memset(buffer, 0, 4096);
+    std::string host;
+    unsigned int port = 0;
+    int size = 0;
+    int datasize = 0;
+
+    socket->recvDataFrom(buffer, size, port, host);
+    if (size < sizeof(RtypeProtocol::Header))
+      throw RtypeProtocol::ProtocolException("Insufisiant Udp data");
+    RtypeProtocol::Header	*header;
+    void			*dataAddr = NULL;
+    header = reinterpret_cast<RtypeProtocol::Header *>(buffer);
+    decode(header);
+    datasize = size - sizeof(RtypeProtocol::Header);
+    if (datasize < header->data_size)
+      throw RtypeProtocol::ProtocolException("Insufisiant Udp data");
+    if (header->data_size > 0)
+      dataAddr = header + sizeof(RtypeProtocol::Header);
+    if (dataAddr)
+    {
+    if (header->type == RtypeProtocol::T_POSITION)
+    obs->notify(header->type, decode<RtypeProtocol::PositionEvent>(dataAddr, datasize, header->data_size), port, host);
+    else if (header->type == RtypeProtocol::T_SPAWN)
+    obs->notify(header->type, decode<RtypeProtocol::Spawn>(dataAddr, datasize, header->data_size), port, host);
+    else if (header->type == RtypeProtocol::T_EVENT)
+    obs->notify(header->type, decode<RtypeProtocol::Position>(dataAddr, datasize, header->data_size), port, host);
+    else if (header->type == RtypeProtocol::T_DESTRUCTION)
+    obs->notify(header->type, decode<RtypeProtocol::destruction>(dataAddr, datasize, header->data_size), port, host);
+    else if (header->type == RtypeProtocol::T_LIFE)
+    obs->notify(header->type, decode<RtypeProtocol::Life>(dataAddr, datasize, header->data_size), port, host);
+    else if (header->type == RtypeProtocol::T_BONUS)
+    obs->notify(header->type, decode<RtypeProtocol::Bonus>(dataAddr, datasize, header->data_size), port, host);
+    else
+    throw RtypeProtocol::ProtocolException("Unknow Udp data");
+    }
+    else
+    obs->notify(header->type, port, host);
     return (true);
   }
 
@@ -593,11 +587,6 @@ namespace Network
 
   ProtocoleUdp::ProtocoleUdp()
   {
-  }
-
-  void	ProtocoleUdp::setup(IUdpProtocoleObserver *UdpObserver)
-  {
-    obs = UdpObserver;
   }
 
 }

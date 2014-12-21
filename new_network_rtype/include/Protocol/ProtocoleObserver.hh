@@ -26,13 +26,13 @@ namespace Network
   public:
     ~IUdpProtocoleObserver()
     {}
-    virtual void	notify(int const &type, const RtypeProtocol::PositionEvent *, UdpSocket *) const = 0;
-    virtual void	notify(int const &type, const RtypeProtocol::Spawn *, UdpSocket *) const = 0;
-    virtual void	notify(int const &type, const RtypeProtocol::Position *, UdpSocket *) const = 0;
-    virtual void	notify(int const &type, const RtypeProtocol::destruction *, UdpSocket *) const = 0;
-    virtual void	notify(int const &type, const RtypeProtocol::Life *, UdpSocket *) const = 0;
-    virtual void	notify(int const &type, const RtypeProtocol::Bonus *, UdpSocket *) const = 0;
-    virtual void	notify(int const &type, UdpSocket *) const = 0;
+    virtual void	notify(int const &type, const RtypeProtocol::PositionEvent *, const unsigned int & port, const std::string & host) const = 0;
+    virtual void	notify(int const &type, const RtypeProtocol::Spawn *, const unsigned int & port, const std::string & host) const = 0;
+    virtual void	notify(int const &type, const RtypeProtocol::Position *, const unsigned int & port, const std::string & host) const = 0;
+    virtual void	notify(int const &type, const RtypeProtocol::destruction *, const unsigned int & port, const std::string & host) const = 0;
+    virtual void	notify(int const &type, const RtypeProtocol::Life *, const unsigned int & port, const std::string & host) const = 0;
+    virtual void	notify(int const &type, const RtypeProtocol::Bonus *, const unsigned int & port, const std::string & host) const = 0;
+    virtual void	notify(int const &type, const unsigned int & port, const std::string & host) const = 0;
   };
 }
 
