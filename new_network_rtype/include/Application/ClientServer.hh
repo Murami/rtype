@@ -50,6 +50,8 @@ namespace Application
     void		sendRoomInfos(const Room* room, bool alive);
     const std::string&	getName() const;
     Server&		getServer() const;
+    State		getState() const;
+
 
   private:
     Server &			_server;

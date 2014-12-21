@@ -43,6 +43,7 @@ namespace Application
     void				startGame();
     void				stopGame();
     bool				isGameStarted() const;
+    bool				isReady() const;
 
     void				onTimeout(Network::Timer& timer);
     void				receive(const Game::Entity& entity, const Game::EntityEvent::Move& event);

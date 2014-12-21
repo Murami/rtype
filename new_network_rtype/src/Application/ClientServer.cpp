@@ -200,6 +200,9 @@ namespace Application
 
 	if (_state != T_INROOM)
 	  throw ClientException("");
+	_state = T_INGAME;
+	if (_clientroom->getRoom()->isReady())
+	  _clientroom->getRoom()->startGame();
       }
     if (type == RtypeProtocol::T_ROOM_EXIT)
       {
@@ -283,5 +286,10 @@ namespace Application
   ClientRoom*		ClientServer::getClientRoom() const
   {
     return (_clientroom);
+  }
+
+  ClientServer::State	ClientServer::getState() const
+  {
+    return (_state);
   }
 } /* namespace Application */

@@ -17,13 +17,15 @@ namespace Network
     _usin.sin_port = htons(port);
     _usin.sin_family = AF_INET;
 
+    _ip = inet_ntoa(_usin.sin_addr);
+
     if(connect(_socket,(SOCKADDR *) &_usin, sizeof(SOCKADDR)) == SOCKET_ERROR)
       throw NetworkException("tcp connect failed");
   }
 
   TcpSocket::TcpSocket(SOCKET socket, SOCKADDR_IN usin) : _socket(socket), _usin(usin)
   {
-    
+    _ip = inet_ntoa(_usin.sin_addr);
   }
 
   TcpSocket::~TcpSocket()
@@ -96,6 +98,11 @@ namespace Network
   void TcpSocket::setObserver(TcpSocketObserver * observer)
   {
     _observer = observer;
+  }
+
+  std::string	TcpSocket::getIP() const
+  {
+    return (_ip);
   }
 
 } /* namespace network */
