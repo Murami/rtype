@@ -1,5 +1,5 @@
 //
-//  Ship.cpp
+//  Player.cpp
 //  TestSFML
 //
 //  Created by Charles Fournier on 05/12/2014.
