@@ -12,6 +12,11 @@ TcpConnection::TcpConnection(const ConnectionConfiguration& conf, Util::Mutex *m
   _writer = new NetworkWriter(*this);
 }
 
+void		TcpConnection::setNetworkListener(INetworkListener *listener)
+{
+  _reader->setNetworkListener(listener);
+}
+
 void		TcpConnection::startRead()
 {
   _reader->start();

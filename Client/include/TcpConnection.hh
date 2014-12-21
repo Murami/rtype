@@ -11,6 +11,7 @@ namespace	Util
   class		Mutex;
 }
 
+class		INetworkListener;
 class		ConnectionConfiguration;
 
 class		TcpConnection
@@ -35,6 +36,8 @@ public:
   bool			isReading() const;
 
   sf::TcpSocket&	socket();
+
+  void			setNetworkListener(INetworkListener *);
 };
 
 #endif

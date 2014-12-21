@@ -16,6 +16,7 @@ RtypeClient::RtypeClient()
 {
   _mutex.lock();
   _tcpConnection = new TcpConnection(_configuration, &_mutex);
+  _tcpConnection->setNetworkListener(this);
 }
 
 RtypeClient::~RtypeClient()
@@ -113,7 +114,7 @@ void	RtypeClient::onRoomInfo(RtypeProtocol::Room room)
 {
   std::cout << __FUNCTION__ << std::endl;
   // if (room.alive)
-  //   _menuController->addToRoomList(room);
+    _menuController->addToRoomList(room);
   // else
   //   _menuController->deleteFromRoomList(room);
 }
