@@ -18,16 +18,16 @@ public:
     
   void notify(RtypeEvent::eButton idCallback) const
     {
-        for (std::set<IObserver *>::const_iterator it = _list_observers.begin(); it != _list_observers.end(); it++)
+        for (std::set<IMenuObserver *>::const_iterator it = _list_observers.begin(); it != _list_observers.end(); it++)
             (*it)->update(idCallback);
     }
     
-    void addObserver(IObserver *observer)
+    void addObserver(IMenuObserver *observer)
     {
         _list_observers.insert(observer);
     }
     
-    void removeObserver(IObserver *observer)
+    void removeObserver(IMenuObserver *observer)
     {
         _list_observers.erase(observer);
     }

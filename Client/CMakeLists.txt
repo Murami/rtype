@@ -47,13 +47,13 @@ add_executable(
 	include/IKeyListener.hh
 	include/IMenuListener.hh
 	include/INetworkListener.hh
-	include/IObserver.hh
+	include/IMenuObserver.hh
 	include/MenuController.hh
 	include/MenuEnum.hh
 	include/MenuView.hh
 	include/MyIniParser.hh
 	include/NetworkReader.hh
-	include/Observable.hh
+	include/MenuObservable.hh
 	include/RtypeClient.hh
 	include/SoundManager.hh
 	include/TcpConnection.hh
@@ -65,7 +65,7 @@ add_executable(
 	include/MutexLinux.hh
 	include/MutexWin32.hh
 	include/Lock.hh
-
+	include/UdpConnection.hh
 )
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
