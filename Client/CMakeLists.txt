@@ -35,6 +35,7 @@ add_executable(
 	src/MutexWin32.cpp
 	src/MutexLinux.cpp
 	src/Lock.cpp
+	src/UdpConnection.cpp
 	src/main.cpp
 	include/ConfigurationParser.hh
 	include/ConnectionConfiguration.hh
