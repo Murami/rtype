@@ -9,25 +9,30 @@
 #ifndef __TestSFML__MenuController__
 #define __TestSFML__MenuController__
 
+#include <map>
 #include "IMenuListener.hh"
 #include "MenuEnum.hh"
 #include "IObserver.hh"
 #include "MenuView.hh"
+#include "RtypeProtocol.hh"
 
 class MenuController : public IObserver
 {
 
 public:
-    MenuController(MenuView &view);
-    virtual ~MenuController();
+  MenuController(MenuView &view);
+  virtual ~MenuController();
   void update(RtypeEvent::eButton idCallback);
   void manageUpdate(RtypeEvent::eButton idCallback);
-
-   void setMenuListener(IMenuListener *);
-
+  
+  void setMenuListener(IMenuListener *);
+  void addToRoomList(RtypeProtocol::Room room);
+  void deleteFromRoomList(RtypeProtocol::Room room);
+  
 private:
-    MenuView& _view;
-    IMenuListener *_listen;
+  MenuView& _view;
+  IMenuListener *_listen;
+  std::map<int, RtypeProtocol::Room> _roomList;
 };
 
 

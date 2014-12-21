@@ -43,3 +43,19 @@ void MenuController::setMenuListener(IMenuListener *listen)
 {
    _listen = listen;
 }
+
+void MenuController::addToRoomList(RtypeProtocol::Room room)
+{
+  _roomList[room.id] = room;
+  std::cout << "Add room : " << room.room_name << std::endl;
+}
+
+void MenuController::deleteFromRoomList(RtypeProtocol::Room room)
+{
+  if (_roomList.find(room.id) != _roomList.end())
+    {
+      _roomList.erase(room.id);
+      std::cout << "erase room : " << room.room_name << std::endl;
+    }
+
+}
