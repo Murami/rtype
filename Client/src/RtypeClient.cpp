@@ -93,9 +93,13 @@ void	RtypeClient::onDisconnection()
   std::cout << __FUNCTION__ << std::endl;
 }
 
-void	RtypeClient::onRoomInfo(RtypeProtocol::Room)
+void	RtypeClient::onRoomInfo(RtypeProtocol::Room room)
 {
   std::cout << __FUNCTION__ << std::endl;
+  if (room.alive)
+    _menuController->addToRoomList(room);
+  else
+    _menuController->deleteFromRoomList(room);
 }
 
 void	RtypeClient::onPingPong(RtypeProtocol::PingPong)
