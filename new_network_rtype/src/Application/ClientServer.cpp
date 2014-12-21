@@ -183,6 +183,7 @@ namespace Application
 	    _server.createRoom(this, room);
 	    this->sendHeader(RtypeProtocol::T_ROOM_CREATE_OK);
 	  }
+	// TODO le joueur rejoint la room qu'il a créé
       }
   }
 

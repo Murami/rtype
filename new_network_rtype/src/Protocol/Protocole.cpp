@@ -491,10 +491,6 @@ namespace Network
 	obs->notify(header->type, socket);
 	break;
 
-      case RtypeProtocol::T_GETROOMLIST:
-	obs->notify(header->type, socket);
-	break;
-
       case RtypeProtocol::T_ROOM_JOIN:
 	obs->notify(header->type, decode<RtypeProtocol::RoomConnection>(data, datasize, header->data_size), socket);
 	break;

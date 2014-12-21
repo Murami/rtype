@@ -12,6 +12,7 @@ public:
   virtual bool	onRoomConnectFromMenu(RtypeProtocol::RoomConnection) = 0;
   virtual bool	onUserReadyFromMenu(RtypeProtocol::User) = 0;
   virtual bool	onUserMessageFromMenu(RtypeProtocol::Message) = 0;
+  virtual bool	onCreateRoomFromMenu(RtypeProtocol::Room) = 0;
 
 public:
   virtual	~IMenuListener() {}
