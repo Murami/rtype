@@ -5,7 +5,16 @@
 
 class IUdpNetworkListener
 {
-
+public:x
+  virtual void	onPlayerInfo() = 0;
+  virtual void	onPosition() = 0;
+  virtual void	onSpawn() = 0;
+  virtual void	onDestruction() = 0;
+  virtual void	onLife() = 0;
+  virtual void	onBonus() = 0;
+  virtual void	onHit() = 0;
+  virtual void	onDeath() = 0;
+  virtual void	onEntityInfo() = 0;
 };
 
 #endif
