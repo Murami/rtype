@@ -4,6 +4,7 @@
 
 # include "IGameObserver.hh"
 # include "IGameListener.hh"
+# include "RtypeProtocol.hh"
 
 class	GameView;
 
@@ -14,13 +15,14 @@ public:
   ~GameController();
 
   void	update();
-
   void	setGameListener(IGameListener*);
+
+  void spawnEntity();
+  void updateEntityPosition(int id, RtypeProtocol::Position);
 
 private:
   GameView&		_view;
   IGameListener*	_listener;
-  /* mettre un network ici */
 };
 
 #endif

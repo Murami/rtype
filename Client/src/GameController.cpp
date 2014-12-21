@@ -13,6 +13,17 @@ GameController::~GameController()
 
 }
 
+void	GameController::spawnEntity()
+{
+
+}
+
+void	GameController::updateEntityPosition(int id, RtypeProtocol::Position pos)
+{
+  (void)id;
+  (void)pos;
+}
+
 void	GameController::update()
 {
   

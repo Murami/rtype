@@ -110,3 +110,9 @@ void	GameView::render(sf::RenderWindow& window)
   for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
     itObj->second->render(window);
 }
+
+void	GameView::updateById(int id, RtypeProtocol::Position pos)
+{
+  (void)id;
+  (void)pos;
+}
