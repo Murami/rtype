@@ -38,6 +38,7 @@ private:
 
   void			onReadHeader();
   void			onReadRoom();
+  void			onReadPing();
 };
 
 #endif
