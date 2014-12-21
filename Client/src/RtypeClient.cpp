@@ -79,12 +79,27 @@ void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent event)
   _tcpConnection->write(&event, sizeof(event));
 }
 
-void	RtypeClient::onMagic(RtypeProtocol::Magic)
+void	RtypeClient::onMagicBadVersion(RtypeProtocol::Magic)
 {
   std::cout << __FUNCTION__ << std::endl;
 }
 
-void	RtypeClient::onConnection()
+void	RtypeClient::onMagicAccept(RtypeProtocol::Magic)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onConnectionAlreadyConnected()
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onConnectionInternalError()
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onConnectionOk()
 {
   std::cout << __FUNCTION__ << std::endl;
 }
@@ -103,7 +118,47 @@ void	RtypeClient::onRoomInfo(RtypeProtocol::Room room)
   //   _menuController->deleteFromRoomList(room);
 }
 
-void	RtypeClient::onPingPong(RtypeProtocol::PingPong)
+void	RtypeClient::onRoomCreateAlreadyExist(RtypeProtocol::Room)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onRoomCreateInternalError(RtypeProtocol::Room)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onRoomCreateOk(RtypeProtocol::Room)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onRoomJoinNotFound(RtypeProtocol::Room)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onRoomJoinIsFull(RtypeProtocol::Room)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onRoomJoinBadPswd(RtypeProtocol::Room)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onRoomJoinOk(RtypeProtocol::Room)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onRoomExitOk(RtypeProtocol::Room)
+{
+  std::cout << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onPing(RtypeProtocol::PingPong)
 {
   std::cout << __FUNCTION__ << std::endl;
 }
@@ -172,14 +227,19 @@ bool	RtypeClient::onUserMessageFromMenu(RtypeProtocol::Message)
   return (true);
 }
 
-bool	RtypeClient::onCreateRoomFromMenu(RtypeProtocol::Room room)
+bool	RtypeClient::onCreateRoomFromMenu(const std::string& roomName,
+					  const std::string& password)
 {
   RtypeProtocol::Header header;
+  RtypeProtocol::Room	room;
   char			buffer[sizeof(header) + sizeof(room)];
 
   std::cout << __FUNCTION__ << std::endl;
   header.type = RtypeProtocol::T_ROOM_CREATE;
   header.data_size = sizeof(room);
+  std::memset(&room, 0, sizeof(room));
+  strcpy(reinterpret_cast<char *>(room.room_name), roomName.c_str());
+  strcpy(reinterpret_cast<char *>(room.pass_md5), password.c_str());
   std::memcpy(&buffer[0], &header, sizeof(header));
   std::memcpy(&buffer[sizeof(header)], &room, sizeof(room));
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(room));

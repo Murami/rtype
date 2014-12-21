@@ -34,11 +34,22 @@ public:
 
   // INetworkListener
 public:
-  virtual void	onMagic(RtypeProtocol::Magic);
-  virtual void	onConnection();
+  virtual void	onMagicBadVersion(RtypeProtocol::Magic);
+  virtual void	onMagicAccept(RtypeProtocol::Magic);
+  virtual void	onConnectionAlreadyConnected();
+  virtual void	onConnectionInternalError();
+  virtual void	onConnectionOk();
   virtual void	onDisconnection();
   virtual void	onRoomInfo(RtypeProtocol::Room);
-  virtual void	onPingPong(RtypeProtocol::PingPong);
+  virtual void	onRoomCreateAlreadyExist(RtypeProtocol::Room);
+  virtual void	onRoomCreateInternalError(RtypeProtocol::Room);
+  virtual void	onRoomCreateOk(RtypeProtocol::Room);
+  virtual void	onRoomJoinNotFound(RtypeProtocol::Room);
+  virtual void	onRoomJoinIsFull(RtypeProtocol::Room);
+  virtual void	onRoomJoinBadPswd(RtypeProtocol::Room);
+  virtual void	onRoomJoinOk(RtypeProtocol::Room);
+  virtual void	onRoomExitOk(RtypeProtocol::Room);
+  virtual void	onPing(RtypeProtocol::PingPong);
   virtual void	onGameStart();
   virtual void	onGameEnd(RtypeProtocol::EndGame);
   virtual void	onScore(RtypeProtocol::Score);
@@ -51,7 +62,7 @@ public:
   virtual bool	onRoomConnectFromMenu(RtypeProtocol::RoomConnection);
   virtual bool	onUserReadyFromMenu(RtypeProtocol::User);
   virtual bool	onUserMessageFromMenu(RtypeProtocol::Message);
-  virtual bool	onCreateRoomFromMenu(RtypeProtocol::Room);
+  virtual bool	onCreateRoomFromMenu(const std::string& roomName, const std::string& password);
 
 public:
   void		run();
