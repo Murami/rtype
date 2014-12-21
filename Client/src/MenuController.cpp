@@ -7,6 +7,7 @@
 //
 
 #include "MenuController.hh"
+#include "RtypeProtocol.hh"
 #include <iostream>
 
 MenuController::MenuController(MenuView &view) : _view(view)
@@ -35,6 +36,7 @@ void MenuController::manageUpdate(RtypeEvent::eButton idCallback)
       break;
     case RtypeEvent::CREATE:
       std::cout << "Creating room : " << _view.getRoomName() << " with password : " << _view.getRoomPass() << std::endl;
+      _listen->onCreateRoom(_view->getRoomName(), _view->getRoomPass());
       break;
     default:
       break;
