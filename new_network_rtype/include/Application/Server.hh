@@ -11,18 +11,23 @@
 #include "ClientServer.hh"
 #include "Protocole.hh"
 #include "Room.hh"
+#include "ProtocoleObserver.hh"
 
 namespace Application
 {
   class Server : public Network::AcceptorObserver,
 		 public Network::UdpSocketObserver,
-		 public Network::TimerObserver
+		 public Network::TimerObserver,
+		 public Network::IUdpProtocoleObserver
   {
   public:
     Server(Network::Service & service);
     ~Server();
 
     void				run();
+
+    void	notify(int const & type, const RtypeProtocol::State* state, const unsigned int & port, const std::string& host);
+    void	notify(int const & type, const RtypeProtocol::EntityRequest* request, const unsigned int & port, const std::string& host);
 
     // Network events
     void				onAccept(Network::Acceptor & socket);
@@ -49,7 +54,7 @@ namespace Application
 
   private:
     Network::Service &			_service;
-    Network::ProtocoleTcp		_protocoleTcp;
+    Network::ProtocoleUdp		_protocoleUdp;
 
     Network::Acceptor			_acceptor;
     Network::UdpSocket			_udpSocket;

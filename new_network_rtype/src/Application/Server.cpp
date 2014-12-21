@@ -46,6 +46,7 @@ namespace Application
 
   void Server::onRead(Network::UdpSocket & socket)
   {
+    _protocoleUdp.onRead(socket, this);
     _service.addReadUdp(socket);
   }
 
@@ -160,5 +161,15 @@ namespace Application
 	    return;
 	  }
       }
+  }
+
+  void	notify(int const & type, const RtypeProtocol::State* state, const unsigned int & port, const std::string& host)
+  {
+    std::cout << "UDP state" << std::endl;
+  }
+
+  void	notify(int const & type, const RtypeProtocol::EntityRequest* request, const unsigned int & port, const sd::string& host)
+  {
+    std::cout << "UDP request" << std::endl;
   }
 }
