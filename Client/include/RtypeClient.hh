@@ -28,14 +28,17 @@ private:
   sf::RenderWindow*		_window;
   Util::Mutex			_mutex;
 
+private:
+  void		_changeExpectedData(RtypeProtocol::Type, std::size_t);
+
   //IKeyListener
 public:
   virtual void	onKeyEvent(RtypeEvent::eKeyEvent);
 
   // INetworkListener
 public:
-  virtual void	onMagicBadVersion(RtypeProtocol::Magic);
-  virtual void	onMagicAccept(RtypeProtocol::Magic);
+  virtual void	onMagicBadVersion();
+  virtual void	onMagicAccept();
   virtual void	onConnectionAlreadyConnected();
   virtual void	onConnectionInternalError();
   virtual void	onConnectionOk();

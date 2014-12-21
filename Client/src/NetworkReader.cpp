@@ -59,11 +59,11 @@ void			NetworkReader::onReadData()
 
 void			NetworkReader::onReadPing()
 {
-  RtypeProtocol::Header		header;
-  RtypeProtocol::PingPong	pingPong;
+  // RtypeProtocol::Header		header;
+  // RtypeProtocol::PingPong	pingPong;
 
-  header.type = RtypeProtocol::T_PONG;
-  header.data_size = sizeof(RtypeProtocol::PingPong);
+  // header.type = RtypeProtocol::T_PONG;
+  // header.data_size = sizeof(RtypeProtocol::PingPong);
 }
 
 void			NetworkReader::onReadRoom()
@@ -93,10 +93,14 @@ void			NetworkReader::onReadHeader()
     {
     case RtypeProtocol::T_MAGIC_BAD_VERSION:
       std::cout << "Received bad magic version" << std::endl;
+      _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
+      _tcpListener->onMagicBadVersion();
       break;
 
     case RtypeProtocol::T_MAGIC_ACCEPT:
       std::cout << "Received good magic number" << std::endl;
+      _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
+      _tcpListener->onMagicAccept();
       break;
 
     case RtypeProtocol::T_CONNECTION_ALREADY_CONNECTED:
@@ -109,13 +113,11 @@ void			NetworkReader::onReadHeader()
 
     case RtypeProtocol::T_CONNECTION_OK:
       std::cout << "Connection success" << std::endl;
-      _expectedPacket = RtypeProtocol::T_HEADER;
-      _expectedSize = sizeof(RtypeProtocol::Header);
+      _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
       break;
     case RtypeProtocol::T_ROOMINFO:
       std::cout << "Received room info" << std::endl;
-      _expectedPacket = RtypeProtocol::T_ROOMINFO;
-      _expectedSize = sizeof(RtypeProtocol::Room);
+      _changeExpectedData(RtypeProtocol::T_ROOMINFO, sizeof(RtypeProtocol::Room));
       break;
 
     case RtypeProtocol::T_ROOM_CREATE_ALREADY_EXIST:
@@ -152,8 +154,7 @@ void			NetworkReader::onReadHeader()
 
     case RtypeProtocol::T_PING:
       std::cout << "Pinging server" << std::endl;
-      _expectedPacket = RtypeProtocol::T_PING;
-      _expectedSize = sizeof(RtypeProtocol::PingPong);
+      _changeExpectedData(RtypeProtocol::T_PING, sizeof(RtypeProtocol::PingPong));
       break;
 
     case RtypeProtocol::T_MSG:
@@ -195,6 +196,13 @@ void			NetworkReader::setNetworkListener(INetworkListener *listener)
 RtypeProtocol::Type	NetworkReader::getExpectedPacket()
 {
   return (_expectedPacket);
+}
+
+void			NetworkReader::_changeExpectedData(RtypeProtocol::Type type,
+							   std::size_t size)
+{
+  _expectedPacket = type;
+  _expectedSize = size;
 }
 
 NetworkReader::~NetworkReader() {}

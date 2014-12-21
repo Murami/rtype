@@ -85,12 +85,13 @@ void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent event)
   _tcpConnection->write(&event, sizeof(event));
 }
 
-void	RtypeClient::onMagicBadVersion(RtypeProtocol::Magic)
+void	RtypeClient::onMagicBadVersion()
 {
   std::cout << __FUNCTION__ << std::endl;
+  throw (std::runtime_error("connect to server : bad magic version"));
 }
 
-void	RtypeClient::onMagicAccept(RtypeProtocol::Magic)
+void	RtypeClient::onMagicAccept()
 {
   std::cout << __FUNCTION__ << std::endl;
 }
@@ -134,9 +135,10 @@ void	RtypeClient::onRoomCreateInternalError(RtypeProtocol::Room)
   std::cout << __FUNCTION__ << std::endl;
 }
 
-void	RtypeClient::onRoomCreateOk(RtypeProtocol::Room)
+void	RtypeClient::onRoomCreateOk(RtypeProtocol::Room room)
 {
   std::cout << __FUNCTION__ << std::endl;
+  onRoomJoinOk(room);
 }
 
 void	RtypeClient::onRoomJoinNotFound(RtypeProtocol::Room)

@@ -6,8 +6,8 @@
 class		INetworkListener
 {
 public:
-  virtual void	onMagicBadVersion(RtypeProtocol::Magic) = 0;
-  virtual void	onMagicAccept(RtypeProtocol::Magic) = 0;
+  virtual void	onMagicBadVersion() = 0;
+  virtual void	onMagicAccept() = 0;
   virtual void	onConnectionAlreadyConnected() = 0;
   virtual void	onConnectionInternalError() = 0;
   virtual void	onConnectionOk() = 0;
