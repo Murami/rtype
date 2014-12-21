@@ -565,26 +565,26 @@ namespace Network
       dataAddr = header + sizeof(RtypeProtocol::Header);
     if (dataAddr)
     {
-    if (header->type == RtypeProtocol::T_EVENT)
-    obs->notify(header->type, decode<RtypeProtocol::State>(dataAddr, datasize, header->data_size), port, host);
-    else if (header->type == RtypeProtocol::T_ENTITYREQUEST)
-    obs->notify(header->type, decode<RtypeProtocol::EntityRequest>(dataAddr, datasize, header->data_size), port, host);
-    
-    /*
-    unused on server side :
-    else if (header->type == RtypeProtocol::T_POSITION)
-    obs->notify(header->type, decode<RtypeProtocol::PositionEvent>(dataAddr, datasize, header->data_size), port, host);
-    else if (header->type == RtypeProtocol::T_SPAWN)
-    obs->notify(header->type, decode<RtypeProtocol::Spawn>(dataAddr, datasize, header->data_size), port, host);
-    else if (header->type == RtypeProtocol::T_DESTRUCTION)
-    obs->notify(header->type, decode<RtypeProtocol::destruction>(dataAddr, datasize, header->data_size), port, host);
-    else if (header->type == RtypeProtocol::T_LIFE)
-    obs->notify(header->type, decode<RtypeProtocol::Life>(dataAddr, datasize, header->data_size), port, host);
-    else if (header->type == RtypeProtocol::T_BONUS)
-    obs->notify(header->type, decode<RtypeProtocol::Bonus>(dataAddr, datasize, header->data_size), port, host);
-    */
-    else
-    throw RtypeProtocol::ProtocolException("Unknow Udp data");
+      if (header->type == RtypeProtocol::T_EVENT)
+        obs->notify(header->type, decode<RtypeProtocol::State>(dataAddr, datasize, header->data_size), port, host);
+      else if (header->type == RtypeProtocol::T_ENTITYREQUEST)
+        obs->notify(header->type, decode<RtypeProtocol::EntityRequest>(dataAddr, datasize, header->data_size), port, host);
+      
+      /*
+      unused on server side :
+      else if (header->type == RtypeProtocol::T_POSITION)
+      obs->notify(header->type, decode<RtypeProtocol::PositionEvent>(dataAddr, datasize, header->data_size), port, host);
+      else if (header->type == RtypeProtocol::T_SPAWN)
+      obs->notify(header->type, decode<RtypeProtocol::Spawn>(dataAddr, datasize, header->data_size), port, host);
+      else if (header->type == RtypeProtocol::T_DESTRUCTION)
+      obs->notify(header->type, decode<RtypeProtocol::destruction>(dataAddr, datasize, header->data_size), port, host);
+      else if (header->type == RtypeProtocol::T_LIFE)
+      obs->notify(header->type, decode<RtypeProtocol::Life>(dataAddr, datasize, header->data_size), port, host);
+      else if (header->type == RtypeProtocol::T_BONUS)
+      obs->notify(header->type, decode<RtypeProtocol::Bonus>(dataAddr, datasize, header->data_size), port, host);
+      */
+      else
+        throw RtypeProtocol::ProtocolException("Unknow Udp data");
     }
     else
     {
