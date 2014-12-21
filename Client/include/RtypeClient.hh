@@ -5,6 +5,7 @@
 # include	"IMenuListener.hh"
 # include	"ConnectionConfiguration.hh"
 # include	"ITcpNetworkListener.hh"
+# include	"IUdpNetworkListener.hh"
 # include	"IKeyListener.hh"
 # include	"Mutex.hh"
 
