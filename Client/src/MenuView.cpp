@@ -10,24 +10,13 @@
 #include "SoundManager.hh"
 #include "Mutex.hh"
 
-#ifdef __APPLE__
-static const char *blackConf = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/widgets/Black.conf";
-static const char *backgroundLogin = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/login.jpg";
-static const char *backgroundMenu = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/Menu.jpg";
-static const char *backgroundRoomSelect = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/roomSelect.jpg";
-static const char *backgroundRoom = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/room.jpg";
-static const char *fontPath = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/Tr2n.ttf";
-static const char *chatFont = "/Users/Charles/Documents/Tek 3/TestSFML/TestSFML/DejaVuSans.ttf";
-#else
 static const char *blackConf = "./res/widgets/Black.conf";
-static const char *backgroundLogin = "./res/login.jpg";
-static const char *backgroundMenu = "./res/Menu.jpg";
-static const char *backgroundRoomSelect = "./res/roomSelect.jpg";
-static const char *backgroundRoom = "./res/room.jpg";
-static const char *fontPath = "./res/Tr2n.ttf";
-static const char *chatFont = "./res/DejaVuSans.ttf";
-#endif
-
+static const char *backgroundLogin = "./res/Menu/login.jpg";
+static const char *backgroundMenu = "./res/Menu/Menu.jpg";
+static const char *backgroundRoomSelect = "./res/Menu/roomSelect.jpg";
+static const char *backgroundRoom = "./res/Menu/room.jpg";
+static const char *fontPath = "./res/Menu/Tr2n.ttf";
+static const char *chatFont = "./res/Menu/DejaVuSans.ttf";
 
 MenuView::MenuView(sf::RenderWindow &window)
 {
