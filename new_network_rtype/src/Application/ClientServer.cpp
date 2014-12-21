@@ -165,14 +165,13 @@ namespace Application
   {
     if (type == RtypeProtocol::T_ROOM_CREATE)
       {
-	std::cout << "create room" << std::endl;
-
 	std::string	roomname;
 
 	if (_state != T_CONNECTED)
 	  throw ClientException("Room creation in non-connected state");
 
 	Util::stringncopy(roomname, room->room_name, ROOM_NAME_SIZE);
+	std::cout << "create room with roomname : " << roomname << std::endl;
 
 	if (_server.roomExists(roomname))
 	  {
