@@ -51,6 +51,9 @@ public:
   void setPlayerLabe3(std::string name);
   void setPlayerLabe4(std::string name);
 
+  void addRoom(std::string name);
+  void resetRoomList();
+
 private:
   void prevState();
 

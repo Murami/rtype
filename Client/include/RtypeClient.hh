@@ -51,6 +51,7 @@ public:
   virtual bool	onRoomConnectFromMenu(RtypeProtocol::RoomConnection);
   virtual bool	onUserReadyFromMenu(RtypeProtocol::User);
   virtual bool	onUserMessageFromMenu(RtypeProtocol::Message);
+  virtual bool	onCreateRoomFromMenu(RtypeProtocol::Room);
 
 public:
   void		run();
