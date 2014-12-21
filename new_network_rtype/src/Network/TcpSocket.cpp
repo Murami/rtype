@@ -100,7 +100,7 @@ namespace Network
     _observer = observer;
   }
 
-  std::string	TcpSocket::getIP() const
+  const std::string&	TcpSocket::getIP() const
   {
     return (_ip);
   }

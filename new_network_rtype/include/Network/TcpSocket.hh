@@ -59,6 +59,7 @@ namespace Network
     void		setObserver(TcpSocketObserver *);
     void		notifyRead();
     void		notifyWrite();
+    const std::string&	getIP() const;
 
   private:
     TcpSocketObserver *	_observer;
