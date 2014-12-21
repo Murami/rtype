@@ -292,4 +292,9 @@ namespace Application
   {
     return (_state);
   }
+
+  const std::string&	ClientServer::getIP() const
+  {
+    return (_socket.getIP());
+  }
 } /* namespace Application */
