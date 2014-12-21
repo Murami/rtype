@@ -69,12 +69,16 @@ void		RtypeClient::run()
   std::memcpy(&buffer[sizeof(header)], &magic, sizeof(magic));
 
   _tcpConnection->startRead();
+  _tcpConnection->startWrite();
+
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(magic));
 
   SoundManager::Play("theme", true);
   _menuView->run(*_window, &_mutex);
   _tcpConnection->stopRead();
+  _tcpConnection->stopWrite();
   _tcpConnection->joinRead();
+  _tcpConnection->joinWrite();
 }
 
 // IUdpNetworkListener
@@ -126,15 +130,8 @@ void	RtypeClient::onEntityInfo()
 
 // IKeyListener
 
-void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent event)
+void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent)
 {
-  RtypeProtocol::Header header;
-
-  header.type = RtypeProtocol::T_EVENT;
-  header.data_size = sizeof(event);
-  // Faire concatenation buffer
-  _tcpConnection->write(&header, sizeof(header));
-  _tcpConnection->write(&event, sizeof(event));
 }
 
 // ITcpNetworkListener
@@ -173,10 +170,10 @@ void	RtypeClient::onDisconnection()
 void	RtypeClient::onRoomInfo(RtypeProtocol::Room room)
 {
   std::cout << __FUNCTION__ << std::endl;
-  // if (room.alive)
+  if (room.alive)
     _menuController->addToRoomList(room);
-  // else
-  //   _menuController->deleteFromRoomList(room);
+  else
+    _menuController->deleteFromRoomList(room);
 }
 
 void	RtypeClient::onRoomCreateAlreadyExist(RtypeProtocol::Room)

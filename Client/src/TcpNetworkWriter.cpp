@@ -17,9 +17,8 @@ int		TcpNetworkWriter::run()
   char		buffer[4096];
   std::size_t	i;
 
-  while (1)
+  while (_tcpConnection.isWriting())
     {
-      Util::Lock lock(_mutex);
       _cond.lock();
       for (i = 0; i < _buffer.size(); i++)
 	{
@@ -28,7 +27,7 @@ int		TcpNetworkWriter::run()
 	}
       if (!_buffer.empty())
 	_cond.unlock();
-      _tcpConnection.write(buffer, i);
+      _tcpConnection.socket().send(buffer, i);
     }
   return (0);
 }
