@@ -444,10 +444,10 @@ void MenuView::prevState()
       _actualState = RtypeEvent::LOGINSTATE;
       break;
     case RtypeEvent::ROOMSELECTSTATE:
-      //      _listen->on
       _actualState = RtypeEvent::MENUSTATE;
       break;
     case RtypeEvent::ROOMSTATE:
+      this->notify(RtypeEvent::LEAVE);
       _actualState = RtypeEvent::ROOMSELECTSTATE;
       break;
     case RtypeEvent::SETTINGSTATE:
