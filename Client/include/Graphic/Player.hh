@@ -1,5 +1,5 @@
 //
-//  Ship.h
+//  Player.hh
 //  TestSFML
 //
 //  Created by Charles Fournier on 05/12/2014.
@@ -23,8 +23,8 @@ public:
     virtual void update(const sf::Vector2<float> pos);
     virtual void render(sf::RenderWindow &window);
     
-    void setPower(int power);
-    int     getPower() const;
+    void	setPower(int power);
+    int		getPower() const;
 
 private:
     int             _nbPlayer;
