@@ -3,9 +3,8 @@
 
 # include	<stdint.h>
 
-# ifdef		WIN32
-#  pragma pack(push, 1)
-#  define PACKED(__body__) struct __body__
+# if		!defined(__GNUC__) && !defined(__MINGW32__)
+#  define PACKED(__body__) __pragma(pack(push, 1)) struct __body__ __pragma(pack(pop))
 # else
 #  define PACKED(__body__) struct __attribute__((packed)) __body__
 # endif
