@@ -93,6 +93,7 @@ namespace Application
 	Util::stringncopy(_name, user->username, USERNAME_SIZE);
 	_state = T_CONNECTED;
 	this->sendHeader(RtypeProtocol::T_CONNECTION_OK);
+	_server.sendAllRoomInfos(this);
       }
   }
 
@@ -201,15 +202,16 @@ namespace Application
 	if (_state != T_INROOM)
 	  throw ClientException("");
       }
-    if (type == RtypeProtocol::T_GETROOMLIST)
-      {
-	std::cout << "get room list" << std::endl;
+    // now obselete
+    // if (type == RtypeProtocol::T_GETROOMLIST)
+    //   {
+    // 	std::cout << "get room list" << std::endl;
 
-	if (_state != T_CONNECTED)
-	  throw ClientException("");
+    // 	if (_state != T_CONNECTED)
+    // 	  throw ClientException("");
 
-	_server.sendAllRoomInfos(this);
-      }
+    // 	_server.sendAllRoomInfos(this);
+    //   }
   }
 
   Network::TcpSocket & ClientServer::getSocket() const
