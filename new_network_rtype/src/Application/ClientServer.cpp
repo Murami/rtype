@@ -269,7 +269,7 @@ namespace Application
       {
 	unsigned int	idx = std::distance(room->getClients().begin(), it);
   std::cout << "IDX = " << idx << std::endl;
-	(*it)->getName().copy(reinterpret_cast<char*>(roominfos.ready_users[idx]), USERNAME_SIZE);
+	(*it)->getName().copy(reinterpret_cast<char*>(roominfos.connected_users[idx]), USERNAME_SIZE);
       }
     std::cout << "room name size : " << room->getName().size() << std::endl;
     std::cout << "send room infos -----> " << roominfos.room_name << std::endl;
