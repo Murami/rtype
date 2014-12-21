@@ -244,6 +244,7 @@ namespace Application
   void	ClientServer::sendRoomInfos(const Room* room, bool alive)
   {
     RtypeProtocol::Room				roominfos;
+    memset(&roominfos, 0, sizeof(RtypeProtocol::Room));
     std::list<ClientRoom*>::const_iterator	it;
 
     roominfos.id = room->getID();
