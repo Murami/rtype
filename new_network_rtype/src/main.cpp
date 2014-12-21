@@ -7,6 +7,7 @@
 
 int main()
 {
+	/*
 	RtypeProtocol::Room	room;
 	std::cout << "id : " << offsetof(RtypeProtocol::Room, id) << std::endl;
 	std::cout << "alive : " << offsetof(RtypeProtocol::Room, alive) << std::endl;
@@ -18,6 +19,7 @@ int main()
 	std::cout << "ready_users : " << offsetof(RtypeProtocol::Room, ready_users) << std::endl;
 	std::cout << "locked : " << offsetof(RtypeProtocol::Room, locked) << std::endl;
 	std::cout << "users_id : " << offsetof(RtypeProtocol::Room, users_id) << std::endl;
+	*/
   Network::Service	service;
   Application::Server	server(service);
 
