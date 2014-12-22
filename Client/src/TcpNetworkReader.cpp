@@ -35,34 +35,30 @@ int			TcpNetworkReader::run(Util::Mutex* mutex)
 void			TcpNetworkReader::onReadData()
 {
   while (_buffer.size() >= _expectedSize)
+    onReadHeader();
+}
+
+void			TcpNetworkReader::onReadHeader()
+{
+  RtypeProtocol::Header	header;
+
+  for (size_t i = 0; i < sizeof(header); i++)
     {
-      switch (_expectedPacket)
-	{
-	case RtypeProtocol::T_HEADER:
-	  onReadHeader();
-	  break;
-	case RtypeProtocol::T_ROOMINFO:
-	  onReadRoom();
-	  break;
-	case RtypeProtocol::T_PING:
-	  onReadPing();
-	  break;
-	default:
-	  break;
-	}
+      reinterpret_cast<char *>(&header)[i] = _buffer.front();
+      _buffer.pop_front();
     }
+  if (_callback.find(static_cast<RtypeProtocol::Type>(header.type)) != _callback.end())
+    (this->*_callback[static_cast<RtypeProtocol::Type>(header.type)])();
 }
 
 void			TcpNetworkReader::onMagicBadVersion()
 {
-  std::cout << "Received bad magic version" << std::endl;
   _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
   _tcpListener->onMagicBadVersion();
 }
 
 void			TcpNetworkReader::onMagicAccept()
 {
-  std::cout << "Received good magic number" << std::endl;
   _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
   _tcpListener->onMagicAccept();
 }
@@ -76,13 +72,21 @@ void			TcpNetworkReader::onReadRoom()
       reinterpret_cast<char *>(&room)[i] = _buffer.front();
       _buffer.pop_front();
     }
-  _expectedPacket = RtypeProtocol::T_HEADER;
-  _expectedSize = sizeof(RtypeProtocol::Header);
+  _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
   _tcpListener->onRoomInfo(room);
 }
 
 void			TcpNetworkReader::onReadPing()
 {
+  RtypeProtocol::PingPong	ping;
+
+  for (std::size_t i = 0; i < sizeof(ping); i++)
+    {
+      reinterpret_cast<char *>(&ping)[i] = _buffer.front();
+      _buffer.pop_front();
+    }
+  _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
+  _tcpListener->onPing(ping);
 }
 
 void			TcpNetworkReader::onReadConnectionAlreadyConnected()
@@ -143,19 +147,6 @@ void			TcpNetworkReader::onReadScore()
 
 void			TcpNetworkReader::onReadPlayerInfo()
 {
-}
-
-void			TcpNetworkReader::onReadHeader()
-{
-  RtypeProtocol::Header	header;
-
-  for (size_t i = 0; i < sizeof(header); i++)
-    {
-      reinterpret_cast<char *>(&header)[i] = _buffer.front();
-      _buffer.pop_front();
-    }
-  if (_callback.find(static_cast<RtypeProtocol::Type>(header.type)) != _callback.end())
-    (this->*_callback[static_cast<RtypeProtocol::Type>(header.type)])();
 }
 
 void			TcpNetworkReader::setExpectedPacket(RtypeProtocol::Type packetType)

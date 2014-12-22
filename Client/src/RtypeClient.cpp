@@ -138,38 +138,38 @@ void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent)
 
 void	RtypeClient::onMagicBadVersion()
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   throw (std::runtime_error("connect to server : bad magic version"));
 }
 
 void	RtypeClient::onMagicAccept()
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onConnectionAlreadyConnected()
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onConnectionInternalError()
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onConnectionOk()
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onDisconnection()
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onRoomInfo(RtypeProtocol::Room room)
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   if (room.alive)
     _menuController->addToRoomList(room);
   else
@@ -178,68 +178,68 @@ void	RtypeClient::onRoomInfo(RtypeProtocol::Room room)
 
 void	RtypeClient::onRoomCreateAlreadyExist(RtypeProtocol::Room)
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onRoomCreateInternalError(RtypeProtocol::Room)
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onRoomCreateOk(RtypeProtocol::Room room)
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   onRoomJoinOk(room);
 }
 
 void	RtypeClient::onRoomJoinNotFound(RtypeProtocol::Room)
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onRoomJoinIsFull(RtypeProtocol::Room)
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onRoomJoinBadPswd(RtypeProtocol::Room)
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onRoomJoinOk(RtypeProtocol::Room)
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onRoomExitOk(RtypeProtocol::Room)
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onPing(RtypeProtocol::PingPong)
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onGameStart()
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onGameEnd(RtypeProtocol::EndGame)
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onScore(RtypeProtocol::Score)
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onMessage(RtypeProtocol::Message)
 {
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 bool	RtypeClient::onConnectFromMenu(const std::string & login)
@@ -263,7 +263,7 @@ bool	RtypeClient::onDisconnectFromMenu()
   RtypeProtocol::Header header;
 
   // Send disconnection datas
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 
   header.type = RtypeProtocol::T_DISCONNECTION;
   header.data_size = 0;
@@ -277,7 +277,7 @@ bool	RtypeClient::onRoomConnectFromMenu(int id, const std::string& pass)
   RtypeProtocol::RoomConnection room;
   char buffer[sizeof(header) + sizeof(room)];
 
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 
   header.type = RtypeProtocol::T_ROOM_JOIN;
   header.data_size = sizeof(room);
@@ -293,7 +293,7 @@ bool	RtypeClient::onRoomLeaveFromMenu()
 {
   RtypeProtocol::Header header;
 
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 
   header.type = RtypeProtocol::T_ROOM_EXIT;
   header.data_size = 0;
@@ -306,7 +306,7 @@ bool	RtypeClient::onUserReadyFromMenu(RtypeProtocol::User)
   RtypeProtocol::Header header;
 
   // Send signal data notifying user ready
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 
   header.type = RtypeProtocol::T_READY;
   header.data_size = 0;
@@ -317,7 +317,7 @@ bool	RtypeClient::onUserReadyFromMenu(RtypeProtocol::User)
 bool	RtypeClient::onUserMessageFromMenu(RtypeProtocol::Message)
 {
   // Send user message
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   return (true);
 }
 
@@ -328,7 +328,7 @@ bool	RtypeClient::onCreateRoomFromMenu(const std::string& roomName,
   RtypeProtocol::Room	room;
   char			buffer[sizeof(header) + sizeof(room)];
 
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   header.type = RtypeProtocol::T_ROOM_CREATE;
   header.data_size = sizeof(room);
   std::memset(&room, 0, sizeof(room));
