@@ -12,6 +12,7 @@
 PlayerPowerUp::PlayerPowerUp(int index)
 {
     _index = index;
+    _anim = 0;
     _texture = TextureManager::getInstance()->getTextureSheet2();
     _sprite.setTexture(_texture);
     _sprite.scale(2.0, 2.0);

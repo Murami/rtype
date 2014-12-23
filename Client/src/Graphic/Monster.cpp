@@ -19,6 +19,7 @@ Monster::Monster(int monsterID)
     _animationDuration[2] = 0.1;
     
     _monsterID = monsterID;
+    _anim = 0;
     if (_monsterMap.find(_monsterID) != _monsterMap.end())
         (this->*_monsterMap[_monsterID])();
 }
