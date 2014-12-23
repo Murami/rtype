@@ -218,7 +218,7 @@ void	RtypeClient::onPing(RtypeProtocol::PingPong)
 void	RtypeClient::onGameStart()
 {
   _menuView->stop();
-  //_gameView->run(*_window, &_mutex);
+  _gameView->run(*_window, &_mutex);
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
