@@ -385,6 +385,8 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 		    _editBoxRoomPass->setText("");
 		  }
 		break;
+	      case RtypeEvent::READY:
+		this->notify(RtypeEvent::READY);
 	      case RtypeEvent::BACK:
 		this->prevState();
 		break;
