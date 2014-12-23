@@ -10,15 +10,20 @@
 
 GameView::GameView()
 {
+  std::cout << "\033[35menter\033[0m" << std::endl;
   _run = false;
-
+  std::cout << "\033[35m one\033[0m" << std::endl;
   _backgroundVector.push_back(new ScrollingBackground("./res/Game/background_game.jpg"));
+  std::cout << "\033[35m two\033[0m" << std::endl;
   _backgroundVector.push_back(new ScrollingBackground("./res/Game/planets.png"));
+  std::cout << "\033[35m three\033[0m" << std::endl;
   _backgroundVector[1]->setBgSpeed(0.5);
+  std::cout << "\033[35m four\033[0m" << std::endl;
 
   IObject *player = new BigRocket(true);
 
   _objectMap[0] = player;
+  std::cout << "\033[35mout\033[0m" << std::endl;
 }
 
 GameView::~GameView()
