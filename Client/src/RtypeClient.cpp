@@ -22,9 +22,6 @@ RtypeClient::RtypeClient()
   _mutex.lock();
   _tcpConnection = new TcpConnection(_configuration, &_mutex);
   _tcpConnection->setTcpNetworkListener(this);
-
-  (void)_gameView;
-  (void)_gameController;
 }
 
 RtypeClient::~RtypeClient()
@@ -85,47 +82,38 @@ void		RtypeClient::run()
 
 void	RtypeClient::onPlayerInfo()
 {
-
 }
 
 void	RtypeClient::onPosition()
 {
-
 }
 
 void	RtypeClient::onSpawn()
 {
-
 }
 
 void	RtypeClient::onDestruction()
 {
-
 }
 
 void	RtypeClient::onLife()
 {
-
 }
 
 void	RtypeClient::onBonus()
 {
-
 }
 
 void	RtypeClient::onHit()
 {
-
 }
 
 void	RtypeClient::onDeath()
 {
-
 }
 
 void	RtypeClient::onEntityInfo()
 {
-
 }
 
 // IKeyListener
@@ -224,6 +212,12 @@ void	RtypeClient::onPing(RtypeProtocol::PingPong)
 
 void	RtypeClient::onGameStart()
 {
+  _gameView = new GameView();
+  _gameController = new GameController(*_gameView);
+  _gameView->addObserver(_gameController);
+  // _gameController->setGameListener(this);
+  _menuView->stop();
+  _gameView->run(*_window, &_mutex);
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
@@ -301,7 +295,7 @@ bool	RtypeClient::onRoomLeaveFromMenu()
   return (true);
 }
 
-bool	RtypeClient::onUserReadyFromMenu(RtypeProtocol::User)
+bool	RtypeClient::onUserReadyFromMenu()
 {
   RtypeProtocol::Header header;
 

@@ -385,14 +385,19 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 		    _editBoxRoomPass->setText("");
 		  }
 		break;
+	      case RtypeEvent::READY:
+		this->notify(RtypeEvent::READY);
+		break;
 	      case RtypeEvent::BACK:
 		this->prevState();
 		break;
 	      case RtypeEvent::LISTCHOICE:
 		this->_editBoxRoomName->setText(this->_listRoom->getSelectedItem());
+		break;
 	      case RtypeEvent::APPLY:
 		SoundManager::MusicVolume(_musicSlider->getValue());
 		SoundManager::SoundVolume(_effectSlider->getValue());
+		break;
 	      default:
 		break;
 	      }

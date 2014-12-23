@@ -135,6 +135,7 @@ void			TcpNetworkReader::onReadMessage()
 
 void			TcpNetworkReader::onReadGameStart()
 {
+  _tcpListener->onGameStart();
 }
 
 void			TcpNetworkReader::onReadGameEnd()
