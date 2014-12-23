@@ -42,6 +42,7 @@ namespace Game
       (this->*_actions[*it])();
 
     // TODO Normalize speed (if not == 0 !)
+    // Check of the player is behin the camera of the gameplay
   }
 
   void	Player::onCollide(Entity& entity)

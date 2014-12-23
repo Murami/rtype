@@ -207,7 +207,10 @@ namespace Application
 	  throw ClientException("");
 	_state = T_INGAME;
 	if (_clientroom->getRoom()->isReady())
-	  _clientroom->getRoom()->startGame();
+	  {
+	    _clientroom->getRoom()->startGame();
+	    this->sendHeader(RtypeProtocol::T_GAMESTART);
+	  }
       }
     if (type == RtypeProtocol::T_ROOM_EXIT)
       {
