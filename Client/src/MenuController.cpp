@@ -50,8 +50,10 @@ void MenuController::manageUpdate(RtypeEvent::eButton idCallback)
       break;
     case RtypeEvent::LEAVE:
       _listen->onRoomLeaveFromMenu();
+      break;
     case RtypeEvent::READY:
       _listen->OnUserReadyFromMenu();
+      break;
     default:
       break;
     }
