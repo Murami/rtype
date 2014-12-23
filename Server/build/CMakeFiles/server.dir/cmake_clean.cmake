@@ -1,4 +1,4 @@
-file(REMOVE_RECURSE
+FILE(REMOVE_RECURSE
   "CMakeFiles/server.dir/src/main.cpp.o"
   "CMakeFiles/server.dir/src/Network/Service.cpp.o"
   "CMakeFiles/server.dir/src/Network/TcpSocket.cpp.o"
@@ -50,6 +50,6 @@ file(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-foreach(lang CXX)
-  include(CMakeFiles/server.dir/cmake_clean_${lang}.cmake OPTIONAL)
-endforeach()
+FOREACH(lang CXX)
+  INCLUDE(CMakeFiles/server.dir/cmake_clean_${lang}.cmake OPTIONAL)
+ENDFOREACH(lang)

@@ -75,9 +75,9 @@ public:
   virtual bool	onDisconnectFromMenu();
   virtual bool	onRoomConnectFromMenu(int id, const std::string& pass);
   virtual bool	onRoomLeaveFromMenu();
-  virtual bool	onUserReadyFromMenu(RtypeProtocol::User);
+  virtual bool	onUserReadyFromMenu();
   virtual bool	onUserMessageFromMenu(RtypeProtocol::Message);
-  virtual bool	onCreateRoomFromMenu(const std::string& roomName, const std::string& password);
+  virtual bool	onCreateRoomFromMenu(const std::string&, const std::string&);
 
 public:
   void		run();

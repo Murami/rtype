@@ -1,4 +1,4 @@
-//
+/
 //  MenuController.cpp
 //  RType
 //
@@ -51,7 +51,7 @@ void MenuController::manageUpdate(RtypeEvent::eButton idCallback)
     case RtypeEvent::LEAVE:
       _listen->onRoomLeaveFromMenu();
     case RtypeEvent::READY:
-      _listen->OnUserReadyFromMenu();
+      _listen->onUserReadyFromMenu();
     default:
       break;
     }

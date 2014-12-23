@@ -301,7 +301,7 @@ bool	RtypeClient::onRoomLeaveFromMenu()
   return (true);
 }
 
-bool	RtypeClient::onUserReadyFromMenu(RtypeProtocol::User)
+bool	RtypeClient::onUserReadyFromMenu()
 {
   RtypeProtocol::Header header;
 
