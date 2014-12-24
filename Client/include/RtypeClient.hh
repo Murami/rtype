@@ -7,6 +7,7 @@
 # include	"ITcpNetworkListener.hh"
 # include	"IUdpNetworkListener.hh"
 # include	"IKeyListener.hh"
+# include	"IGameListener.hh"
 # include	"Mutex.hh"
 
 class		MenuController;
@@ -18,7 +19,8 @@ class		GameController;
 class		RtypeClient :	public IMenuListener,
 				public ITcpNetworkListener,
 				public IUdpNetworkListener,
-				public IKeyListener
+				public IKeyListener,
+				public IGameListener
 {
 private:
   ConnectionConfiguration	_configuration;

@@ -6,7 +6,6 @@ class	IGameListener
 {
 public:
   virtual ~IGameListener() {}
-
 };
 
 #endif

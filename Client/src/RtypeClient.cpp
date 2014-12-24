@@ -17,8 +17,11 @@
 #include	"GameView.hh"
 #include	"RtypeProtocol.hh"
 
+#include <X11/Xlib.h>
+
 RtypeClient::RtypeClient()
 {
+  XInitThreads();
   _mutex.lock();
   _tcpConnection = new TcpConnection(_configuration, &_mutex);
   _tcpConnection->setTcpNetworkListener(this);
@@ -46,9 +49,9 @@ void		RtypeClient::run()
   _menuController = new MenuController(*_menuView);
   _gameView = new GameView();
   _gameController = new GameController(*_gameView);
-  _gameView->addObserver(_gameController);
-  // _gameController->setGameListener(this);
 
+  _gameView->addObserver(_gameController);
+  _gameController->setGameListener(this);
 
   _menuView->addObserver(_menuController);
   _menuController->setMenuListener(this);
@@ -217,7 +220,9 @@ void	RtypeClient::onPing(RtypeProtocol::PingPong)
 
 void	RtypeClient::onGameStart()
 {
+  std::cout << "Calling _menuView->stop();" << std::endl;
   _menuView->stop();
+  std::cout << "Calling  _gameView->run(*_window, &_mutex);" << std::endl;
   _gameView->run(*_window, &_mutex);
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }

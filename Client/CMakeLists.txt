@@ -93,7 +93,7 @@ find_package(SFML 2.1 REQUIRED system window graphics network audio)
 find_package(TGUI 0.6 REQUIRED)
 
 if (UNIX)
-	target_link_libraries(client pthread)
+	target_link_libraries(client pthread X11)
 elseif(WIN32)
   target_link_libraries(client wsock32 ws2_32)
 endif()
