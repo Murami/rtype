@@ -13,6 +13,7 @@
 class		MenuController;
 class		MenuView;
 class		TcpConnection;
+class		UdpConnection;
 class		GameView;
 class		GameController;
 
@@ -25,6 +26,7 @@ class		RtypeClient :	public IMenuListener,
 private:
   ConnectionConfiguration	_configuration;
   TcpConnection*		_tcpConnection;
+  UdpConnection*		_udpConnection;
   MenuController*		_menuController;
   MenuView*			_menuView;
   GameController*		_gameController;

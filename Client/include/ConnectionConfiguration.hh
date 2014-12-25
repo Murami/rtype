@@ -11,16 +11,19 @@ class		ConnectionConfiguration
 public:
   const static	std::string	CONF_FILE;
   const static	std::string	IP_KEY;
-  const static	std::string	PORT_KEY;
+  const static	std::string	PORT_TCP_KEY;
+  const static	std::string	PORT_UDP_KEY;
 
 private:
   ConfigurationParser	_parser;
   std::string		_ip;
-  int			_port;
+  int			_portTcp;
+  int			_portUdp;
 
 public:
   const std::string&	getIp() const;
-  int			getPort() const;
+  int			getPortTcp() const;
+  int			getPortUdp() const;
 
 public:
   ConnectionConfiguration();

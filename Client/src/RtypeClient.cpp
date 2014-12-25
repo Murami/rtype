@@ -2,7 +2,7 @@
 #include	<stdexcept>
 
 #if defined(__linux__) || defined(__APPLE__)
-# include	<arpa/inet.h>
+# include <arpa/inet.h>
 #elif defined(WIN32)
 # include <Winsock2.h>
 # include <windows.h>
@@ -11,20 +11,27 @@
 #include	"MenuController.hh"
 #include	"MenuView.hh"
 #include	"TcpConnection.hh"
+#include	"UdpConnection.hh"
 #include	"RtypeClient.hh"
 #include	"SoundManager.hh"
 #include	"GameController.hh"
 #include	"GameView.hh"
 #include	"RtypeProtocol.hh"
 
-#include <X11/Xlib.h>
+#ifdef __linux__
+# include <X11/Xlib.h>
+#endif
 
 RtypeClient::RtypeClient()
 {
+#ifdef __linux__
   XInitThreads();
+#endif
   _mutex.lock();
   _tcpConnection = new TcpConnection(_configuration, &_mutex);
   _tcpConnection->setTcpNetworkListener(this);
+  _udpConnection = new UdpConnection(_configuration, &_mutex);
+  _udpConnection->setUdpNetworkListener(this);
 }
 
 RtypeClient::~RtypeClient()
@@ -57,7 +64,10 @@ void		RtypeClient::run()
   _menuController->setMenuListener(this);
 
   if (!_tcpConnection->connect())
-    throw (std::runtime_error("Connect"));
+    throw (std::runtime_error("TCP connect"));
+
+  if (!_udpConnection->connect())
+    throw (std::runtime_error("UDP connect"));
 
   header.type = RtypeProtocol::T_MAGIC;
   header.data_size = sizeof(magic);
@@ -76,6 +86,8 @@ void		RtypeClient::run()
   _tcpConnection->startRead();
   _tcpConnection->startWrite();
 
+  _udpConnection->startRead();
+
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(magic));
 
   SoundManager::Play("theme", true);
@@ -84,6 +96,9 @@ void		RtypeClient::run()
   _tcpConnection->stopWrite();
   _tcpConnection->joinRead();
   _tcpConnection->joinWrite();
+
+  _udpConnection->stopRead();
+  _udpConnection->joinRead();
 }
 
 // IUdpNetworkListener
@@ -126,8 +141,9 @@ void	RtypeClient::onEntityInfo()
 
 // IKeyListener
 
-void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent)
+void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent event)
 {
+  std::cout << static_cast<int>(event) << std::endl;
 }
 
 // ITcpNetworkListener
@@ -220,9 +236,7 @@ void	RtypeClient::onPing(RtypeProtocol::PingPong)
 
 void	RtypeClient::onGameStart()
 {
-  std::cout << "Calling _menuView->stop();" << std::endl;
   _menuView->stop();
-  std::cout << "Calling  _gameView->run(*_window, &_mutex);" << std::endl;
   _gameView->run(*_window, &_mutex);
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
@@ -262,9 +276,7 @@ bool	RtypeClient::onDisconnectFromMenu()
 {
   RtypeProtocol::Header header;
 
-  // Send disconnection datas
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
-
   header.type = RtypeProtocol::T_DISCONNECTION;
   header.data_size = 0;
   _tcpConnection->write(&header, sizeof(header));
@@ -278,7 +290,6 @@ bool	RtypeClient::onRoomConnectFromMenu(int id, const std::string& pass)
   char buffer[sizeof(header) + sizeof(room)];
 
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
-
   header.type = RtypeProtocol::T_ROOM_JOIN;
   header.data_size = sizeof(room);
   room.id = id;
@@ -294,7 +305,6 @@ bool	RtypeClient::onRoomLeaveFromMenu()
   RtypeProtocol::Header header;
 
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
-
   header.type = RtypeProtocol::T_ROOM_EXIT;
   header.data_size = 0;
   _tcpConnection->write(&header, sizeof(header));
@@ -305,9 +315,7 @@ bool	RtypeClient::onUserReadyFromMenu()
 {
   RtypeProtocol::Header header;
 
-  // Send signal data notifying user ready
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
-
   header.type = RtypeProtocol::T_READY;
   header.data_size = 0;
   _tcpConnection->write(&header, sizeof(header));
@@ -316,7 +324,6 @@ bool	RtypeClient::onUserReadyFromMenu()
 
 bool	RtypeClient::onUserMessageFromMenu(RtypeProtocol::Message)
 {
-  // Send user message
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   return (true);
 }

@@ -73,6 +73,7 @@ static const int8_t proto_name[] = "RType";
       T_GAMESTART			= 29,
       T_GAMEEND				= 30,
       T_SCORE				= 31,
+      // Udp
       T_MAPCHANGE			= 32,
       T_PLAYERINFO			= 33,
       T_POSITION			= 34,

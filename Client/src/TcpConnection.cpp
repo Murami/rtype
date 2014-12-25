@@ -70,7 +70,7 @@ bool		TcpConnection::connect()
 {
   sf::Socket::Status ret;
 
-  if ((ret = _socket.connect(_conf.getIp(), _conf.getPort())) != sf::Socket::Done)
+  if ((ret = _socket.connect(_conf.getIp(), _conf.getPortTcp())) != sf::Socket::Done)
     {
       switch (ret)
   	{
@@ -99,7 +99,7 @@ bool		TcpConnection::write(void *data, std::size_t count)
 
 std::ostream&	operator<<(std::ostream& os, const ConnectionConfiguration& conf)
 {
-  os << "[IP]:\t" << conf.getIp() << std::endl << "[PORT]:\t" << conf.getPort();
+  os << "[IP]:\t" << conf.getIp() << std::endl << "[PORT]:\t" << conf.getPortTcp();
   return (os);
 }
 
