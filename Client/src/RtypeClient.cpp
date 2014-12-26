@@ -54,11 +54,6 @@ void		RtypeClient::run()
 
   _menuView = new MenuView(*_window);
   _menuController = new MenuController(*_menuView);
-  _gameView = new GameView();
-  _gameController = new GameController(*_gameView);
-
-  _gameView->addObserver(_gameController);
-  _gameController->setGameListener(this);
 
   _menuView->addObserver(_menuController);
   _menuController->setMenuListener(this);
@@ -90,7 +85,6 @@ void		RtypeClient::run()
 
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(magic));
 
-  SoundManager::Play("theme", true);
   _menuView->run(*_window, &_mutex);
   _tcpConnection->stopRead();
   _tcpConnection->stopWrite();
@@ -250,6 +244,12 @@ void	RtypeClient::onPing(RtypeProtocol::PingPong)
 
 void	RtypeClient::onGameStart()
 {
+  _gameView = new GameView();
+  _gameController = new GameController(*_gameView);
+
+  _gameView->addObserver(_gameController);
+  _gameController->setGameListener(this);
+
   _menuView->stop();
   _gameView->run(*_window, &_mutex);
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;

@@ -23,6 +23,8 @@ public:
 
 public:
   void	run(sf::RenderWindow&, Util::Mutex*);
+  void	stop();
+
   void	add(int id, IObject*);
   void	erase(int id);
 

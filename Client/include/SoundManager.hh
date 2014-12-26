@@ -16,7 +16,7 @@ public:
 
   static bool	Play(std::string, bool loop = false);
   static bool	Pause(std::string);
-  static bool	Stop(std::string);
+  static bool	Stop(std::string name = "");
   static void	MusicVolume(int volume);
   static void	SoundVolume(int volume);
 

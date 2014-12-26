@@ -35,6 +35,7 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *)
 {
   size_t	mask;
 
+  SoundManager::Play("stage1");
   _run = true;
   while (_run)
     {
@@ -62,6 +63,13 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *)
       window.display();
       //mutex->lock();
     }
+  SoundManager::Stop();
+}
+
+void	GameView::stop()
+{
+  SoundManager::Stop();
+  _run = false;
 }
 
 void	GameView::add(int id, IObject* obj)

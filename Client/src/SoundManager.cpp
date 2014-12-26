@@ -80,7 +80,14 @@ bool	SoundManager::Pause(std::string name)
 
 bool	SoundManager::Stop(std::string name)
 {
-  if (_musicsMap.find(name) != _musicsMap.end())
+  if (name == "")
+    {
+      std::map<std::string, std::shared_ptr<sf::Music> >::iterator	it;
+
+      for (it = _musicsMap.begin(); it != _musicsMap.end(); it++)
+	it->second->stop();
+    }
+  else if (_musicsMap.find(name) != _musicsMap.end())
     {
       _musicsMap[name]->stop();
       return (true);
