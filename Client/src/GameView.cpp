@@ -2,22 +2,16 @@
 #include <iostream>
 
 #include "GameView.hh"
-#include "Player.hh"
 #include "GameEnum.hh"
 #include "SoundManager.hh"
-#include "BigRocket.hh"
 #include "Mutex.hh"
 
 GameView::GameView()
 {
   _run = false;
-  _backgroundVector.push_back(new ScrollingBackground("./res/Game/background_game.jpg"));
-  _backgroundVector.push_back(new ScrollingBackground("./res/Game/planets.png"));
+  _backgroundVector[0] = new ScrollingBackground("./res/Game/background_game.jpg");
+  _backgroundVector[1] = new ScrollingBackground("./res/Game/planets.png");
   _backgroundVector[1]->setBgSpeed(0.5);
-
-  IObject *player = new BigRocket(true);
-
-  _objectMap[0] = player;
 }
 
 GameView::~GameView()
