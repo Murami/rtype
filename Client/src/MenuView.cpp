@@ -313,8 +313,9 @@ void MenuView::initSetting()
 
 void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 {
-    _run = true;
-    while (_run == true && window.isOpen())
+  SoundManager::Play("theme");
+  _run = true;
+  while (_run == true && window.isOpen())
     {
         sf::Event event;
 
@@ -408,10 +409,12 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
         window.display();
 	mutex->lock();
     }
+  SoundManager::Stop();
 }
 
 void	MenuView::stop()
 {
+  SoundManager::Stop();
   _run = false;
 }
 
