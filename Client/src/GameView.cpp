@@ -9,20 +9,20 @@
 GameView::GameView()
 {
   _run = false;
-  _backgroundVector[0] = new ScrollingBackground("./res/Game/background_game.jpg");
-  _backgroundVector[1] = new ScrollingBackground("./res/Game/planets.png");
+  _backgroundVector.push_back(new ScrollingBackground("./res/Game/background_game.jpg"));
+  _backgroundVector.push_back(new ScrollingBackground("./res/Game/planets.png"));
   _backgroundVector[1]->setBgSpeed(0.5);
 }
 
 GameView::~GameView()
 {
-  // std::map<int, IObject*>::iterator		itObj;
-  // std::vector<ScrollingBackground*>::iterator	itBack;
+  std::map<int, IObject*>::iterator		itObj;
+  std::vector<ScrollingBackground*>::iterator	itBack;
 
-  // for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
-  //   delete (itObj->second);
-  // for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
-  //   delete (*itBack);
+  for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
+    delete (itObj->second);
+  for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
+    delete (*itBack);
 }
 
 void	GameView::run(sf::RenderWindow& window, Util::Mutex *)
