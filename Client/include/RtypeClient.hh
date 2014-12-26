@@ -46,7 +46,7 @@ public:
 
   //IGameListener
 public:
-  virtual void	onKeyEvent(RtypeEvent::eKeyEvent);
+  virtual void	onKeyEvent(std::size_t);
 
   // ITcpNetworkListener
 public:

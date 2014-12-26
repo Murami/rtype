@@ -8,7 +8,7 @@ class	IGameListener
 {
 public:
   virtual ~IGameListener() {}
-  virtual void	onKeyEvent(RtypeEvent::eKeyEvent) = 0;
+  virtual void	onKeyEvent(std::size_t) = 0;
 };
 
 #endif
