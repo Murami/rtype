@@ -57,24 +57,24 @@ public:
   void prevState();
 
 private:
-  tgui::Gui           *_loginGui;
-  tgui::Gui           *_menuGui;
-  tgui::Gui           *_roomSelectGui;
-  tgui::Gui           *_roomGui;
-  tgui::Gui *_settingGui;
-  tgui::EditBox::Ptr  _editBoxUsername;
-  tgui::EditBox::Ptr  _editBoxRoomName;
-  tgui::EditBox::Ptr  _editBoxRoomPass;
-  tgui::ListBox::Ptr  _listRoom;
-  tgui::Label::Ptr    _labelPlayer1;
-  tgui::Label::Ptr    _labelPlayer2;
-  tgui::Label::Ptr    _labelPlayer3;
-  tgui::Label::Ptr    _labelPlayer4;
-  tgui::ChatBox::Ptr  _chatBox;
-  tgui::Slider::Ptr _effectSlider;
-  tgui::Slider::Ptr _musicSlider;
+  tgui::Gui		*_loginGui;
+  tgui::Gui		*_menuGui;
+  tgui::Gui		*_roomSelectGui;
+  tgui::Gui		*_roomGui;
+  tgui::Gui		*_settingGui;
+  tgui::EditBox::Ptr	_editBoxUsername;
+  tgui::EditBox::Ptr	_editBoxRoomName;
+  tgui::EditBox::Ptr	_editBoxRoomPass;
+  tgui::ListBox::Ptr	_listRoom;
+  tgui::Label::Ptr	_labelPlayer1;
+  tgui::Label::Ptr	_labelPlayer2;
+  tgui::Label::Ptr	_labelPlayer3;
+  tgui::Label::Ptr	_labelPlayer4;
+  tgui::ChatBox::Ptr	_chatBox;
+  tgui::Slider::Ptr	_effectSlider;
+  tgui::Slider::Ptr	_musicSlider;
 
-  RtypeEvent::eMenuState          _actualState;
+  RtypeEvent::eMenuState	_actualState;
 
   std::map< RtypeEvent::eMenuState, tgui::Gui* > _stateToGui;
   bool                _run;
