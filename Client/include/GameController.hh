@@ -14,7 +14,7 @@ public:
   GameController(GameView&);
   ~GameController();
 
-  void	update();
+  void	update(size_t);
   void	setGameListener(IGameListener*);
 
   void spawnEntity(int id, RtypeProtocol::Entity entity);

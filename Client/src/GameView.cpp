@@ -31,13 +31,14 @@ GameView::~GameView()
   //   delete (*itBack);
 }
 
-void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
+void	GameView::run(sf::RenderWindow& window, Util::Mutex *)
 {
-  size_t	mask = RtypeEvent::DEFAULT;
+  size_t	mask;
 
   _run = true;
   while (_run)
     {
+      mask = RtypeEvent::DEFAULT;
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	mask += RtypeEvent::LEFT;
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
@@ -53,7 +54,7 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
 	_run = false;
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 	std::cout << "a remplir" << std::endl;
-      //      onKeyEvent(mask);
+      this->notify(mask);
       window.clear();
       this->update();
       this->render(window);

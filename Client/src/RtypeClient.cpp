@@ -141,9 +141,17 @@ void	RtypeClient::onEntityInfo()
 
 // IKeyListener
 
-void	RtypeClient::onKeyEvent(RtypeEvent::eKeyEvent event)
+void	RtypeClient::onKeyEvent(std::size_t event)
 {
+  RtypeProtocol::Header header;
+  char		buffer[sizeof(size_t) + sizeof(header)];
+
   std::cout << static_cast<int>(event) << std::endl;
+  header.type = RtypeProtocol::T_EVENT;
+  header.data_size = sizeof(event);
+  std::memcpy(&buffer[0], &header, sizeof(header));
+  std::memcpy(&buffer[sizeof(header)], &event, sizeof(event));
+  _udpConnection->write(&buffer[0], sizeof(event) + sizeof(header));
 }
 
 // ITcpNetworkListener

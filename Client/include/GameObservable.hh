@@ -15,10 +15,10 @@
 class GameObservable {
 public:
 
-  void notify() const
+  void notify(size_t mask) const
     {
         for (std::set<IGameObserver *>::const_iterator it = _listObservers.begin(); it != _listObservers.end(); it++)
-            (*it)->update();
+            (*it)->update(mask);
     }
 
     void addObserver(IGameObserver *observer)

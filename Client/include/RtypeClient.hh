@@ -6,7 +6,6 @@
 # include	"ConnectionConfiguration.hh"
 # include	"ITcpNetworkListener.hh"
 # include	"IUdpNetworkListener.hh"
-# include	"IKeyListener.hh"
 # include	"IGameListener.hh"
 # include	"Mutex.hh"
 
@@ -20,7 +19,6 @@ class		GameController;
 class		RtypeClient :	public IMenuListener,
 				public ITcpNetworkListener,
 				public IUdpNetworkListener,
-				public IKeyListener,
 				public IGameListener
 {
 private:
@@ -46,9 +44,9 @@ public:
   virtual void	onDeath();
   virtual void	onEntityInfo();
 
-  //IKeyListener
+  //IGameListener
 public:
-  virtual void	onKeyEvent(RtypeEvent::eKeyEvent);
+  virtual void	onKeyEvent(std::size_t);
 
   // ITcpNetworkListener
 public:
