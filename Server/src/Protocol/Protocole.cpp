@@ -549,21 +549,17 @@ namespace Network
     int datasize = 0;
 
     size = socket->recvDataFrom(buffer, 4096, port, host);
-    std::cout << "port = " << port << std::endl;
     if (!_server.isValidIp(host))
       throw RtypeProtocol::ProtocolException("unknown ip");
     else
       _server.addClientPort(host, port);
-    std::cout << "size = " << size << std::endl;
     if (static_cast<unsigned>(size) < sizeof(RtypeProtocol::Header))
       throw RtypeProtocol::ProtocolException("Insufisiant Udp data (header)");
-    std::cout << "test ok !!!!!!" << std::endl;
 
     RtypeProtocol::Header	*header;
     void			*dataAddr = NULL;
     header = reinterpret_cast<RtypeProtocol::Header *>(buffer);
     decode(header);
-    std::cout << "data size = " << header->data_size << std::endl;
     datasize = size - sizeof(RtypeProtocol::Header);
     if (static_cast<unsigned>(datasize) < header->data_size)
       throw RtypeProtocol::ProtocolException("Insufisiant Udp data (data)");
