@@ -144,13 +144,15 @@ void	RtypeClient::onEntityInfo()
 void	RtypeClient::onKeyEvent(std::size_t event)
 {
   RtypeProtocol::Header header;
-  char		buffer[sizeof(size_t) + sizeof(header)];
+  char		buffer[sizeof(event) + sizeof(header)];
+  std::size_t	e;
 
-  std::cout << static_cast<int>(event) << std::endl;
+  e = htons(event);
+  //  std::cout << static_cast<int>(event) << std::endl;
   header.type = RtypeProtocol::T_EVENT;
   header.data_size = sizeof(event);
   std::memcpy(&buffer[0], &header, sizeof(header));
-  std::memcpy(&buffer[sizeof(header)], &event, sizeof(event));
+  std::memcpy(&buffer[sizeof(header)], &e, sizeof(event));
   _udpConnection->write(&buffer[0], sizeof(event) + sizeof(header));
 }
 
