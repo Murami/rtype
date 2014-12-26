@@ -9,9 +9,11 @@
 #ifndef TestSFML_IGameObserver_h
 # define TestSFML_IGameObserver_h
 
+# include <cstdio>
+
 class IGameObserver {
 public:
-  virtual void update() = 0;
+  virtual void update(size_t) = 0;
 
  public:
     virtual ~IGameObserver() {}
