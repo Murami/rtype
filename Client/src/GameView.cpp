@@ -31,7 +31,7 @@ GameView::~GameView()
   //   delete (*itBack);
 }
 
-void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
+void	GameView::run(sf::RenderWindow& window, Util::Mutex *)
 {
   size_t	mask = RtypeEvent::DEFAULT;
 
