@@ -48,7 +48,7 @@ void		RtypeClient::run()
 
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
 					       sf::VideoMode::getDesktopMode().height),
-				 "Rtype");
+				 "Rtype", sf::Style::Fullscreen);
 
   _window->setKeyRepeatEnabled(false);
 
@@ -142,9 +142,8 @@ void	RtypeClient::onKeyEvent(std::size_t event)
   std::size_t	e;
 
   e = htons(event);
-  //  std::cout << static_cast<int>(event) << std::endl;
   header.type = RtypeProtocol::T_EVENT;
-  header.data_size = static_cast<uint32_t>(sizeof(event));
+  header.data_size = htons(sizeof(event));
   std::memcpy(&buffer[0], &header, sizeof(header));
   std::memcpy(&buffer[sizeof(header)], &e, sizeof(event));
   _udpConnection->write(&buffer[0], sizeof(event) + sizeof(header));
