@@ -141,8 +141,8 @@ void	RtypeClient::onKeyEvent(std::size_t event)
   char		buffer[sizeof(event) + sizeof(header)];
   std::size_t	e;
 
-  e = htons(event);
-  header.type = RtypeProtocol::T_EVENT;
+  e = htonl(event);
+  header.type = htonl(RtypeProtocol::T_EVENT);
   header.data_size = htonl(sizeof(event));
   std::memcpy(&buffer[0], &header, sizeof(header));
   std::memcpy(&buffer[sizeof(header)], &e, sizeof(event));
