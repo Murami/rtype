@@ -16,6 +16,10 @@
 # else
 #  error Not defined for this platform
 # endif
+namespace Application
+{
+  class Server;
+}
 
 namespace Network
 {
@@ -112,17 +116,22 @@ namespace Network
   class ProtocoleTcp : public Protocole
   {
   public:
-    ProtocoleTcp();
+    ProtocoleTcp(Application::Server & server);
     bool		unpack(const int &size, TcpSocket *, ITcpProtocoleObserver *obs) const;
     virtual void	onRead(TcpSocket *, ITcpProtocoleObserver *obs) const;
+
+  private:
+    Application::Server & _server;
   };
 
   class ProtocoleUdp : public Protocole
   {
   public:
-    ProtocoleUdp();
+    ProtocoleUdp(Application::Server & server);
     bool			unpack(UdpSocket *, IUdpProtocoleObserver *obs) const;
     virtual void		onRead(UdpSocket *, IUdpProtocoleObserver *obs) const;
+  private:
+    Application::Server & _server;
   };
 }
 

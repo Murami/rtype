@@ -51,6 +51,8 @@ namespace Application
     void				sendAllRoomInfos(ClientServer* server) const;
     void				sendRoomToAllClients(const Room* room, bool alive);
     void				deleteRoom(Room* room);
+    bool				isValidIp(std::string ip);
+    void				addClientPort(std::string ip, unsigned int port);
 
   private:
     Network::Service &			_service;
@@ -63,6 +65,7 @@ namespace Application
     std::list<ClientServer*>		_clients;
     std::map<std::string, ClientRoom*>	_clientsroom;
     std::map<unsigned int, Room*>	_rooms;
+    std::map<std::string, unsigned int> _ports;
 
     Network::Timer			_timer1;
   };

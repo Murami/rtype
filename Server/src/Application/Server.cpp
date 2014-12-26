@@ -6,7 +6,8 @@
 
 namespace Application
 {
-  Server::Server(Network::Service & service) : _service(service), _acceptor(RtypeProtocol::TcpPort)
+  Server::Server(Network::Service & service) :
+    _service(service), _protocoleUdp(*this), _protocoleTcp(*this), _acceptor(RtypeProtocol::TcpPort)
   {
     std::cout << "server start" << std::endl;
     _udpSocket.bindSocket(3279);
@@ -50,6 +51,7 @@ namespace Application
   {
     _protocoleUdp.onRead(&socket, this);
     _service.addReadUdp(socket);
+    std::cout << "on read udp" << std::endl;
   }
 
   void Server::onWrite(Network::UdpSocket & socket)
@@ -184,5 +186,17 @@ namespace Application
     if (_clientsroom.find(host) == _clientsroom.end())
       throw (std::runtime_error("Invalid peer")); // TODO a catch et faire une exception server
     _clientsroom[host]->notify(request);
+  }
+
+  bool	Server::isValidIp(std::string ip)
+  {
+    if (_clientsroom.find(ip) != _clientsroom.end())
+      return true;
+    return false;
+  }
+
+  void	Server::addClientPort(std::string ip, unsigned int port)
+  {
+    _ports[ip] = port;
   }
 }

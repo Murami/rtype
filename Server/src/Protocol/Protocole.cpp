@@ -1,5 +1,6 @@
 #include <algorithm>
 #include "Protocole.hh"
+#include "Server.hh"
 
 namespace Network
 {
@@ -547,18 +548,25 @@ namespace Network
     int size = 0;
     int datasize = 0;
 
-    socket->recvDataFrom(buffer, size, port, host);
-    if (port != RtypeProtocol::UdpPort)
-      throw RtypeProtocol::ProtocolException("Wrong port");
+    size = socket->recvDataFrom(buffer, 4096, port, host);
+    std::cout << "port = " << port << std::endl;
+    if (!_server.isValidIp(host))
+      throw RtypeProtocol::ProtocolException("unknown ip");
+    else
+      _server.addClientPort(host, port);
+    std::cout << "size = " << size << std::endl;
     if (static_cast<unsigned>(size) < sizeof(RtypeProtocol::Header))
-      throw RtypeProtocol::ProtocolException("Insufisiant Udp data");
+      throw RtypeProtocol::ProtocolException("Insufisiant Udp data (header)");
+    std::cout << "test ok !!!!!!" << std::endl;
+
     RtypeProtocol::Header	*header;
     void			*dataAddr = NULL;
     header = reinterpret_cast<RtypeProtocol::Header *>(buffer);
     decode(header);
+    std::cout << "data size = " << header->data_size << std::endl;
     datasize = size - sizeof(RtypeProtocol::Header);
     if (static_cast<unsigned>(datasize) < header->data_size)
-      throw RtypeProtocol::ProtocolException("Insufisiant Udp data");
+      throw RtypeProtocol::ProtocolException("Insufisiant Udp data (data)");
     if (header->data_size > 0)
       dataAddr = header + sizeof(RtypeProtocol::Header);
     if (dataAddr)
@@ -567,7 +575,7 @@ namespace Network
         obs->notify(header->type, decode<RtypeProtocol::State>(dataAddr, datasize, header->data_size), port, host);
       else if (header->type == RtypeProtocol::T_ENTITYREQUEST)
         obs->notify(header->type, decode<RtypeProtocol::EntityRequest>(dataAddr, datasize, header->data_size), port, host);
-      
+
       /*
       unused on server side :
       else if (header->type == RtypeProtocol::T_POSITION)
@@ -592,11 +600,11 @@ namespace Network
     return (true);
   }
 
-  ProtocoleTcp::ProtocoleTcp()
+  ProtocoleTcp::ProtocoleTcp(Application::Server & server) : _server(server)
   {
   }
 
-  ProtocoleUdp::ProtocoleUdp()
+  ProtocoleUdp::ProtocoleUdp(Application::Server & server) : _server(server)
   {
   }
 
