@@ -64,7 +64,7 @@ void	GameController::updateEntityPosition(int id, RtypeProtocol::Position pos)
   _view.updateById(id, pos);
 }
 
-void	GameController::update()
+void	GameController::update(size_t )
 {
   
 }

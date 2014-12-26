@@ -53,7 +53,7 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *)
 	_run = false;
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 	std::cout << "a remplir" << std::endl;
-      //      onKeyEvent(mask);
+      this->notify(mask);
       window.clear();
       this->update();
       this->render(window);
