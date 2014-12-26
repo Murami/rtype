@@ -33,11 +33,12 @@ GameView::~GameView()
 
 void	GameView::run(sf::RenderWindow& window, Util::Mutex *)
 {
-  size_t	mask = RtypeEvent::DEFAULT;
+  size_t	mask;
 
   _run = true;
   while (_run)
     {
+      mask = RtypeEvent::DEFAULT;
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	mask += RtypeEvent::LEFT;
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
