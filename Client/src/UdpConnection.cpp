@@ -42,19 +42,19 @@ bool			UdpConnection::connect()
   if ((ret = _socket.bind(_conf.getPortUdp())) != sf::Socket::Done)
     {
       switch (ret)
-	{
-	case sf::Socket::NotReady:
-	  std::cerr << "UDP Socket is not ready" << std::endl;
-	  break;
-	case sf::Socket::Disconnected:
-	  std::cerr << "UDP Socket is disconnected" << std::endl;
-	  break;
-	case sf::Socket::Error:
-	  std::cerr << "UDP Socket is on unknown error" << std::endl;
-	  break;
-	default:
-	  break;
-	}
+  	{
+  	case sf::Socket::NotReady:
+  	  std::cerr << "UDP Socket is not ready" << std::endl;
+  	  break;
+  	case sf::Socket::Disconnected:
+  	  std::cerr << "UDP Socket is disconnected" << std::endl;
+  	  break;
+  	case sf::Socket::Error:
+  	  std::cerr << "UDP Socket is on unknown error" << std::endl;
+  	  break;
+  	default:
+  	  break;
+  	}
       return (false);
     }
   return (true);

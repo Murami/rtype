@@ -66,8 +66,8 @@ void		RtypeClient::run()
   if (!_tcpConnection->connect())
     throw (std::runtime_error("TCP connect"));
 
-  if (!_udpConnection->connect())
-    throw (std::runtime_error("UDP connect"));
+  // if (!_udpConnection->connect())
+  //   throw (std::runtime_error("UDP connect"));
 
   header.type = RtypeProtocol::T_MAGIC;
   header.data_size = sizeof(magic);
@@ -235,6 +235,10 @@ void	RtypeClient::onRoomJoinOk(RtypeProtocol::Room)
 void	RtypeClient::onRoomExitOk(RtypeProtocol::Room)
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
+  RtypeProtocol::Header header;
+  header.type = RtypeProtocol::T_ROOM_EXIT;
+  header.data_size = 0;
+  _tcpConnection->write(&header, sizeof(header));
 }
 
 void	RtypeClient::onPing(RtypeProtocol::PingPong)
