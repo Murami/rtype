@@ -9,6 +9,7 @@ namespace Application
   Server::Server(Network::Service & service) : _service(service), _acceptor(RtypeProtocol::TcpPort)
   {
     std::cout << "server start" << std::endl;
+    _udpSocket.bindSocket(3279);
     _acceptor.setObserver(this);
     _udpSocket.setObserver(this);
 
