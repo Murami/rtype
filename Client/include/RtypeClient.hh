@@ -32,6 +32,9 @@ private:
   sf::RenderWindow*		_window;
   Util::Mutex			_mutex;
 
+  Util::Mutex			_mutexGameRunning;
+  bool				_isGameRunning;
+
   // IUdpNetworkListener
 public:
   virtual void	onPlayerInfo();

@@ -18,20 +18,24 @@
 #include	"GameView.hh"
 #include	"RtypeProtocol.hh"
 
-#ifdef __linux__
-# include <X11/Xlib.h>
-#endif
+// #ifdef __linux__
+// # include <X11/Xlib.h>
+// #endif
 
 RtypeClient::RtypeClient()
 {
-#ifdef __linux__
-  XInitThreads();
-#endif
+// #ifdef __linux__
+//   XInitThreads();
+// #endif
   _mutex.lock();
   _tcpConnection = new TcpConnection(_configuration, &_mutex);
   _tcpConnection->setTcpNetworkListener(this);
   _udpConnection = new UdpConnection(_configuration, &_mutex);
   _udpConnection->setUdpNetworkListener(this);
+
+  // _mutexGameRunning.lock();
+  // _isGameRunning = false;
+  // _mutexGameRunning.unlock();
 }
 
 RtypeClient::~RtypeClient()
@@ -54,9 +58,13 @@ void		RtypeClient::run()
 
   _menuView = new MenuView(*_window);
   _menuController = new MenuController(*_menuView);
+  _gameView = new GameView();
+  _gameController = new GameController(*_gameView);
 
   _menuView->addObserver(_menuController);
   _menuController->setMenuListener(this);
+  _gameView->addObserver(_gameController);
+  _gameController->setGameListener(this);
 
   if (!_tcpConnection->connect())
     throw (std::runtime_error("TCP connect"));
@@ -243,11 +251,9 @@ void	RtypeClient::onPing(RtypeProtocol::PingPong)
 
 void	RtypeClient::onGameStart()
 {
-  _gameView = new GameView();
-  _gameController = new GameController(*_gameView);
-
-  _gameView->addObserver(_gameController);
-  _gameController->setGameListener(this);
+  // _mutexGameRunning.lock();
+  // _isGameRunning = true;
+  // _mutexGameRunning.unlock();
 
   _menuView->stop();
   _gameView->run(*_window, &_mutex);
