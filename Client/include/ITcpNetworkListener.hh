@@ -26,6 +26,8 @@ public:
   virtual void	onGameEnd(RtypeProtocol::EndGame) = 0;
   virtual void	onScore(RtypeProtocol::Score) = 0;
   virtual void	onMessage(RtypeProtocol::Message) = 0;
+  virtual void	onHostLeftRoom() = 0;
+  virtual void	onDeleteRoom(RtypeProtocol::Room) = 0;
 };
 
 #endif

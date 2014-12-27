@@ -43,6 +43,7 @@ public:
 
   const std::string&	getIpFromConf() const;
   int			getPortFromConf() const;
+  uint16_t		getLocalPort();
 };
 
 #endif /* _UDP_CONNECTION_HH_ */

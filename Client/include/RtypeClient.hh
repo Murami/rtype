@@ -49,7 +49,7 @@ public:
 
   //IGameListener
 public:
-  virtual void	onKeyEvent(std::size_t);
+  virtual void	onKeyEvent(uint32_t);
 
   // ITcpNetworkListener
 public:
@@ -73,7 +73,9 @@ public:
   virtual void	onGameEnd(RtypeProtocol::EndGame);
   virtual void	onScore(RtypeProtocol::Score);
   virtual void	onMessage(RtypeProtocol::Message);
-
+  virtual void	onHostLeftRoom();
+  virtual void	onDeleteRoom(RtypeProtocol::Room);
+  
   // IMenuListener
 public:
   virtual bool	onConnectFromMenu(const std::string&);
