@@ -13,7 +13,7 @@ namespace Game
     class Destroy;
 
   public:
-    virtual ~CoreEvent();
+    virtual ~CoreEvent() {}
 
     virtual void	dispatch(const Core& core, CoreEventReceiver& receveir) const = 0;
   };

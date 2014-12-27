@@ -1,4 +1,5 @@
 #include "Game/CoreEventSpawn.hh"
+#include "Game/CoreEventReceiver.hh"
 
 namespace Game
 {
@@ -7,7 +8,9 @@ namespace Game
   {
   }
 
-  CoreEvent::Spawn::~Spawn()
+  void		CoreEvent::Spawn::dispatch(const Core& core, CoreEventReceiver& receiver) const
   {
+    receiver.receive(core, *this);
   }
+
 };

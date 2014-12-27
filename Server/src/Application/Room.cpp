@@ -54,7 +54,14 @@ namespace Application
   void	Room::receive(const Game::Core& /*core*/,
 		      const Game::CoreEvent::Spawn& event)
   {
+    RtypeProtocol::Spawn       spawn;
+
     event.entity.addObserver(*this);
+    spawn.id = event.entity.getId();
+    spawn.type = 0; // A GERER
+    spawn.position.x = event.entity.getPosition().x;
+    spawn.position.y = event.entity.getPosition().y;
+    sendUdp(&spawn, sizeof(spawn), RtypeProtocol::T_SPAWN);
   }
 
   void	Room::receive(const Game::Core& /*core*/,
@@ -161,11 +168,17 @@ namespace Application
     return (true);
   }
 
-  void			Room::sendUdp(const void* data, size_t size)
+  void			Room::sendUdp(const void* data, size_t size, int type)
   {
+    char				buffer[4096];
+    RtypeProtocol::Header		header;
     std::list<ClientRoom*>::iterator	it;
 
+    header.type = type;
+    header.data_size = size;
+    std::memcpy(buffer, &header, sizeof(header));
+    std::memcpy(buffer, data, size);
     for (it = _clients.begin(); it != _clients.end(); it++)
-      (*it)->getClientServer().sendUdp(data, size);
+      (*it)->getClientServer().sendUdp(&header, size + sizeof(header));
   }
 };

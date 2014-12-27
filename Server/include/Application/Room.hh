@@ -63,7 +63,7 @@ namespace Application
     bool				testConnection(const std::string& password) const;
     bool				isFull() const;
 
-    void				sendUdp(const void* data, size_t size);
+    void				sendUdp(const void* data, size_t size, int type);
 
     Game::Core&				getGame();
 

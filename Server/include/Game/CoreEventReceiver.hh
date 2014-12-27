@@ -15,6 +15,9 @@ namespace Game
 
     void		dispatch(const Core& core, const CoreEvent& event);
     void		update(const Core& core, const CoreEvent& event);
+
+    virtual void		receive(const Core& core, const CoreEvent::Spawn& event) = 0;
+    virtual void		receive(const Core& core, const CoreEvent::Destroy& event) = 0;
   };
 };
 

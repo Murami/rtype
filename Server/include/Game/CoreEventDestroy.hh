@@ -7,14 +7,16 @@ namespace Game
 {
   class Entity;
 
-  class CoreEvent::Destroy
+  class CoreEvent::Destroy : public CoreEvent
   {
   public:
     Entity&	entity;
 
   public:
     Destroy(Entity& p_entity);
-    ~Destroy();
+    ~Destroy() {}
+
+    void	dispatch(const Core& core, CoreEventReceiver& receiver) const;
   };
 };
 

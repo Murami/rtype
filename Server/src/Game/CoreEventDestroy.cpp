@@ -1,4 +1,5 @@
 #include "Game/CoreEventDestroy.hh"
+#include "Game/CoreEventReceiver.hh"
 
 namespace Game
 {
@@ -7,7 +8,8 @@ namespace Game
   {
   }
 
-  CoreEvent::Destroy::~Destroy()
+  void		CoreEvent::Destroy::dispatch(const Core& core, CoreEventReceiver& receiver) const
   {
+    receiver.receive(core, *this);
   }
 };
