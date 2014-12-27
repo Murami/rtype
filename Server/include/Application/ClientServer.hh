@@ -30,30 +30,42 @@ namespace Application
     ClientServer(Server & server, Network::TcpSocket & socket);
     ~ClientServer();
 
-    void	onTimeout(Network::Timer& timer);
+    // Network notifications
     void	onRead(Network::TcpSocket & socket, const bool error = false);
     void	onWrite(Network::TcpSocket & socket);
+    void	onTimeout(Network::Timer& timer);
 
-    void	notify(int const & type, const RtypeProtocol::Magic *, Network::TcpSocket *);
-    void	notify(int const & type, const RtypeProtocol::User *, Network::TcpSocket *);
-    void	notify(int const & type, const RtypeProtocol::Message *, Network::TcpSocket *);
-    void	notify(int const & type, const RtypeProtocol::RoomConnection *, Network::TcpSocket *);
-    void	notify(int const & type, const RtypeProtocol::PingPong *, Network::TcpSocket *);
-    void	notify(int const & type, const RtypeProtocol::Room *, Network::TcpSocket *);
+    // Protocol notifications
+    void	notify(int const & type, const RtypeProtocol::Magic *,
+		       Network::TcpSocket *);
+    void	notify(int const & type, const RtypeProtocol::User *,
+		       Network::TcpSocket *);
+    void	notify(int const & type, const RtypeProtocol::Message *,
+		       Network::TcpSocket *);
+    void	notify(int const & type, const RtypeProtocol::RoomConnection *,
+		       Network::TcpSocket *);
+    void	notify(int const & type, const RtypeProtocol::PingPong *,
+		       Network::TcpSocket *);
+    void	notify(int const & type, const RtypeProtocol::Room *,
+		       Network::TcpSocket *);
     void	notify(int const & type, Network::TcpSocket *) ;
 
+    // Getters
     Network::TcpSocket& getSocket() const;
-
     ClientRoom*		getClientRoom() const;
-    void		setClientRoom(ClientRoom* clientroom);
-    void		sendHeader(int type, unsigned int size = 0);
-    void		sendRoomInfos(const Room* room, bool alive);
     const std::string&	getName() const;
     Server&		getServer() const;
     State		getState() const;
     const std::string&	getIP() const;
     unsigned short	getPort() const;
-    void		sendUdp(const void* data, size_t size);
+
+    // Setters
+    void	setClientRoom(ClientRoom* clientroom);
+
+    // Senders
+    void	sendHeader(int type, unsigned int size = 0);
+    void	sendRoomInfos(const Room* room, bool alive);
+    void	sendUdp(const void* data, size_t size);
 
   private:
     Server&			_server;

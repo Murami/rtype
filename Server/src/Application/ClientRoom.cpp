@@ -15,16 +15,9 @@ namespace Application
   {
   }
 
-  const std::string&	ClientRoom::getName() const
-  {
-    return (_clientserver.getName());
-  }
-
-  void		ClientRoom::addToGame()
-  {
-    std::cout << "add to game" << std::endl;
-    _player = &_room.getGame().addPlayer();
-  }
+  //////////////////////////////
+  /// Protocol Notifications ///
+  //////////////////////////////
 
   void		ClientRoom::notify(const RtypeProtocol::State* state)
   {
@@ -36,7 +29,45 @@ namespace Application
     // TODO request entity (BONUS --- )
   }
 
-  void		ClientRoom::notifyState(unsigned int state)
+  ////////////////////////
+  /// "Start the game" ///
+  ////////////////////////
+
+  void		ClientRoom::addToGame()
+  {
+    std::cout << "add to game" << std::endl;
+    _player = &_room.getGame().addPlayer();
+  }
+
+  ///////////////
+  /// Getters ///
+  ///////////////
+
+  const std::string&	ClientRoom::getName() const
+  {
+    return (_clientserver.getName());
+  }
+
+  ClientServer&		ClientRoom::getClientServer() const
+  {
+    return (_clientserver);
+  }
+
+  Room*			ClientRoom::getRoom() const
+  {
+    return (&_room);
+  }
+
+  bool			ClientRoom::isHost() const
+  {
+    return (_host);
+  }
+
+  ////////////////////////
+  /// Privates methods ///
+  ////////////////////////
+
+  void	ClientRoom::notifyState(unsigned int state)
   {
     // DANS L'IDEAL UNE MAP
     _player->clearInput();
@@ -52,20 +83,5 @@ namespace Application
       _player->addInput(Game::Player::PrimaryFire);
     if (state & INPUT_SECONDARYFIRE)
       _player->addInput(Game::Player::SecondaryFire);
-  }
-
-  bool			ClientRoom::isHost() const
-  {
-    return (_host);
-  }
-
-  ClientServer&		ClientRoom::getClientServer() const
-  {
-    return (_clientserver);
-  }
-
-  Room*			ClientRoom::getRoom() const
-  {
-    return (&_room);
   }
 };

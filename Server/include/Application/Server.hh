@@ -25,11 +25,14 @@ namespace Application
     Server(Network::Service & service);
     ~Server();
 
-    void				run();
+    // Run the T-Rtype
+    void	run();
 
     // Protocol notifications
-    void	notify(int const& type, const RtypeProtocol::State* state, const unsigned int & port, const std::string& host);
-    void	notify(int const& type, const RtypeProtocol::EntityRequest* request, const unsigned int & port, const std::string& host);
+    void	notify(int const& type, const RtypeProtocol::State* state,
+		       const unsigned int & port, const std::string& host);
+    void	notify(int const& type, const RtypeProtocol::EntityRequest* request,
+		       const unsigned int & port, const std::string& host);
 
     // Network events
     void	onAccept(Network::Acceptor & socket);
@@ -45,11 +48,6 @@ namespace Application
     // ClientServer
     void	deleteClientServer(ClientServer * client);
 
-    // Send functions
-    void	sendAllRoomInfos(ClientServer* server) const;
-    void	sendRoomToAllClients(const Room* room, bool alive);
-    void	sendUdp(const ClientServer& client, const void* data, size_t size);
-
     // Room
     Room*	createRoom(ClientServer* client, const RtypeProtocol::Room* room);
     Room*	getRoom(unsigned int roomID) const;
@@ -59,7 +57,15 @@ namespace Application
     // ClientRoom
     void	addClientRoom(ClientRoom* clientroom);
     void	deleteClientRoom(ClientRoom* clientroom);
+
+    // Send functions
+    void	sendAllRoomInfos(ClientServer* server) const;
+    void	sendRoomToAllClients(const Room* room, bool alive);
+    void	sendUdp(const ClientServer& client, const void* data, size_t size);
+
+    // Others
     bool	isValidEndpoint(const std::string& host, unsigned short port) const;
+
 
   private:
     // Protocole attribute

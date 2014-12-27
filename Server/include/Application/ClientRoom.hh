@@ -26,7 +26,7 @@ namespace Application
     void		notify(const RtypeProtocol::State* state);
     void		notify(const RtypeProtocol::EntityRequest* request);
 
-    // "Start the the game"
+    // "Start the game"
     void		addToGame();
 
     // Getters

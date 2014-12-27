@@ -7,10 +7,13 @@
 namespace Application
 {
   Server::Server(Network::Service & service) :
-    _service(service), _protocoleUdp(*this), _protocoleTcp(*this), _acceptor(RtypeProtocol::TcpPort)
+    _protocoleUdp(*this),
+    _protocoleTcp(*this),
+    _service(service),
+    _acceptor(RtypeProtocol::TcpPort)
   {
     std::cout << "server start" << std::endl;
-    _udpSocket.bindSocket(3279);
+    _udpSocket.bindSocket(3279); // DANS LE PROTOCOLE TA RACE !!!!!!
     _acceptor.setObserver(this);
     _udpSocket.setObserver(this);
 
@@ -28,12 +31,37 @@ namespace Application
     std::cout << "server end" << std::endl;
   }
 
+  //////////////////////
+  /// Run the R-Type ///
+  //////////////////////
+
   void Server::run()
   {
     _service.run();
   }
 
-  // Network events
+  //////////////////////////////
+  /// Protocol notifications ///
+  //////////////////////////////
+
+  void	Server::notify(int const &, const RtypeProtocol::State* state,
+		       const unsigned int& port, const std::string& host)
+  {
+    std::cout << "UDP state" << std::endl;
+    _clientsroom[Network::EndPoint(port, host)]->notify(state);
+  }
+
+  void	Server::notify(int const &, const RtypeProtocol::EntityRequest* request,
+		       const unsigned int& port, const std::string& host)
+  {
+    std::cout << "UDP request" << std::endl;
+    _clientsroom[Network::EndPoint(port, host)]->notify(request);
+  }
+
+  //////////////////////
+  /// Network events ///
+  //////////////////////
+
   void Server::onAccept(Network::Acceptor & acceptor)
   {
     std::cout << "accept" << std::endl;
@@ -65,18 +93,43 @@ namespace Application
     _service.addTimeout(timer);
   }
 
-  // ClientServer
+  ///////////////
+  /// Getters ///
+  ///////////////
+
+  Network::Service &		Server::getService() const
+  {
+    return (_service);
+  }
+
+  const Network::ProtocoleTcp & Server::getProtocole() const
+  {
+    return (_protocoleTcp);
+  }
+
+  const Network::ProtocoleUdp&	Server::getProtocoleUdp() const
+  {
+    return (_protocoleUdp);
+  }
+
+  ////////////////////
+  /// ClientServer ///
+  ////////////////////
+
   void Server::deleteClientServer(ClientServer * client)
   {
     _service.deleteReadTcp(client->getSocket());
     _service.deleteWriteTcp(client->getSocket());
     _clients.erase(std::find(_clients.begin(), _clients.end(), client));
     delete client;
-    /* WARNNNNNNNING delete les timeout, l'objet MUST BE un timerObserver*/ /* HAHAHAHAHA MUST BE XD */
+    /* WARNNNNNNNING delete les timeout, l'objet MUST BE un timerObserver*/
     /* delete les udp aussi */
   }
 
-  // Room
+  ////////////
+  /// Room ///
+  ////////////
+
   Room* Server::createRoom(ClientServer *, const RtypeProtocol::Room* roominfos)
   {
     std::string	name;
@@ -109,20 +162,29 @@ namespace Application
       std::cout << it->second->getName() << std::endl;
       if ((it->second)->getName() == name)
 	return (true);
-}
+    }
     return (false);
   }
 
-  // Get composite objects
-  Network::Service &		Server::getService() const
+  void	Server::deleteRoom(Room* room)
   {
-    return (_service);
+    std::map<unsigned int, Room*>::iterator	it;
+
+    for (it = _rooms.begin(); it != _rooms.end(); it++)
+      {
+	if (it->second == room)
+	  {
+	    room->close();
+	    delete (room);
+	    _rooms.erase(it);
+	    return;
+	  }
+      }
   }
 
-  const Network::ProtocoleTcp & Server::getProtocole() const
-  {
-    return (_protocoleTcp);
-  }
+  /////////////////
+  /// ClientRoom //
+  /////////////////
 
   void	Server::addClientRoom(ClientRoom* clientroom)
   {
@@ -137,6 +199,10 @@ namespace Application
     _clientsroom.erase(Network::EndPoint(clientroom->getClientServer().getPort(),
 					 clientroom->getClientServer().getIP()));
   }
+
+  ///////////////////////
+  /// Send functions ////
+  ///////////////////////
 
   void	Server::sendAllRoomInfos(ClientServer* clientserver) const
   {
@@ -158,35 +224,6 @@ namespace Application
       (*it)->sendRoomInfos(room, alive);
   }
 
-  void	Server::deleteRoom(Room* room)
-  {
-    std::map<unsigned int, Room*>::iterator	it;
-
-    for (it = _rooms.begin(); it != _rooms.end(); it++)
-      {
-	if (it->second == room)
-	  {
-	    room->close();
-	    delete (room);
-	    _rooms.erase(it);
-	    return;
-	  }
-      }
-  }
-
-  void	Server::notify(int const &, const RtypeProtocol::State* state,
-		       const unsigned int& port, const std::string& host)
-  {
-    std::cout << "UDP state" << std::endl;
-    _clientsroom[Network::EndPoint(port, host)]->notify(state);
-  }
-
-  void	Server::notify(int const &, const RtypeProtocol::EntityRequest* request,
-		       const unsigned int& port, const std::string& host)
-  {
-    std::cout << "UDP request" << std::endl;
-    _clientsroom[Network::EndPoint(port, host)]->notify(request);
-  }
 
   void	Server::sendUdp(const ClientServer& client,
 			const void* data, size_t size)
@@ -197,6 +234,11 @@ namespace Application
 			  client.getIP());
   }
 
+
+  //////////////
+  /// Others ///
+  //////////////
+
   bool	Server::isValidEndpoint(const std::string& host, unsigned short port) const
   {
     if (_clientsroom.find(Network::EndPoint(port, host)) != _clientsroom.end())
@@ -204,8 +246,4 @@ namespace Application
     return (false);
   }
 
-  const Network::ProtocoleUdp&	Server::getProtocoleUdp() const
-  {
-    return (_protocoleUdp);
-  }
 }

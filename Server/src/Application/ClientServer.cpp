@@ -10,7 +10,9 @@ namespace Application
 
   Util::IDGenerator	Room::_generator = Util::IDGenerator();
 
-  ClientServer::ClientServer(Server & server, Network::TcpSocket & socket) : _server(server), _socket(socket)
+  ClientServer::ClientServer(Server & server, Network::TcpSocket & socket) :
+    _server(server),
+    _socket(socket)
   {
     _socket.setObserver(this);
     _server.getService().addReadTcp(_socket);
@@ -19,6 +21,10 @@ namespace Application
   }
 
   ClientServer::~ClientServer() {}
+
+  /////////////////////////////
+  /// Network notifications ///
+  /////////////////////////////
 
   void	ClientServer::onRead(Network::TcpSocket & socket, const bool error)
   {
@@ -50,7 +56,12 @@ namespace Application
     // TIMEOUT DU CLIENT ON DECO TOUT !!!!!
   }
 
-  void	ClientServer::notify(int const &type, const RtypeProtocol::Magic * magicRcv, Network::TcpSocket *)
+  //////////////////////////////
+  /// Protocol notifications ///
+  //////////////////////////////
+
+  void	ClientServer::notify(int const &type, const RtypeProtocol::Magic * magicRcv,
+			     Network::TcpSocket *)
   {
     if (type == RtypeProtocol::T_MAGIC)
       {
@@ -66,9 +77,6 @@ namespace Application
 	std::memset(magic.proto_name, 0, PROTO_NAME_SIZE);
 	std::memcpy(magic.proto_name, RtypeProtocol::proto_name, 5);
 
-	std::cout << "minor " << magicRcv->minor_version << std::endl;
-	std::cout << "major " << magicRcv->major_version << std::endl;
-
 	if (std::memcmp(&magic, magicRcv, sizeof(RtypeProtocol::Magic)) != 0)
 	  {
 	    std::cout << "ERROR MAGIC" << std::endl;
@@ -77,7 +85,6 @@ namespace Application
 	else
 	  {
 	    std::cout << _state << std::endl;
-	    std::cout << "PASSING TO DISCONNECTED STATE" << std::endl;
 	    _state = T_DISCONNECTED;
 	    std::cout << _state << std::endl;
 	    this->sendHeader(RtypeProtocol::T_MAGIC_ACCEPT);
@@ -85,7 +92,8 @@ namespace Application
       }
   }
 
-  void	ClientServer::notify(int const &type, const RtypeProtocol::User * user, Network::TcpSocket *)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::User * user,
+			     Network::TcpSocket *)
   {
     if (type == RtypeProtocol::T_CONNECTION)
       {
@@ -104,7 +112,8 @@ namespace Application
       }
   }
 
-  void	ClientServer::notify(int const &type, const RtypeProtocol::Message * msg, Network::TcpSocket *)
+  void	ClientServer::notify(int const &type, const RtypeProtocol::Message * msg,
+			     Network::TcpSocket *)
   {
     if (type == RtypeProtocol::T_MSG)
       {
@@ -178,7 +187,6 @@ namespace Application
 	  throw ClientException("Room creation in non-connected state");
 
 	Util::stringncopy(roomname, room->room_name, ROOM_NAME_SIZE);
-	std::cout << "create room with roomname : " << roomname << std::endl;
 
 	if (_server.roomExists(roomname))
 	  {
@@ -237,53 +245,18 @@ namespace Application
       }
   }
 
-  Network::TcpSocket & ClientServer::getSocket() const
+  ///////////////
+  /// Getters ///
+  ///////////////
+
+  Network::TcpSocket&	ClientServer::getSocket() const
   {
     return (_socket);
   }
 
-  void	ClientServer::sendHeader(int type, unsigned int size)
+  ClientRoom*		ClientServer::getClientRoom() const
   {
-    RtypeProtocol::Header	header;
-
-    header.type = type;
-    header.data_size = size;
-    send(this->_socket, header);
-  }
-
-  void	ClientServer::sendRoomInfos(const Room* room, bool alive)
-  {
-    RtypeProtocol::Room				roominfos;
-    memset(&roominfos, 0, sizeof(RtypeProtocol::Room));
-    std::list<ClientRoom*>::const_iterator	it;
-
-    roominfos.id = room->getID();
-    roominfos.alive = alive;
-    roominfos.locked = room->isGameStarted();
-    roominfos.nb_connected_users = room->getNbClient();
-
-    if (room->getPass() == "")
-      roominfos.password_flag = 0;
-    else
-      roominfos.password_flag = 1;
-
-    room->getPass().copy(reinterpret_cast<char*>(roominfos.pass_md5), PASS_MD5_SIZE);
-    room->getName().copy(reinterpret_cast<char*>(roominfos.room_name), ROOM_NAME_SIZE);
-
-    for (it = room->getClients().begin(); it != room->getClients().end(); it++)
-      {
-	unsigned int	idx = std::distance(room->getClients().begin(), it);
-	(*it)->getName().copy(reinterpret_cast<char*>(roominfos.connected_users[idx]), USERNAME_SIZE);
-      }
-    std::cout << "room name size : " << room->getName().size() << std::endl;
-    std::cout << "send room infos -----> " << roominfos.room_name << std::endl;
-    this->sendHeader(RtypeProtocol::T_ROOMINFO, sizeof(RtypeProtocol::Room));
-    send(this->_socket, roominfos);
-  }
-
-  void	ClientServer::setClientRoom(ClientRoom* clientroom)
-  {
-    _clientroom = clientroom;
+    return (_clientroom);
   }
 
   const std::string&	ClientServer::getName() const
@@ -294,11 +267,6 @@ namespace Application
   Server&		ClientServer::getServer() const
   {
     return (_server);
-  }
-
-  ClientRoom*		ClientServer::getClientRoom() const
-  {
-    return (_clientroom);
   }
 
   ClientServer::State	ClientServer::getState() const
@@ -316,8 +284,61 @@ namespace Application
     return (_udpport);
   }
 
-  void			ClientServer::sendUdp(const void* data, size_t size)
+  ///////////////
+  /// Setters ///
+  ///////////////
+
+  void	ClientServer::setClientRoom(ClientRoom* clientroom)
+  {
+    _clientroom = clientroom;
+  }
+
+  ///////////////
+  /// Senders ///
+  ///////////////
+
+  void	ClientServer::sendHeader(int type, unsigned int size)
+  {
+    RtypeProtocol::Header	header;
+
+    header.type = type;
+    header.data_size = size;
+    send(this->_socket, header);
+  }
+
+  void	ClientServer::sendRoomInfos(const Room* room, bool alive)
+  {
+    RtypeProtocol::Room				roominfos;
+    std::list<ClientRoom*>::const_iterator	it;
+
+    std::memset(&roominfos, 0, sizeof(RtypeProtocol::Room));
+
+    roominfos.id = room->getID();
+    roominfos.alive = alive;
+    roominfos.locked = room->isGameStarted();
+    roominfos.nb_connected_users = room->getNbClient();
+
+    if (room->getPass() == "")
+      roominfos.password_flag = 0;
+    else
+      roominfos.password_flag = 1;
+
+    room->getPass().copy(reinterpret_cast<char*>(roominfos.pass_md5), PASS_MD5_SIZE);
+    room->getName().copy(reinterpret_cast<char*>(roominfos.room_name), ROOM_NAME_SIZE);
+
+    for (it = room->getClients().begin(); it != room->getClients().end(); it++)
+      {
+	unsigned int	idx = std::distance(room->getClients().begin(), it);
+	(*it)->getName().copy(reinterpret_cast<char*>(roominfos.connected_users[idx]),
+			      USERNAME_SIZE);
+      }
+    this->sendHeader(RtypeProtocol::T_ROOMINFO, sizeof(RtypeProtocol::Room));
+    send(this->_socket, roominfos);
+  }
+
+  void	ClientServer::sendUdp(const void* data, size_t size)
   {
     _server.sendUdp(*this, data, size);
   }
+
 } /* namespace Application */
