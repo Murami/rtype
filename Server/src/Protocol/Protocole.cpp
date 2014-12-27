@@ -448,6 +448,7 @@ namespace Network
 
   bool	ProtocoleTcp::unpack(const int &size, TcpSocket *socket, ITcpProtocoleObserver *obs) const
   {
+    std::cout << "TCP" << std::endl;
     char			buffer[4096];
     RtypeProtocol::Header*	header;
     void*			data;
@@ -541,6 +542,7 @@ namespace Network
 
   bool	ProtocoleUdp::unpack(UdpSocket *socket, IUdpProtocoleObserver *obs) const
   {
+    std::cout << "UDP" << std::endl;
     char  buffer[4096];
     std::memset(buffer, 0, 4096);
     std::string host;

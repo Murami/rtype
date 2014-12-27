@@ -9,6 +9,9 @@
 
 int main()
 {
+  std::cout << "Sizeof State : " << sizeof(RtypeProtocol::State) << std::endl;
+  std::cout << "id      " << offsetof (RtypeProtocol::State, id) << std::endl;
+  std::cout << "state : " << offsetof (RtypeProtocol::State, state) << std::endl;
   try
   {
     Network::Service	service;
