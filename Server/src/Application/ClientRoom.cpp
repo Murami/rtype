@@ -9,7 +9,6 @@ namespace Application
     _clientserver(clientserver),
     _host(host)
   {
-    _player = &room.getGame().addPlayer();
   }
 
   ClientRoom::~ClientRoom()
@@ -19,7 +18,12 @@ namespace Application
   const std::string&	ClientRoom::getName() const
   {
     return (_clientserver.getName());
-  };
+  }
+
+  void		ClientRoom::addToGame()
+  {
+    _player = &_room.getGame().addPlayer();
+  }
 
   void		ClientRoom::notify(const RtypeProtocol::State* state)
   {
