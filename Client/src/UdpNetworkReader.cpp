@@ -32,6 +32,7 @@ void	UdpNetworkReader::onReadData(char *buffer)
 {
   RtypeProtocol::Header header;
 
+  std::cout << "\033[41mreading data UDP\033[0m" << std::endl;
   std::memcpy(&header, buffer, sizeof(header));
   switch (header.type)
     {

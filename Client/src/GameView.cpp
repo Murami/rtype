@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 #include "GameView.hh"
@@ -25,7 +24,7 @@ GameView::~GameView()
     delete (*itBack);
 }
 
-void	GameView::run(sf::RenderWindow& window, Util::Mutex *)
+void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
 {
   size_t	mask;
 

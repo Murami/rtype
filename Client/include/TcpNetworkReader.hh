@@ -62,7 +62,9 @@ private:
   void			onReadGameEnd();
   void			onReadScore();
   void			onReadPlayerInfo();
-
+  void			onRoomHostLeft();
+  void			onDeleteRoom();
+  
 private:
   void		_changeExpectedData(RtypeProtocol::Type, std::size_t);
   void		_initCallbacks();

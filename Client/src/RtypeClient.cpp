@@ -69,9 +69,6 @@ void		RtypeClient::run()
   if (!_tcpConnection->connect())
     throw (std::runtime_error("TCP connect"));
 
-  // if (!_udpConnection->connect())
-  //   throw (std::runtime_error("UDP connect"));
-
   header.type = RtypeProtocol::T_MAGIC;
   header.data_size = sizeof(magic);
 
@@ -143,11 +140,11 @@ void	RtypeClient::onEntityInfo()
 
 // IKeyListener
 
-void	RtypeClient::onKeyEvent(std::size_t event)
+void	RtypeClient::onKeyEvent(uint32_t event)
 {
   RtypeProtocol::Header header;
+  uint32_t	e;
   char		buffer[sizeof(event) + sizeof(header)];
-  std::size_t	e;
 
   e = htonl(event);
   header.type = htonl(RtypeProtocol::T_EVENT);
@@ -161,13 +158,13 @@ void	RtypeClient::onKeyEvent(std::size_t event)
 
 void	RtypeClient::onMagicBadVersion()
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
+  //std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   throw (std::runtime_error("connect to server : bad magic version"));
 }
 
 void	RtypeClient::onMagicAccept()
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
+  //std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onConnectionAlreadyConnected()
@@ -273,6 +270,15 @@ void	RtypeClient::onScore(RtypeProtocol::Score)
 void	RtypeClient::onMessage(RtypeProtocol::Message)
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
+}
+
+void	RtypeClient::onHostLeftRoom()
+{
+}
+
+void	RtypeClient::onDeleteRoom(RtypeProtocol::Room room)
+{
+  _menuController->deleteFromRoomList(room);
 }
 
 bool	RtypeClient::onConnectFromMenu(const std::string & login)
