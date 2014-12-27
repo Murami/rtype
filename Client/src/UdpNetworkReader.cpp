@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstring>
-#include <arpa/inet.h>
+#if defined(__linux__) || defined(__APPLE__)
+# include <arpa/inet.h>
+#endif
 
 #include "UdpConnection.hh"
 #include "RtypeProtocol.hh"
@@ -11,6 +13,17 @@ UdpNetworkReader::UdpNetworkReader(UdpConnection& connection) :
   _udpConnection(connection)
 {
   _listener = NULL;
+  _callbacks[RtypeProtocol::T_MAPCHANGE] = &UdpNetworkReader::onReadMapChange;
+  _callbacks[RtypeProtocol::T_PLAYERINFO] = &UdpNetworkReader::onReadPlayerInfo;
+  _callbacks[RtypeProtocol::T_POSITION] = &UdpNetworkReader::onReadPosition;
+  _callbacks[RtypeProtocol::T_SPAWN] = &UdpNetworkReader::onReadSpawn;
+  _callbacks[RtypeProtocol::T_EVENT] = &UdpNetworkReader::onReadEvent;
+  _callbacks[RtypeProtocol::T_DESTRUCTION] = &UdpNetworkReader::onReadDestruction;
+  _callbacks[RtypeProtocol::T_LIFE] = &UdpNetworkReader::onReadLife;
+  _callbacks[RtypeProtocol::T_BONUS] = &UdpNetworkReader::onReadBonus;
+  _callbacks[RtypeProtocol::T_HIT] = &UdpNetworkReader::onReadHit;
+  _callbacks[RtypeProtocol::T_DEATH] = &UdpNetworkReader::onReadDeath;
+  _callbacks[RtypeProtocol::T_ENTITYINFOS] = &UdpNetworkReader::onReadEntityInfos;
 }
 
 int			UdpNetworkReader::run(Util::Mutex* mutex)
@@ -28,6 +41,60 @@ int			UdpNetworkReader::run(Util::Mutex* mutex)
       mutex->unlock();
     }
   return (0);
+}
+
+void	UdpNetworkReader::onReadMapChange(char *)
+{
+}
+
+void	UdpNetworkReader::onReadPlayerInfo(char *)
+{
+}
+
+void	UdpNetworkReader::onReadPosition(char *)
+{
+}
+
+void	UdpNetworkReader::onReadSpawn(char *buffer)
+{
+  RtypeProtocol::Spawn spawn;
+  std::memcpy(&spawn, &buffer[sizeof(RtypeProtocol::Header)], sizeof(spawn));
+  spawn.id = ntohl(spawn.id);
+  spawn.type = ntohl(spawn.type);
+  spawn.position.x = ntohl(spawn.position.x);
+  spawn.position.y = ntohl(spawn.position.y);
+  spawn.position.orientation = ntohl(spawn.position.orientation);
+  spawn.position.state = ntohl(spawn.position.state);
+  spawn.life = ntohl(spawn.life);
+  _listener->onSpawn(spawn);
+}
+
+void	UdpNetworkReader::onReadEvent(char *)
+{
+}
+
+void	UdpNetworkReader::onReadDestruction(char *)
+{
+}
+
+void	UdpNetworkReader::onReadLife(char *)
+{
+}
+
+void	UdpNetworkReader::onReadBonus(char *)
+{
+}
+
+void	UdpNetworkReader::onReadHit(char *)
+{
+}
+
+void	UdpNetworkReader::onReadDeath(char *)
+{
+}
+
+void	UdpNetworkReader::onReadEntityInfos(char *)
+{
 }
 
 void	UdpNetworkReader::onReadData(char *buffer)
@@ -49,17 +116,7 @@ void	UdpNetworkReader::onReadData(char *buffer)
       std::cout << "[UDP]: Received position info" << std::endl;
       break;
     case RtypeProtocol::T_SPAWN:
-      std::cout << "[UDP]: Received spawn info" << std::endl;
-      RtypeProtocol::Spawn spawn;
-      std::memcpy(&spawn, &buffer[sizeof(header)], sizeof(spawn));
-      spawn.id = ntohl(spawn.id);
-      spawn.type = ntohl(spawn.type);
-      spawn.position.x = ntohl(spawn.position.x);
-      spawn.position.y = ntohl(spawn.position.y);
-      spawn.position.orientation = ntohl(spawn.position.orientation);
-      spawn.position.state = ntohl(spawn.position.state);
-      spawn.life = ntohl(spawn.life);
-      _listener->onSpawn(spawn);
+      onReadSpawn(buffer);
       break;
     case RtypeProtocol::T_EVENT:
       std::cout << "[UDP]: Received event info" << std::endl;

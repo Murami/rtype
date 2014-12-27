@@ -32,6 +32,7 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
   _run = true;
   while (_run)
     {
+      this->updateSpawn();
       mask = RtypeEvent::DEFAULT;
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	mask += RtypeEvent::LEFT;
