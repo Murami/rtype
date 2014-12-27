@@ -54,6 +54,9 @@ void MenuController::manageUpdate(RtypeEvent::eButton idCallback)
     case RtypeEvent::READY:
       _listen->onUserReadyFromMenu();
       break;
+    case RtypeEvent::GAMESTART:
+      _listen->letStart();
+      break;
     default:
       break;
     }

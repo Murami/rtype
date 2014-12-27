@@ -15,11 +15,7 @@
 # include <string>
 # include "MenuObservable.hh"
 # include "MenuEnum.hh"
-
-namespace	Util
-{
-  class		Mutex;
-}
+# include "Mutex.hh"
 
 class MenuView : public MenuObservable
 {
@@ -35,6 +31,8 @@ public:
 
   void run(sf::RenderWindow &window, Util::Mutex*);
   void stop();
+
+  void	setGameRunning(bool);
 
   void setActualState(RtypeEvent::eMenuState state);
   RtypeEvent::eMenuState getActualState() const;
@@ -77,10 +75,13 @@ private:
   RtypeEvent::eMenuState	_actualState;
 
   std::map< RtypeEvent::eMenuState, tgui::Gui* > _stateToGui;
-  bool                _run;
+  bool			_run;
 
-  int _width;
-  int _height;
+  bool			_isGameRunning;
+  Util::Mutex		_mutexGameRunning;
+
+  int	_width;
+  int	_height;
 };
 
 #endif

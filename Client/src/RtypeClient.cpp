@@ -32,10 +32,6 @@ RtypeClient::RtypeClient()
   _tcpConnection->setTcpNetworkListener(this);
   _udpConnection = new UdpConnection(_configuration, &_mutex);
   _udpConnection->setUdpNetworkListener(this);
-
-  // _mutexGameRunning.lock();
-  // _isGameRunning = false;
-  // _mutexGameRunning.unlock();
 }
 
 RtypeClient::~RtypeClient()
@@ -251,13 +247,16 @@ void	RtypeClient::onPing(RtypeProtocol::PingPong)
 
 void	RtypeClient::onGameStart()
 {
-  // _mutexGameRunning.lock();
-  // _isGameRunning = true;
-  // _mutexGameRunning.unlock();
-
-  _menuView->stop();
-  _gameView->run(*_window, &_mutex);
+  _menuView->setGameRunning(true);
+  // _menuView->stop();
+  // _gameView->run(*_window, &_mutex);
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
+}
+
+bool	RtypeClient::letStart()
+{
+  _gameView->run(*_window, &_mutex);
+  return (true);
 }
 
 void	RtypeClient::onGameEnd(RtypeProtocol::EndGame)

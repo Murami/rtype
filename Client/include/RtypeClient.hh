@@ -83,9 +83,11 @@ public:
   virtual bool	onUserReadyFromMenu();
   virtual bool	onUserMessageFromMenu(RtypeProtocol::Message);
   virtual bool	onCreateRoomFromMenu(const std::string&, const std::string&);
+  virtual bool	letStart();
 
 public:
   void		run();
+  void		setGameRunning(bool);
 
 public:
   RtypeClient();
