@@ -29,8 +29,9 @@ public:
   void initRoom();
   void initSetting();
 
-  void run(sf::RenderWindow &window, Util::Mutex*);
-  void stop();
+  void	reset();
+  void	run(sf::RenderWindow &window, Util::Mutex*);
+  void	stop();
 
   void	setGameRunning(bool);
 

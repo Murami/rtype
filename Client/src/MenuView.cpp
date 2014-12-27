@@ -314,6 +314,16 @@ void MenuView::initSetting()
   applyButton->setCallbackId(RtypeEvent::APPLY);
 }
 
+void	MenuView::reset()
+{
+  _run = false;
+  _actualState = RtypeEvent::ROOMSELECTSTATE;
+
+  _mutexGameRunning.lock();
+  _isGameRunning = false;
+  _mutexGameRunning.unlock();
+}
+
 void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 {
   SoundManager::Play("theme");
@@ -322,9 +332,7 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
     {
       _mutexGameRunning.lock();
       if (_isGameRunning == true)
-	{
-	  _run = false;
- 	}
+	_run = false;
       _mutexGameRunning.unlock();
 
         sf::Event event;
@@ -419,10 +427,12 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
         window.display();
 	mutex->lock();
     }
+
   SoundManager::Stop();
   _mutexGameRunning.lock();
   if (_isGameRunning == true)
     {
+      _mutexGameRunning.unlock();
       this->notify(RtypeEvent::GAMESTART);
     }
   _mutexGameRunning.unlock();

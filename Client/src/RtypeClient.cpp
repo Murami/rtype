@@ -253,6 +253,8 @@ void	RtypeClient::onGameStart()
 bool	RtypeClient::letStart()
 {
   _gameView->run(*_window, &_mutex);
+  _menuView->reset();
+  _menuView->run(*_window, &_mutex);
   return (true);
 }
 
