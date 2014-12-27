@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 2.8)
-project(R-Type)
+project(rtype C CXX)
 
 include_directories(include/ include/Graphic ../new_network_rtype/include/Protocol)
 
 if(WIN32)
-  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -mno-ms-bitfields")
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -W -Wall -Wextra -std=c++11 -ggdb -g3 -mno-ms-bitfields")
 elseif(UNIX)
 	SET(CMAKE_CXX_FLAGS "-W -Wall -Wextra -std=c++11 -ggdb -g3")
 endif()

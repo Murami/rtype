@@ -52,9 +52,9 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
       window.clear();
       this->update();
       this->render(window);
-      //mutex->unlock();
+      mutex->unlock();
       window.display();
-      //mutex->lock();
+      mutex->lock();
     }
   SoundManager::Stop();
 }
