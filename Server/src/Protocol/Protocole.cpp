@@ -386,16 +386,16 @@ namespace Network
   {
     posEncoded->x = hton(pos->x);
     posEncoded->y = hton(pos->y);
-    posEncoded->orientation = hton(pos->orientation);
-    posEncoded->state = hton(pos->state);
+    // posEncoded->orientation = hton(pos->orientation);
+    // posEncoded->state = hton(pos->state);
   }
 
   void			Protocole::ntoh(RtypeProtocol::Position *posEncoded, const RtypeProtocol::Position *pos) const
   {
     posEncoded->x = ntoh(pos->x);
     posEncoded->y = ntoh(pos->y);
-    posEncoded->orientation = ntoh(pos->orientation);
-    posEncoded->state = ntoh(pos->state);
+    // posEncoded->orientation = ntoh(pos->orientation);
+    // posEncoded->state = ntoh(pos->state);
   }
 
   uint32_t		Protocole::hton(uint32_t const value) const

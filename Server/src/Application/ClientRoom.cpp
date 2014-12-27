@@ -22,6 +22,7 @@ namespace Application
 
   void		ClientRoom::addToGame()
   {
+    std::cout << "add to game" << std::endl;
     _player = &_room.getGame().addPlayer();
   }
 
