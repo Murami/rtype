@@ -33,16 +33,16 @@ PlayerPowerUp::~PlayerPowerUp()
 
 void PlayerPowerUp::update(sf::Vector2<float> pos)
 {
-    _sprite.setPosition(pos);
-    if (_clock.getElapsedTime().asSeconds() > _animationDuration[_index])
+  _sprite.setPosition(pos);
+  if (_clock.getElapsedTime().asSeconds() > _animationDuration[_index])
     {
-        _anim++;
-        _clock.restart();
+      _anim++;
+      _clock.restart();
     }
-    if (_animationMap.find(_anim) != _animationMap.end())
-        _sprite.setTextureRect(_animationMap[_anim]);
-    if (_anim >= _animationMap.size())
-        _anim = 0;
+  if (_animationMap.find(_anim) != _animationMap.end())
+    _sprite.setTextureRect(_animationMap[_anim]);
+  if (_anim >= _animationMap.size())
+    _anim = 0;
 }
 
 
