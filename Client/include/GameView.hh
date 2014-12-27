@@ -7,11 +7,7 @@
 # include "GameObservable.hh"
 # include "ScrollingBackground.hh"
 # include "RtypeProtocol.hh"
-
-namespace	Util
-{
-  class		Mutex;
-}
+# include "Mutex.hh"
 
 class	IObject;
 
@@ -25,6 +21,7 @@ public:
   void	run(sf::RenderWindow&, Util::Mutex*);
   void	stop();
 
+  void	setGameRunning(bool);
   void	add(int id, IObject*);
   void	erase(int id);
 

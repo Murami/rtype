@@ -14,6 +14,7 @@ public:
   virtual bool	onUserReadyFromMenu() = 0;
   virtual bool	onUserMessageFromMenu(RtypeProtocol::Message) = 0;
   virtual bool	onCreateRoomFromMenu(const std::string& roomName, const std::string& password) = 0;
+  virtual bool	letStart() = 0;
 
 public:
   virtual	~IMenuListener() {}

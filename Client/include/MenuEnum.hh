@@ -23,7 +23,8 @@ namespace	RtypeEvent
     READY,
     LISTCHOICE,
     APPLY,
-    BACK
+    BACK,
+    GAMESTART
   };
 
   enum eMenuState {
@@ -32,7 +33,7 @@ namespace	RtypeEvent
     ROOMSELECTSTATE,
     ROOMSTATE,
     SETTINGSTATE,
-    UNKNOWSTATE,
+    UNKNOWSTATE
   };
 }
 

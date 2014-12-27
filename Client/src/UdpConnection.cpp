@@ -35,6 +35,11 @@ bool			UdpConnection::isReading() const
   return (_reading);
 }
 
+uint16_t		UdpConnection::getLocalPort()
+{
+  return (_socket.getLocalPort());
+}
+
 bool			UdpConnection::connect()
 {
   sf::Socket::Status ret;
