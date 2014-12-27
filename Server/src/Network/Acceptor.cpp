@@ -21,6 +21,10 @@ namespace Network
     sin.sin_family = AF_INET;
     sin.sin_port = htons(port);
 
+    // int	val = 1;
+    // if (setsockopt(_asocket, SOL_SOCKET,
+    // 		   SO_REUSEADDR, &val, sizeof(int)) == -1)
+
     if(bind (_asocket, (SOCKADDR *) &sin, sizeof sin) == SOCKET_ERROR)
       throw NetworkException("Acceptor bind failed");
 

@@ -17,6 +17,8 @@ namespace Game
   Player::Player(Core& game, int num) :
     Entity(game), _num(num)
   {
+    // TODO a enlever
+    setSpeed(Util::Vec2(1, 0));
   }
 
   Player::~Player()

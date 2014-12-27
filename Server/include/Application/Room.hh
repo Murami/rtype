@@ -64,6 +64,7 @@ namespace Application
     bool				isFull() const;
 
     void				sendUdp(const void* data, size_t size, int type);
+    void				sendGameStart();
 
     Game::Core&				getGame();
 

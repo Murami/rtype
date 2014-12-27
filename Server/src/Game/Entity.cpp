@@ -1,5 +1,6 @@
 #include "Game/Entity.hh"
 #include "Game/Core.hh"
+#include "Game/EntityEventMove.hh"
 
 namespace Game
 {
@@ -69,9 +70,12 @@ namespace Game
     return (_core);
   }
 
-  void		Entity::receive(const Physic::Body& /*body*/, const Physic::BodyEvent::Move& /*event*/)
+  void		Entity::receive(const Physic::Body& body,
+				const Physic::BodyEvent::Move& /*event*/)
   {
-    // TODO notifier le serveur d'un mouvement
+    const EntityEvent::Move& 	move = EntityEvent::Move(body.getPosition());
+
+    notifyObservers(move);
   }
 
   void		Entity::receive(const Physic::Body& /*body*/, const Physic::BodyEvent::Collide& /*event*/)
