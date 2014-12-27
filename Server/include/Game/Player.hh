@@ -22,11 +22,14 @@ namespace Game
   private:
     typedef void (Player::*PlayerAction)();
 
-    std::list<Input>				_inputs;
-    static PlayerAction				_actions[InputMax];
+
+  private:
+    std::list<Input>	_inputs;
+    static PlayerAction	_actions[InputMax];
+    unsigned int	_num;
 
   public:
-    Player(Core& game);
+    Player(Core& game, int num);
     ~Player();
 
     void	addInput(Input input);
@@ -45,6 +48,8 @@ namespace Game
     void	onRight();
     void	onPrimaryFire();
     void	onSecondaryFire();
+
+    unsigned int	getNum() const;
   };
 };
 

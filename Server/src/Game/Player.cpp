@@ -14,8 +14,8 @@ namespace Game
       &Player::onSecondaryFire
     };
 
-  Player::Player(Core& game) :
-    Entity(game)
+  Player::Player(Core& game, int num) :
+    Entity(game), _num(num)
   {
   }
 
@@ -99,5 +99,10 @@ namespace Game
 
   void	Player::onSecondaryFire()
   {
+  }
+
+  unsigned int	Player::getNum() const
+  {
+    return (_num);
   }
 };

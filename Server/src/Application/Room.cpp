@@ -58,10 +58,9 @@ namespace Application
     RtypeProtocol::Spawn	spawn;
     Network::packet*		packed;
 
-    std::cout << "Room::receive <CoreEvent::Spawn>" << std::endl;
     event.entity.addObserver(*this);
     spawn.id = event.entity.getId();
-    spawn.type = RtypeProtocol::T_PLAYER_1; // A GERER
+    spawn.type = RtypeProtocol::T_PLAYER_1;// TODO gerer les player de 1 a 4 dans le gameplay
     spawn.position.x = event.entity.getPosition().x;
     spawn.position.y = event.entity.getPosition().y;
     spawn.life = event.entity.getLife();

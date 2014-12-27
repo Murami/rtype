@@ -7,7 +7,8 @@
 namespace Game
 {
   Core::Core() :
-    _alive(true)
+    _alive(true),
+    _playercount(0)
   {
   }
 
@@ -31,11 +32,13 @@ namespace Game
 
   Player&	Core::addPlayer()
   {
-    Player*			player = new Player(*this);
+    Player*			player = new Player(*this, _playercount);
     const CoreEvent::Spawn&	spawn = CoreEvent::Spawn(*player);
 
     std::cout << "Add new player" << std::endl;
     _entities.push_back(player);
+    player->setPosition(Util::Vec2(30, 20 + _playercount * 20));
+    _playercount++;
     notifyObservers(spawn);
     return (*player);
   }

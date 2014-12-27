@@ -16,6 +16,7 @@ namespace Game
     std::list<Entity*>	_entities;
     Physic::World	_world;
     bool		_alive;
+    unsigned int	_playercount;
 
   public:
     Core();
