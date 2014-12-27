@@ -18,15 +18,8 @@
 #include	"GameView.hh"
 #include	"RtypeProtocol.hh"
 
-// #ifdef __linux__
-// # include <X11/Xlib.h>
-// #endif
-
 RtypeClient::RtypeClient()
 {
-// #ifdef __linux__
-//   XInitThreads();
-// #endif
   _mutex.lock();
   _tcpConnection = new TcpConnection(_configuration, &_mutex);
   _tcpConnection->setTcpNetworkListener(this);
