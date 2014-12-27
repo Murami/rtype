@@ -31,6 +31,7 @@ void	GameController::updateSpawnList()
       createEntity(it->id, static_cast<RtypeProtocol::Entity>(it->type));
       updateEntityPosition(it->id, it->position);
     }
+  _spawnList.clear();
 }
 
 void	GameController::createEntity(int id, RtypeProtocol::Entity entity)

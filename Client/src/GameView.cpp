@@ -88,6 +88,10 @@ void	GameView::update()
 
   for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
     (*itBack)->update(sf::Vector2<float>(0, 0));
+  for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
+    {
+      itObj->second->update(itObj->second->getPosition());
+    }
 }
 
 void	GameView::updateById(int id, RtypeProtocol::Position pos)

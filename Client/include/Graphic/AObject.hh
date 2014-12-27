@@ -22,7 +22,7 @@ public:
 public:
     virtual sf::Vector2<float> getPosition() const;
     virtual void setPosition(sf::Vector2<float> position);
-    
+
 protected:
     sf::Sprite  _sprite;
     sf::Texture _texture;

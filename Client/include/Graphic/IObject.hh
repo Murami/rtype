@@ -13,11 +13,11 @@
 
 class IObject {
 public:
-    virtual ~IObject() {};
-    virtual void update(const sf::Vector2<float> pos) = 0;
-    virtual void render(sf::RenderWindow &window) = 0;
-    virtual void setPosition(sf::Vector2<float>) = 0;
-    
+  virtual			~IObject() {};
+  virtual void			update(const sf::Vector2<float> pos) = 0;
+  virtual void			render(sf::RenderWindow &window) = 0;
+  virtual void			setPosition(sf::Vector2<float>) = 0;
+  virtual sf::Vector2<float>	getPosition() const = 0;
 };
 
 #endif

@@ -33,29 +33,29 @@ PlayerPowerUp::~PlayerPowerUp()
 
 void PlayerPowerUp::update(sf::Vector2<float> pos)
 {
-    _sprite.setPosition(pos);
-    if (_clock.getElapsedTime().asSeconds() > _animationDuration[_index])
+  _sprite.setPosition(pos);
+  if (_clock.getElapsedTime().asSeconds() > _animationDuration[_index])
     {
-        _anim++;
-        _clock.restart();
+      _anim++;
+      _clock.restart();
     }
-    if (_animationMap.find(_anim) != _animationMap.end())
-        _sprite.setTextureRect(_animationMap[_anim]);
-    if (_anim == _animationMap.size())
-        _anim = 0;
+  if (_animationMap.find(_anim) != _animationMap.end())
+    _sprite.setTextureRect(_animationMap[_anim]);
+  if (_anim >= _animationMap.size())
+    _anim = 0;
 }
 
 
 void PlayerPowerUp::PowerUp1()
 {
     _animationMap.clear();
-    _animationMap[1] = sf::IntRect(160, 35, 18, 16);
-    _animationMap[2] = sf::IntRect(183, 35, 18, 16);
-    _animationMap[3] = sf::IntRect(208, 35, 18, 16);
-    _animationMap[4] = sf::IntRect(231, 35, 18, 16);
-    _animationMap[5] = sf::IntRect(255, 35, 18, 16);
-    _animationMap[6] = sf::IntRect(280, 35, 18, 16);
-    _sprite.setTextureRect(_animationMap[1]);
+    _animationMap[0] = sf::IntRect(160, 35, 18, 16);
+    _animationMap[1] = sf::IntRect(183, 35, 18, 16);
+    _animationMap[2] = sf::IntRect(208, 35, 18, 16);
+    _animationMap[3] = sf::IntRect(231, 35, 18, 16);
+    _animationMap[4] = sf::IntRect(255, 35, 18, 16);
+    _animationMap[5] = sf::IntRect(280, 35, 18, 16);
+    _sprite.setTextureRect(_animationMap[0]);
 }
 
 void PlayerPowerUp::PowerUp2()
