@@ -22,7 +22,7 @@ namespace Util
   template<class T, class MsgT>
   void	Observable<T, MsgT>::addObserver(Observer<T, MsgT>& observer)
   {
-    if (std::find(_observers.begin(), _observers.end(), &observer) != _observers.end())
+    if (std::find(_observers.begin(), _observers.end(), &observer) == _observers.end())
       _observers.push_back(&observer);
   }
 

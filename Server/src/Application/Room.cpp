@@ -21,6 +21,7 @@ namespace Application
     _pass = pass;
     _id = _generator.generate();
     _gamestarted = false;
+    std::cout << "add observer to core" << std::endl;
     _game.addObserver(*this);
   }
 
@@ -56,6 +57,7 @@ namespace Application
   {
     RtypeProtocol::Spawn       spawn;
 
+    std::cout << "Room::receive <CoreEvent::Spawn>" << std::endl;
     event.entity.addObserver(*this);
     spawn.id = event.entity.getId();
     spawn.type = RtypeProtocol::T_PLAYER_1; // A GERER !!
@@ -178,7 +180,11 @@ namespace Application
     header.data_size = size;
     std::memcpy(buffer, &header, sizeof(header));
     std::memcpy(buffer, data, size);
+    std::cout << "Room::sendUdp" << std::endl;
     for (it = _clients.begin(); it != _clients.end(); it++)
-      (*it)->getClientServer().sendUdp(&header, size + sizeof(header));
+      {
+	std::cout << "loop" << std::endl;
+	(*it)->getClientServer().sendUdp(buffer, size + sizeof(header));
+      }
   }
 };
