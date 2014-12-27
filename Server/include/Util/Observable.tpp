@@ -53,6 +53,7 @@ namespace Util
       {
 	Observer<T, MsgT>& observer = *(*it);
 
+	std::cout << "test" << std::endl;
 	it++;
 	observer.update(*static_cast<T*>(this), msg);
       }
