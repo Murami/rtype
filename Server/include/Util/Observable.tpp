@@ -5,6 +5,7 @@
 
 #include "Observer.hpp"
 #include <algorithm>
+#include <iostream>
 
 namespace Util
 {

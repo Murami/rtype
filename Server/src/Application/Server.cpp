@@ -51,7 +51,7 @@ namespace Application
   {
     _protocoleUdp.onRead(&socket, this);
     _service.addReadUdp(socket);
-    std::cout << "on read udp" << std::endl;
+    //std::cout << "on read udp" << std::endl;
   }
 
   void Server::onWrite(Network::UdpSocket & socket)
