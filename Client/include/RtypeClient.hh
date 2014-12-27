@@ -2,6 +2,8 @@
 # define	__RTYPECLIENT_HH__
 
 # include	<SFML/Graphics.hpp>
+# include	<map>
+
 # include	"IMenuListener.hh"
 # include	"ConnectionConfiguration.hh"
 # include	"ITcpNetworkListener.hh"
@@ -22,16 +24,20 @@ class		RtypeClient :	public IMenuListener,
 				public IGameListener
 {
 private:
-  ConnectionConfiguration	_configuration;
-  TcpConnection*		_tcpConnection;
-  UdpConnection*		_udpConnection;
-  MenuController*		_menuController;
-  MenuView*			_menuView;
-  GameController*		_gameController;
-  GameView*			_gameView;
-  sf::RenderWindow*		_window;
-  Util::Mutex			_mutex;
+  ConnectionConfiguration		_configuration;
+  TcpConnection*			_tcpConnection;
+  UdpConnection*			_udpConnection;
+  MenuController*			_menuController;
+  MenuView*				_menuView;
+  GameController*			_gameController;
+  GameView*				_gameView;
+  sf::RenderWindow*			_window;
+  Util::Mutex				_mutex;
+  std::map<int, RtypeProtocol::Entity>	_entityMap;
 
+private:
+  void		_initEntityMap();
+  
   // IUdpNetworkListener
 public:
   virtual void	onPlayerInfo();
@@ -72,7 +78,7 @@ public:
   virtual void	onMessage(RtypeProtocol::Message);
   virtual void	onHostLeftRoom();
   virtual void	onDeleteRoom(RtypeProtocol::Room);
-  
+
   // IMenuListener
 public:
   virtual bool	onConnectFromMenu(const std::string&);
