@@ -25,6 +25,7 @@ RtypeClient::RtypeClient()
   _tcpConnection->setTcpNetworkListener(this);
   _udpConnection = new UdpConnection(_configuration, &_mutex);
   _udpConnection->setUdpNetworkListener(this);
+  _initEntityMap();
 }
 
 RtypeClient::~RtypeClient()
@@ -105,68 +106,7 @@ void	RtypeClient::onPosition()
 void	RtypeClient::onSpawn(RtypeProtocol::Spawn spawn)
 {
   RtypeProtocol::Entity entity;
-  switch (spawn.type)
-    {
-    case 1:
-      entity = RtypeProtocol::T_CAMERA;
-      break;
-    case 2:
-      entity = RtypeProtocol::T_PLAYER_1;
-      break;
-    case 3:
-      entity = RtypeProtocol::T_PLAYER_2;
-      break;
-    case 4:
-      entity = RtypeProtocol::T_PLAYER_3;
-      break;
-    case 5:
-      entity = RtypeProtocol::T_PLAYER_4;
-      break;
-    case 6:
-      entity = RtypeProtocol::T_MONSTER_LITTLE;
-      break;
-    case 7:
-      entity = RtypeProtocol::T_MONSTER_BIG;
-      break;
-    case 10:
-      entity = RtypeProtocol::T_WALL_1;
-      break;
-    case 11:
-      entity = RtypeProtocol::T_WALL_2;
-      break;
-    case 12:
-      entity = RtypeProtocol::T_WALL_3;
-      break;
-    case 13:
-      entity = RtypeProtocol::T_WALL_4;
-      break;
-    case 14:
-      entity = RtypeProtocol::T_BONUS_1;
-      break;
-    case 15:
-      entity = RtypeProtocol::T_BONUS_2;
-      break;
-    case 16:
-      entity = RtypeProtocol::T_BONUS_3;
-      break;
-    case 17:
-      entity = RtypeProtocol::T_BONUS_4;
-      break;
-    case 18:
-      entity = RtypeProtocol::T_MISSILE_FRIENDLY_LITTLE;
-      break;
-    case 19:
-      entity = RtypeProtocol::T_MISSILE_FRIENDLY_BIG;
-      break;
-    case 20:
-      entity = RtypeProtocol::T_MISSILE_ENNEMY_LITTLE;
-      break;
-    case 21:
-      entity = RtypeProtocol::T_MISSILE_ENNEMY_BIG;
-      break;
-    default:
-      break;
-    }
+  entity = _entityMap[spawn.type];
   _gameController->spawnEntity(spawn.id, entity);
   _gameController->updateEntityPosition(spawn.id, spawn.position);
 }
@@ -433,4 +373,27 @@ bool	RtypeClient::onCreateRoomFromMenu(const std::string& roomName,
   std::memcpy(&buffer[sizeof(header)], &room, sizeof(room));
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(room));
   return (true);
+}
+
+void	RtypeClient::_initEntityMap()
+{
+  _entityMap[1] = RtypeProtocol::T_CAMERA;
+  _entityMap[2] = RtypeProtocol::T_PLAYER_1;
+  _entityMap[3] = RtypeProtocol::T_PLAYER_2;
+  _entityMap[4] = RtypeProtocol::T_PLAYER_3;
+  _entityMap[5] = RtypeProtocol::T_PLAYER_4;
+  _entityMap[6] = RtypeProtocol::T_MONSTER_LITTLE;
+  _entityMap[7] = RtypeProtocol::T_MONSTER_BIG;
+  _entityMap[10] = RtypeProtocol::T_WALL_1;
+  _entityMap[11] = RtypeProtocol::T_WALL_2;
+  _entityMap[12] = RtypeProtocol::T_WALL_3;
+  _entityMap[13] = RtypeProtocol::T_WALL_4;
+  _entityMap[14] = RtypeProtocol::T_BONUS_1;
+  _entityMap[15] = RtypeProtocol::T_BONUS_2;
+  _entityMap[16] = RtypeProtocol::T_BONUS_3;
+  _entityMap[17] = RtypeProtocol::T_BONUS_4;
+  _entityMap[18] = RtypeProtocol::T_MISSILE_FRIENDLY_LITTLE;
+  _entityMap[19] = RtypeProtocol::T_MISSILE_FRIENDLY_BIG;
+  _entityMap[20] = RtypeProtocol::T_MISSILE_ENNEMY_LITTLE;
+  _entityMap[21] = RtypeProtocol::T_MISSILE_ENNEMY_BIG;
 }
