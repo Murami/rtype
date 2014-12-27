@@ -49,6 +49,7 @@ void	UdpNetworkReader::onReadData(char *buffer)
       break;
     case RtypeProtocol::T_SPAWN:
       std::cout << "[UDP]: Received spawn info" << std::endl;
+      //_listener->onSpawn();
       break;
     case RtypeProtocol::T_EVENT:
       std::cout << "[UDP]: Received event info" << std::endl;
