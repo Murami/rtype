@@ -42,7 +42,8 @@ void		RtypeClient::run()
 
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
 					       sf::VideoMode::getDesktopMode().height),
-				 "Rtype", sf::Style::Fullscreen);
+				 "Rtype"// , sf::Style::Fullscreen
+				 );
 
   _window->setKeyRepeatEnabled(false);
 

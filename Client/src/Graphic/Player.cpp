@@ -48,7 +48,7 @@ Player::~Player()
 void Player::update(const sf::Vector2<float> pos)
 {
     _sprite.setPosition(pos.x, pos.y);
-    _powerUp.update(sf::Vector2<float>((_sprite.getPosition().x + _sprite.getLocalBounds().width + 35),
+  _powerUp.update(sf::Vector2<float>((_sprite.getPosition().x + _sprite.getLocalBounds().width + 35),
                                        (_sprite.getPosition().y + _sprite.getLocalBounds().height / 2 - 5)));
 }
 
