@@ -22,16 +22,21 @@ namespace Application
     ClientRoom(Room& room, ClientServer& clientserver, bool host);
     ~ClientRoom();
 
-    void		addToGame();
-
+    // Protocol Notifications
     void		notify(const RtypeProtocol::State* state);
     void		notify(const RtypeProtocol::EntityRequest* request);
 
+    // "Start the the game"
+    void		addToGame();
+
+    // Getters
     const std::string&	getName() const;
-    void		notifyState(unsigned int state);
-    bool		isHost() const;
     ClientServer&	getClientServer() const;
     Room*		getRoom() const;
+    bool		isHost() const;
+
+  private:
+    void		notifyState(unsigned int state);
   };
 };
 

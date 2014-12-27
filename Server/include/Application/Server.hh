@@ -27,49 +27,55 @@ namespace Application
 
     void				run();
 
-    void	notify(int const & type, const RtypeProtocol::State* state, const unsigned int & port, const std::string& host);
-    void	notify(int const & type, const RtypeProtocol::EntityRequest* request, const unsigned int & port, const std::string& host);
+    // Protocol notifications
+    void	notify(int const& type, const RtypeProtocol::State* state, const unsigned int & port, const std::string& host);
+    void	notify(int const& type, const RtypeProtocol::EntityRequest* request, const unsigned int & port, const std::string& host);
 
     // Network events
-    void				onAccept(Network::Acceptor & socket);
-    void				onRead(Network::UdpSocket & socket);
-    void				onWrite(Network::UdpSocket & socket);
-    void				onTimeout(Network::Timer & timer);
+    void	onAccept(Network::Acceptor & socket);
+    void	onRead(Network::UdpSocket & socket);
+    void	onWrite(Network::UdpSocket & socket);
+    void	onTimeout(Network::Timer & timer);
 
-    // Get composite objects
+    // Getters
     Network::Service &			getService() const;
     const Network::ProtocoleTcp &	getProtocole() const;
     const Network::ProtocoleUdp&	getProtocoleUdp() const;
 
     // ClientServer
-    void				deleteClientServer(ClientServer * client);
+    void	deleteClientServer(ClientServer * client);
+
+    // Send functions
+    void	sendAllRoomInfos(ClientServer* server) const;
+    void	sendRoomToAllClients(const Room* room, bool alive);
+    void	sendUdp(const ClientServer& client, const void* data, size_t size);
 
     // Room
-    Room*				createRoom(ClientServer* client, const RtypeProtocol::Room* room);
-    Room*				getRoom(unsigned int roomID) const;
-    void				addClientRoom(ClientRoom* clientroom);
-    void				deleteClientRoom(ClientRoom* clientroom);
-    bool				roomExists(const std::string& name) const;
-    void				sendAllRoomInfos(ClientServer* server) const;
-    void				sendRoomToAllClients(const Room* room, bool alive);
-    void				deleteRoom(Room* room);
-    bool				isValidEndpoint(const std::string& host, unsigned short port) const;
-    void				sendUdp(const ClientServer& client,
-						const void* data, size_t size);
+    Room*	createRoom(ClientServer* client, const RtypeProtocol::Room* room);
+    Room*	getRoom(unsigned int roomID) const;
+    bool	roomExists(const std::string& name) const;
+    void	deleteRoom(Room* room);
+
+    // ClientRoom
+    void	addClientRoom(ClientRoom* clientroom);
+    void	deleteClientRoom(ClientRoom* clientroom);
+    bool	isValidEndpoint(const std::string& host, unsigned short port) const;
 
   private:
-    Network::Service &			_service;
-    Network::ProtocoleUdp		_protocoleUdp;
-    Network::ProtocoleTcp		_protocoleTcp;
+    // Protocole attribute
+    Network::ProtocoleUdp	_protocoleUdp;
+    Network::ProtocoleTcp	_protocoleTcp;
 
-    Network::Acceptor			_acceptor;
-    Network::UdpSocket			_udpSocket;
+    // Network attributes
+    Network::Service&	_service;
+    Network::Timer	_timer1;
+    Network::Acceptor	_acceptor;
+    Network::UdpSocket	_udpSocket;
 
-    std::list<ClientServer*>		_clients;
-
+    // Server attribute
+    std::list<ClientServer*>			_clients;
     std::map<Network::EndPoint, ClientRoom*>	_clientsroom;
     std::map<unsigned int, Room*>		_rooms;
-    Network::Timer				_timer1;
   };
 
 } /* namespace Application */
