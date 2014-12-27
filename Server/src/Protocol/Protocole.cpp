@@ -311,7 +311,7 @@ namespace Network
   {
     RtypeProtocol::State encoded;
 
-    encoded.id = hton(state->id);
+    //encoded.id = hton(state->id);
     encoded.state = hton(state->state);
     return (new packet(&encoded, sizeof(encoded)));
   }
@@ -376,7 +376,7 @@ namespace Network
   }
   RtypeProtocol::State	*Protocole::decode(RtypeProtocol::State *state) const
   {
-    state->id = ntoh(state->id);
+    //state->id = ntoh(state->id);
     state->state = ntoh(state->state);
     return (state);
   }

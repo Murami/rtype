@@ -87,7 +87,7 @@ namespace Application
 
     Room*	room = new Room(*this, name, pass);
 
-    std::cout << "Create room aaaaaaaaaaaaaaaaaaaaaa" << std::endl;
+    //std::cout << "Create a new room" << std::endl;
 
     _rooms.insert(std::pair<unsigned int, Room *>(room->getID(), room));
     return (room);

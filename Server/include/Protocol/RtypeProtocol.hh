@@ -222,7 +222,7 @@ static const int8_t proto_name[] = "RType";
     };)
 
   PACKED(State{
-      uint32_t	id;
+      //uint32_t	id;  //inutile
       uint32_t	state;
     };)
 }

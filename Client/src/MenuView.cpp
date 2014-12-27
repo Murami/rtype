@@ -8,7 +8,6 @@
 
 #include "MenuView.hh"
 #include "SoundManager.hh"
-#include "Mutex.hh"
 
 static const char *blackConf = "./res/widgets/Black.conf";
 static const char *backgroundLogin = "./res/Menu/login.jpg";
@@ -51,6 +50,10 @@ MenuView::MenuView(sf::RenderWindow &window)
     initRoomSelect();
     initRoom();
     initSetting();
+
+    _mutexGameRunning.lock();
+    _isGameRunning = false;
+    _mutexGameRunning.unlock();
 
     window.setKeyRepeatEnabled(true);
 }
@@ -311,12 +314,27 @@ void MenuView::initSetting()
   applyButton->setCallbackId(RtypeEvent::APPLY);
 }
 
+void	MenuView::reset()
+{
+  _run = false;
+  _actualState = RtypeEvent::ROOMSELECTSTATE;
+
+  _mutexGameRunning.lock();
+  _isGameRunning = false;
+  _mutexGameRunning.unlock();
+}
+
 void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 {
   SoundManager::Play("theme");
   _run = true;
   while (_run == true && window.isOpen())
     {
+      _mutexGameRunning.lock();
+      if (_isGameRunning == true)
+	_run = false;
+      _mutexGameRunning.unlock();
+
         sf::Event event;
 
         while (window.pollEvent(event))
@@ -409,7 +427,15 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
         window.display();
 	mutex->lock();
     }
+
   SoundManager::Stop();
+  _mutexGameRunning.lock();
+  if (_isGameRunning == true)
+    {
+      _mutexGameRunning.unlock();
+      this->notify(RtypeEvent::GAMESTART);
+    }
+  _mutexGameRunning.unlock();
 }
 
 void	MenuView::stop()
@@ -440,6 +466,13 @@ void MenuView::prevState()
     default:
       break;
     }
+}
+
+void	MenuView::setGameRunning(bool b)
+{
+  _mutexGameRunning.lock();
+  _isGameRunning = b;
+  _mutexGameRunning.unlock();
 }
 
 void MenuView::setActualState(RtypeEvent::eMenuState state)

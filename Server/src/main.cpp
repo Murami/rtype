@@ -3,7 +3,6 @@
 #include "Server.hh"
 
 #include "RtypeProtocol.hh"
-#include <cstddef>
 #include <iostream>
 #include "NetworkException.hh"
 

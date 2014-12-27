@@ -18,24 +18,13 @@
 #include	"GameView.hh"
 #include	"RtypeProtocol.hh"
 
-// #ifdef __linux__
-// # include <X11/Xlib.h>
-// #endif
-
 RtypeClient::RtypeClient()
 {
-// #ifdef __linux__
-//   XInitThreads();
-// #endif
   _mutex.lock();
   _tcpConnection = new TcpConnection(_configuration, &_mutex);
   _tcpConnection->setTcpNetworkListener(this);
   _udpConnection = new UdpConnection(_configuration, &_mutex);
   _udpConnection->setUdpNetworkListener(this);
-
-  // _mutexGameRunning.lock();
-  // _isGameRunning = false;
-  // _mutexGameRunning.unlock();
 }
 
 RtypeClient::~RtypeClient()
@@ -68,9 +57,6 @@ void		RtypeClient::run()
 
   if (!_tcpConnection->connect())
     throw (std::runtime_error("TCP connect"));
-
-  // if (!_udpConnection->connect())
-  //   throw (std::runtime_error("UDP connect"));
 
   header.type = RtypeProtocol::T_MAGIC;
   header.data_size = sizeof(magic);
@@ -143,11 +129,11 @@ void	RtypeClient::onEntityInfo()
 
 // IKeyListener
 
-void	RtypeClient::onKeyEvent(std::size_t event)
+void	RtypeClient::onKeyEvent(uint32_t event)
 {
   RtypeProtocol::Header header;
+  uint32_t	e;
   char		buffer[sizeof(event) + sizeof(header)];
-  std::size_t	e;
 
   e = htonl(event);
   header.type = htonl(RtypeProtocol::T_EVENT);
@@ -161,13 +147,13 @@ void	RtypeClient::onKeyEvent(std::size_t event)
 
 void	RtypeClient::onMagicBadVersion()
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
+  //std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   throw (std::runtime_error("connect to server : bad magic version"));
 }
 
 void	RtypeClient::onMagicAccept()
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
+  //std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onConnectionAlreadyConnected()
@@ -251,13 +237,18 @@ void	RtypeClient::onPing(RtypeProtocol::PingPong)
 
 void	RtypeClient::onGameStart()
 {
-  // _mutexGameRunning.lock();
-  // _isGameRunning = true;
-  // _mutexGameRunning.unlock();
-
-  _menuView->stop();
-  _gameView->run(*_window, &_mutex);
+  _menuView->setGameRunning(true);
+  // _menuView->stop();
+  // _gameView->run(*_window, &_mutex);
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
+}
+
+bool	RtypeClient::letStart()
+{
+  _gameView->run(*_window, &_mutex);
+  _menuView->reset();
+  _menuView->run(*_window, &_mutex);
+  return (true);
 }
 
 void	RtypeClient::onGameEnd(RtypeProtocol::EndGame)
@@ -275,6 +266,15 @@ void	RtypeClient::onMessage(RtypeProtocol::Message)
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
+void	RtypeClient::onHostLeftRoom()
+{
+}
+
+void	RtypeClient::onDeleteRoom(RtypeProtocol::Room room)
+{
+  _menuController->deleteFromRoomList(room);
+}
+
 bool	RtypeClient::onConnectFromMenu(const std::string & login)
 {
   RtypeProtocol::Header header;
@@ -285,6 +285,7 @@ bool	RtypeClient::onConnectFromMenu(const std::string & login)
   header.type = RtypeProtocol::T_CONNECTION;
   header.data_size = sizeof(RtypeProtocol::User);
   strcpy(reinterpret_cast<char *>(&user.username[0]), login.c_str());
+  user.port = htons(_udpConnection->getLocalPort());
   std::memcpy(&buffer[0], &header, sizeof(header));
   std::memcpy(&buffer[sizeof(header)], &user, sizeof(user));
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(user));

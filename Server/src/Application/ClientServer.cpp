@@ -179,7 +179,6 @@ namespace Application
 
 	Util::stringncopy(roomname, room->room_name, ROOM_NAME_SIZE);
 	std::cout << "create room with roomname : " << roomname << std::endl;
-	std::cout << "create room with roomname2 : " << room->room_name << std::endl;
 
 	if (_server.roomExists(roomname))
 	  {

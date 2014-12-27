@@ -89,65 +89,43 @@ void			TcpNetworkReader::onReadPing()
   _tcpListener->onPing(ping);
 }
 
-void			TcpNetworkReader::onReadConnectionAlreadyConnected()
-{
-}
-
-void			TcpNetworkReader::onReadConnectionInternalError()
-{
-}
-
-void			TcpNetworkReader::onReadConnectionOk()
-{
-}
-
-void			TcpNetworkReader::onReadRoomCreateAlreadyExist()
-{
-}
-
-void			TcpNetworkReader::onReadRoomCreateInternalError()
-{
-}
-
-void			TcpNetworkReader::onReadRoomCreateOk()
-{
-}
-
-void			TcpNetworkReader::onReadRoomJoinNotFound()
-{
-}
-
-void			TcpNetworkReader::onReadRoomJoinIsFull()
-{
-}
-
-void			TcpNetworkReader::onReadRoomJoinBadPswd()
-{
-}
-
-void			TcpNetworkReader::onReadRoomJoinOk()
-{
-}
-
-void			TcpNetworkReader::onReadMessage()
-{
-}
+void			TcpNetworkReader::onReadConnectionAlreadyConnected(){}
+void			TcpNetworkReader::onReadConnectionInternalError(){}
+void			TcpNetworkReader::onReadConnectionOk(){}
+void			TcpNetworkReader::onReadRoomCreateAlreadyExist(){}
+void			TcpNetworkReader::onReadRoomCreateInternalError(){}
+void			TcpNetworkReader::onReadRoomCreateOk(){}
+void			TcpNetworkReader::onReadRoomJoinNotFound(){}
+void			TcpNetworkReader::onReadRoomJoinIsFull(){}
+void			TcpNetworkReader::onReadRoomJoinBadPswd(){}
+void			TcpNetworkReader::onReadRoomJoinOk(){}
+void			TcpNetworkReader::onReadMessage(){}
 
 void			TcpNetworkReader::onReadGameStart()
 {
   _tcpListener->onGameStart();
 }
 
-void			TcpNetworkReader::onReadGameEnd()
+void			TcpNetworkReader::onReadGameEnd(){}
+void			TcpNetworkReader::onReadScore(){}
+void			TcpNetworkReader::onReadPlayerInfo(){}
+
+void			TcpNetworkReader::onRoomHostLeft()
 {
+  _tcpListener->onHostLeftRoom();
 }
 
-void			TcpNetworkReader::onReadScore()
+void			TcpNetworkReader::onDeleteRoom()
 {
-}
-
-void			TcpNetworkReader::onReadPlayerInfo()
-{
+  RtypeProtocol::Room	room;
+  
+  for (std::size_t i = 0; i < sizeof(room); i++)
+    {
+      reinterpret_cast<char *>(&room)[i] = _buffer.front();
+      _buffer.pop_front();
+    }
+  _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
+  _tcpListener->onDeleteRoom(room);
 }
 
 void			TcpNetworkReader::setExpectedPacket(RtypeProtocol::Type packetType)
@@ -193,6 +171,8 @@ void			TcpNetworkReader::_initCallbacks()
   _callback[RtypeProtocol::T_GAMEEND]				= &TcpNetworkReader::onReadGameEnd;
   _callback[RtypeProtocol::T_SCORE]				= &TcpNetworkReader::onReadScore;
   _callback[RtypeProtocol::T_PLAYERINFO]			= &TcpNetworkReader::onReadPlayerInfo;
+  _callback[RtypeProtocol::T_ROOM_HOST_LEAVED]			= &TcpNetworkReader::onRoomHostLeft;
+  _callback[RtypeProtocol::T_ROOM_DELETE]			= &TcpNetworkReader::onDeleteRoom;
 }
 
 TcpNetworkReader::~TcpNetworkReader() {}

@@ -32,8 +32,8 @@ private:
   sf::RenderWindow*		_window;
   Util::Mutex			_mutex;
 
-  Util::Mutex			_mutexGameRunning;
-  bool				_isGameRunning;
+  // Util::Mutex			_mutexGameRunning;
+  // bool				_isGameRunning;
 
   // IUdpNetworkListener
 public:
@@ -49,7 +49,7 @@ public:
 
   //IGameListener
 public:
-  virtual void	onKeyEvent(std::size_t);
+  virtual void	onKeyEvent(uint32_t);
 
   // ITcpNetworkListener
 public:
@@ -73,7 +73,9 @@ public:
   virtual void	onGameEnd(RtypeProtocol::EndGame);
   virtual void	onScore(RtypeProtocol::Score);
   virtual void	onMessage(RtypeProtocol::Message);
-
+  virtual void	onHostLeftRoom();
+  virtual void	onDeleteRoom(RtypeProtocol::Room);
+  
   // IMenuListener
 public:
   virtual bool	onConnectFromMenu(const std::string&);
@@ -83,9 +85,11 @@ public:
   virtual bool	onUserReadyFromMenu();
   virtual bool	onUserMessageFromMenu(RtypeProtocol::Message);
   virtual bool	onCreateRoomFromMenu(const std::string&, const std::string&);
+  virtual bool	letStart();
 
 public:
   void		run();
+  void		setGameRunning(bool);
 
 public:
   RtypeClient();

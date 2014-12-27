@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 #include "GameView.hh"
@@ -25,7 +24,7 @@ GameView::~GameView()
     delete (*itBack);
 }
 
-void	GameView::run(sf::RenderWindow& window, Util::Mutex *)
+void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
 {
   size_t	mask;
 
@@ -53,9 +52,9 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *)
       window.clear();
       this->update();
       this->render(window);
-      //mutex->unlock();
+      mutex->unlock();
       window.display();
-      //mutex->lock();
+      mutex->lock();
     }
   SoundManager::Stop();
 }
