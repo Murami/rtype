@@ -7,14 +7,16 @@ namespace Game
 {
   class Entity;
 
-  class CoreEvent::Spawn
+  class CoreEvent::Spawn : public CoreEvent
   {
   public:
     Entity&	entity;
 
   public:
     Spawn(Entity& p_entity);
-    ~Spawn();
+    virtual ~Spawn() {}
+
+    void	dispatch(const Core& core, CoreEventReceiver& receiver) const;
   };
 };
 

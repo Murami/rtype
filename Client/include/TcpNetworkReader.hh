@@ -32,8 +32,6 @@ public:
 
   int			run(Util::Mutex*);
 
-  void			setTcpListener(ITcpNetworkListener*);
-
   void			setExpectedPacket(RtypeProtocol::Type packetType);
   RtypeProtocol::Type	getExpectedPacket();
 

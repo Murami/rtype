@@ -26,6 +26,7 @@ namespace Network
   {
     SOCKADDR_IN to;
 
+    std::cout << "send something to " << host << ":" << port << std::endl;
     to.sin_addr.s_addr = inet_addr(host.c_str());
     to.sin_port = htons(port);
     to.sin_family = AF_INET;

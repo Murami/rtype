@@ -5,6 +5,7 @@
 
 #include "Observer.hpp"
 #include <algorithm>
+#include <iostream>
 
 namespace Util
 {
@@ -21,7 +22,7 @@ namespace Util
   template<class T, class MsgT>
   void	Observable<T, MsgT>::addObserver(Observer<T, MsgT>& observer)
   {
-    if (std::find(_observers.begin(), _observers.end(), &observer) != _observers.end())
+    if (std::find(_observers.begin(), _observers.end(), &observer) == _observers.end())
       _observers.push_back(&observer);
   }
 
@@ -53,6 +54,7 @@ namespace Util
       {
 	Observer<T, MsgT>& observer = *(*it);
 
+	std::cout << "test" << std::endl;
 	it++;
 	observer.update(*static_cast<T*>(this), msg);
       }

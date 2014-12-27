@@ -1,6 +1,8 @@
 #include "Game/Core.hh"
 #include "Game/Entity.hh"
 #include "Game/Player.hh"
+#include "Game/CoreEventSpawn.hh"
+#include <iostream>
 
 namespace Game
 {
@@ -29,9 +31,12 @@ namespace Game
 
   Player&	Core::addPlayer()
   {
-    Player*	player = new Player(*this);
+    Player*			player = new Player(*this);
+    const CoreEvent::Spawn&	spawn = CoreEvent::Spawn(*player);
 
+    std::cout << "Add new player" << std::endl;
     _entities.push_back(player);
+    notifyObservers(spawn);
     return (*player);
   }
 

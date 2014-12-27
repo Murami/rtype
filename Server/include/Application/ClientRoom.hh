@@ -22,6 +22,8 @@ namespace Application
     ClientRoom(Room& room, ClientServer& clientserver, bool host);
     ~ClientRoom();
 
+    void		addToGame();
+
     void		notify(const RtypeProtocol::State* state);
     void		notify(const RtypeProtocol::EntityRequest* request);
 

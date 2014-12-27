@@ -21,6 +21,7 @@ namespace Application
     _pass = pass;
     _id = _generator.generate();
     _gamestarted = false;
+    std::cout << "add observer to core" << std::endl;
     _game.addObserver(*this);
   }
 
@@ -54,7 +55,15 @@ namespace Application
   void	Room::receive(const Game::Core& /*core*/,
 		      const Game::CoreEvent::Spawn& event)
   {
+    RtypeProtocol::Spawn       spawn;
+
+    std::cout << "Room::receive <CoreEvent::Spawn>" << std::endl;
     event.entity.addObserver(*this);
+    spawn.id = event.entity.getId();
+    spawn.type = RtypeProtocol::T_PLAYER_1; // A GERER !!
+    spawn.position.x = event.entity.getPosition().x;
+    spawn.position.y = event.entity.getPosition().y;
+    sendUdp(&spawn, sizeof(spawn), RtypeProtocol::T_SPAWN);
   }
 
   void	Room::receive(const Game::Core& /*core*/,
@@ -161,11 +170,21 @@ namespace Application
     return (true);
   }
 
-  void			Room::sendUdp(const void* data, size_t size)
+  void			Room::sendUdp(const void* data, size_t size, int type)
   {
+    char				buffer[4096];
+    RtypeProtocol::Header		header;
     std::list<ClientRoom*>::iterator	it;
 
+    header.type = type;
+    header.data_size = size;
+    std::memcpy(buffer, &header, sizeof(header));
+    std::memcpy(buffer, data, size);
+    std::cout << "Room::sendUdp" << std::endl;
     for (it = _clients.begin(); it != _clients.end(); it++)
-      (*it)->getClientServer().sendUdp(data, size);
+      {
+	std::cout << "loop" << std::endl;
+	(*it)->getClientServer().sendUdp(buffer, size + sizeof(header));
+      }
   }
 };
