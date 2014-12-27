@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstring>
-#include <arpa/inet.h>
+#if defined(__linux__) || defined(__APPLE__)
+# include <arpa/inet.h>
+#endif
 
 #include "UdpConnection.hh"
 #include "RtypeProtocol.hh"
