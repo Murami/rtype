@@ -5,6 +5,7 @@
 #include "UdpConnection.hh"
 #include "RtypeProtocol.hh"
 #include "UdpNetworkReader.hh"
+#include "IUdpNetworkListener.hh"
 
 UdpNetworkReader::UdpNetworkReader(UdpConnection& connection) :
   _udpConnection(connection)
@@ -49,7 +50,16 @@ void	UdpNetworkReader::onReadData(char *buffer)
       break;
     case RtypeProtocol::T_SPAWN:
       std::cout << "[UDP]: Received spawn info" << std::endl;
-      //_listener->onSpawn();
+      RtypeProtocol::Spawn spawn;
+      std::memcpy(&spawn, &buffer[sizeof(header)], sizeof(spawn));
+      spawn.id = ntohl(spawn.id);
+      spawn.type = ntohl(spawn.type);
+      spawn.position.x = ntohl(spawn.position.x);
+      spawn.position.y = ntohl(spawn.position.y);
+      spawn.position.orientation = ntohl(spawn.position.orientation);
+      spawn.position.state = ntohl(spawn.position.state);
+      spawn.life = ntohl(spawn.life);
+      _listener->onSpawn(spawn);
       break;
     case RtypeProtocol::T_EVENT:
       std::cout << "[UDP]: Received event info" << std::endl;

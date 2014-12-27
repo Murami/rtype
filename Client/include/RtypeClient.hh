@@ -36,7 +36,7 @@ private:
 public:
   virtual void	onPlayerInfo();
   virtual void	onPosition();
-  virtual void	onSpawn();
+  virtual void	onSpawn(RtypeProtocol::Spawn);
   virtual void	onDestruction();
   virtual void	onLife();
   virtual void	onBonus();

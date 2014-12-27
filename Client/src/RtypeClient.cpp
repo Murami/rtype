@@ -102,8 +102,73 @@ void	RtypeClient::onPosition()
 {
 }
 
-void	RtypeClient::onSpawn()
+void	RtypeClient::onSpawn(RtypeProtocol::Spawn spawn)
 {
+  RtypeProtocol::Entity entity;
+  switch (spawn.type)
+    {
+    case 1:
+      entity = RtypeProtocol::T_CAMERA;
+      break;
+    case 2:
+      entity = RtypeProtocol::T_PLAYER_1;
+      break;
+    case 3:
+      entity = RtypeProtocol::T_PLAYER_2;
+      break;
+    case 4:
+      entity = RtypeProtocol::T_PLAYER_3;
+      break;
+    case 5:
+      entity = RtypeProtocol::T_PLAYER_4;
+      break;
+    case 6:
+      entity = RtypeProtocol::T_MONSTER_LITTLE;
+      break;
+    case 7:
+      entity = RtypeProtocol::T_MONSTER_BIG;
+      break;
+    case 10:
+      entity = RtypeProtocol::T_WALL_1;
+      break;
+    case 11:
+      entity = RtypeProtocol::T_WALL_2;
+      break;
+    case 12:
+      entity = RtypeProtocol::T_WALL_3;
+      break;
+    case 13:
+      entity = RtypeProtocol::T_WALL_4;
+      break;
+    case 14:
+      entity = RtypeProtocol::T_BONUS_1;
+      break;
+    case 15:
+      entity = RtypeProtocol::T_BONUS_2;
+      break;
+    case 16:
+      entity = RtypeProtocol::T_BONUS_3;
+      break;
+    case 17:
+      entity = RtypeProtocol::T_BONUS_4;
+      break;
+    case 18:
+      entity = RtypeProtocol::T_MISSILE_FRIENDLY_LITTLE;
+      break;
+    case 19:
+      entity = RtypeProtocol::T_MISSILE_FRIENDLY_BIG;
+      break;
+    case 20:
+      entity = RtypeProtocol::T_MISSILE_ENNEMY_LITTLE;
+      break;
+    case 21:
+      entity = RtypeProtocol::T_MISSILE_ENNEMY_BIG;
+      break;
+    default:
+      break;
+    }
+  _gameController->spawnEntity(spawn.id, entity);
+  _gameController->updateEntityPosition(spawn.id, spawn.position);
 }
 
 void	RtypeClient::onDestruction()
