@@ -42,7 +42,7 @@ void		RtypeClient::run()
 
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
 					       sf::VideoMode::getDesktopMode().height),
-				 "Rtype");//, sf::Style::Fullscreen);
+				 "Rtype", sf::Style::Fullscreen);
 
   _window->setKeyRepeatEnabled(false);
 
@@ -247,8 +247,6 @@ void	RtypeClient::onPing(RtypeProtocol::PingPong)
 void	RtypeClient::onGameStart()
 {
   _menuView->setGameRunning(true);
-  // _menuView->stop();
-  // _gameView->run(*_window, &_mutex);
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
@@ -321,7 +319,7 @@ bool	RtypeClient::onRoomConnectFromMenu(int id, const std::string& pass)
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   header.type = RtypeProtocol::T_ROOM_JOIN;
   header.data_size = sizeof(room);
-  room.id = id;
+  room.id = htonl(id);
   strcpy(reinterpret_cast<char *>(room.pass_md5), pass.c_str());
   std::memcpy(&buffer[0], &header, sizeof(header));
   std::memcpy(&buffer[sizeof(header)], &room, sizeof(room));
@@ -334,7 +332,7 @@ bool	RtypeClient::onRoomLeaveFromMenu()
   RtypeProtocol::Header header;
 
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
-  header.type = RtypeProtocol::T_ROOM_EXIT;
+  header.type = htonl(RtypeProtocol::T_ROOM_EXIT);
   header.data_size = 0;
   _tcpConnection->write(&header, sizeof(header));
   return (true);

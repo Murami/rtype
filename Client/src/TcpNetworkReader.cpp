@@ -89,16 +89,50 @@ void			TcpNetworkReader::onReadPing()
   _tcpListener->onPing(ping);
 }
 
-void			TcpNetworkReader::onReadConnectionAlreadyConnected(){}
+void			TcpNetworkReader::onReadConnectionAlreadyConnected()
+{
+  // Have to send to the view that this user is already connected
+}
+
 void			TcpNetworkReader::onReadConnectionInternalError(){}
-void			TcpNetworkReader::onReadConnectionOk(){}
-void			TcpNetworkReader::onReadRoomCreateAlreadyExist(){}
+
+void			TcpNetworkReader::onReadConnectionOk()
+{
+  // Have to send to the view that the screen can display the connected menu
+}
+
+void			TcpNetworkReader::onReadRoomCreateAlreadyExist()
+{
+  // Have to send to the view that this room already exists
+}
+
 void			TcpNetworkReader::onReadRoomCreateInternalError(){}
-void			TcpNetworkReader::onReadRoomCreateOk(){}
-void			TcpNetworkReader::onReadRoomJoinNotFound(){}
-void			TcpNetworkReader::onReadRoomJoinIsFull(){}
-void			TcpNetworkReader::onReadRoomJoinBadPswd(){}
-void			TcpNetworkReader::onReadRoomJoinOk(){}
+
+void			TcpNetworkReader::onReadRoomCreateOk()
+{
+  // Have to send to the view that the creation of the room is successful
+}
+
+void			TcpNetworkReader::onReadRoomJoinNotFound()
+{
+  // Have to send to the view that the room is not found
+}
+
+void			TcpNetworkReader::onReadRoomJoinIsFull()
+{
+  // Have to send to the view that there is no slot available in that room
+}
+
+void			TcpNetworkReader::onReadRoomJoinBadPswd()
+{
+  // Have to send to the view that the password is not correct
+}
+
+void			TcpNetworkReader::onReadRoomJoinOk()
+{
+  // Have to send to the view that joining the room is successful
+}
+
 void			TcpNetworkReader::onReadMessage(){}
 
 void			TcpNetworkReader::onReadGameStart()
@@ -106,9 +140,20 @@ void			TcpNetworkReader::onReadGameStart()
   _tcpListener->onGameStart();
 }
 
-void			TcpNetworkReader::onReadGameEnd(){}
-void			TcpNetworkReader::onReadScore(){}
-void			TcpNetworkReader::onReadPlayerInfo(){}
+void			TcpNetworkReader::onReadGameEnd()
+{
+  // Have to send to the view that the game ended
+}
+
+void			TcpNetworkReader::onReadScore()
+{
+  // Have to notify the score to the view
+}
+
+void			TcpNetworkReader::onReadPlayerInfo()
+{
+  // Have to notify the player info to the view
+}
 
 void			TcpNetworkReader::onRoomHostLeft()
 {
