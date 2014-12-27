@@ -291,6 +291,7 @@ bool	RtypeClient::onConnectFromMenu(const std::string & login)
   header.type = RtypeProtocol::T_CONNECTION;
   header.data_size = sizeof(RtypeProtocol::User);
   strcpy(reinterpret_cast<char *>(&user.username[0]), login.c_str());
+  //user.port = _udpConnection->getLocalPort();
   std::memcpy(&buffer[0], &header, sizeof(header));
   std::memcpy(&buffer[sizeof(header)], &user, sizeof(user));
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(user));
