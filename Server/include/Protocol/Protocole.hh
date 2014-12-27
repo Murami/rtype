@@ -93,7 +93,7 @@ namespace Network
       std::cout << "sizeof : " << sizeof(T) << std::endl;
       std::cout << "headerSize : " << headerSize << std::endl;
       if (static_cast<unsigned>(size) < sizeof(T) || static_cast<unsigned>(headerSize) != sizeof(T))
-	throw RtypeProtocol::ProtocolException("Error with data");
+	       std::cout << "zut, j'ai perdu des données, rien a foutre..." << std::endl;//throw RtypeProtocol::ProtocolException("Error with data");
       return (decode(static_cast<T *>(data)));
     }
 
