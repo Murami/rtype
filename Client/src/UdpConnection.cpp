@@ -44,7 +44,7 @@ bool			UdpConnection::connect()
 {
   sf::Socket::Status ret;
 
-  if ((ret = _socket.bind(_conf.getPortUdp())) != sf::Socket::Done)
+  if ((ret = _socket.bind(sf::Socket::AnyPort)) != sf::Socket::Done)
     {
       switch (ret)
   	{
@@ -69,7 +69,7 @@ bool			UdpConnection::write(void *data, std::size_t count)
 {
   sf::Socket::Status ret;
 
-  //std::cout << _conf.getPortUdp() << std::endl;
+  // std::cout << _conf.getPortUdp() << std::endl;
   if ((ret = _socket.send(data, count, _conf.getIp(), _conf.getPortUdp())) != sf::Socket::Done)
     {
       switch (ret)
@@ -88,6 +88,7 @@ bool			UdpConnection::write(void *data, std::size_t count)
 	}
       return (false);
     }
+  
   return (true);
 }
 

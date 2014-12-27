@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <arpa/inet.h>
 
 #include "UdpConnection.hh"
 #include "RtypeProtocol.hh"
@@ -34,6 +35,7 @@ void	UdpNetworkReader::onReadData(char *buffer)
 
   std::cout << "\033[41mreading data UDP\033[0m" << std::endl;
   std::memcpy(&header, buffer, sizeof(header));
+  header.type = ntohl(header.type);
   switch (header.type)
     {
     case RtypeProtocol::T_MAPCHANGE:
