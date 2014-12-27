@@ -2,6 +2,8 @@
 
 #include	"RtypeClient.hh"
 
+#include <cstddef>
+
 int		main()
 {
     std::cout << "Sizeof State : " << sizeof(RtypeProtocol::State) << std::endl;
