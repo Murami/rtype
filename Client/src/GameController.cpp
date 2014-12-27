@@ -14,10 +14,26 @@ GameController::GameController(GameView& view)
 
 GameController::~GameController()
 {
-
+  
 }
 
-void	GameController::spawnEntity(int id, RtypeProtocol::Entity entity)
+void	GameController::spawnEntity(RtypeProtocol::Spawn spawn)
+{
+  _spawnList.push_back(spawn);
+}
+
+void	GameController::updateSpawnList()
+{
+  std::list<RtypeProtocol::Spawn>::iterator	it;
+
+  for (it = _spawnList.begin(); it != _spawnList.end(); it++)
+    {
+      createEntity(it->id, static_cast<RtypeProtocol::Entity>(it->type));
+      updateEntityPosition(it->id, it->position);
+    }
+}
+
+void	GameController::createEntity(int id, RtypeProtocol::Entity entity)
 {
   IObject *obj = NULL;
 

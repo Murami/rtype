@@ -15,6 +15,12 @@
 class GameObservable {
 public:
 
+  void	updateSpawn() const
+  {
+    for (std::set<IGameObserver *>::const_iterator it = _listObservers.begin(); it != _listObservers.end(); it++)
+      (*it)->updateSpawnList();
+  }
+
   void notify(size_t mask) const
     {
         for (std::set<IGameObserver *>::const_iterator it = _listObservers.begin(); it != _listObservers.end(); it++)

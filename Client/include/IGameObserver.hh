@@ -13,7 +13,8 @@
 
 class IGameObserver {
 public:
-  virtual void update(size_t) = 0;
+  virtual void	updateSpawnList() = 0;
+  virtual void	update(size_t) = 0;
 
  public:
     virtual ~IGameObserver() {}
