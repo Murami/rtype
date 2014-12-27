@@ -38,7 +38,7 @@ void Monster::update(sf::Vector2<float> pos)
     }
   if (_animationMap.find(_anim) != _animationMap.end())
     _sprite.setTextureRect(_animationMap[_anim]);
-  if (_anim == _animationMap.size())
+  if (_anim >= _animationMap.size())
     _anim = 0;
 }
 
