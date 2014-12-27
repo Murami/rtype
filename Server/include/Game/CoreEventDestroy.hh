@@ -9,11 +9,11 @@ namespace Game
 
   class CoreEvent::Destroy
   {
-  private:
-    Entity&	_entity;
+  public:
+    Entity&	entity;
 
   public:
-    Destroy(Entity& entity);
+    Destroy(Entity& p_entity);
     ~Destroy();
   };
 };

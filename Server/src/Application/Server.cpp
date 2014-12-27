@@ -126,14 +126,16 @@ namespace Application
 
   void	Server::addClientRoom(ClientRoom* clientroom)
   {
-    std::string	ip = clientroom->getClientServer().getIP();
+    std::string		ip = clientroom->getClientServer().getIP();
+    unsigned short	port = clientroom->getClientServer().getPort();
 
-    _clientsroom[ip] = clientroom;
+    _clientsroom[Network::EndPoint(port, ip)] = clientroom;
   }
 
   void	Server::deleteClientRoom(ClientRoom* clientroom)
   {
-    _clientsroom.erase(clientroom->getClientServer().getIP());
+    _clientsroom.erase(Network::EndPoint(clientroom->getClientServer().getPort(),
+					 clientroom->getClientServer().getIP()));
   }
 
   void	Server::sendAllRoomInfos(ClientServer* clientserver) const
@@ -172,31 +174,33 @@ namespace Application
       }
   }
 
-  void	Server::notify(int const &, const RtypeProtocol::State* state, const unsigned int &, const std::string& host)
+  void	Server::notify(int const &, const RtypeProtocol::State* state,
+		       const unsigned int& port, const std::string& host)
   {
     std::cout << "UDP state" << std::endl;
-    if (_clientsroom.find(host) == _clientsroom.end())
-      throw (std::runtime_error("Invalid peer")); // TODO a catch et faire une exception server
-    _clientsroom[host]->notify(state);
+    _clientsroom[Network::EndPoint(port, host)]->notify(state);
   }
 
-  void	Server::notify(int const &, const RtypeProtocol::EntityRequest* request, const unsigned int &, const std::string& host)
+  void	Server::notify(int const &, const RtypeProtocol::EntityRequest* request,
+		       const unsigned int& port, const std::string& host)
   {
     std::cout << "UDP request" << std::endl;
-    if (_clientsroom.find(host) == _clientsroom.end())
-      throw (std::runtime_error("Invalid peer")); // TODO a catch et faire une exception server
-    _clientsroom[host]->notify(request);
+    _clientsroom[Network::EndPoint(port, host)]->notify(request);
   }
 
-  bool	Server::isValidIp(std::string ip)
+  void	Server::sendUdp(const ClientServer& client,
+			const void* data, size_t size)
   {
-    if (_clientsroom.find(ip) != _clientsroom.end())
-      return true;
-    return false;
+    _udpSocket.sendDataTo(data,
+			  size,
+			  client.getPort(),
+			  client.getIP());
   }
 
-  void	Server::addClientPort(std::string ip, unsigned int port)
+  bool	Server::isValidEndpoint(const std::string& host, unsigned short port) const
   {
-    _ports[ip] = port;
+    if (_clientsroom.find(Network::EndPoint(port, host)) != _clientsroom.end())
+	return (true);
+    return (false);
   }
 }

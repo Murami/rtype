@@ -28,9 +28,6 @@ namespace Util
     bool	hasChanged() const;
 
     void	notifyObservers(const MsgT& msg);
-
-    // virtual T&		get() = 0;
-    // virtual const T&	get() const = 0;
   };
 };
 

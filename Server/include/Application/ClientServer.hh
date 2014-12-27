@@ -52,14 +52,17 @@ namespace Application
     Server&		getServer() const;
     State		getState() const;
     const std::string&	getIP() const;
+    unsigned short	getPort() const;
+    void		sendUdp(const void* data, size_t size);
 
   private:
-    Server &			_server;
-    Network::TcpSocket &	_socket;
+    Server&			_server;
+    Network::TcpSocket&		_socket;
     State			_state;
     ClientRoom*			_clientroom;
     std::string			_name;
     Network::Timer		_timer;
+    unsigned short		_udpport;
   };
 
 } /* namespace Application */

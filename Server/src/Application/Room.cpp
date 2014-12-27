@@ -2,6 +2,14 @@
 #include "Application/ClientServer.hh"
 #include "Application/ClientRoom.hh"
 #include "Application/Server.hh"
+#include "Game/CoreEventSpawn.hh"
+#include "Game/CoreEventDestroy.hh"
+#include "Game/EntityEventMove.hh"
+#include "Game/EntityEventLife.hh"
+
+// NEED -> death , hit, bonus
+
+// TODO observe the player !!!!!!
 
 namespace Application
 {
@@ -13,6 +21,7 @@ namespace Application
     _pass = pass;
     _id = _generator.generate();
     _gamestarted = false;
+    _game.addObserver(*this);
   }
 
   Room::~Room()
@@ -32,21 +41,26 @@ namespace Application
     timer.setTimeout(duration_milli(20) - timediff);
   }
 
-  void	Room::receive(const Game::Entity& /*entity*/, const Game::EntityEvent::Move& /*event*/)
-  {
-
-  }
-
-  void	Room::receive(const Game::Entity& /*entity*/, const Game::EntityEvent::Life& /*event*/)
+  void	Room::receive(const Game::Entity& /*entity*/,
+		      const Game::EntityEvent::Move& /*event*/)
   {
   }
 
-  void	Room::receive(const Game::Core& /*core*/, const Game::CoreEvent::Spawn& /*event*/)
+  void	Room::receive(const Game::Entity& /*entity*/,
+		      const Game::EntityEvent::Life& /*event*/)
   {
   }
 
-  void	Room::receive(const Game::Core& /*core*/, const Game::CoreEvent::Destroy& /*event*/)
+  void	Room::receive(const Game::Core& /*core*/,
+		      const Game::CoreEvent::Spawn& event)
   {
+    event.entity.addObserver(*this);
+  }
+
+  void	Room::receive(const Game::Core& /*core*/,
+		      const Game::CoreEvent::Destroy& event)
+  {
+    event.entity.deleteObserver(*this);
   }
 
   bool	Room::testConnection(const std::string& password) const
@@ -145,5 +159,13 @@ namespace Application
 	  return (false);
       }
     return (true);
+  }
+
+  void			Room::sendUdp(const void* data, size_t size)
+  {
+    std::list<ClientRoom*>::iterator	it;
+
+    for (it = _clients.begin(); it != _clients.end(); it++)
+      (*it)->getClientServer().sendUdp(data, size);
   }
 };

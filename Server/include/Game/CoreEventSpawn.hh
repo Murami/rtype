@@ -10,10 +10,10 @@ namespace Game
   class CoreEvent::Spawn
   {
   public:
-    Entity&	_entity;
+    Entity&	entity;
 
   public:
-    Spawn(Entity& entity);
+    Spawn(Entity& p_entity);
     ~Spawn();
   };
 };

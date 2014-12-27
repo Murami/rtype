@@ -2,8 +2,8 @@
 
 namespace Game
 {
-  CoreEvent::Spawn::Spawn(Entity& entity) :
-    _entity(entity)
+  CoreEvent::Spawn::Spawn(Entity& p_entity) :
+    entity(p_entity)
   {
   }
 

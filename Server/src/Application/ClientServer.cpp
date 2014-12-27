@@ -96,6 +96,8 @@ namespace Application
 	  throw ClientException("CONNECTION PROTOCOL ERROR");
 
 	Util::stringncopy(_name, user->username, USERNAME_SIZE);
+	_udpport = user->port;
+
 	_state = T_CONNECTED;
 	this->sendHeader(RtypeProtocol::T_CONNECTION_OK);
 	_server.sendAllRoomInfos(this);
@@ -307,5 +309,15 @@ namespace Application
   const std::string&	ClientServer::getIP() const
   {
     return (_socket.getIP());
+  }
+
+  unsigned short	ClientServer::getPort() const
+  {
+    return (_udpport);
+  }
+
+  void			ClientServer::sendUdp(const void* data, size_t size)
+  {
+    _server.sendUdp(*this, data, size);
   }
 } /* namespace Application */

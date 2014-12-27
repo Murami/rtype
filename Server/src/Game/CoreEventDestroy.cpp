@@ -2,8 +2,8 @@
 
 namespace Game
 {
-  CoreEvent::Destroy::Destroy(Entity& entity) :
-    _entity(entity)
+  CoreEvent::Destroy::Destroy(Entity& p_entity) :
+    entity(p_entity)
   {
   }
 

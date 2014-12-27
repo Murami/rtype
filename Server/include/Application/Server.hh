@@ -12,6 +12,7 @@
 #include "Protocole.hh"
 #include "Room.hh"
 #include "ProtocoleObserver.hh"
+#include "EndPoint.hh"
 
 namespace Application
 {
@@ -51,8 +52,9 @@ namespace Application
     void				sendAllRoomInfos(ClientServer* server) const;
     void				sendRoomToAllClients(const Room* room, bool alive);
     void				deleteRoom(Room* room);
-    bool				isValidIp(std::string ip);
-    void				addClientPort(std::string ip, unsigned int port);
+    bool				isValidEndpoint(const std::string& host, unsigned short port) const;
+    void				sendUdp(const ClientServer& client,
+						const void* data, size_t size);
 
   private:
     Network::Service &			_service;
@@ -63,11 +65,10 @@ namespace Application
     Network::UdpSocket			_udpSocket;
 
     std::list<ClientServer*>		_clients;
-    std::map<std::string, ClientRoom*>	_clientsroom;
-    std::map<unsigned int, Room*>	_rooms;
-    std::map<std::string, unsigned int> _ports;
 
-    Network::Timer			_timer1;
+    std::map<Network::EndPoint, ClientRoom*>	_clientsroom;
+    std::map<unsigned int, Room*>		_rooms;
+    Network::Timer				_timer1;
   };
 
 } /* namespace Application */

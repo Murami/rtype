@@ -84,6 +84,7 @@ namespace Network
 
     for (int i = 0; i != USERNAME_SIZE; i++)
       userEncoded.username[i] = hton(user->username[i]);
+    userEncoded.port = hton(user->port);
     return (new packet(&userEncoded, sizeof(userEncoded)));
   }
   packet	*Protocole::pack(const RtypeProtocol::Message *msg) const
@@ -183,6 +184,7 @@ namespace Network
   {
     for (int i = 0; i != USERNAME_SIZE; i++)
       user->username[i] = ntoh(user->username[i]);
+    user->port = ntoh(user->port);
     return (user);
   }
   RtypeProtocol::Message	*Protocole::decode(RtypeProtocol::Message *msg) const
@@ -541,26 +543,30 @@ namespace Network
 
   bool	ProtocoleUdp::unpack(UdpSocket *socket, IUdpProtocoleObserver *obs) const
   {
-    char  buffer[4096];
+    char		buffer[4096];
+    std::string		host;
+    unsigned int	port = 0;
+    int			size = 0;
+    int			datasize = 0;
+
     std::memset(buffer, 0, 4096);
-    std::string host;
-    unsigned int port = 0;
-    int size = 0;
-    int datasize = 0;
 
     size = socket->recvDataFrom(buffer, 4096, port, host);
-    if (!_server.isValidIp(host))
-      throw RtypeProtocol::ProtocolException("unknown ip");
-    else
-      _server.addClientPort(host, port);
+    if (!_server.isValidEndpoint(host, port))
+      {
+	return (false);//ignore the request
+	// throw RtypeProtocol::ProtocolException("unknown ip");
+      }
     if (static_cast<unsigned>(size) < sizeof(RtypeProtocol::Header))
       throw RtypeProtocol::ProtocolException("Insufisiant Udp data (header)");
 
     RtypeProtocol::Header	*header;
     void			*dataAddr = NULL;
+
     header = reinterpret_cast<RtypeProtocol::Header *>(buffer);
     decode(header);
     datasize = size - sizeof(RtypeProtocol::Header);
+
     if (static_cast<unsigned>(datasize) < header->data_size)
       throw RtypeProtocol::ProtocolException("Insufisiant Udp data (data)");
     if (header->data_size > 0)

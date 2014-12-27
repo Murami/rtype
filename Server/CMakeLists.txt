@@ -5,7 +5,7 @@ set (CTEST_CUSTOM_MAXIMUM_NUMBER_OF_ERRORS 5)
 if(WIN32)
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -W -Wall -Wextra -std=c++11 -ggdb -g3 -mno-ms-bitfields")
 elseif(UNIX)
-  SET(CMAKE_CXX_FLAGS "-W -Wall -Wextra -std=c++11 -ggdb -g3")
+  SET(CMAKE_CXX_FLAGS "-W -Wall -Wextra -std=c++11 -ggdb -g3 -fmax-errors=5")
 endif()
 
 include_directories(include)
@@ -21,6 +21,7 @@ add_executable(
   src/Network/Acceptor.cpp
   src/Network/UdpSocket.cpp
   src/Network/Timer.cpp
+  src/Network/EndPoint.cpp
   src/Game/CollisionEvent.cpp
   src/Game/CoreEventDestroy.cpp
   src/Game/DestroyableSet.cpp
@@ -99,6 +100,7 @@ add_executable(
   include/Network/TimerObserver.hh
   include/Network/UdpSocket.hh
   include/Network/UdpSocketObserver.hh
+  include/Network/EndPoint.hh
   include/Util/Buffer.hh
   include/Util/Lock.hh
   include/Util/Mutex.hh
