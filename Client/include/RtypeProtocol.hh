@@ -127,6 +127,7 @@ static const int8_t proto_name[] = "RType";
 
   PACKED(User {
       uint8_t	username[USERNAME_SIZE];
+      uint16_t	port;
     };)
 
   PACKED(Message {
