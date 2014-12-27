@@ -33,7 +33,7 @@ namespace Application
       _server.deleteClientServer(this);
       return ;
     }
-    std::cout << "ClientServer::onRead()" << std::endl;
+    // std::cout << "ClientServer::onRead()" << std::endl;
     _server.getService().addReadTcp(socket);
     try
       {
@@ -130,7 +130,7 @@ namespace Application
   {
     if (type == RtypeProtocol::T_ROOM_JOIN)
       {
-	std::cout << "room join" << std::endl;
+	std::cout << "##### ROOM JOIN #####" << std::endl;
 
 	if (_state != T_CONNECTED)
 	  throw ClientException("Join in non-connected state");
@@ -142,18 +142,22 @@ namespace Application
 
 	if (room == NULL)			// NOT FOUND
 	  {
+	    std::cout << "-> not found" << std::endl;
 	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_NOT_FOUND);
 	  }
 	else if (!room->testConnection(pass))	// BAD PASS
 	  {
+	    std::cout << "-> bad password" << std::endl;
 	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_BAD_PSWD);
 	  }
 	else if (room->isFull())		// IS FULL
 	  {
+	    std::cout << "-> is full" << std::endl;
 	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_IS_FULL);
 	  }
 	else if (room->isGameStarted())		// GAME ALREADY STARTED
 	  {
+	    std::cout << "-> started " << std::endl;
 	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_STARTED);
 	  }
 	else					// OK
@@ -213,12 +217,12 @@ namespace Application
 	std::cout << "ready" << std::endl;
 
 	if (_state != T_INROOM)
-	  throw ClientException("");
+	  throw ClientException("Not in room");
 	_state = T_INGAME;
 	if (_clientroom->getRoom()->isReady())
 	  {
 	    _clientroom->getRoom()->startGame();
-	    this->sendHeader(RtypeProtocol::T_GAMESTART);
+	    _clientroom->getRoom()->sendGameStart();
 	  }
 	_clientroom->addToGame();
       }
@@ -227,7 +231,7 @@ namespace Application
 	std::cout << "room exit" << std::endl;
 
 	if (_state != T_INROOM) // TODO leave en jeu aussi ? ...
-	  throw ClientException("");
+	  throw ClientException("Not in a room");
 
 	Room*	room = _clientroom->getRoom();
 	bool	isHost = _clientroom->isHost();
@@ -237,11 +241,11 @@ namespace Application
 	_state = T_CONNECTED;
 	this->sendHeader(RtypeProtocol::T_ROOM_EXIT_OK);
 	if (isHost)
-	    _server.sendRoomToAllClients(room, false);
-	  {
-	    _clientroom = NULL;
-	    _server.deleteRoom(room);
-	  }
+	{
+	  _server.sendRoomToAllClients(room, false);
+	  _clientroom = NULL;
+	  _server.deleteRoom(room);
+	}
       }
   }
 
