@@ -17,7 +17,7 @@ int main()
   }
   catch (const Network::NetworkException &e)
   {
-    std::cout << "Unable to start the server" << std::endl;
+    std::cout << "Unable to start the server + " << e.what() << std::endl;
   }
   return (0);
 }

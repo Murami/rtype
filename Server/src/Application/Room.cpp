@@ -55,15 +55,19 @@ namespace Application
   void	Room::receive(const Game::Core& /*core*/,
 		      const Game::CoreEvent::Spawn& event)
   {
-    RtypeProtocol::Spawn       spawn;
+    RtypeProtocol::Spawn	spawn;
+    Network::packet*		packed;
 
     std::cout << "Room::receive <CoreEvent::Spawn>" << std::endl;
     event.entity.addObserver(*this);
     spawn.id = event.entity.getId();
-    spawn.type = RtypeProtocol::T_PLAYER_1; // A GERER !!
+    spawn.type = RtypeProtocol::T_PLAYER_1; // A GERER
     spawn.position.x = event.entity.getPosition().x;
     spawn.position.y = event.entity.getPosition().y;
-    sendUdp(&spawn, sizeof(spawn), RtypeProtocol::T_SPAWN);
+    spawn.life = event.entity.getLife();
+    packed = _server.getProtocoleUdp().pack(&spawn);
+    sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_SPAWN);
+    delete (packed);
   }
 
   void	Room::receive(const Game::Core& /*core*/,
@@ -174,17 +178,20 @@ namespace Application
   {
     char				buffer[4096];
     RtypeProtocol::Header		header;
+    Network::packet*			packed;
     std::list<ClientRoom*>::iterator	it;
 
     header.type = type;
     header.data_size = size;
-    std::memcpy(buffer, &header, sizeof(header));
-    std::memcpy(buffer, data, size);
+    packed = _server.getProtocoleUdp().pack(&header);
+    std::memcpy(buffer, packed->getData(), sizeof(header));
+    std::memcpy(buffer + sizeof(header), data, size);
     std::cout << "Room::sendUdp" << std::endl;
     for (it = _clients.begin(); it != _clients.end(); it++)
       {
 	std::cout << "loop" << std::endl;
 	(*it)->getClientServer().sendUdp(buffer, size + sizeof(header));
       }
+      delete packed;
   }
 };

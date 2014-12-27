@@ -152,7 +152,6 @@ namespace Application
 	    _state = T_INROOM;
 	    _clientroom = room->addClient(this, false);
 	    _server.addClientRoom(_clientroom);
-	    _clientroom->addToGame();
 	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_OK);
 	  }
       }
@@ -213,6 +212,7 @@ namespace Application
 	    _clientroom->getRoom()->startGame();
 	    this->sendHeader(RtypeProtocol::T_GAMESTART);
 	  }
+	_clientroom->addToGame();
       }
     if (type == RtypeProtocol::T_ROOM_EXIT)
       {

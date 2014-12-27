@@ -203,4 +203,9 @@ namespace Application
 	return (true);
     return (false);
   }
+
+  const Network::ProtocoleUdp&	Server::getProtocoleUdp() const
+  {
+    return (_protocoleUdp);
+  }
 }

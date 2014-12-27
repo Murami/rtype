@@ -39,6 +39,7 @@ namespace Application
     // Get composite objects
     Network::Service &			getService() const;
     const Network::ProtocoleTcp &	getProtocole() const;
+    const Network::ProtocoleUdp&	getProtocoleUdp() const;
 
     // ClientServer
     void				deleteClientServer(ClientServer * client);
