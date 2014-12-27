@@ -309,7 +309,7 @@ namespace Network
   {
     RtypeProtocol::State encoded;
 
-    encoded.id = hton(state->id);
+    //encoded.id = hton(state->id);
     encoded.state = hton(state->state);
     return (new packet(&encoded, sizeof(encoded)));
   }
@@ -374,7 +374,7 @@ namespace Network
   }
   RtypeProtocol::State	*Protocole::decode(RtypeProtocol::State *state) const
   {
-    state->id = ntoh(state->id);
+    //state->id = ntoh(state->id);
     state->state = ntoh(state->state);
     return (state);
   }
@@ -448,7 +448,6 @@ namespace Network
 
   bool	ProtocoleTcp::unpack(const int &size, TcpSocket *socket, ITcpProtocoleObserver *obs) const
   {
-    std::cout << "TCP" << std::endl;
     char			buffer[4096];
     RtypeProtocol::Header*	header;
     void*			data;
@@ -542,7 +541,6 @@ namespace Network
 
   bool	ProtocoleUdp::unpack(UdpSocket *socket, IUdpProtocoleObserver *obs) const
   {
-    std::cout << "UDP" << std::endl;
     char  buffer[4096];
     std::memset(buffer, 0, 4096);
     std::string host;
