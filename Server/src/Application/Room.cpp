@@ -58,7 +58,7 @@ namespace Application
 
     event.entity.addObserver(*this);
     spawn.id = event.entity.getId();
-    spawn.type = 0; // A GERER
+    spawn.type = RtypeProtocol::T_PLAYER_1; // A GERER !!
     spawn.position.x = event.entity.getPosition().x;
     spawn.position.y = event.entity.getPosition().y;
     sendUdp(&spawn, sizeof(spawn), RtypeProtocol::T_SPAWN);
