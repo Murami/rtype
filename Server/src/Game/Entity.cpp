@@ -53,6 +53,8 @@ namespace Game
   void		Entity::setLife(int life)
   {
     _life = life;
+    if (_life <= 0)
+      kill();
   }
 
   int		Entity::getLife() const
@@ -106,11 +108,13 @@ namespace Game
   {
     const CollisionEvent&	collisionevent = CollisionEvent(*this);
 
+    std::cout << " .R1. ";
     event.getBody().notifyObservers(collisionevent);
   }
 
   void		Entity::receive(const Physic::Body& /*body*/, const CollisionEvent& event)
   {
+    std::cout << " .R2. " << std::endl;
     event._entity.onCollide(*this);
   }
 
