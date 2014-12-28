@@ -209,14 +209,7 @@ void	RtypeClient::onDisconnection()
 
 void	RtypeClient::onRoomInfo(RtypeProtocol::Room room)
 {
-  if (room.nb_connected_users >= 1)
-    _menuView->setPlayerLabe1(reinterpret_cast<char*>(room.connected_users[0]));
-  if (room.nb_connected_users >= 2)
-    _menuView->setPlayerLabe2(reinterpret_cast<char*>(room.connected_users[1]));
-  if (room.nb_connected_users >= 3)
-    _menuView->setPlayerLabe3(reinterpret_cast<char*>(room.connected_users[2]));
-  if (room.nb_connected_users >= 4)
-    _menuView->setPlayerLabe4(reinterpret_cast<char*>(room.connected_users[3]));
+  _menuController->setPlayersNameList(room);
 
   if (room.alive)
     _menuController->addToRoomList(room);

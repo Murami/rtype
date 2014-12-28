@@ -16,6 +16,12 @@ class	MenuObservable
 {
 public:
     
+  void	updatePlayerName()
+  {
+    for (std::set<IMenuObserver *>::const_iterator it = _list_observers.begin(); it != _list_observers.end(); it++)
+      (*it)->updatePlayerName();    
+  }
+
   void notify(RtypeEvent::eButton idCallback) const
     {
         for (std::set<IMenuObserver *>::const_iterator it = _list_observers.begin(); it != _list_observers.end(); it++)
