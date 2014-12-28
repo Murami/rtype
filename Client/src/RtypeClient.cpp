@@ -279,8 +279,9 @@ bool	RtypeClient::letStart()
   return (true);
 }
 
-void	RtypeClient::onGameEnd(RtypeProtocol::EndGame)
+void	RtypeClient::onGameEnd(RtypeProtocol::EndGame end)
 {
+  _gameController->gameEnd(end.victory);
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 

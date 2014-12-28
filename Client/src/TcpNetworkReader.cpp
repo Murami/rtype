@@ -23,7 +23,7 @@ int			TcpNetworkReader::run(Util::Mutex* mutex)
   char			buffer[4096];
   std::size_t		received;
   sf::Socket::Status	ret;
-  
+
   while (_tcpConnection.isReading() &&
 	 (ret = _tcpConnection.socket().receive(&buffer[0], 4096, received)) == sf::Socket::Done)
     {
@@ -153,7 +153,15 @@ void			TcpNetworkReader::onReadGameStart()
 
 void			TcpNetworkReader::onReadGameEnd()
 {
-  // Have to send to the view that the game ended
+  RtypeProtocol::EndGame end;
+
+  for (std::size_t i = 0; i < sizeof(end); i++)
+    {
+      reinterpret_cast<char *>(&end)[i] = _buffer.front();
+      _buffer.pop_front();
+    }
+  _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
+  _tcpListener->onGameEnd(end);
 }
 
 void			TcpNetworkReader::onReadScore()
@@ -174,7 +182,7 @@ void			TcpNetworkReader::onRoomHostLeft()
 void			TcpNetworkReader::onDeleteRoom()
 {
   RtypeProtocol::Room	room;
-  
+
   for (std::size_t i = 0; i < sizeof(room); i++)
     {
       reinterpret_cast<char *>(&room)[i] = _buffer.front();
