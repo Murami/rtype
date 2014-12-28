@@ -203,6 +203,8 @@ void	RtypeClient::onConnectionOk()
 void	RtypeClient::onDisconnection()
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
+  // ICI
+  _menuView->setGameRunning(false);
 }
 
 void	RtypeClient::onRoomInfo(RtypeProtocol::Room room)
