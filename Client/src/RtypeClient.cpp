@@ -100,8 +100,9 @@ void	RtypeClient::onPlayerInfo()
 {
 }
 
-void	RtypeClient::onPosition()
+void	RtypeClient::onPosition(RtypeProtocol::PositionEvent position)
 {
+  _gameController->updateEntityPosition(position.id, position.position);
 }
 
 void	RtypeClient::onSpawn(RtypeProtocol::Spawn spawn)

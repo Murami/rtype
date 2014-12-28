@@ -21,9 +21,10 @@ namespace Application
     _service.addReadUdp(_udpSocket);
     _service.addWriteUdp(_udpSocket);
 
-    _timer1.setObserver(this);
-    _timer1.setTimeout(Network::duration_millisecond(100));
-    _service.addTimeout(_timer1);
+    // TODO erase ce putain de timer1 qui ser a rien
+    // _timer1.setObserver(this);
+    // _timer1.setTimeout(Network::duration_millisecond(100));
+    // _service.addTimeout(_timer1);
   }
 
   Server::~Server()
@@ -79,7 +80,6 @@ namespace Application
   {
     _protocoleUdp.onRead(&socket, this);
     _service.addReadUdp(socket);
-    //std::cout << "on read udp" << std::endl;
   }
 
   void Server::onWrite(Network::UdpSocket & socket)
@@ -89,8 +89,8 @@ namespace Application
 
   void Server::onTimeout(Network::Timer & timer)
   {
-    timer.setTimeout(Network::duration_millisecond(100));
-    _service.addTimeout(timer);
+    // timer.setTimeout(Network::duration_millisecond(100));
+    // _service.addTimeout(timer);
   }
 
   ///////////////

@@ -41,7 +41,7 @@ private:
   // IUdpNetworkListener
 public:
   virtual void	onPlayerInfo();
-  virtual void	onPosition();
+  virtual void	onPosition(RtypeProtocol::PositionEvent);
   virtual void	onSpawn(RtypeProtocol::Spawn);
   virtual void	onDestruction();
   virtual void	onLife();

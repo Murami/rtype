@@ -7,7 +7,7 @@ class IUdpNetworkListener
 {
 public:
   virtual void	onPlayerInfo() = 0;
-  virtual void	onPosition() = 0;
+  virtual void	onPosition(RtypeProtocol::PositionEvent) = 0;
   virtual void	onSpawn(RtypeProtocol::Spawn) = 0;
   virtual void	onDestruction() = 0;
   virtual void	onLife() = 0;
