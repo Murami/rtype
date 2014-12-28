@@ -57,8 +57,8 @@ namespace Application
 
     position.position.x = entity.getPosition().x;
     position.position.y = entity.getPosition().y;
-    position.position.speedX = event.entity.getSpeed().x;
-    position.position.speedY = event.entity.getSpeed().y;
+    position.position.speedX = entity.getSpeed().x;
+    position.position.speedY = entity.getSpeed().y;
     position.id = entity.getId();
     packed = _server.getProtocoleUdp().pack(&position);
     sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_POSITION);
