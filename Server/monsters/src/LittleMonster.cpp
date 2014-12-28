@@ -49,7 +49,7 @@ namespace Game
   void	LittleMonster::onCollide(Player& entity)
   {
     entity.setLife(entity.getLife - 34);
-    set.kill();
+    kill();
   }
 
   void	LittleMonster::onCollide(DestroyableSet& set)

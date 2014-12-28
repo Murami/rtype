@@ -63,7 +63,7 @@ namespace Game
   void	BigMonster::onCollide(Player& entity)
   {
     entity.setLife(entity.getLife() - 67);
-    set.kill();
+    kill();
   }
 
 
