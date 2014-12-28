@@ -227,7 +227,6 @@ void	RtypeClient::onRoomCreateInternalError(RtypeProtocol::Room)
 void	RtypeClient::onRoomCreateOk(RtypeProtocol::Room room)
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
-  onRoomJoinOk(room);
 }
 
 void	RtypeClient::onRoomJoinNotFound(RtypeProtocol::Room)
@@ -248,6 +247,7 @@ void	RtypeClient::onRoomJoinBadPswd(RtypeProtocol::Room)
 void	RtypeClient::onRoomJoinOk(RtypeProtocol::Room)
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
+  _gameController->joinRoom();
 }
 
 void	RtypeClient::onRoomExitOk(RtypeProtocol::Room)
