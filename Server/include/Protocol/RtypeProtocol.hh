@@ -209,7 +209,7 @@ static const int8_t	proto_name[] = "RType";
 
   PACKED(Life{
       uint32_t	id;
-      uint32_t	life;
+      int32_t	life;
     };)
 
   PACKED(Bonus{
