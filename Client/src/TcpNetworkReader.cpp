@@ -136,6 +136,16 @@ void			TcpNetworkReader::onReadRoomJoinBadPswd()
 void			TcpNetworkReader::onReadRoomJoinOk()
 {
   // Have to send to the view that joining the room is successful
+  RtypeProtocol::Room	room;
+
+  for (size_t i = 0; i < sizeof(room); i++)
+    {
+      reinterpret_cast<char *>(&room)[i] = _buffer.front();
+      _buffer.pop_front();
+    }
+  _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
+  _tcpListener->onRoomInfo(room);
+  _tcpListener->onRoomJoinOk(room);
 }
 
 void			TcpNetworkReader::onReadMessage(){}
