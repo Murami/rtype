@@ -46,9 +46,9 @@ namespace Game
 	    (*it)->getType() == T_PLAYER_2 ||
 	    (*it)->getType() == T_PLAYER_3 ||
 	    (*it)->getType() == T_PLAYER_4)
-	  alive &= !(*it)->isAlive();
+	  alive &= (*it)->isAlive();
       }
-    if (alive)
+    if (!alive)
       {
 	_alive = false;
 	return;
