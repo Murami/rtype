@@ -40,6 +40,7 @@ void	GameController::updateSpawnList()
 void GameController::onExit()
 {
   //_listener exit
+  _listener->onExitFromGame();
   std::cout << "exit game !!" << std::endl;
 }
 
