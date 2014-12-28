@@ -1,5 +1,8 @@
 #include	<iostream>
 #include	<cstring>
+#if defined(__linux__) || defined(__APPLE__)
+# include <arpa/inet.h>
+#endif
 
 #include	"TcpConnection.hh"
 #include	"TcpNetworkReader.hh"
@@ -47,6 +50,7 @@ void			TcpNetworkReader::onReadHeader()
       reinterpret_cast<char *>(&header)[i] = _buffer.front();
       _buffer.pop_front();
     }
+  //header.type = ntohl(header.type);
   if (_callback.find(static_cast<RtypeProtocol::Type>(header.type)) != _callback.end())
     (this->*_callback[static_cast<RtypeProtocol::Type>(header.type)])();
 }
@@ -80,6 +84,7 @@ void			TcpNetworkReader::onReadPing()
 {
   RtypeProtocol::PingPong	ping;
 
+  std::cout << "\044[46m" << __FUNCTION__ << "\033[0m\n";
   for (std::size_t i = 0; i < sizeof(ping); i++)
     {
       reinterpret_cast<char *>(&ping)[i] = _buffer.front();
