@@ -34,18 +34,10 @@ namespace Application
     _server.getService().deleteTimeout(_timer);
     if (!_game.alive())
       {
-	RtypeProtocol::EndGame		end;
-	Network::packet*		packed;
+	std::list<ClientRoom*>::iterator	it;
 
-	// position.position.x = entity.getPosition().x;
-	// position.position.y = entity.getPosition().y;
-	// position.position.speedX = entity.getSpeed().x;
-	// position.position.speedY = entity.getSpeed().y;
-	// position.id = entity.getId();
-	end.victory = _game.isWin();
-	packed = _server.getProtocoleUdp().pack(&end);
-	sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_GAMEEND);
-
+	for (it = _clients.begin(); it != _clients.end(); it++)
+	  (*it)->getClientServer().sendGameEnd(_game.isWin());
 	return;
       }
 

@@ -357,4 +357,13 @@ namespace Application
     _server.sendUdp(*this, data, size);
   }
 
+  void	ClientServer::sendGameEnd(bool victory)
+  {
+    RtypeProtocol::EndGame	end;
+
+    end.victory = victory;
+    this->sendHeader(RtypeProtocol::T_GAMEEND, sizeof(RtypeProtocol::EndGame));
+    send(this->_socket, end);
+  }
+
 } /* namespace Application */
