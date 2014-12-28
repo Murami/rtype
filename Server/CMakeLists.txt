@@ -35,7 +35,6 @@ add_executable(
   src/Game/Core.cpp
   src/Game/CoreEventSpawn.cpp
   src/Game/EntityEventLife.cpp
-  src/Game/Monster.cpp
   src/Game/Camera.cpp
   src/Physic/Body.cpp
   src/Physic/BodyEventCollide.cpp

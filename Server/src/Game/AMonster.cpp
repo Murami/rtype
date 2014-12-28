@@ -6,7 +6,7 @@ std::uint32_t	AMonster::getLevel() const
   return (_level);
 }
 
-bool	AMonster::isAlive() const
+bool		AMonster::isAlive() const
 {
   if (_life == 0)
     return (false);
@@ -18,7 +18,7 @@ void	AMonster::takeDamage(std::uint32_t damage)
   if (_life - damage <= 0)
     _life = 0;
   else
-    _life -= damage;    
+    _life -= damage;
 }
 
 /* getters et setters */

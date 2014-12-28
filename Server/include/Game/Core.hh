@@ -3,6 +3,7 @@
 
 #include "Util/Observable.hpp"
 #include "Physic/World.hh"
+#include "Util/PluginLoader.hpp"
 
 namespace Game
 {
@@ -13,10 +14,11 @@ namespace Game
   class Core : public Util::Observable<Core, CoreEvent>
   {
   public:
-    std::list<Entity*>	_entities;
-    Physic::World	_world;
-    bool		_alive;
-    unsigned int	_playercount;
+    std::list<Entity*>		_entities;
+    Physic::World		_world;
+    bool			_alive;
+    unsigned int		_playercount;
+    PluginLoader<Monster>	_loader;
 
   public:
     Core();
@@ -30,6 +32,7 @@ namespace Game
     Player&		addPlayer();
     Entity*		getEntity(unsigned int);
     void		addMissile(const Player& player);
+    void		spawnMonster();
   };
 };
 

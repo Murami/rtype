@@ -22,7 +22,6 @@ public:
   std::int32_t		x() const;
   void			y(std::int32_t);
   std::int32_t		y() const;
-    
 
 protected:
   std::uint32_t	_life;
