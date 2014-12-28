@@ -46,14 +46,16 @@ namespace Game
     entity.onCollide(*this);
   }
 
-  void	Projectile::onCollide(Projectile& /*player*/)
+  void	Projectile::onCollide(Projectile&
+			      //projectile
+			      )
   {
     // DO NOTHING
   }
 
-  void	Projectile::onCollide(Player& /*projectile*/)
+  void	Projectile::onCollide(Player& player)
   {
-    // DO NOTING
+    // DO NOTHGIN
   }
 
   void	Projectile::onCollide(Monster& monster)
