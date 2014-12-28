@@ -378,6 +378,7 @@ namespace Network
   {
     //state->id = ntoh(state->id);
     state->state = ntoh(state->state);
+    std::cout << "state : " << state->state << std::endl;
     return (state);
   }
 
@@ -569,7 +570,7 @@ namespace Network
     if (static_cast<unsigned>(datasize) < header->data_size)
       throw RtypeProtocol::ProtocolException("Insufisiant Udp data (data)");
     if (header->data_size > 0)
-      dataAddr = header + sizeof(RtypeProtocol::Header);
+      dataAddr = buffer + sizeof(RtypeProtocol::Header);
     if (dataAddr)
     {
       if (header->type == RtypeProtocol::T_EVENT)
