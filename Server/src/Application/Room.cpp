@@ -90,7 +90,14 @@ namespace Application
   void	Room::receive(const Game::Core& /*core*/,
 		      const Game::CoreEvent::Destroy& event)
   {
+    RtypeProtocol::Destruction	destroy;
+    Network::packet*		packed;
+
     event.entity.deleteObserver(*this);
+    destroy.id = event.entity.getId();
+    packed = _server.getProtocoleUdp().pack(&destroy);
+    sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_DESTRUCTION);
+    delete (packed);
   }
 
   bool	Room::testConnection(const std::string& password) const
