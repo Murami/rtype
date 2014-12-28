@@ -53,7 +53,8 @@ public:
   //IGameListener
 public:
   virtual void	onKeyEvent(uint32_t);
-
+  virtual void	onExitFromGame();
+  
   // ITcpNetworkListener
 public:
   virtual void	onMagicBadVersion();
