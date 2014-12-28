@@ -240,31 +240,20 @@ namespace Application
     }
     if (type == RtypeProtocol::T_ROOM_EXIT)
     {
+      Room*	room;
+
       std::cout << "room exit" << std::endl;
+      room = _clientroom->getRoom();
       _server.deleteClientRoom(_clientroom);
-      if (_state != T_INROOM) // TODO leave en jeu aussi ? ...
+      if (_state != T_INROOM)
         throw ClientException("Not in a room");
       if (_clientroom->getRoom()->deleteClient(this))
 	{
-	  _clientroom->updateRoomInfos();
+	  std::cout << "updateRoom infos on exit" << std::endl;
+	  room->updateRoomInfos();
 	}
-      else
-	_clientroom = NULL;
-/*
-      Room*	room = _clientroom->getRoom();
-      bool	isHost = _clientroom->isHost();
-
-      room->deleteClient(this);
-      _server.deleteClientRoom(_clientroom);
+      _clientroom = NULL;
       _state = T_CONNECTED;
-      this->sendHeader(RtypeProtocol::T_ROOM_EXIT_OK);
-      if (isHost)
-      {
-        _server.sendRoomToAllClients(room, false);
-        _clientroom = NULL;
-        _server.deleteRoom(room);
-      }
-      */
     }
   }
 
