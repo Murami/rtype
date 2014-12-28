@@ -117,7 +117,8 @@ void	UdpNetworkReader::onReadData(char *buffer)
   std::cout << "\033[41mreading data UDP\033[0m" << std::endl;
   std::memcpy(&header, buffer, sizeof(header));
   header.type = ntohl(header.type);
-  (this->*_callbacks[(RtypeProtocol::Type)header.type])(buffer);
+  if (!_callback.find(reinterpret_cast<RtypeProtocol::Type>(header.type)) != _callback.end())
+    (this->*_callbacks[reinterpret_cast<RtypeProtocol::Type>(header.type)])(buffer);
 }
 
 void		UdpNetworkReader::setUdpNetworkListener(IUdpNetworkListener *listener)
