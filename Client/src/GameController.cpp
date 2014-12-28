@@ -21,6 +21,7 @@ GameController::~GameController()
 void	GameController::spawnEntity(RtypeProtocol::Spawn spawn)
 {
   std::cout << "SPAWNENTITY" << std::endl;
+  std::cout << spawn.id << std::endl;
   _spawnList.push_back(spawn);
 }
 
