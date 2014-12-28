@@ -214,14 +214,17 @@ namespace Application
       }
   }
 
-  void			Room::deleteClient(ClientServer* clientserver)
+  bool			Room::deleteClient(ClientServer* clientserver)
   {
     std::cout << "delete client" << std::endl;
     _clients.remove(clientserver->getClientRoom());
     if (_clients.empty())
     {
+      std::cout << "delete room ---" << std::endl;
       _server.deleteRoom(this);
+      return (false);
     }
+    return (true);
   }
 
   bool			Room::isReady() const

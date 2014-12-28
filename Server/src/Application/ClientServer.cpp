@@ -242,10 +242,14 @@ namespace Application
     {
       std::cout << "room exit" << std::endl;
       _server.deleteClientRoom(_clientroom);
-      _clientroom->getRoom()->deleteClient(this);
       if (_state != T_INROOM) // TODO leave en jeu aussi ? ...
         throw ClientException("Not in a room");
-      _clientroom->updateRoomInfos();
+      if (_clientroom->getRoom()->deleteClient(this))
+	{
+	  _clientroom->updateRoomInfos();
+	}
+      else
+	_clientroom = NULL;
 /*
       Room*	room = _clientroom->getRoom();
       bool	isHost = _clientroom->isHost();
