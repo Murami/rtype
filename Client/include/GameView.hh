@@ -26,7 +26,7 @@ public:
   void	erase(int id);
 
 public:
-  void	updateById(int id, RtypeProtocol::Position pos);
+  bool	updateById(int id, RtypeProtocol::Position pos);
 
 private:
   void	update();

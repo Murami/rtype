@@ -43,7 +43,7 @@ public:
   virtual void	onPlayerInfo();
   virtual void	onPosition(RtypeProtocol::PositionEvent);
   virtual void	onSpawn(RtypeProtocol::Spawn);
-  virtual void	onDestruction();
+  virtual void	onDestruction(RtypeProtocol::Destruction);
   virtual void	onLife();
   virtual void	onBonus();
   virtual void	onHit();
@@ -54,6 +54,7 @@ public:
 public:
   virtual void	onKeyEvent(uint32_t);
   virtual void	onExitFromGame();
+  virtual void	onEntityRequestFromGame(uint32_t);
   
   // ITcpNetworkListener
 public:

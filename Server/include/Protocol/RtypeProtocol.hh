@@ -196,7 +196,7 @@ static const int8_t proto_name[] = "RType";
       Position	position;
     };)
 
-  PACKED(destruction{
+  PACKED(Destruction{
       uint32_t	id;
     };)
 

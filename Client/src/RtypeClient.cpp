@@ -107,15 +107,12 @@ void	RtypeClient::onPosition(RtypeProtocol::PositionEvent position)
 
 void	RtypeClient::onSpawn(RtypeProtocol::Spawn spawn)
 {
-  // RtypeProtocol::Entity entity;
-
-  // entity = _entityMap[spawn.type];
   _gameController->spawnEntity(spawn);
-  // _gameController->updateEntityPosition(spawn.id, spawn.position);
 }
 
-void	RtypeClient::onDestruction()
+void	RtypeClient::onDestruction(RtypeProtocol::Destruction destruct)
 {
+  _gameController->deleteEntity(destruct.id);
 }
 
 void	RtypeClient::onLife()
@@ -158,6 +155,20 @@ void	RtypeClient::onExitFromGame()
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   onDisconnectFromMenu();
+}
+
+void	RtypeClient::onEntityRequestFromGame(uint32_t id)
+{
+  RtypeProtocol::Header header;
+  RtypeProtocol::EntityRequest request;
+  char		buffer[sizeof(header) + sizeof(request)];
+
+  header.type = htonl(RtypeProtocol::T_ENTITYREQUEST);
+  header.data_size = htonl(sizeof(request));
+  request.id = htonl(id);
+  std::memcpy(&buffer[0], &header, sizeof(header));
+  std::memcpy(&buffer[sizeof(header)], &request, sizeof(request));
+  _udpConnection->write(&buffer[0], sizeof(header) + sizeof(request));
 }
 
 // ITcpNetworkListener

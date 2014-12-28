@@ -9,7 +9,7 @@ public:
   virtual void	onPlayerInfo() = 0;
   virtual void	onPosition(RtypeProtocol::PositionEvent) = 0;
   virtual void	onSpawn(RtypeProtocol::Spawn) = 0;
-  virtual void	onDestruction() = 0;
+  virtual void	onDestruction(RtypeProtocol::Destruction) = 0;
   virtual void	onLife() = 0;
   virtual void	onBonus() = 0;
   virtual void	onHit() = 0;

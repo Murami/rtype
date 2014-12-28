@@ -97,13 +97,15 @@ void	GameView::update()
     }
 }
 
-void	GameView::updateById(int id, RtypeProtocol::Position pos)
+bool	GameView::updateById(int id, RtypeProtocol::Position pos)
 {
   if (_objectMap.find(id) != _objectMap.end())
     {
       sf::Vector2<float> tmp(pos.x, pos.y);
       _objectMap[id]->update(tmp);
+      return (true);
     }
+  return (false);
 }
 
 void	GameView::render(sf::RenderWindow& window)
