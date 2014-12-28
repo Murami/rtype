@@ -179,7 +179,7 @@ namespace Application
 	  {
       _rooms.erase(it);
 	    room->close();
-	    //delete (room);
+	    delete (room);
 	    return;
 	  }
       }
