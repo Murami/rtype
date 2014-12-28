@@ -6,7 +6,7 @@
 
 namespace Game
 {
-  class EntityEvent::Move
+  class EntityEvent::Move : public EntityEvent
   {
   public:
     Util::Vec2	position;

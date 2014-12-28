@@ -13,7 +13,7 @@ namespace Network
 
   packet::~packet()
   {
-    delete (_data);
+    delete[] (_data);
   }
 
   char	*packet::getData() const
