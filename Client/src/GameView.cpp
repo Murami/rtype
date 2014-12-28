@@ -31,7 +31,7 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
   size_t	mask;
   sf::Clock	clock;
 
-  SoundManager::Play("stage1");
+  SoundManager::Play("stage1", true);
   SoundManager::Play("horde");
   window.setMouseCursorVisible(false);
   window.setFramerateLimit(60);
@@ -56,8 +56,6 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
 	_run = false;
 	this->onExit();
       }
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-	std::cout << "a remplir" << std::endl;
       this->notify(mask);
       window.clear();
       this->update(clock.restart().asSeconds());
@@ -66,10 +64,18 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
       window.display();
       mutex->lock();
     }
+
+  SoundManager::Stop();
   if (_gameWin == true)
-    _texture = TextureManager::getInstance()->getTextureWin();
+    {
+      _texture = TextureManager::getInstance()->getTextureWin();
+      SoundManager::Play("stageClear");
+    }
   else
-    _texture = TextureManager::getInstance()->getTextureLoose();
+    {
+      _texture = TextureManager::getInstance()->getTextureLoose();
+      SoundManager::Play("gameOver");
+    }
   _sprite.setTexture(_texture);
   _sprite.setPosition(0, 0);
   while (_gameEnd == true)
