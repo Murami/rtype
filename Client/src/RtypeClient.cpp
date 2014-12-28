@@ -156,7 +156,7 @@ void	RtypeClient::onKeyEvent(uint32_t event)
 void	RtypeClient::onExitFromGame()
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
-  onDisconnectFromMenu();
+  onRoomLeaveFromMenu();
 }
 
 void	RtypeClient::onEntityRequestFromGame(uint32_t id)
@@ -348,6 +348,7 @@ bool	RtypeClient::onDisconnectFromMenu()
   header.type = RtypeProtocol::T_DISCONNECTION;
   header.data_size = 0;
   _menuView->stop();
+  _menuView->setGameRunning(false);
   _tcpConnection->write(&header, sizeof(header));
   return (true);
 }
