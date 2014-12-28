@@ -1,5 +1,6 @@
 #include "Game/CollisionEvent.hh"
 #include "Game/CollisionReceiver.hh"
+#include <iostream>
 
 namespace Game
 {
@@ -12,9 +13,9 @@ namespace Game
   {
   }
 
-  void	CollisionEvent::dispatch(const Physic::Body& /*body*/, Physic::BodyEventReceiver& /*receiver*/) const
+  void	CollisionEvent::dispatch(const Physic::Body& body, Physic::BodyEventReceiver& receiver) const
   {
-    // DEAD END FOR EVENT SEND TO RECEVEIR THAT AREN'T ABLE TO TREAT IT
+    dispatch(body, static_cast<CollisionReceiver&>(receiver));
   }
 
   void	CollisionEvent::dispatch(const Physic::Body& body, CollisionReceiver& receiver) const

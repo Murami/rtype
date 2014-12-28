@@ -1,6 +1,7 @@
 #include "BigMonster.hh"
 #include "Projectile.hh"
 #include "DestroyableSet.hh"
+#include <iostream>
 
 namespace Game
 {
@@ -50,6 +51,7 @@ namespace Game
       return ;
     projectile.kill();
     _life -= projectile.getDamage();
+    std::cout << "life : " << _life << std::endl;
     if (_life <= 0)
       kill();
   }

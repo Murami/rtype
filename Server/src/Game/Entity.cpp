@@ -106,11 +106,13 @@ namespace Game
   {
     const CollisionEvent&	collisionevent = CollisionEvent(*this);
 
+    std::cout << " .R1. ";
     event.getBody().notifyObservers(collisionevent);
   }
 
   void		Entity::receive(const Physic::Body& /*body*/, const CollisionEvent& event)
   {
+    std::cout << " .R2. " << std::endl;
     event._entity.onCollide(*this);
   }
 

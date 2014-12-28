@@ -15,6 +15,7 @@ namespace Game
     _loader("./monsters")
   {
     _timeSpawn = 0;
+    _progress = 0;
   }
 
   Core::~Core()
@@ -24,11 +25,16 @@ namespace Game
   void	Core::update(float time)
   {
     std::list<Entity*>::iterator	it;
+
     _timeSpawn += time;
     if (_timeSpawn > 2.5)
       {
 	_timeSpawn = 0;
 	spawnMonster();
+      }
+    if (_progress > 200)
+      {
+	_alive = false;
       }
     _world.update(time);
     for (it = _entities.begin(); it != _entities.end(); it++)
@@ -123,6 +129,7 @@ namespace Game
     std::list<std::string>&		plugins = _loader.getPluginList();
     Monster*				monster;
 
+    _progress++;
 
     if (plugins.size() == 0)
       return;

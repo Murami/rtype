@@ -32,6 +32,8 @@ namespace Application
     std::chrono::system_clock::duration	time;
 
     _server.getService().deleteTimeout(_timer);
+    if (!_game.alive())
+      return; // TODO notify to delete the room and send winstate !
 
     time = std::chrono::system_clock::now().time_since_epoch();
 
@@ -75,6 +77,7 @@ namespace Application
     RtypeProtocol::Destruction	destroy;
     Network::packet*		packed;
 
+    std::cout << "send death" << std::endl;
     destroy.id = entity.getId();
     packed = _server.getProtocoleUdp().pack(&destroy);
     sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_DEATH);

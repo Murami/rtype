@@ -21,6 +21,7 @@ namespace Game
     unsigned int		_playercount;
     PluginLoader<Monster>	_loader;
     float			_timeSpawn;
+    unsigned int		_progress;
 
   public:
     Core();
