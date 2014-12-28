@@ -22,6 +22,7 @@ public:
   virtual void			setSpeed(sf::Vector2<float>) = 0;
   virtual sf::Vector2<float>	getSpeed() const = 0;
   virtual bool&			networkUpdated() = 0;
+  virtual void			playDeathSound() const = 0;
 };
 
 #endif
