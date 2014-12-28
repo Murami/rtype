@@ -23,10 +23,10 @@ namespace Game
 
   void	Core::update(float time)
   {
-    std::list<Entity*>::iterator	it;
 
+    std::list<Entity*>::iterator	it;
     _timeSpawn += time;
-    if (_timeSpawn > 1)
+    if (_timeSpawn > 5)
       {
 	_timeSpawn = 0;
 	spawnMonster();

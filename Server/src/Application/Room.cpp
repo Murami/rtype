@@ -57,6 +57,8 @@ namespace Application
 
     position.position.x = entity.getPosition().x;
     position.position.y = entity.getPosition().y;
+    position.position.speedX = event.entity.getSpeed().x;
+    position.position.speedY = event.entity.getSpeed().y;
     position.id = entity.getId();
     packed = _server.getProtocoleUdp().pack(&position);
     sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_POSITION);
@@ -78,6 +80,8 @@ namespace Application
     spawn.type = event.entity.getType();// TODO gerer les player de 1 a 4 dans le gameplay
     spawn.position.x = event.entity.getPosition().x;
     spawn.position.y = event.entity.getPosition().y;
+    spawn.position.speedX = event.entity.getSpeed().x;
+    spawn.position.speedY = event.entity.getSpeed().y;
     spawn.life = event.entity.getLife();
     packed = _server.getProtocoleUdp().pack(&spawn);
     sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_SPAWN);
