@@ -71,7 +71,6 @@ add_executable(
   include/Game/CoreEventReceiver.hh
   include/Game/EntityEvent.hh
   include/Game/Entity.hh
-  include/Game/CollisionSystem.hh
   include/Game/CoreEventSpawn.hh
   include/Game/EntityEventLife.hh
   include/Game/Monster.hh
