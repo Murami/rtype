@@ -3,6 +3,7 @@
 #include "Game/Player.hh"
 #include "Game/CoreEventSpawn.hh"
 #include "Game/Projectile.hh"
+#include "Game/CoreEventDestroy.hh"
 #include <iostream>
 
 namespace Game
@@ -27,8 +28,14 @@ namespace Game
 
     for (it = _entities.begin(); it != _entities.end(); it++)
       {
-	delete (*it);
-	it = _entities.erase(it);
+	if ((*it)->isToDeleted() == true)
+	  {
+	    const CoreEvent::Destroy&	destroy = CoreEvent::Destroy(*(*it));
+
+	    notifyObservers(destroy);
+	    delete (*it);
+	    it = _entities.erase(it);
+	  }
       }
   }
 
