@@ -10,10 +10,11 @@
 #include <iostream>
 #include "Player.hh"
 #include "TextureManager.hh"
-
+#include "SoundManager.hh"
 
 Player::Player(int nb) : _powerUp(1)
 {
+    std::cout << "Constructeur player" << std::endl;
     _nbPlayer = nb;
     _texture = TextureManager::getInstance()->getTextureShip();
     _sprite.setTexture(_texture);
@@ -42,7 +43,7 @@ Player::Player(int nb) : _powerUp(1)
 
 Player::~Player()
 {
-    
+  SoundManager::Play("mort");    
 }
 
 void Player::update(const sf::Vector2<float> pos)

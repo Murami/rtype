@@ -18,7 +18,7 @@ namespace Game
     Entity(game), _num(num)
   {
     // TODO a enlever
-    setSpeed(Util::Vec2(1, 0));
+    // setSpeed(Util::Vec2(10, 0));
   }
 
   Player::~Player()
@@ -43,7 +43,12 @@ namespace Game
     for (it = _inputs.begin(); it != _inputs.end(); it++)
       (this->*_actions[*it])();
 
-    // TODO Normalize speed (if not == 0 !)
+    // Util::Vec2	speed;
+
+    // speed = getSpeed();
+
+    // speed.normalize();
+    // setSpeed(speed * 50);
     // Check of the player is behin the camera of the gameplay
   }
 
@@ -81,26 +86,32 @@ namespace Game
   // TODO input methods
   void	Player::onForward()
   {
+    setSpeed(getSpeed() + Util::Vec2(0, -1));
   }
 
   void	Player::onBackward()
   {
+    setSpeed(getSpeed() + Util::Vec2(0, 1));
   }
 
   void	Player::onLeft()
   {
+    setSpeed(getSpeed() + Util::Vec2(-1, 0));
   }
 
   void	Player::onRight()
   {
+    setSpeed(getSpeed() + Util::Vec2(1, 0));
   }
 
   void	Player::onPrimaryFire()
   {
+    // TODO primary fire
   }
 
   void	Player::onSecondaryFire()
   {
+    // TODO secondary fire
   }
 
   unsigned int	Player::getNum() const

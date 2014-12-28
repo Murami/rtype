@@ -14,10 +14,13 @@ namespace Game
     _alive(true)
   {
     _id = _generator.generate();
+
+    _body.addObserver(*this);
   }
 
   Entity::~Entity()
   {
+    // TODO delete observer ????
   }
 
   void	Entity::setSpeed(const Util::Vec2& speed)

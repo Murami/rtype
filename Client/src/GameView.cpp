@@ -29,6 +29,7 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
   size_t	mask;
 
   SoundManager::Play("stage1");
+  SoundManager::Play("horde");
   _run = true;
   while (_run)
     {
