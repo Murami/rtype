@@ -1,12 +1,14 @@
 #include "BigMonster.hh"
 #include "Projectile.hh"
 #include "DestroyableSet.hh"
+#include <iostream>
 
 namespace Game
 {
   BigMonster::BigMonster(Core& game) : Monster(game, T_MONSTER_BIG)
   {
     setSpeed(Util::Vec2(-100, 0));
+    _body.setSize(Util::Vec2(63 * 3, 48 * 3));
   }
 
   BigMonster::~BigMonster()
@@ -33,7 +35,7 @@ namespace Game
       _core.deleteEntity(this);
     if (_body.getPosition().y - (_body.getSize().y / 2) < 0)
       pos.y = _body.getSize().y / 2;
-    else if ((_body.getPosition().y - (_body.getSize().y / 2)) > 1080)
+    else if ((_body.getPosition().y + (_body.getSize().y / 2)) > 1080)
       pos.y = 1080 - _body.getSize().y / 2;
     _body.setPosition(pos);
   }
@@ -56,6 +58,9 @@ namespace Game
       return ;
     projectile.kill();
     _life -= projectile.getDamage();
+    std::cout << "life : " << _life << std::endl;
+    if (_life <= 0)
+      kill();
   }
 
   void	BigMonster::onCollide(Monster& /*monster*/)

@@ -15,11 +15,12 @@
 class Monster : public AObject {
     
 public:
-    Monster(int monsterID);
-    virtual ~Monster();
+  Monster(int monsterID);
+  virtual ~Monster();
     
-    virtual void update(sf::Vector2<float> pos);
-    
+  virtual void	update(sf::Vector2<float> pos);
+  virtual void	playDeathSound() const;
+
 private:
     int                                 _monsterID;
     unsigned int                        _anim;

@@ -15,58 +15,63 @@ namespace Game
     _loader("./monsters")
   {
     _timeSpawn = 0;
+    _progress = 0;
   }
 
   Core::~Core()
   {
   }
 
-void	Core::update(float time)
-{
-  std::list<Entity*>::iterator	it;
-  _timeSpawn += time;
-  if (_timeSpawn > 2.5)
+  void	Core::update(float time)
   {
-    _timeSpawn = 0;
-    spawnMonster();
-  }
-  _world.update(time);
-  for (it = _entities.begin(); it != _entities.end(); it++)
-    (*it)->update(time);
+    std::list<Entity*>::iterator	it;
 
+    _timeSpawn += time;
+    if (_timeSpawn > 2.5)
+      {
+	_timeSpawn = 0;
+	spawnMonster();
+      }
+    if (_progress > 200)
+      {
+	_alive = false;
+      }
+    _world.update(time);
+    for (it = _entities.begin(); it != _entities.end(); it++)
+      (*it)->update(time);
 
+    // std::list<std::list<Entity*>::iterator> toDelete;
+    for (it = _entities.begin(); it != _entities.end(); it++)
+      {
+	if (!(*it)->isAlive())
+	  {
+	    (*it)->isToDeleted(true);
+	    // toDelete.push_front(it);
+	  }
+      }
+    // std::list<std::list<Entity*>::iterator>::iterator toDeleteIt;
+    // for (toDeleteIt = toDelete.begin(); toDeleteIt != toDelete.end(); toDeleteIt++)
+    // {
+    //   it = (*toDeleteIt);
+    //   const CoreEvent::Destroy& destroy = CoreEvent::Destroy(*(*it));
 
-  std::list<std::list<Entity*>::iterator> toDelete;
-  for (it = _entities.begin(); it != _entities.end(); it++)
-  {
-    if (!(*it)->isAlive())
-    {
-      toDelete.push_front(it);
-    }
-  }
-  std::list<std::list<Entity*>::iterator>::iterator toDeleteIt;
-  for (toDeleteIt = toDelete.begin(); toDeleteIt != toDelete.end(); toDeleteIt++)
-  {
-    it = (*toDeleteIt);
-    const CoreEvent::Destroy& destroy = CoreEvent::Destroy(*(*it));
-
-    notifyObservers(destroy);
-    delete (*it);
-    _entities.erase(it);
-  }
+    //   notifyObservers(destroy);
+    //   delete (*it);
+    //   _entities.erase(it);
+    // }
 
     for (it = _entities.begin(); it != _entities.end(); it++)
-  {
-    if ((*it)->isToDeleted() == true)
-    {
-      const CoreEvent::Destroy& destroy = CoreEvent::Destroy(*(*it));
+      {
+	if ((*it)->isToDeleted() == true)
+	  {
+	    const CoreEvent::Destroy& destroy = CoreEvent::Destroy(*(*it));
 
-      notifyObservers(destroy);
-      delete (*it);
-      it = _entities.erase(it);
-    }
+	    notifyObservers(destroy);
+	    delete (*it);
+	    it = _entities.erase(it);
+	  }
+      }
   }
-}
 
   bool	Core::alive() const
   {
@@ -124,6 +129,7 @@ void	Core::update(float time)
     std::list<std::string>&		plugins = _loader.getPluginList();
     Monster*				monster;
 
+    _progress++;
 
     if (plugins.size() == 0)
       return;

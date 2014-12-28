@@ -8,7 +8,7 @@
 
 #include "Monster.hh"
 #include "TextureManager.hh"
-#include <iostream>
+#include "SoundManager.hh"
 
 Monster::Monster(int monsterID)
 {
@@ -52,9 +52,7 @@ void Monster::initMonster1()
     _sprite.setTexture(_texture);
     _sprite.setTextureRect(sf::IntRect(4, 4, 252, 192));
 
-    //#ifdef __APPLE__
     _sprite.scale(3.0, 3.0);
-    //#endif
 
     _anim = 0;
 
@@ -70,9 +68,7 @@ void Monster::initMonster2()
     _sprite.setTexture(_texture);
     _sprite.setTextureRect(sf::IntRect(20, 24, 84, 96));
 
-    //#ifdef __APPLE__
     _sprite.scale(3.0, 3.0);
-    //#endif
 
     _anim = 0;
 
@@ -84,4 +80,12 @@ void Monster::initMonster2()
     _animationMap[5] = sf::IntRect(170, 6, 21, 24);
     _animationMap[6] = sf::IntRect(203, 6, 21, 24);
     _animationMap[7] = sf::IntRect(236, 6, 21, 24);
+}
+
+void	Monster::playDeathSound() const
+{
+  if (_monsterID == 1)
+    SoundManager::Play("explosion");
+  else if (_monsterID == 2)
+    SoundManager::Play("pop");
 }
