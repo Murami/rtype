@@ -322,7 +322,7 @@ bool	RtypeClient::onConnectFromMenu(const std::string & login)
   header.data_size = sizeof(RtypeProtocol::User);
   strcpy(reinterpret_cast<char *>(&user.username[0]), login.c_str());
   user.port = htons(_udpConnection->getLocalPort());
-  std::cout << "Local port UDP : " << _udpConnection->getLocalPort() << std::endl;
+  //std::cout << "Local port UDP : " << _udpConnection->getLocalPort() << std::endl;
   std::memcpy(&buffer[0], &header, sizeof(header));
   std::memcpy(&buffer[sizeof(header)], &user, sizeof(user));
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(user));
