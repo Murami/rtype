@@ -392,16 +392,16 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 		if (_editBoxRoomName->getText() != "")
 		  {
 		    this->notify(RtypeEvent::CREATE);
-		    _actualState = RtypeEvent::ROOMSTATE;
+// 		    _actualState = RtypeEvent::ROOMSTATE;
 		  }
 		break;
 	      case RtypeEvent::JOIN:
 		if (_editBoxRoomName->getText() != "")
 		  {
 		    this->notify(RtypeEvent::JOIN);
-		    _actualState = RtypeEvent::ROOMSTATE;
-		    _editBoxRoomName->setText("");
-		    _editBoxRoomPass->setText("");
+// 		    _actualState = RtypeEvent::ROOMSTATE;
+// 		    _editBoxRoomName->setText("");
+// 		    _editBoxRoomPass->setText("");
 		  }
 		break;
 	      case RtypeEvent::READY:
