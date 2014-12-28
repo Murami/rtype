@@ -8,7 +8,9 @@ namespace Game
 {
   BigMonster::BigMonster(Core& game) : Monster(game, T_MONSTER_BIG)
   {
-    setSpeed(Util::Vec2(-100, 0));
+    _life = 2000;
+    _maxlife = _life;
+    setSpeed(Util::Vec2(-100, -150));
     _body.setSize(Util::Vec2(63 * 3, 48 * 3));
   }
 
@@ -34,10 +36,20 @@ namespace Game
 
     if (_body.getPosition().x + (_body.getSize().x / 2) < -_body.getSize().x)
       _core.deleteEntity(this);
-    if (_body.getPosition().y - (_body.getSize().y / 2) < 0)
-      pos.y = _body.getSize().y / 2;
-    else if ((_body.getPosition().y + (_body.getSize().y / 2)) > 1080)
-      pos.y = 1080 - _body.getSize().y / 2;
+    // if (_body.getPosition().y - (_body.getSize().y / 2) < 0)
+    //   pos.y = _body.getSize().y / 2;
+    // else if ((_body.getPosition().y + (_body.getSize().y / 2)) > 1080)
+    //   pos.y = 1080 - _body.getSize().y / 2;
+    if (_body.getPosition().y <= 0)
+      {
+	pos.y = 0;
+	setSpeed(Util::Vec2(getSpeed().x, -getSpeed().y));
+      }
+    else if ((_body.getPosition().y + (_body.getSize().y)) >= 1080)
+      {
+	pos.y = 1080 - _body.getSize().y;
+	setSpeed(Util::Vec2(getSpeed().x, -getSpeed().y));
+      }
     _body.setPosition(pos);
   }
 
