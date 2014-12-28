@@ -49,3 +49,6 @@ bool&		AObject::networkUpdated()
 {
   return (_networkUpdated);
 }
+
+void		AObject::playDeathSound() const
+{}

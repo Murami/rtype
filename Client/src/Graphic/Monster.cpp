@@ -26,10 +26,6 @@ Monster::Monster(int monsterID)
 
 Monster::~Monster()
 {
-  if (_monsterID == 1)
-    SoundManager::Play("explosion");
-  else if (_monsterID == 2)
-    SoundManager::Play("pop");
 }
 
 void Monster::update(sf::Vector2<float> pos)
@@ -84,4 +80,12 @@ void Monster::initMonster2()
     _animationMap[5] = sf::IntRect(170, 6, 21, 24);
     _animationMap[6] = sf::IntRect(203, 6, 21, 24);
     _animationMap[7] = sf::IntRect(236, 6, 21, 24);
+}
+
+void	Monster::playDeathSound() const
+{
+  if (_monsterID == 1)
+    SoundManager::Play("explosion");
+  else if (_monsterID == 2)
+    SoundManager::Play("pop");
 }

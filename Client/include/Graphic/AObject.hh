@@ -26,6 +26,7 @@ public:
   virtual sf::Vector2<float>	getSpeed() const;
   virtual void			setSpeed(sf::Vector2<float>);
   virtual bool&			networkUpdated();
+  virtual void			playDeathSound() const;
 
 protected:
   sf::Sprite		_sprite;
