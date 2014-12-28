@@ -87,7 +87,6 @@ bool			UdpConnection::write(void *data, std::size_t count)
 	}
       return (false);
     }
-  
   return (true);
 }
 

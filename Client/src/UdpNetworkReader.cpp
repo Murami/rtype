@@ -57,6 +57,7 @@ void	UdpNetworkReader::onReadPlayerInfo(char *)
 void	UdpNetworkReader::onReadPosition(char *buffer)
 {
   RtypeProtocol::PositionEvent	position;
+
   std::memcpy(&position, &buffer[sizeof(RtypeProtocol::Header)], sizeof(position));
   position.id = ntohl(position.id);
   position.position.x = ntohl(position.position.x);
