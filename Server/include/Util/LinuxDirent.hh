@@ -18,6 +18,7 @@ namespace	Dirent
     
   private:
     DIR*	_dir;
+    bool	_isOpen;
   };
 }
 

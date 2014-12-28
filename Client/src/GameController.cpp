@@ -21,7 +21,6 @@ GameController::~GameController()
 void	GameController::spawnEntity(RtypeProtocol::Spawn spawn)
 {
   std::cout << "SPAWNENTITY" << std::endl;
-  std::cout << spawn.id << std::endl;
   _spawnList.push_back(spawn);
 }
 
@@ -42,10 +41,14 @@ void	GameController::updateDestroyList()
   std::list<int>::iterator	it;
 
   for (it = _destroyList.begin(); it != _destroyList.end(); it++)
+<<<<<<< HEAD
     {
       //std::cout << "j'essaye d'earse le " << *it << std::endl;
       _view.erase(*it);
     }
+=======
+    _view.erase(*it);
+>>>>>>> a44c9367e17374b3179478cfbd39a9be5748de6f
   _destroyList.clear();
 }
 

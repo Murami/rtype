@@ -9,14 +9,18 @@ namespace	Dirent
 {
   LinuxDirent::LinuxDirent(std::string directory)
   {
+    _isOpen = false;
     _dir = opendir(directory.c_str());
     if (_dir == NULL)
       std::cerr << "Error: Can't open the directory " << directory << std::endl;
+    else
+      _isOpen = true;
   }
 
   LinuxDirent::~LinuxDirent()
   {
-    closedir(_dir);
+    if (_isOpen == true)
+      closedir(_dir);
   }
 
   std::list<std::string>	LinuxDirent::getFilesName()
@@ -24,10 +28,13 @@ namespace	Dirent
     struct dirent			*s_dir;
     std::list<std::string>	res;
 
-    while ((s_dir = readdir(_dir)) != NULL)
+    if (_isOpen)
       {
-	if (s_dir->d_name[0] != '.')
-	  res.push_back(s_dir->d_name);
+	while ((s_dir = readdir(_dir)) != NULL)
+	  {
+	    if (s_dir->d_name[0] != '.')
+	      res.push_back(s_dir->d_name);
+	  }
       }
     return (res);
   }
@@ -38,14 +45,18 @@ namespace	Dirent
     std::list<std::string>	res;
     std::string			filename_ext;
 
-    ext = "." + ext;
-    while ((s_dir = readdir(_dir)) != NULL)
+    if (_isOpen)
       {
-	if (s_dir->d_name[0] != '.')
+	ext = "." + ext;
+	while ((s_dir = readdir(_dir)) != NULL)
 	  {
-	    filename_ext = &s_dir->d_name[strlen(s_dir->d_name) - ext.size()];
-	    if (filename_ext == ext)
-	      res.push_back(s_dir->d_name);
+	    if (s_dir->d_name[0] != '.')
+	      {
+		filename_ext = &s_dir->d_name[strlen(s_dir->d_name) - ext.size()];
+		if (filename_ext == ext)
+		  res.push_back(s_dir->d_name);
+
+	      }
 	  }
       }
     return (res);
