@@ -28,6 +28,7 @@ namespace Game
     ~Core();
 
     bool		alive() const;
+    bool		isWin() const;
 
     void		update(float time);
     Physic::World&	getWorld();

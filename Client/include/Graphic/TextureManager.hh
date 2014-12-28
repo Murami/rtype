@@ -24,6 +24,8 @@ public:
   sf::Texture getTextureEnemy3() const;
   sf::Texture getTextureSheet2() const;
   sf::Texture getTextureLife() const;
+  sf::Texture getTextureRWall() const;
+  sf::Texture getTextureWall() const;
   
   void loadTexture();
     
@@ -35,6 +37,8 @@ private:
   sf::Texture _enemy2;
   sf::Texture _enemy3;
   sf::Texture _life;
+  sf::Texture _rwall;
+  sf::Texture _wall;
     
     
 private:

@@ -9,6 +9,7 @@
 # include "RtypeProtocol.hh"
 # include "Mutex.hh"
 # include "Life.hh"
+# include "Wall.hh"
 
 class	IObject;
 
@@ -39,6 +40,7 @@ private:
   std::map<int, IObject*>		_objectMap;
   bool					_run;
   Life					_life;
+  Wall					_wall;
 };
 
 #endif
