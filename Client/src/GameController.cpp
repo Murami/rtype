@@ -107,6 +107,11 @@ void	GameController::deleteEntity(int id)
   _destroyList.push_back(id);
 }
 
+void	GameController::updateLife(size_t life)
+{
+  _view.updateLife(life);
+}
+
 void	GameController::updateEntityPosition(int id, RtypeProtocol::Position pos)
 {
   if (_view.updateById(id, pos) == false)

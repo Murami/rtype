@@ -18,6 +18,7 @@ public:
   void	updateSpawnList();
   void	updateDestroyList();
   void	update(size_t);
+  void	updateLife(size_t life);
   void	onExit();
 
   void	setGameListener(IGameListener*);
