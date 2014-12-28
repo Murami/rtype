@@ -241,6 +241,13 @@ namespace Application
 
   bool	Server::isValidEndpoint(const std::string& host, unsigned short port) const
   {
+    std::map<Network::EndPoint, ClientRoom*>::const_iterator	it;
+
+    for (it = _clientsroom.begin(); it != _clientsroom.end(); it++)
+      {
+	std::cout << "host : " << it->first.getHost() << "  port : " <<
+	  it->first.getPort() << std::endl;
+      }
     if (_clientsroom.find(Network::EndPoint(port, host)) != _clientsroom.end())
 	return (true);
     return (false);
