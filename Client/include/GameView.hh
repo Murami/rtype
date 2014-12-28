@@ -31,7 +31,7 @@ public:
   bool	updateById(int id, RtypeProtocol::Position pos);
 
 private:
-  void	update();
+  void	update(float);
   void	render(sf::RenderWindow&);
 
 private:

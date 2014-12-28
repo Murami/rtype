@@ -39,7 +39,7 @@ void	GameController::updateSpawnList()
 void	GameController::updateDestroyList()
 {
   std::list<int>::iterator	it;
-
+  
   for (it = _destroyList.begin(); it != _destroyList.end(); it++)
     _view.erase(*it);
   _destroyList.clear();

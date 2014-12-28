@@ -27,6 +27,7 @@ GameView::~GameView()
 void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
 {
   size_t	mask;
+  sf::Clock	clock;
 
   SoundManager::Play("stage1");
   SoundManager::Play("horde");
@@ -55,7 +56,7 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
 	std::cout << "a remplir" << std::endl;
       this->notify(mask);
       window.clear();
-      this->update();
+      this->update(clock.restart().asSeconds());
       this->render(window);
       mutex->unlock();
       window.display();
@@ -85,15 +86,25 @@ void	GameView::erase(int id)
     }
 }
 
-void	GameView::update()
+void	GameView::update(float time)
 {
   std::map<int, IObject*>::iterator		itObj;
   std::vector<ScrollingBackground*>::iterator	itBack;
 
   for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
     (*itBack)->update(sf::Vector2<float>(0, 0));
+
+  sf::Vector2<float>	pos;
+
   for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
     {
+      if (itObj->second->networkUpdated() == false)
+	{
+	  pos = itObj->second->getPosition() + (itObj->second->getSpeed() * time);
+	  itObj->second->update(pos);
+	}
+      else
+	itObj->second->networkUpdated() = false;
       itObj->second->updateAnim();
     }
   _life.update(3);
@@ -103,7 +114,11 @@ bool	GameView::updateById(int id, RtypeProtocol::Position pos)
 {
   if (_objectMap.find(id) != _objectMap.end())
     {
-      sf::Vector2<float> tmp(pos.x, pos.y);
+      sf::Vector2<float>	tmp(pos.x, pos.y);
+      sf::Vector2<float>	speed(pos.speedX, pos.speedY);
+
+      _objectMap[id]->networkUpdated() = true;
+      _objectMap[id]->setSpeed(speed);
       _objectMap[id]->update(tmp);
       return (true);
     }

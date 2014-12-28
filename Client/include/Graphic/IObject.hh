@@ -19,6 +19,9 @@ public:
   virtual void			render(sf::RenderWindow &window) = 0;
   virtual void			setPosition(sf::Vector2<float>) = 0;
   virtual sf::Vector2<float>	getPosition() const = 0;
+  virtual void			setSpeed(sf::Vector2<float>) = 0;
+  virtual sf::Vector2<float>	getSpeed() const = 0;
+  virtual bool&			networkUpdated() = 0;
 };
 
 #endif

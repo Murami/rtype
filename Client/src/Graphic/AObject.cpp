@@ -34,3 +34,18 @@ void AObject::setPosition(sf::Vector2<float> position)
 {
     _sprite.setPosition(position);
 }
+
+sf::Vector2<float>	AObject::getSpeed() const
+{
+  return (_speed);
+}
+
+void		AObject::setSpeed(sf::Vector2<float> speed)
+{
+  _speed = speed;
+}
+
+bool&		AObject::networkUpdated()
+{
+  return (_networkUpdated);
+}
