@@ -22,6 +22,8 @@ else
 	make
 	if [ $? == 0 ]
 	then
+	    cvlc ../res/PeasantBuildingComplete1.mp3 &
+	    make
 	    echo "[PROJECT BUILT SUCCESFULLY]"
 	else
 	    echo "[FAILED TO BUILD PROJECT]"
