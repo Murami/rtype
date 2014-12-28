@@ -132,6 +132,8 @@ void	UdpNetworkReader::onReadData(char *buffer)
   std::cout << "header.type : " << header.type << std::endl;
   (this->*_callbacks[(RtypeProtocol::Type)header.type])(buffer);
   std::cout << "called" << std::endl;
+  if (!_callback.find(reinterpret_cast<RtypeProtocol::Type>(header.type)) != _callback.end())
+    (this->*_callbacks[reinterpret_cast<RtypeProtocol::Type>(header.type)])(buffer);
 }
 
 void		UdpNetworkReader::setUdpNetworkListener(IUdpNetworkListener *listener)
