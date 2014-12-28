@@ -1,15 +1,15 @@
-#ifndef BIG_MONSTER
-#define BIG_MONSTER
+#ifndef LITTLE_MONSTER
+#define LITTLE_MONSTER
 
 #include "Monster.hh"
 
 namespace Game
 {
-  class BigMonster : public Monster
+  class LittleMonster : public Monster
   {
   public:
-    BigMonster(Core& game);
-    ~BigMonster();
+    LittleMonster(Core& game);
+    ~LittleMonster();
 
     void	update(float time);
     void	onCollide(Entity& entity);
@@ -28,4 +28,4 @@ extern "C"
 }
 # endif /* WIN32 */
 
-#endif /* BIG_MONSTER */
+#endif /* LITTLE_MONSTER */
