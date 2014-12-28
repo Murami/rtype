@@ -45,6 +45,8 @@ private:
   Wall					_wall;
   bool					_gameEnd;
   bool					_gameWin;
+  sf::Texture				_texture;
+  sf::Sprite				_sprite;
 };
 
 #endif

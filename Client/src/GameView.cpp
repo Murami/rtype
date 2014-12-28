@@ -3,6 +3,7 @@
 #include "GameView.hh"
 #include "GameEnum.hh"
 #include "SoundManager.hh"
+#include "TextureManager.hh"
 #include "Mutex.hh"
 
 GameView::GameView()
@@ -30,31 +31,13 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
   size_t	mask;
   sf::Clock	clock;
 
-  SoundManager::Play("stage1");
+  SoundManager::Play("stage1", true);
   SoundManager::Play("horde");
   window.setMouseCursorVisible(false);
   window.setFramerateLimit(60);
   _run = true;
   while (_run)
     {
-      // if (_gameEnd == true)
-      // 	{
-      // 	  sf::Texture	tex;
-      // 	  sf::Sprite	sprite;
-
-      // 	  SoundManager::Stop();
-      // 	  if (_gameWin == true)
-      // 	    {
-      // 	      tex.loadFromFile("res/Game/win.jpg");
-      // 	      SoundManager::Play("stageClear");
-      // 	    }
-      // 	  else
-      // 	    {
-      // 	      tex.loadFromFile("res/Game/lose.jpg");
-      // 	      SoundManager::Play("gameOver");
-      // 	    }
-      // 	  sprite.setTexture(tex);
-      // 	}
       this->updateSpawn();
       this->updateDestroy();
       mask = RtypeEvent::DEFAULT;
@@ -73,8 +56,6 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
 	_run = false;
 	this->onExit();
       }
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-	std::cout << "a remplir" << std::endl;
       this->notify(mask);
       window.clear();
       this->update(clock.restart().asSeconds());
@@ -83,6 +64,32 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
       window.display();
       mutex->lock();
     }
+
+  SoundManager::Stop();
+  if (_gameWin == true)
+    {
+      _texture = TextureManager::getInstance()->getTextureWin();
+      SoundManager::Play("stageClear");
+    }
+  else
+    {
+      _texture = TextureManager::getInstance()->getTextureLoose();
+      SoundManager::Play("gameOver");
+    }
+  _sprite.setTexture(_texture);
+  _sprite.setPosition(0, 0);
+  while (_gameEnd == true)
+    {
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+	{
+	  this->onExit();
+	  break;
+	}
+      window.clear();
+      window.draw(_sprite);
+      window.display();
+    }
+  
   SoundManager::Stop();
 }
 
@@ -138,7 +145,6 @@ void	GameView::update(float time)
 	itObj->second->networkUpdated() = false;
       itObj->second->updateAnim();
     }
-  //  _life.update(3);
 }
 
 bool	GameView::updateById(int id, RtypeProtocol::Position pos)
@@ -177,6 +183,7 @@ void	GameView::updateLife(int life)
 void	GameView::isGameEnd(bool end)
 {
   _gameEnd = end;
+  _run = false;
 }
 
 void	GameView::isGameIsWin(bool win)

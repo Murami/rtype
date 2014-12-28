@@ -41,8 +41,13 @@ void TextureManager::loadTexture()
     _life.loadFromFile("./res/Game/r-typesheet30a.gif");
     _wall.loadFromFile("./res/Game/r-typesheet54.gif");
     _rwall.loadFromFile("./res/Game/r-typesheet45.gif");
+#if defined (__APPLE__)
     _loose.loadFromFile("./res/Game/loose.jpg");
     _win.loadFromFile("./res/Game/win.jpg");
+#else
+    _loose.loadFromFile("./res/Game/loosePetit.jpg");
+    _win.loadFromFile("./res/Game/winPetit.jpg");
+#endif /* __APPLE__ */
 }
 
 sf::Texture TextureManager::getTextureShip() const
