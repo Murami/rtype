@@ -4,17 +4,20 @@
 
 # include <string>
 
-class	IDynamicFile
+namespace	DynamicFile
 {
-public:
-  virtual ~IDynamicFile() {}
+  class	IDynamicFile
+  {
+  public:
+    virtual ~IDynamicFile() {}
 
-  virtual void	open(const std::string& filename) = 0;
-  virtual void	close() = 0;
-  virtual void	*loadSymbol(const std::string& symbol) = 0;
-};
+    virtual void	open(const std::string& filename) = 0;
+    virtual void	close() = 0;
+    virtual void	*loadSymbol(const std::string& symbol) = 0;
+  };
 
-IDynamicFile*	create();
-IDynamicFile*	create(const std::string& filename);
+  IDynamicFile*	create();
+  IDynamicFile*	create(const std::string& filename);
+}
 
 #endif /* _DYNAMIC_FILE_HH_ */

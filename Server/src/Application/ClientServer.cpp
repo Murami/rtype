@@ -18,9 +18,15 @@ namespace Application
     _server.getService().addReadTcp(_socket);
     _server.getService().addWriteTcp(_socket);
     _state = T_MAGIC_WAITING;
+    _clientroom = NULL;
   }
 
-  ClientServer::~ClientServer() {}
+  ClientServer::~ClientServer() {
+    if (_clientroom)
+    {
+      _clientroom->getRoom()->deleteClient(this);
+    }
+  }
 
   /////////////////////////////
   /// Network notifications ///
@@ -102,6 +108,7 @@ namespace Application
 	std::cout << _state << std::endl;
 	if (_state != T_DISCONNECTED)
 	  throw ClientException("CONNECTION PROTOCOL ERROR");
+  std::cout << "client in connection" << std::endl;
 
 	Util::stringncopy(_name, user->username, USERNAME_SIZE);
 	_udpport = user->port;
@@ -109,6 +116,7 @@ namespace Application
 	_state = T_CONNECTED;
 	this->sendHeader(RtypeProtocol::T_CONNECTION_OK);
 	_server.sendAllRoomInfos(this);
+  std::cout << "client connected" << std::endl;
       }
   }
 
@@ -215,40 +223,42 @@ namespace Application
   void	ClientServer::notify(int const &type, Network::TcpSocket *)
   {
     if (type == RtypeProtocol::T_READY)
-      {
-	std::cout << "ready" << std::endl;
+    {
+      std::cout << "ready" << std::endl;
 
-	if (_state != T_INROOM)
-	  throw ClientException("Not in room");
-	_state = T_INGAME;
-	if (_clientroom->getRoom()->isReady())
-	  {
-	    _clientroom->getRoom()->startGame();
-	    _clientroom->getRoom()->sendGameStart();
-	  }
-	_clientroom->addToGame();
+      if (_state != T_INROOM)
+      throw ClientException("Not in room");
+      _state = T_INGAME;
+      if (_clientroom->getRoom()->isReady())
+      {
+        _clientroom->getRoom()->startGame();
+        _clientroom->getRoom()->sendGameStart();
       }
+      _clientroom->addToGame();
+    }
     if (type == RtypeProtocol::T_ROOM_EXIT)
+    {
+      std::cout << "room exit" << std::endl;
+      _server.deleteClientRoom(_clientroom);
+      _clientroom->getRoom()->deleteClient(this);
+      if (_state != T_INROOM) // TODO leave en jeu aussi ? ...
+        throw ClientException("Not in a room");
+/*
+      Room*	room = _clientroom->getRoom();
+      bool	isHost = _clientroom->isHost();
+
+      room->deleteClient(this);
+      _server.deleteClientRoom(_clientroom);
+      _state = T_CONNECTED;
+      this->sendHeader(RtypeProtocol::T_ROOM_EXIT_OK);
+      if (isHost)
       {
-	std::cout << "room exit" << std::endl;
-
-	if (_state != T_INROOM) // TODO leave en jeu aussi ? ...
-	  throw ClientException("Not in a room");
-
-	Room*	room = _clientroom->getRoom();
-	bool	isHost = _clientroom->isHost();
-
-	room->deleteClient(this);
-	_server.deleteClientRoom(_clientroom);
-	_state = T_CONNECTED;
-	this->sendHeader(RtypeProtocol::T_ROOM_EXIT_OK);
-	if (isHost)
-	{
-	  _server.sendRoomToAllClients(room, false);
-	  _clientroom = NULL;
-	  _server.deleteRoom(room);
-	}
+        _server.sendRoomToAllClients(room, false);
+        _clientroom = NULL;
+        _server.deleteRoom(room);
       }
+      */
+    }
   }
 
   ///////////////

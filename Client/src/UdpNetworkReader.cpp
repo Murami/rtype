@@ -50,7 +50,6 @@ int			UdpNetworkReader::run(Util::Mutex* mutex)
   while (_udpConnection.isReading() && _udpConnection.socket().receive(buffer, 4096, received, ip, port) == sf::Socket::Done)
     {
       mutex->lock();
-      std::cout << "\033[36mInto the while\033[0m" << std::endl;
       onReadData(buffer);
       mutex->unlock();
     }
@@ -75,13 +74,14 @@ void	UdpNetworkReader::onReadPosition(char *buffer)
   position.position.x = ntohl(position.position.x);
   position.position.y = ntohl(position.position.y);
   position.position.state = ntohl(position.position.state);
-  std::cout << "\033[45mRECEIVED POSITION\033[0m" << std::endl;
+  //std::cout << "\033[45mRECEIVED POSITION\033[0m" << std::endl;
   _listener->onPosition(position);
 }
 
 void	UdpNetworkReader::onReadSpawn(char *buffer)
 {
   RtypeProtocol::Spawn spawn;
+
   std::memcpy(&spawn, &buffer[sizeof(RtypeProtocol::Header)], sizeof(spawn));
   spawn.id = ntohl(spawn.id);
   spawn.type = ntohl(spawn.type);
@@ -90,15 +90,11 @@ void	UdpNetworkReader::onReadSpawn(char *buffer)
   spawn.position.orientation = ntohl(spawn.position.orientation);
   spawn.position.state = ntohl(spawn.position.state);
   spawn.life = ntohl(spawn.life);
-  std::cout << "\033[44mRECEIVED SPAWN and sending to listener\033[0m" << std::endl;
+  //std::cout << "\033[44mRECEIVED SPAWN and sending to listener\033[0m" << std::endl;
   _listener->onSpawn(spawn);
 }
 
 void	UdpNetworkReader::onReadEvent(char *)
-{
-}
-
-void	UdpNetworkReader::onReadDestruction(char *)
 {
 }
 
@@ -122,11 +118,19 @@ void	UdpNetworkReader::onReadEntityInfos(char *)
 {
 }
 
+void	UdpNetworkReader::onReadDestruction(char *buffer)
+{
+  RtypeProtocol::Destruction	d;
+
+  std::memcpy(&d, buffer, sizeof(d));
+  d.id = ntohl(d.id);
+  _listener->onDestruction(d);
+}
+
 void	UdpNetworkReader::onReadData(char *buffer)
 {
   RtypeProtocol::Header header;
 
-  std::cout << "\033[41mreading data UDP\033[0m" << std::endl;
   std::memcpy(&header, buffer, sizeof(header));
   header.type = ntohl(header.type);
   if (_callbacks.find((RtypeProtocol::Type)header.type) != _callbacks.end())

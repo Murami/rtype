@@ -66,7 +66,6 @@ namespace Application
     // Others
     bool	isValidEndpoint(const std::string& host, unsigned short port) const;
 
-
   private:
     // Protocole attribute
     Network::ProtocoleUdp	_protocoleUdp;

@@ -1,12 +1,12 @@
 
 #include <iostream>
+
 #include "GameController.hh"
 #include "GameView.hh"
 #include "Player.hh"
 #include "Monster.hh"
 #include "BigRocket.hh"
 #include "LittleRocket.hh"
-#include <iostream>
 
 GameController::GameController(GameView& view)
   : _view(view)
@@ -34,6 +34,18 @@ void	GameController::updateSpawnList()
       updateEntityPosition(it->id, it->position);
     }
   _spawnList.clear();
+}
+
+void	GameController::updateDestroyList()
+{
+  std::list<int>::iterator	it;
+
+  for (it = _destroyList.begin(); it != _destroyList.end(); it++)
+    {
+      std::cout << "j'essaye d'earse le " << *it << std::endl;
+      _view.erase(*it);
+    }
+  _destroyList.clear();
 }
 
 void GameController::onExit()
@@ -91,7 +103,7 @@ void	GameController::createEntity(int id, RtypeProtocol::Entity entity)
 
 void	GameController::deleteEntity(int id)
 {
-  _view.erase(id);
+  _destroyList.push_back(id);
 }
 
 void	GameController::updateEntityPosition(int id, RtypeProtocol::Position pos)

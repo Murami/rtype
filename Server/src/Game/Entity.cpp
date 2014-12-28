@@ -8,15 +8,16 @@ namespace Game
 {
   Util::IDGenerator	Entity::_generator = Util::IDGenerator();
 
-  Entity::Entity(Core& game, bool isfriend) :
+  Entity::Entity(Core& game, bool isfriend, EntityType type) :
     _core(game),
     _body(game.getWorld(), isfriend),
     _life(100),
     _maxlife(100),
     _alive(true)
   {
+    _type = type;
     _id = _generator.generate();
-
+    _toDeleted = false;
     _body.addObserver(*this);
   }
 
@@ -75,6 +76,16 @@ namespace Game
     return (_core);
   }
 
+  void		Entity::isToDeleted(bool toDeleted)
+  {
+    _toDeleted = toDeleted;
+  }
+
+  bool		Entity::isToDeleted() const
+  {
+    return (_toDeleted);
+  }
+
   void		Entity::receive(const Physic::Body& body,
 				const Physic::BodyEvent::Move& /*event*/)
   {
@@ -94,5 +105,10 @@ namespace Game
   void		Entity::receive(const Physic::Body& /*body*/, const CollisionEvent& event)
   {
     event._entity.onCollide(*this);
+  }
+
+  EntityType  Entity::getType() const
+  {
+    return (_type);
   }
 };

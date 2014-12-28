@@ -34,6 +34,7 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
   while (_run)
     {
       this->updateSpawn();
+      this->updateDestroy();
       mask = RtypeEvent::DEFAULT;
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	mask += RtypeEvent::LEFT;
@@ -79,6 +80,7 @@ void	GameView::erase(int id)
 {
   if (_objectMap.find(id) != _objectMap.end())
     {
+      std::cout << "j'erase le " << id << std::endl;
       delete ((_objectMap.find(id))->second);
       _objectMap.erase(id);
     }
@@ -93,7 +95,7 @@ void	GameView::update()
     (*itBack)->update(sf::Vector2<float>(0, 0));
   for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
     {
-      itObj->second->update(itObj->second->getPosition());
+      itObj->second->updateAnim();
     }
 }
 
@@ -116,5 +118,8 @@ void	GameView::render(sf::RenderWindow& window)
   for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
     (*itBack)->render(window);
   for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
-    itObj->second->render(window);
+    {
+      std::cout << "je render " << itObj->first << std::endl;
+      itObj->second->render(window);
+    }
 }

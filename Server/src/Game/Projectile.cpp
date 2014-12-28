@@ -6,10 +6,13 @@ namespace Game
 {
   Projectile::Projectile(Core& game, bool isFriend, int damage,
 			 const Util::Vec2& position) :
-    Entity(game, isFriend),
+    Entity(game, isFriend, T_MISSILE_FRIENDLY_LITTLE),
     _isFriend(isFriend),
     _damage(damage)
   {
+    Util::Vec2	pos(16, 8);
+
+    _body.setSize(pos);
     setPosition(position);
     setSpeed(Util::Vec2(1500, 0));
   }
@@ -25,6 +28,17 @@ namespace Game
 
   void	Projectile::update(float /*time*/)
   {
+    
+    Util::Vec2	pos = _body.getPosition();
+
+    if (_body.getPosition().x - (_body.getSize().x / 2) < 0)
+      _core.deleteEntity(this);
+    else if ((_body.getPosition().x - (_body.getSize().x / 2)) > (1920 - _body.getSize().x))
+      _core.deleteEntity(this);
+    if (_body.getPosition().y - (_body.getSize().y / 2) < 0)
+      _core.deleteEntity(this);
+    else if ((_body.getPosition().y - (_body.getSize().y / 2)) > (1080 - _body.getSize().y))
+      _core.deleteEntity(this);
   }
 
   void	Projectile::onCollide(Entity& entity)

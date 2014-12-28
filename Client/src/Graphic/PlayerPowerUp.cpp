@@ -34,6 +34,12 @@ PlayerPowerUp::~PlayerPowerUp()
 void PlayerPowerUp::update(sf::Vector2<float> pos)
 {
   _sprite.setPosition(pos);
+  this->updateAnim();
+}
+
+
+void PlayerPowerUp::updateAnim()
+{
   if (_clock.getElapsedTime().asSeconds() > _animationDuration[_index])
     {
       _anim++;
@@ -44,7 +50,6 @@ void PlayerPowerUp::update(sf::Vector2<float> pos)
   if (_anim >= _animationMap.size())
     _anim = 0;
 }
-
 
 void PlayerPowerUp::PowerUp1()
 {

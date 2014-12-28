@@ -4,6 +4,7 @@
 #include "Util/Observable.hpp"
 #include "Physic/World.hh"
 #include "Util/PluginLoader.hpp"
+#include "Game/Monster.hh"
 
 namespace Game
 {
@@ -31,6 +32,7 @@ namespace Game
 
     Player&		addPlayer();
     Entity*		getEntity(unsigned int);
+    void		deleteEntity(Entity*);
     void		addMissile(const Player& player);
     void		spawnMonster();
   };

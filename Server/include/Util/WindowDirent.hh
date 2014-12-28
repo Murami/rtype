@@ -3,21 +3,23 @@
 # define _WINDOW_DIRENT_HH_
 
 # include <windows.h>
-# include <stdexcept>
 # include "IDirent.hh"
 
-class	WindowDirent : public IDirent
+namespace	Dirent
 {
-public:
-  WindowDirent(std::string directory);
-  ~WindowDirent();
+  class	WindowDirent : public IDirent
+  {
+  public:
+    WindowDirent(std::string directory);
+    ~WindowDirent();
 
-  std::list<std::string>	getFilesName();
-  std::list<std::string>	getFilesNameByExtension(std::string ext);
+    std::list<std::string>	getFilesName();
+    std::list<std::string>	getFilesNameByExtension(std::string ext);
 
-private:
-  HANDLE			_handle;
-  WIN32_FIND_DATA	_ffd;
-};
+  private:
+	  HANDLE			_handle;
+	  WIN32_FIND_DATA	_ffd;
+  };
+}
 
 #endif

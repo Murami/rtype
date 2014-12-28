@@ -1,4 +1,3 @@
-
 #ifndef	_PLUGIN_HH_
 # define _PLUGIN_HH_
 
