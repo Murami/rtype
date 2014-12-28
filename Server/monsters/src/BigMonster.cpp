@@ -42,13 +42,6 @@ namespace Game
 
   void	BigMonster::onCollide(Entity& entity)
   {
-    if (entity.getType() == T_PLAYER_1 ||
-      entity.getType() == T_PLAYER_2 ||
-      entity.getType() == T_PLAYER_3 ||
-      entity.getType() == T_PLAYER_4)
-    {
-      entity.setLife(entity.getLife - 67);
-    }
     entity.onCollide(*this);
   }
 
@@ -67,8 +60,15 @@ namespace Game
   {
   }
 
-  void	BigMonster::onCollide(Player& /*monster*/)
+  void	BigMonster::onCollide(Player& entity)
   {
+    if (entity.getType() == T_PLAYER_1 ||
+      entity.getType() == T_PLAYER_2 ||
+      entity.getType() == T_PLAYER_3 ||
+      entity.getType() == T_PLAYER_4)
+    {
+      entity.setLife(entity.getLife() - 67);
+    }
   }
 
 
