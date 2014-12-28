@@ -217,6 +217,7 @@ namespace Application
 	    _server.addClientRoom(_clientroom);
 	    _state = T_INROOM;
 	    this->sendHeader(RtypeProtocol::T_ROOM_CREATE_OK);
+	    _clientroom->updateRoomInfos();
 	  }
       }
   }
@@ -244,6 +245,7 @@ namespace Application
       _clientroom->getRoom()->deleteClient(this);
       if (_state != T_INROOM) // TODO leave en jeu aussi ? ...
         throw ClientException("Not in a room");
+      _clientroom->updateRoomInfos();
 /*
       Room*	room = _clientroom->getRoom();
       bool	isHost = _clientroom->isHost();
