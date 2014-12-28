@@ -19,12 +19,12 @@ void Life::update(int live)
 {
   float tmp = (live / 100) * 3;
   _live = tmp;
+  std::cout << "Life : " << live << std::endl;
 }
 
 void Life::render(sf::RenderWindow &window)
 {
   #ifdef __APPLE__
-  std::cout << "Life : " << _live << std::endl;
   if (_live >= 1)
     {
       _sprite.setPosition(100, 1750);
