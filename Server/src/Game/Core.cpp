@@ -67,6 +67,10 @@ namespace Game
 	    const CoreEvent::Destroy& destroy = CoreEvent::Destroy(*(*it));
 
 	    notifyObservers(destroy);
+      if ((*it)->getType() != T_PLAYER_1 &&
+        (*it)->getType() != T_PLAYER_2 &&
+        (*it)->getType() != T_PLAYER_3 &&
+        (*it)->getType() != T_PLAYER_4)
 	    delete (*it);
 	    it = _entities.erase(it);
 	  }
