@@ -82,6 +82,7 @@ void	UdpNetworkReader::onReadPosition(char *buffer)
 void	UdpNetworkReader::onReadSpawn(char *buffer)
 {
   RtypeProtocol::Spawn spawn;
+
   std::memcpy(&spawn, &buffer[sizeof(RtypeProtocol::Header)], sizeof(spawn));
   spawn.id = ntohl(spawn.id);
   spawn.type = ntohl(spawn.type);
@@ -95,10 +96,6 @@ void	UdpNetworkReader::onReadSpawn(char *buffer)
 }
 
 void	UdpNetworkReader::onReadEvent(char *)
-{
-}
-
-void	UdpNetworkReader::onReadDestruction(char *)
 {
 }
 
@@ -120,6 +117,15 @@ void	UdpNetworkReader::onReadDeath(char *)
 
 void	UdpNetworkReader::onReadEntityInfos(char *)
 {
+}
+
+void	UdpNetworkReader::onReadDestruction(char *buffer)
+{
+  RtypeProtocol::Destruction	d;
+
+  std::memcpy(&d, buffer, sizeof(d));
+  d.id = ntohl(d.id);
+  _listener->onDestruction(d);
 }
 
 void	UdpNetworkReader::onReadData(char *buffer)

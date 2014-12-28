@@ -306,10 +306,10 @@ void	RtypeClient::onDeleteRoom(RtypeProtocol::Room room)
 
 void	RtypeClient::onServerExited()
 {
-  _gameView->stop();
   _gameView->onExit();
-  _menuView->stop();
+  _gameView->stop();
   _menuView->setGameRunning(false);
+  _menuView->stop();
 }
 
 bool	RtypeClient::onConnectFromMenu(const std::string & login)
