@@ -1,4 +1,6 @@
 #include "LittleMonster.hh"
+#include "Projectile.hh"
+#include "DestroyableSet.hh"
 
 namespace Game
 {
