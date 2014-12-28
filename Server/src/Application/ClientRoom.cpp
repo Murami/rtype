@@ -71,8 +71,8 @@ namespace Application
 
 	destruction.id = request->id;
 
-	packed = _clientserver.getServer().server.getProtocoleUdp().pack(&destruction);
-	hpacked = _clientserver.getServer().server.getProtocoleUdp().pack(&header);
+	packed = _clientserver.getServer().getProtocoleUdp().pack(&destruction);
+	hpacked = _clientserver.getServer().getProtocoleUdp().pack(&header);
 
 	std::memcpy(buffer, hpacked->getData(), hpacked->getSize());
 	std::memcpy(buffer + hpacked->getSize(), packed->getData(), packed->getSize());
