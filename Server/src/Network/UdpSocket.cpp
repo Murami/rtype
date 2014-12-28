@@ -45,7 +45,7 @@ namespace Network
 
     if((n = recvfrom(_socket, reinterpret_cast<char *>(data), size, 0, (SOCKADDR *)&from, &fromsize)) < 0)
       throw NetworkException("udp socket recvfrom failed");
-    port = from.sin_port;
+    port = ntohs(from.sin_port);
     host = inet_ntoa(from.sin_addr);
     return (n);
   }
