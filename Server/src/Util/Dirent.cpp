@@ -1,7 +1,7 @@
 
 #include "IDirent.hh"
 
-#if defined (__unix__)
+#if defined (__unix__) || defined (__APPLE__)
 # include "LinuxDirent.hh"
 #elif defined (WIN32) || defined (_WIN32)
 # include "WindowDirent.hh"
