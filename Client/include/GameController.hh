@@ -19,6 +19,7 @@ public:
   void	updateDestroyList();
   void	update(size_t);
   void	updateLife(int life);
+  void	onRoomExit();
   void	onExit();
 
   void	setGameListener(IGameListener*);

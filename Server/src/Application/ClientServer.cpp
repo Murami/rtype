@@ -240,27 +240,20 @@ namespace Application
     }
     if (type == RtypeProtocol::T_ROOM_EXIT)
     {
-      std::cout << "room exit" << std::endl;
-      _server.deleteClientRoom(_clientroom);
-      _clientroom->getRoom()->deleteClient(this);
-      if (_state != T_INROOM) // TODO leave en jeu aussi ? ...
-        throw ClientException("Not in a room");
-      _clientroom->updateRoomInfos();
-/*
-      Room*	room = _clientroom->getRoom();
-      bool	isHost = _clientroom->isHost();
+      Room*	room;
 
-      room->deleteClient(this);
+      std::cout << "room exit" << std::endl;
+      room = _clientroom->getRoom();
       _server.deleteClientRoom(_clientroom);
+      if (_state != T_INROOM || _state != T_INGAME)
+        throw ClientException("Not in a room or game");
+      if (_clientroom->getRoom()->deleteClient(this))
+	{
+	  std::cout << "updateRoom infos on exit" << std::endl;
+	  room->updateRoomInfos();
+	}
+      _clientroom = NULL;
       _state = T_CONNECTED;
-      this->sendHeader(RtypeProtocol::T_ROOM_EXIT_OK);
-      if (isHost)
-      {
-        _server.sendRoomToAllClients(room, false);
-        _clientroom = NULL;
-        _server.deleteRoom(room);
-      }
-      */
     }
   }
 
@@ -367,6 +360,11 @@ namespace Application
     end.victory = victory;
     this->sendHeader(RtypeProtocol::T_GAMEEND, sizeof(RtypeProtocol::EndGame));
     send(this->_socket, end);
+  }
+
+  void	ClientServer::setState(State state)
+  {
+    _state = state;
   }
 
 } /* namespace Application */

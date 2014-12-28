@@ -54,6 +54,7 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
 
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 	_run = false;
+	this->onRoomExit();
 	this->onExit();
       }
       this->notify(mask);
@@ -82,6 +83,7 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
     {
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 	{
+	  this->onRoomExit();
 	  this->onExit();
 	  break;
 	}
@@ -113,6 +115,15 @@ void	GameView::erase(int id)
       delete ((_objectMap.find(id))->second);
       _objectMap.erase(id);
     }
+}
+
+void	GameView::emptyMap()
+{
+  std::map<int, IObject*>::iterator		itObj;
+
+  for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
+    delete (itObj->second);
+  _objectMap.clear();
 }
 
 void	GameView::update(float time)

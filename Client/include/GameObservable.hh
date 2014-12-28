@@ -32,6 +32,12 @@ public:
     for (std::set<IGameObserver *>::const_iterator it = _listObservers.begin(); it != _listObservers.end(); it++)
       (*it)->update(mask);
   }
+
+  void	onRoomExit()
+  {
+    for (std::set<IGameObserver *>::const_iterator it = _listObservers.begin(); it != _listObservers.end(); it++)
+      (*it)->onRoomExit();
+  }
   
   void onExit()
   {

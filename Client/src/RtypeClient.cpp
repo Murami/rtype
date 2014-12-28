@@ -153,6 +153,17 @@ void	RtypeClient::onKeyEvent(uint32_t event)
   _udpConnection->write(&buffer[0], sizeof(state) + sizeof(header));
 }
 
+
+void	RtypeClient::onRoomLeaveFromGame()
+{
+  RtypeProtocol::Header header;
+
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
+  header.type = RtypeProtocol::T_ROOM_EXIT;
+  header.data_size = 0;
+  _tcpConnection->write(&header, sizeof(header));
+}
+
 void	RtypeClient::onExitFromGame()
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;

@@ -44,9 +44,15 @@ void	GameController::updateDestroyList()
   _destroyList.clear();
 }
 
+void	GameController::onRoomExit()
+{
+  _listener->onRoomLeaveFromGame();
+}
+
 void GameController::onExit()
 {
   _listener->onExitFromGame();
+  _view.emptyMap();
 }
 
 void	GameController::createEntity(int id, RtypeProtocol::Entity entity)

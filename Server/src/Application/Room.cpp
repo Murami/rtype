@@ -37,7 +37,12 @@ namespace Application
 	std::list<ClientRoom*>::iterator	it;
 
 	for (it = _clients.begin(); it != _clients.end(); it++)
-	  (*it)->getClientServer().sendGameEnd(_game.isWin());
+	  {
+	    (*it)->getClientServer().sendGameEnd(_game.isWin());
+	    (*it)->getClientServer().setClientRoom(NULL);
+	    (*it)->getClientServer().setState(ClientServer::T_CONNECTED);
+	  }
+	_server.deleteRoom(this);
 	return;
       }
 
@@ -214,14 +219,15 @@ namespace Application
       }
   }
 
-  void			Room::deleteClient(ClientServer* clientserver)
+  bool			Room::deleteClient(ClientServer* clientserver)
   {
-    std::cout << "delete client" << std::endl;
     _clients.remove(clientserver->getClientRoom());
     if (_clients.empty())
     {
       _server.deleteRoom(this);
+      return (false);
     }
+    return (true);
   }
 
   bool			Room::isReady() const

@@ -68,6 +68,8 @@ namespace Application
     void	sendUdp(const void* data, size_t size);
     void	sendGameEnd(bool victory);
 
+    void	setState(State state);
+
   private:
     Server&			_server;
     Network::TcpSocket&		_socket;
