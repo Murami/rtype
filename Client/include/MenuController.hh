@@ -37,7 +37,7 @@ private:
   MenuView& _view;
   IMenuListener *_listen;
   std::map<int, RtypeProtocol::Room>	_roomList;
-  std::vector<std::string>		_playersName;
+  std::string				_playersName[4];
 };
 
 #endif /* defined(__RType__MenuController__) */

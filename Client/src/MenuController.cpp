@@ -11,7 +11,12 @@
 #include <iostream>
 
 MenuController::MenuController(MenuView &view) : _view(view)
-{ }
+{
+  _playersName[0] = "Player1";
+  _playersName[1] = "Player2";
+  _playersName[2] = "Player3";
+  _playersName[3] = "Player4";
+}
 
 MenuController::~MenuController()
 { }
@@ -99,37 +104,27 @@ void MenuController::joinRoom()
 
 void	MenuController::setPlayersNameList(RtypeProtocol::Room room)
 {
-  std::string	str;
+  std::string		str;
+  std::stringstream	str2;
+  size_t		i;
 
-  for (size_t i = 0; i < room.nb_connected_users; i++)
+  for (i = 0; i < room.nb_connected_users; i++)
     {
       str = reinterpret_cast<char*>(room.connected_users[i]);
-      _playersName.push_back(str);
+      _playersName[i] = str;
+    }
+  for (i = i; i < 4; i++)
+    {
+      str2 << "Player" << i + 1;
+      _playersName[i] = str2.str();
+      str2.str("");
     }
 }
 
 void	MenuController::updatePlayerName()
 {
-  std::vector<std::string>	tmp;
-
-
-  tmp.push_back("Player1");
-  tmp.push_back("Player2");
-  tmp.push_back("Player3");
-  tmp.push_back("Player4");
-
-  if (_playersName.size() >= 1)
-    tmp[0] = _playersName[0];
-  if (_playersName.size() >= 2)
-    tmp[1] = _playersName[1];
-  if (_playersName.size() >= 3)
-    tmp[2] = _playersName[2];
-  if (_playersName.size() >= 4)
-    tmp[3] = _playersName[3];
-
-  _view.setPlayerLabe1(tmp[0]);
-  _view.setPlayerLabe2(tmp[1]);
-  _view.setPlayerLabe3(tmp[2]);
-  _view.setPlayerLabe4(tmp[3]);
-  _playersName.clear();
+  _view.setPlayerLabe1(_playersName[0]);
+  _view.setPlayerLabe2(_playersName[1]);
+  _view.setPlayerLabe3(_playersName[2]);
+  _view.setPlayerLabe4(_playersName[3]);
 }
