@@ -32,7 +32,7 @@ sf::Vector2<float>  AObject::getPosition() const
 
 void AObject::setPosition(sf::Vector2<float> position)
 {
-    _sprite.setPosition(position);
+  _sprite.setPosition(position.x - _sprite.getLocalBounds().width, position.y - _sprite.getLocalBounds().height);
 }
 
 sf::Vector2<float>	AObject::getSpeed() const
