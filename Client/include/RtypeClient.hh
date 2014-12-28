@@ -37,7 +37,7 @@ private:
 
 private:
   void		_initEntityMap();
-  
+
   // IUdpNetworkListener
 public:
   virtual void	onPlayerInfo();
@@ -55,7 +55,7 @@ public:
   virtual void	onKeyEvent(uint32_t);
   virtual void	onExitFromGame();
   virtual void	onEntityRequestFromGame(uint32_t);
-  
+
   // ITcpNetworkListener
 public:
   virtual void	onMagicBadVersion();
@@ -81,7 +81,7 @@ public:
   virtual void	onHostLeftRoom();
   virtual void	onDeleteRoom(RtypeProtocol::Room);
   virtual void	onServerExited();
-  
+
   // IMenuListener
 public:
   virtual bool	onConnectFromMenu(const std::string&);

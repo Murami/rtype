@@ -27,6 +27,7 @@ public:
   void	createEntity(int id, RtypeProtocol::Entity);
   void	updateEntityPosition(int id, RtypeProtocol::Position);
   void	deleteEntity(int id);
+  void	gameEnd(bool);
 
 private:
   GameView&				_view;

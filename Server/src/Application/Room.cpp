@@ -33,20 +33,34 @@ namespace Application
 
     _server.getService().deleteTimeout(_timer);
     if (!_game.alive())
-      return; // TODO notify to delete the room and send winstate !
+      {
+	RtypeProtocol::EndGame		end;
+	Network::packet*		packed;
+
+	// position.position.x = entity.getPosition().x;
+	// position.position.y = entity.getPosition().y;
+	// position.position.speedX = entity.getSpeed().x;
+	// position.position.speedY = entity.getSpeed().y;
+	// position.id = entity.getId();
+	end.victory = _game.isWin();
+	packed = _server.getProtocoleUdp().pack(&end);
+	sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_GAMEEND);
+
+	return;
+      }
 
     time = std::chrono::system_clock::now().time_since_epoch();
 
-    if (time - _time > duration_milli(20))
+    if (time - _time > duration_milli(30))
       {
-	_game.update(0.02);
+	_game.update(0.03);
 	_time = time;
 	timer.setTimeout(duration_milli(0));
 	_server.getService().addTimeout(_timer);
       }
     else
       {
-	timer.setTimeout(duration_milli(20) - (time - _time));
+	timer.setTimeout(duration_milli(30) - (time - _time));
 	_server.getService().addTimeout(_timer);
       }
   }

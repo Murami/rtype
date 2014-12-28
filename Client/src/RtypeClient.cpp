@@ -3,7 +3,7 @@
 
 #if defined(__linux__) || defined(__APPLE__)
 # include <arpa/inet.h>
-#elif defined(WIN32)
+#elif defined(WIN32) || defined (_WIN32)
 # include <Winsock2.h>
 # include <windows.h>
 #endif
@@ -279,8 +279,12 @@ bool	RtypeClient::letStart()
   return (true);
 }
 
-void	RtypeClient::onGameEnd(RtypeProtocol::EndGame)
+void	RtypeClient::onGameEnd(RtypeProtocol::EndGame end)
 {
+  bool	b;
+
+  b = (bool) end.victory;
+  _gameController->gameEnd(b);
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
