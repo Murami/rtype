@@ -10,15 +10,15 @@ namespace Physic
   class BodyEvent::Collide : public BodyEvent
   {
   private:
-    const Body&	_body;
+    Body&	_body;
 
   public:
-    Collide(const Body& body);
+    Collide(Body& body);
     ~Collide();
 
     void	dispatch(const Body& world, BodyEventReceiver& receiver) const;
 
-    const Body&	getBody() const;
+    Body&	getBody() const;
   };
 };
 

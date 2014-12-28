@@ -8,6 +8,7 @@
 #include "Util/IDGenerator.hh"
 #include "Util/Vec2.hh"
 #include "Game/CollisionReceiver.hh"
+#include "Game/Core.hh"
 
 namespace Game
 {
@@ -16,7 +17,6 @@ namespace Game
   class Monster;
   class DestroyableSet;
   class EntityEvent;
-  class Core;
 
   class Entity : public Util::Observable<Entity, EntityEvent>,
 		 public CollisionReceiver
@@ -29,9 +29,10 @@ namespace Game
     int				_maxlife;
     bool			_alive;
     unsigned int		_id;
+    bool			_toDeleted;
 
   public:
-    Entity(Core& game);
+    Entity(Core& game, bool isfriend);
     virtual ~Entity();
 
     void		setSpeed(const Util::Vec2& speed);
@@ -44,6 +45,8 @@ namespace Game
     bool		isAlive() const;
     unsigned int	getId() const;
     Core&		getCore();
+    void		isToDeleted(bool);
+    bool		isToDeleted() const;
 
     virtual void	update(float time) = 0;
     virtual void	onCollide(Entity& entity) = 0;

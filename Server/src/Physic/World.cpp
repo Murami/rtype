@@ -22,24 +22,32 @@ namespace Physic
       (*it)->update(time);
 
     for (it = _bodies.begin(); it != _bodies.end(); it++)
-      for (it2 = std::next(it); it2 != _bodies.end(); it2++)
-	{
-	  if ((*it)->collide(*(*it2)))
-	    {
-	      BodyEvent::Collide	event(*(*it2));
+      {
+	for (it2 = _bodies2.begin(); it2 != _bodies2.end(); it2++)
+	  {
+	    if ((*it)->collide(*(*it2)))
+	      {
+		BodyEvent::Collide	event(*(*it2));
 
-	      (*it)->notifyObservers(event);
-	    }
-	}
+		(*it)->notifyObservers(event);
+	      }
+	  }
+      }
   }
 
   void	World::add(Body& body)
   {
-    _bodies.push_back(&body);
+    if (body.getGroup())
+      _bodies.push_back(&body);
+    else
+      _bodies2.push_back(&body);
   }
 
   void	World::remove(Body& body)
   {
-    _bodies.remove(&body);
+    if (body.getGroup())
+      _bodies.remove(&body);
+    else
+      _bodies2.remove(&body);
   }
 };

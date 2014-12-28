@@ -16,9 +16,10 @@ namespace Physic
     Util::Vec2	_position;
     Util::Vec2	_size;
     World&	_world;
+    bool	_group;
 
   public:
-    Body(World& world);
+    Body(World& world, bool group);
     virtual ~Body();
 
     void		setSpeed(const Util::Vec2& speed);
@@ -32,6 +33,8 @@ namespace Physic
 
     void		update(float time);
     bool		collide(const Body& body);
+
+    bool		getGroup() const;
 
   private:
     void		notifyMove();
