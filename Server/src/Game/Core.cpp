@@ -118,14 +118,7 @@ namespace Game
     _entities.push_back(monster);
     notifyObservers(spawn);
 
-    // int	y = std::rand() % 40;
-    // int	x = (1920 / 2) + std::rand() % (1920 / 2);
-    // if (y > 20)
-    //   y += 1080;
-    // else
-    //   y -= 20;
-    int	x = 200;
-    int	y = 200;
-    monster->setPosition(Util::Vec2(x, y));
+    int	y = std::rand() % 1080;
+    monster->setPosition(Util::Vec2(2000, y));
   }
 };

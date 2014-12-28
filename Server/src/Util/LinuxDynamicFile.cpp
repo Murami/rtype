@@ -15,8 +15,8 @@ namespace	DynamicFile
   LinuxDynamicFile::LinuxDynamicFile(const std::string& filename)
   {
     _isOpen = false;
-    if (!(_handle = dlopen(filename.c_str(), RTLD_LAZY)))
-      std::cerr << dlerror() << std::endl;
+    if (!(_handle = dlopen(filename.c_str(), RTLD_LAZY | RTLD_GLOBAL)))
+      std::cerr << "dlopen : " << dlerror() << std::endl;
     else
       _isOpen = true;
   }
@@ -34,8 +34,8 @@ namespace	DynamicFile
 	dlclose(_handle);
 	_isOpen = false;
       }
-    if (!(_handle = dlopen(filename.c_str(), RTLD_LAZY)))
-      std::cerr << dlerror() << std::endl;
+    if (!(_handle = dlopen(filename.c_str(), RTLD_LAZY | RTLD_GLOBAL)))
+      std::cerr << "dlopen : " << dlerror() << std::endl;
     else
       _isOpen = true;
   }
@@ -56,6 +56,7 @@ namespace	DynamicFile
       std::cerr << "You don't have an open file" << std::endl;
     else
       {
+	std::cout << "--> " << symbol.c_str() << std::endl;
 	res = dlsym(_handle, symbol.c_str());
 	if ((error = dlerror()) != NULL)
 	  std::cerr << reinterpret_cast<char*>(error) << std::endl;

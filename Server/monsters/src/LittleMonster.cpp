@@ -26,6 +26,10 @@ namespace Game
   {
   }
 
+  void	LittleMonster::onCollide(Player& /*player*/)
+  {
+  }
+
   void	LittleMonster::onCollide(DestroyableSet& /*set*/)
   {
   }

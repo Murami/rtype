@@ -26,6 +26,11 @@ namespace Game
   {
   }
 
+  void	BigMonster::onCollide(Player& /*monster*/)
+  {
+  }
+
+
   void	BigMonster::onCollide(DestroyableSet& /*set*/)
   {
   }
