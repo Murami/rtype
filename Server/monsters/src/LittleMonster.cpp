@@ -1,6 +1,7 @@
 #include "LittleMonster.hh"
 #include "Projectile.hh"
 #include "DestroyableSet.hh"
+#include "Player.hh"
 
 namespace Game
 {
@@ -48,7 +49,7 @@ namespace Game
 
   void	LittleMonster::onCollide(Player& entity)
   {
-    entity.setLife(entity.getLife - 34);
+    entity.setLife(entity.getLife() - 34);
     kill();
   }
 
