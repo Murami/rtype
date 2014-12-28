@@ -47,7 +47,6 @@ void	GameController::updateDestroyList()
 void GameController::onExit()
 {
   _listener->onExitFromGame();
-  std::cout << "exit game !!" << std::endl;
 }
 
 void	GameController::createEntity(int id, RtypeProtocol::Entity entity)

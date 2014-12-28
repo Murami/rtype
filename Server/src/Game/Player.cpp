@@ -66,14 +66,14 @@ namespace Game
 
     Util::Vec2	pos = _body.getPosition();
 
-    if (_body.getPosition().x - (_body.getSize().x / 2) < 0)
-      pos.x = _body.getSize().x / 2;
-    else if ((_body.getPosition().x + (_body.getSize().x / 2)) > 1920)
-      pos.x = 1920 - _body.getSize().x / 2;
-    if (_body.getPosition().y - (_body.getSize().y / 2) < 0)
-      pos.y = _body.getSize().y / 2;
-    else if ((_body.getPosition().y + (_body.getSize().y / 2)) > 1080)
-      pos.y = 1080 - _body.getSize().y / 2;
+    if (_body.getPosition().x <= 0)
+      pos.x = 0;
+    else if ((_body.getPosition().x + (_body.getSize().x)) >= 1920)
+      pos.x = 1920 - _body.getSize().x;
+    if (_body.getPosition().y <= 0)
+      pos.y = 0;
+    else if ((_body.getPosition().y + (_body.getSize().y)) > 1080)
+      pos.y = 1080 - _body.getSize().y;
     _body.setPosition(pos);
   }
 
