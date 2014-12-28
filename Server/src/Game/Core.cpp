@@ -23,6 +23,12 @@ namespace Game
     _world.update(time);
     for (it = _entities.begin(); it != _entities.end(); it++)
       (*it)->update(time);
+
+    for (it = _entities.begin(); it != _entities.end(); it++)
+      {
+	delete (*it);
+	it = _entities.erase(it);
+      }
   }
 
   bool	Core::alive() const
@@ -58,5 +64,10 @@ namespace Game
 	  return (*it);
       }
     return (NULL);
+  }
+
+  void	Core::deleteEntity(Entity* entity)
+  {
+    entity->isToDeleted(true);
   }
 };

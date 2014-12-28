@@ -14,7 +14,7 @@ namespace Game
     _alive(true)
   {
     _id = _generator.generate();
-
+    _toDeleted = false;
     _body.addObserver(*this);
   }
 
@@ -71,6 +71,16 @@ namespace Game
   Core&		Entity::getCore()
   {
     return (_core);
+  }
+
+  void		Entity::isToDeleted(bool toDeleted)
+  {
+    _toDeleted = toDeleted;
+  }
+
+  bool		Entity::isToDeleted() const
+  {
+    return (_toDeleted);
   }
 
   void		Entity::receive(const Physic::Body& body,

@@ -17,6 +17,9 @@ namespace Game
   Player::Player(Core& game, int num) :
     Entity(game), _num(num)
   {
+    Util::Vec2	pos(64, 28);
+
+    _body.setSize(pos);
     // TODO a enlever
     // setSpeed(Util::Vec2(10, 0));
   }
@@ -53,7 +56,19 @@ namespace Game
 	speed.normalize();
 	setSpeed(speed);
       }
-    // Check of the player is behin the camera of the gameplay
+
+    Util::Vec2	pos = _body.getPosition();
+
+    if (_body.getPosition().x - (_body.getSize().x / 2) < 0)
+      pos.x = _body.getSize().x / 2;
+    else if ((_body.getPosition().x - (_body.getSize().x / 2)) > (1920 - _body.getSize().x))
+      pos.x = 1920 - _body.getSize().x / 2;
+    if (_body.getPosition().y - (_body.getSize().y / 2) < 0)
+      _core.deleteEntity(this);
+      // pos.y = _body.getSize().y / 2;
+    else if ((_body.getPosition().y - (_body.getSize().y / 2)) > (1080 - _body.getSize().y))
+      pos.y = 1080 - _body.getSize().y / 2;
+    _body.setPosition(pos);
   }
 
   void	Player::onCollide(Entity& entity)
