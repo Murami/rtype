@@ -30,8 +30,12 @@ Monster::~Monster()
 
 void Monster::update(sf::Vector2<float> pos)
 {
-  _sprite.setPosition(pos);
-  if (_clock.getElapsedTime().asSeconds() > _animationDuration[_monsterID])
+#ifdef __APPLE__
+  _sprite.setPosition((pos.x /1920) * 2880, (pos.y / 1080) * 1800);
+#else
+  _sprite.setPosition(pos);  
+#endif
+    if (_clock.getElapsedTime().asSeconds() > _animationDuration[_monsterID])
     {
       _anim++;
       _clock.restart();
@@ -48,9 +52,9 @@ void Monster::initMonster1()
     _sprite.setTexture(_texture);
     _sprite.setTextureRect(sf::IntRect(4, 4, 252, 192));
     
-#ifdef __APPLE__
+    //#ifdef __APPLE__
     _sprite.scale(3.0, 3.0);
-#endif
+    //#endif
     
     _anim = 0;
     
@@ -66,9 +70,9 @@ void Monster::initMonster2()
     _sprite.setTexture(_texture);
     _sprite.setTextureRect(sf::IntRect(20, 24, 84, 96));
     
-#ifdef __APPLE__
+    //#ifdef __APPLE__
     _sprite.scale(3.0, 3.0);
-#endif
+    //#endif
     
     _anim = 0;
     
