@@ -203,6 +203,8 @@ void	RtypeClient::onConnectionOk()
 void	RtypeClient::onDisconnection()
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
+  // ICI
+  _menuView->setGameRunning(false);
 }
 
 void	RtypeClient::onRoomInfo(RtypeProtocol::Room room)
@@ -300,6 +302,14 @@ void	RtypeClient::onHostLeftRoom()
 void	RtypeClient::onDeleteRoom(RtypeProtocol::Room room)
 {
   _menuController->deleteFromRoomList(room);
+}
+
+void	RtypeClient::onServerExited()
+{
+  _gameView->onExit();
+  _gameView->stop();
+  _menuView->setGameRunning(false);
+  _menuView->stop();
 }
 
 bool	RtypeClient::onConnectFromMenu(const std::string & login)

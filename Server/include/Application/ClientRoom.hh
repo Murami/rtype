@@ -32,7 +32,7 @@ namespace Application
     // Getters
     const std::string&	getName() const;
     ClientServer&	getClientServer() const;
-    Room*		getRoom() const;
+    Room*		getRoom();
     bool		isHost() const;
 
   private:

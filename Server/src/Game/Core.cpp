@@ -2,6 +2,8 @@
 #include "Game/Entity.hh"
 #include "Game/Player.hh"
 #include "Game/CoreEventSpawn.hh"
+#include "Game/Projectile.hh"
+#include "Game/CoreEventDestroy.hh"
 #include <iostream>
 
 namespace Game
@@ -23,6 +25,18 @@ namespace Game
     _world.update(time);
     for (it = _entities.begin(); it != _entities.end(); it++)
       (*it)->update(time);
+
+    for (it = _entities.begin(); it != _entities.end(); it++)
+      {
+	if ((*it)->isToDeleted() == true)
+	  {
+	    const CoreEvent::Destroy&	destroy = CoreEvent::Destroy(*(*it));
+
+	    notifyObservers(destroy);
+	    delete (*it);
+	    it = _entities.erase(it);
+	  }
+      }
   }
 
   bool	Core::alive() const
@@ -58,5 +72,20 @@ namespace Game
 	  return (*it);
       }
     return (NULL);
+  }
+
+  void	Core::deleteEntity(Entity* entity)
+  {
+    entity->isToDeleted(true);
+  }
+
+  void			Core::addMissile(const Player& player)
+  {
+    Projectile*			projectile = new Projectile(*this, true, 100,
+							    player.getPosition());
+    const CoreEvent::Spawn&	spawn = CoreEvent::Spawn(*projectile);
+
+    _entities.push_back(projectile);
+    notifyObservers(spawn);
   }
 };

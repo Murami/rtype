@@ -27,6 +27,7 @@ namespace Application
 
   Room::~Room()
   {
+      close();
   }
 
   void	Room::onTimeout(Network::Timer& timer)
@@ -39,7 +40,7 @@ namespace Application
 
     if (time - _time > duration_milli(20))
       {
-	_game.update(2);
+	_game.update(0.02);
 	_time = time;
 	timer.setTimeout(duration_milli(0));
 	_server.getService().addTimeout(_timer);
@@ -77,7 +78,7 @@ namespace Application
 
     event.entity.addObserver(*this);
     spawn.id = event.entity.getId();
-    spawn.type = RtypeProtocol::T_PLAYER_1;// TODO gerer les player de 1 a 4 dans le gameplay
+    spawn.type = event.entity.getType();// TODO gerer les player de 1 a 4 dans le gameplay
     spawn.position.x = event.entity.getPosition().x;
     spawn.position.y = event.entity.getPosition().y;
     spawn.life = event.entity.getLife();
@@ -89,7 +90,14 @@ namespace Application
   void	Room::receive(const Game::Core& /*core*/,
 		      const Game::CoreEvent::Destroy& event)
   {
+    RtypeProtocol::Destruction	destroy;
+    Network::packet*		packed;
+
     event.entity.deleteObserver(*this);
+    destroy.id = event.entity.getId();
+    packed = _server.getProtocoleUdp().pack(&destroy);
+    sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_DESTRUCTION);
+    delete (packed);
   }
 
   bool	Room::testConnection(const std::string& password) const
@@ -169,13 +177,18 @@ namespace Application
       {
 	(*it)->getClientServer().sendHeader(RtypeProtocol::T_ROOM_HOST_LEAVED);
 	(*it)->getClientServer().setClientRoom(NULL);
-	(*it)->getClientServer().getServer().deleteClientRoom(*it);
+	_server.deleteClientRoom(*it);
       }
   }
 
   void			Room::deleteClient(ClientServer* clientserver)
   {
+    std::cout << "delete client" << std::endl;
     _clients.remove(clientserver->getClientRoom());
+    if (_clients.empty())
+    {
+      _server.deleteRoom(this);
+    }
   }
 
   bool			Room::isReady() const

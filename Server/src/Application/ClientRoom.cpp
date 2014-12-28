@@ -108,7 +108,7 @@ namespace Application
     return (_clientserver);
   }
 
-  Room*			ClientRoom::getRoom() const
+  Room*			ClientRoom::getRoom()
   {
     return (&_room);
   }

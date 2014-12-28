@@ -3,7 +3,7 @@
 namespace Game
 {
   Monster::Monster(Core& game) :
-    Entity(game)
+    Entity(game, false, T_MONSTER_LITTLE)
   {
   }
 

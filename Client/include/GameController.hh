@@ -16,6 +16,7 @@ public:
   ~GameController();
 
   void	updateSpawnList();
+  void	updateDestroyList();
   void	update(size_t);
   void	onExit();
 
@@ -30,6 +31,7 @@ private:
   GameView&				_view;
   IGameListener*			_listener;
   std::list<RtypeProtocol::Spawn>	_spawnList;
+  std::list<int>			_destroyList;
 };
 
 #endif

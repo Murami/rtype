@@ -4,7 +4,7 @@
 namespace Game
 {
   DestroyableSet::DestroyableSet(Core& game) :
-    Entity(game)
+    Entity(game, false, T_WALL_1)
   {
   }
 

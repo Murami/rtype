@@ -17,6 +17,7 @@ TcpConnection::TcpConnection(const ConnectionConfiguration& conf, Util::Mutex *m
 
 void		TcpConnection::setTcpNetworkListener(ITcpNetworkListener *listener)
 {
+  _listener = listener;
   _reader->setTcpNetworkListener(listener);
 }
 
@@ -67,6 +68,12 @@ bool		TcpConnection::isWriting() const
 sf::TcpSocket&	TcpConnection::socket()
 {
   return (_socket);
+}
+
+void		TcpConnection::exit()
+{
+  stopRead();
+  stopWrite();
 }
 
 bool		TcpConnection::connect()

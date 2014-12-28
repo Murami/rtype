@@ -80,7 +80,8 @@ public:
   virtual void	onMessage(RtypeProtocol::Message);
   virtual void	onHostLeftRoom();
   virtual void	onDeleteRoom(RtypeProtocol::Room);
-
+  virtual void	onServerExited();
+  
   // IMenuListener
 public:
   virtual bool	onConnectFromMenu(const std::string&);
