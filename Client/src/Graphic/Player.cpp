@@ -10,7 +10,7 @@
 #include <iostream>
 #include "Player.hh"
 #include "TextureManager.hh"
-
+#include "SoundManager.hh"
 
 Player::Player(int nb) : _powerUp(1)
 {
@@ -42,7 +42,7 @@ Player::Player(int nb) : _powerUp(1)
 
 Player::~Player()
 {
-    
+  SoundManager::Play("mort");    
 }
 
 void Player::update(const sf::Vector2<float> pos)
