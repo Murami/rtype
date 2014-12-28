@@ -31,6 +31,7 @@ public:
 	hook = reinterpret_cast<std::string (*)()>(tmp->loadSymbol("get_monster_name"));
 	_filenameList.push_back(*it);
 	_pluginsMap[hook()] = tmp;
+	_pluginsList.push_back(hook());
 	_fileAndPluginName[*it] = hook();
       }
     delete (dir);
@@ -67,6 +68,7 @@ public:
 	    hook = reinterpret_cast<std::string (*)()>(tmp->loadSymbol("get_monster_name"));
 	    _filenameList.push_back(*it);
 	    _pluginsMap[hook()] = tmp;
+	    _pluginsList.push_back(hook());
 	    _fileAndPluginName[*it] = hook();
 	  }
       }
@@ -78,6 +80,7 @@ public:
 	if (std::find(fileList.begin(), fileList.end(), *it) == fileList.end())
 	  {
 	    _filenameList.remove(*it);
+	    _pluginsList.remove(_fileAndPluginName[*it]);
 	    delete (_pluginsMap[_fileAndPluginName[*it]]);
 	    _pluginsMap.erase(_fileAndPluginName[*it]);
 	    _fileAndPluginName.erase(*it);
@@ -86,14 +89,9 @@ public:
     delete (dir);
   }
 
-  std::list<std::string>	getPluginList()
+  std::list<std::string>&	getPluginList()
   {
-    std::list<std::string>						ret;
-    std::map<std::string, DynamicFile::IDynamicFile*>::iterator	it;
-
-    for (it = _pluginsMap.begin(); it != _pluginsMap.end(); it++)
-      ret.push_back(it->first);
-    return (ret);
+    return (_pluginsList);
   }
 
   T		*load(const std::string& name)
@@ -119,11 +117,13 @@ public:
     delete (_pluginsMap[name]);
     _pluginsMap.erase(name);
     _fileAndPluginName.erase(name);
+    _pluginsList.remove(name);
   }
 
 private:
   const std::string					_pathDirectory;
   std::list<std::string>				_filenameList;
+  std::list<std::string>				_pluginsList;
   std::map<std::string, DynamicFile::IDynamicFile*>	_pluginsMap;
   std::map<std::string, std::string>			_fileAndPluginName;
 };

@@ -2,7 +2,7 @@
 #define GAME_MONSTER
 
 #include "Game/Entity.hh"
-// #include "Util/APlugin.hh"
+#include "Util/APlugin.hh"
 
 namespace Game
 {

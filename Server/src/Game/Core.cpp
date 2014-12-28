@@ -4,6 +4,7 @@
 #include "Game/CoreEventSpawn.hh"
 #include "Game/Projectile.hh"
 #include "Game/CoreEventDestroy.hh"
+#include "Game/Monster.hh"
 #include <iostream>
 
 namespace Game
@@ -102,7 +103,7 @@ namespace Game
 
     int					rand = std::rand() % plugins.size();
 
-    it = std::next(_plugins.begin(), rand);
+    it = std::next(plugins.begin(), rand);
     monster = _loader.load(*it);
 
     const CoreEvent::Spawn&		spawn = CoreEvent::Spawn(*monster);

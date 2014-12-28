@@ -4,13 +4,13 @@
 #include "Util/Observable.hpp"
 #include "Physic/World.hh"
 #include "Util/PluginLoader.hpp"
-#include "Game/Monster.hh"
 
 namespace Game
 {
   class CoreEvent;
   class Entity;
   class Player;
+  class	Monster;
 
   class Core : public Util::Observable<Core, CoreEvent>
   {

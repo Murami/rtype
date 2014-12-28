@@ -118,8 +118,5 @@ void	GameView::render(sf::RenderWindow& window)
   for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
     (*itBack)->render(window);
   for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
-    {
-      std::cout << "je render " << itObj->first << std::endl;
-      itObj->second->render(window);
-    }
+    itObj->second->render(window);
 }
