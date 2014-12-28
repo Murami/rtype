@@ -1,4 +1,4 @@
-
+#include <stdexcept>
 #if defined (WIN32) || defined (_WIN32)
 
 # include "WindowDynamicFile.hh"
@@ -55,7 +55,7 @@ namespace	DynamicFile
 
 	  if (!_isOpen)
 		  throw (std::runtime_error("You don't have an open file"));
-	  res = GetProcAddress(_handle, TEXT(name.c_str()));
+	  res = reinterpret_cast<void *>(GetProcAddress(_handle, TEXT(name.c_str())));
 	  if (res == NULL)
 	  {
 		  char *str;

@@ -1,7 +1,7 @@
 
-#ifdef __unix__
+#if defined (__unix__) || defined (__APPLE__)
 
-# include <stdexcept>
+# include <iostream>
 # include <string.h>
 # include "LinuxDirent.hh"
 
@@ -11,7 +11,7 @@ namespace	Dirent
   {
     _dir = opendir(directory.c_str());
     if (_dir == NULL)
-      throw (std::runtime_error("Error: Can't open the directory " + directory));
+      std::cerr << "Error: Can't open the directory " << directory << std::endl;
   }
 
   LinuxDirent::~LinuxDirent()
@@ -48,7 +48,7 @@ namespace	Dirent
 	      res.push_back(s_dir->d_name);
 	  }
       }
-    return (res);  
+    return (res);
   }
 }
 #endif /* __unix__ */
