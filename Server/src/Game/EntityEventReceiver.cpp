@@ -9,6 +9,6 @@ namespace Game
 
   void	EntityEventReceiver::update(const Entity& entity, const EntityEvent& event)
   {
-    update(entity, event);
+    dispatch(entity, event);
   }
 };

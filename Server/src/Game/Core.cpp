@@ -20,7 +20,6 @@ namespace Game
   {
     std::list<Entity*>::iterator	it;
 
-    std::cout << "game update" << std::endl;
     _world.update(time);
     for (it = _entities.begin(); it != _entities.end(); it++)
       (*it)->update(time);

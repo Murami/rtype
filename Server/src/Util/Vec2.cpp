@@ -1,4 +1,5 @@
 #include "Util/Vec2.hh"
+#include <cmath>
 
 namespace Util
 {
@@ -86,6 +87,14 @@ namespace Util
   Vec2	 Vec2::operator/(float factor) const
   {
     return (Vec2(*this) /= factor);
+  }
+
+  void	Vec2::normalize()
+  {
+    float	div = std::sqrt(dot(*this, *this));
+
+    x /= div;
+    y /= div;
   }
 
   float	 Vec2::dot(const Vec2& v1, const Vec2& v2)

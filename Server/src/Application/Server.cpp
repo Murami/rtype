@@ -21,9 +21,10 @@ namespace Application
     _service.addReadUdp(_udpSocket);
     _service.addWriteUdp(_udpSocket);
 
-    _timer1.setObserver(this);
-    _timer1.setTimeout(Network::duration_millisecond(100));
-    _service.addTimeout(_timer1);
+    // TODO erase ce putain de timer1 qui ser a rien
+    // _timer1.setObserver(this);
+    // _timer1.setTimeout(Network::duration_millisecond(100));
+    // _service.addTimeout(_timer1);
   }
 
   Server::~Server()
@@ -79,7 +80,6 @@ namespace Application
   {
     _protocoleUdp.onRead(&socket, this);
     _service.addReadUdp(socket);
-    //std::cout << "on read udp" << std::endl;
   }
 
   void Server::onWrite(Network::UdpSocket & socket)
@@ -87,10 +87,10 @@ namespace Application
     _service.addReadUdp(socket);
   }
 
-  void Server::onTimeout(Network::Timer & timer)
+  void Server::onTimeout(Network::Timer &)// timer)
   {
-    timer.setTimeout(Network::duration_millisecond(100));
-    _service.addTimeout(timer);
+    // timer.setTimeout(Network::duration_millisecond(100));
+    // _service.addTimeout(timer);
   }
 
   ///////////////
@@ -241,6 +241,13 @@ namespace Application
 
   bool	Server::isValidEndpoint(const std::string& host, unsigned short port) const
   {
+    std::map<Network::EndPoint, ClientRoom*>::const_iterator	it;
+
+    for (it = _clientsroom.begin(); it != _clientsroom.end(); it++)
+      {
+	std::cout << "host : " << it->first.getHost() << "  port : " <<
+	  it->first.getPort() << std::endl;
+      }
     if (_clientsroom.find(Network::EndPoint(port, host)) != _clientsroom.end())
 	return (true);
     return (false);

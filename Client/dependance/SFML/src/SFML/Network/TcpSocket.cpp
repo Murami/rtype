@@ -221,7 +221,7 @@ Socket::Status TcpSocket::send(const void* data, std::size_t size)
     // Check the parameters
     if (!data || (size == 0))
     {
-        err() << "Cannot send data over the network (no data to send)" << std::endl;
+        //err() << "Cannot send data over the network (no data to send)" << std::endl;
         return Error;
     }
 

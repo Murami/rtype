@@ -26,6 +26,7 @@ namespace Util
     Vec2	operator-(const Vec2& vec) const;
     Vec2	operator*(float factor) const;
     Vec2	operator/(float factor) const;
+    void	normalize();
 
     static float	dot(const Vec2& v1, const Vec2& v2);
   };
