@@ -7,7 +7,8 @@ namespace Game
 {
   class BigMonster : public Monster
   {
-    BigMonster();
+  public:
+    BigMonster(Core& game);
     ~BigMonster();
 
     void	update(float time);

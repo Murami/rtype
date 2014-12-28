@@ -10,6 +10,7 @@ namespace Game
 		  public APlugin
   {
   public:
+    Monster(Core& game, EntityType type) : Entity(game, false, type) {}
     virtual ~Monster() {};
 
     virtual void	update(float time) = 0;
