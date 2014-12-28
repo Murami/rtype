@@ -21,10 +21,13 @@ namespace Game
 	init = true;
 	setSpeed(Util::Vec2(-100, 0));
       }
-    if (getPosition().x >= 500 || getPosition().y >= 900)
+    if (getPosition().x >= 500)
       setSpeed(Util::Vec2(0, -100));
-    if (getPosition().y <= 50)
+    if (getPosition().y >= 900)
+      setSpeed(Util::Vec2(0, -100));
+    else if (getPosition().y <= 50)
       setSpeed(Util::Vec2(0, 100));
+    std::cout << "Monster Speed : " << getPosition().x << " " << getPosition().y << std::endl;
   }
 
   void	BigMonster::onCollide(Entity& entity)
