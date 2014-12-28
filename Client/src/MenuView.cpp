@@ -336,6 +336,9 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 	_run = false;
       _mutexGameRunning.unlock();
 
+      if (_actualState == RtypeEvent::ROOMSTATE)
+	this->updatePlayerName();
+
         sf::Event event;
 
         while (window.pollEvent(event))
