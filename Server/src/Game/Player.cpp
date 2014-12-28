@@ -72,10 +72,10 @@ namespace Game
       pos.x = 0;
     else if ((_body.getPosition().x + (_body.getSize().x)) >= 1920)
       pos.x = 1920 - _body.getSize().x;
-    if (_body.getPosition().y <= 0)
-      pos.y = 0;
-    else if ((_body.getPosition().y + (_body.getSize().y)) > 1080)
-      pos.y = 1080 - _body.getSize().y;
+    if (_body.getPosition().y <= 30)
+      pos.y = 30;
+    else if ((_body.getPosition().y + (_body.getSize().y)) >= 1080 - 30)
+      pos.y = 1080 - 30 - _body.getSize().y;
     _body.setPosition(pos);
   }
 

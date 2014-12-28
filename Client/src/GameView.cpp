@@ -8,6 +8,7 @@
 GameView::GameView()
 {
   _run = false;
+  _gameEnd = false;
   _backgroundVector.push_back(new ScrollingBackground("./res/Game/background_game.jpg"));
   _backgroundVector.push_back(new ScrollingBackground("./res/Game/planets.png"));
   _backgroundVector[1]->setBgSpeed(0.5);
@@ -36,6 +37,24 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
   _run = true;
   while (_run)
     {
+      // if (_gameEnd == true)
+      // 	{
+      // 	  sf::Texture	tex;
+      // 	  sf::Sprite	sprite;
+
+      // 	  SoundManager::Stop();
+      // 	  if (_gameWin == true)
+      // 	    {
+      // 	      tex.loadFromFile("res/Game/win.jpg");
+      // 	      SoundManager::Play("stageClear");
+      // 	    }
+      // 	  else
+      // 	    {
+      // 	      tex.loadFromFile("res/Game/lose.jpg");
+      // 	      SoundManager::Play("gameOver");
+      // 	    }
+      // 	  sprite.setTexture(tex);
+      // 	}
       this->updateSpawn();
       this->updateDestroy();
       mask = RtypeEvent::DEFAULT;
@@ -153,4 +172,14 @@ void	GameView::render(sf::RenderWindow& window)
 void	GameView::updateLife(int life)
 {
   _life.update(life);
+}
+
+void	GameView::isGameEnd(bool end)
+{
+  _gameEnd = end;
+}
+
+void	GameView::isGameIsWin(bool win)
+{
+  _gameWin = win;
 }

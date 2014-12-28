@@ -27,6 +27,8 @@ public:
   void	add(int id, IObject*);
   void	erase(int id);
   void	updateLife(int life);
+  void	isGameEnd(bool);
+  void	isGameIsWin(bool);
 
 public:
   bool	updateById(int id, RtypeProtocol::Position pos);
@@ -41,6 +43,8 @@ private:
   bool					_run;
   Life					_life;
   Wall					_wall;
+  bool					_gameEnd;
+  bool					_gameWin;
 };
 
 #endif
