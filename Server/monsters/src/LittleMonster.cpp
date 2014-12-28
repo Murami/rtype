@@ -14,12 +14,17 @@ namespace Game
   {
   }
 
-  void	LittleMonster::onCollide(Entity& /*entity*/)
+  void	LittleMonster::onCollide(Entity& entity)
   {
+    entity.onCollide(*this);
   }
 
-  void	LittleMonster::onCollide(Projectile& /*projectile*/)
+  void	LittleMonster::onCollide(Projectile& projectile)
   {
+    if (!projectile.isFriend() || !this->isAlive())
+      return;
+    projectile.kill();
+    _life -= projectile.getDamage();
   }
 
   void	LittleMonster::onCollide(Monster& /*monster*/)
@@ -30,8 +35,9 @@ namespace Game
   {
   }
 
-  void	LittleMonster::onCollide(DestroyableSet& /*set*/)
+  void	LittleMonster::onCollide(DestroyableSet& set)
   {
+    set.kill();
   }
 };
 

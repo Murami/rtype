@@ -80,7 +80,6 @@ void	GameView::erase(int id)
 {
   if (_objectMap.find(id) != _objectMap.end())
     {
-      std::cout << "j'erase le " << id << std::endl;
       delete ((_objectMap.find(id))->second);
       _objectMap.erase(id);
     }
