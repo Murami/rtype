@@ -35,7 +35,10 @@ namespace Game
       T_BONUS_2           = 15,
       T_BONUS_3           = 16,
       T_BONUS_4           = 17,
-      T_MISSILE           = 18
+      T_MISSILE_FRIENDLY_LITTLE   = 18,
+      T_MISSILE_FRIENDLY_BIG      = 19,
+      T_MISSILE_ENNEMY_LITTLE     = 20,
+      T_MISSILE_ENNEMY_BIG        = 21
     };
 
   class Entity : public Util::Observable<Entity, EntityEvent>,
