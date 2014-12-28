@@ -47,4 +47,16 @@ namespace Game
   {
     return (_world);
   }
+
+  Entity*		Core::getEntity(unsigned int id)
+  {
+    std::list<Entity*>::iterator	it;
+
+    for (it = _entities.begin(); it != _entities.end(); it++)
+      {
+	if ((*it)->getId() == id)
+	  return (*it);
+      }
+    return (NULL);
+  }
 };

@@ -40,6 +40,7 @@ namespace Game
     // Input/State Component
     std::list<Input>::iterator	it;
 
+    setSpeed(Util::Vec2(0, 0));
     for (it = _inputs.begin(); it != _inputs.end(); it++)
       (this->*_actions[*it])();
 

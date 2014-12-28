@@ -48,14 +48,12 @@ namespace Application
   void	Server::notify(int const &, const RtypeProtocol::State* state,
 		       const unsigned int& port, const std::string& host)
   {
-    std::cout << "UDP state" << std::endl;
     _clientsroom[Network::EndPoint(port, host)]->notify(state);
   }
 
   void	Server::notify(int const &, const RtypeProtocol::EntityRequest* request,
 		       const unsigned int& port, const std::string& host)
   {
-    std::cout << "UDP request" << std::endl;
     _clientsroom[Network::EndPoint(port, host)]->notify(request);
   }
 
@@ -140,8 +138,6 @@ namespace Application
 
     Room*	room = new Room(*this, name, pass);
 
-    //std::cout << "Create a new room" << std::endl;
-
     _rooms.insert(std::pair<unsigned int, Room *>(room->getID(), room));
     return (room);
   }
@@ -208,12 +204,8 @@ namespace Application
   {
     std::map<unsigned int, Room*>::const_iterator	it;
 
-    std::cout << "send all room infos" << std::endl;
     for (it = _rooms.begin(); it != _rooms.end(); it++)
-      {
-	std::cout << "send one room" << std::endl;
-	clientserver->sendRoomInfos(it->second, true);
-      }
+      clientserver->sendRoomInfos(it->second, true);
   }
 
   void	Server::sendRoomToAllClients(const Room* room, bool alive)
@@ -241,13 +233,6 @@ namespace Application
 
   bool	Server::isValidEndpoint(const std::string& host, unsigned short port) const
   {
-    std::map<Network::EndPoint, ClientRoom*>::const_iterator	it;
-
-    for (it = _clientsroom.begin(); it != _clientsroom.end(); it++)
-      {
-	std::cout << "host : " << it->first.getHost() << "  port : " <<
-	  it->first.getPort() << std::endl;
-      }
     if (_clientsroom.find(Network::EndPoint(port, host)) != _clientsroom.end())
 	return (true);
     return (false);
