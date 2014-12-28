@@ -44,6 +44,11 @@ void	GameController::updateDestroyList()
   _destroyList.clear();
 }
 
+void	GameController::onRoomExit()
+{
+  _listener->onRoomLeaveFromGame();
+}
+
 void GameController::onExit()
 {
   _listener->onExitFromGame();
