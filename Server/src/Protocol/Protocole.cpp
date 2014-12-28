@@ -534,6 +534,7 @@ namespace Network
 
   void	ProtocoleUdp::onRead(UdpSocket *socket, IUdpProtocoleObserver *obs) const
   {
+    std::cout << "onread Protocole Udp" << std::endl;
     unpack(socket, obs);
   }
 
@@ -547,9 +548,11 @@ namespace Network
 
     std::memset(buffer, 0, 4096);
 
+    std::cout << "unpack" << std::endl;
     size = socket->recvDataFrom(buffer, 4096, port, host);
     if (!_server.isValidEndpoint(host, port))
       {
+        std::cout << "WTF " << host << " : " << port << std::endl;
 	return (false);//ignore the request
 	// throw RtypeProtocol::ProtocolException("unknown ip");
       }

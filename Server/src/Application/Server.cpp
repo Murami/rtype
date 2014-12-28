@@ -87,7 +87,7 @@ namespace Application
     _service.addReadUdp(socket);
   }
 
-  void Server::onTimeout(Network::Timer & timer)
+  void Server::onTimeout(Network::Timer &)// timer)
   {
     // timer.setTimeout(Network::duration_millisecond(100));
     // _service.addTimeout(timer);
