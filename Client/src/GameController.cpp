@@ -11,7 +11,6 @@
 GameController::GameController(GameView& view)
   : _view(view)
 {
-  (void)_view;
 }
 
 GameController::~GameController()
@@ -39,7 +38,6 @@ void	GameController::updateSpawnList()
 
 void GameController::onExit()
 {
-  //_listener exit
   _listener->onExitFromGame();
   std::cout << "exit game !!" << std::endl;
 }
@@ -89,6 +87,11 @@ void	GameController::createEntity(int id, RtypeProtocol::Entity entity)
       break;
     }
   _view.add(id, obj);
+}
+
+void	GameController::deleteEntity(int id)
+{
+  _view.erase(id);
 }
 
 void	GameController::updateEntityPosition(int id, RtypeProtocol::Position pos)

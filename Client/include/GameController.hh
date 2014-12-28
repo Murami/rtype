@@ -24,6 +24,7 @@ public:
   void	spawnEntity(RtypeProtocol::Spawn);
   void	createEntity(int id, RtypeProtocol::Entity);
   void	updateEntityPosition(int id, RtypeProtocol::Position);
+  void	deleteEntity(int id);
 
 private:
   GameView&				_view;
