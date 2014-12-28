@@ -346,7 +346,7 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 	      {
 		if (event.key.code == sf::Keyboard::Escape)
 		  {
-		    if (_actualState == RtypeEvent::LOGINSTATE)
+		    if (_actualState == RtypeEvent::LOGINSTATE ||  _actualState == RtypeEvent::MENUSTATE)
 		      {
 			_run = false;
 			window.close();
@@ -451,7 +451,6 @@ void MenuView::prevState()
     case RtypeEvent::LOGINSTATE:
       break;
     case RtypeEvent::MENUSTATE:
-      _actualState = RtypeEvent::LOGINSTATE;
       break;
     case RtypeEvent::ROOMSELECTSTATE:
       _actualState = RtypeEvent::MENUSTATE;
