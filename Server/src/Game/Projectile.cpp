@@ -53,7 +53,7 @@ namespace Game
     // DO NOTHING
   }
 
-  void	Projectile::onCollide(Player& player)
+  void	Projectile::onCollide(Player&)// player)
   {
     // DO NOTHGIN
   }
