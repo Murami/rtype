@@ -52,6 +52,7 @@ bool	SoundManager::Play(std::string name, bool loop)
     {
       std::shared_ptr<sf::Sound>	sound = std::make_shared<sf::Sound>();
 
+      deleteObsoleteSounds();
       sound->setBuffer(*_soundsMap[name]);
       sound->setVolume(_soundVolume);
       sound->play();
@@ -93,6 +94,15 @@ bool	SoundManager::Stop(std::string name)
       return (true);
     }
   return (false);
+}
+
+void	SoundManager::deleteObsoleteSounds()
+{
+  std::list<std::shared_ptr<sf::Sound> >::iterator	it;
+
+  for (it = _trash.begin(); it != _trash.end(); it++)
+    if ((*it)->getStatus() == sf::Sound::Status::Stopped)
+      it = _trash.erase(it);
 }
 
 void	SoundManager::SoundVolume(int volume)

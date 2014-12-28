@@ -10,7 +10,7 @@ namespace Game
     _isFriend(isFriend),
     _damage(damage)
   {
-    Util::Vec2	pos(16, 8);
+    Util::Vec2	pos(48, 24);
 
     _body.setSize(pos);
     setPosition(position);
