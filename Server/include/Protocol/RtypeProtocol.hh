@@ -180,6 +180,8 @@ static const int8_t	proto_name[] = "RType";
   PACKED(Position{
       int32_t		x;
       int32_t		y;
+      int32_t		speedX;
+      int32_t		speedY;
       // int8_t		orientation; // obselete
       // int32_t		state;       // obselete
     };)
