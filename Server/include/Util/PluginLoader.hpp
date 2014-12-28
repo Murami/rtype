@@ -99,7 +99,10 @@ public:
     T		*(*res)(void*);
 
     if (_pluginsMap.find(name) == _pluginsMap.end())
-      throw (std::runtime_error("Unknown symbol " + name));
+      {
+	std::cerr << "Unknown symbol " << name << std::endl;
+	return (NULL);
+      }
 
     try
       {
@@ -107,7 +110,8 @@ public:
       }
     catch (const std::exception& e)
       {
-	throw (e);
+	std::cerr << e.what() << std::endl;
+	return (NULL);
       }
     return (res(param));
   }
