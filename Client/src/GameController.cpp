@@ -101,6 +101,10 @@ void	GameController::deleteEntity(int id)
   _destroyList.push_back(id);
 }
 
+void	GameController::gameEnd(bool)
+{
+}
+
 void	GameController::updateLife(size_t life)
 {
   _view.updateLife(life);
