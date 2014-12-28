@@ -281,7 +281,10 @@ bool	RtypeClient::letStart()
 
 void	RtypeClient::onGameEnd(RtypeProtocol::EndGame end)
 {
-  _gameController->gameEnd(end.victory);
+  bool	b;
+
+  b = reinterpret_cast<bool>(end.victory);
+  _gameController->gameEnd(b);
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
