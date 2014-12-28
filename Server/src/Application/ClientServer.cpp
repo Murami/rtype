@@ -255,6 +255,7 @@ namespace Application
 	}
       else
 	{
+	  std::cout << "le send ta race" << std::endl;
 	  this->sendRoomInfos(room, false);
 	}
       _clientroom->getRoom()->deleteClient(this);

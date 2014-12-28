@@ -39,10 +39,10 @@ namespace Application
 	for (it = _clients.begin(); it != _clients.end(); it++)
 	  {
 	    (*it)->getClientServer().sendGameEnd(_game.isWin());
-	    (*it)->getClientServer().setClientRoom(NULL);
-	    (*it)->getClientServer().setState(ClientServer::T_CONNECTED);
+	    // (*it)->getClientServer().setClientRoom(NULL);
+	    // (*it)->getClientServer().setState(ClientServer::T_CONNECTED);
 	  }
-	_server.deleteRoom(this);
+	// _server.deleteRoom(this);
 	return;
       }
 
