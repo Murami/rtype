@@ -70,6 +70,8 @@ namespace Application
     Game::Core&				getGame();
 
     void				close();
+
+    void				updateRoomInfos();
   };
 };
 

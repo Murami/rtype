@@ -35,6 +35,8 @@ namespace Application
     Room*		getRoom();
     bool		isHost() const;
 
+    void		updateRoomInfos();
+
   private:
     void		notifyState(unsigned int state);
   };

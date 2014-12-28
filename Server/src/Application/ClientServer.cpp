@@ -174,6 +174,7 @@ namespace Application
 	    _clientroom = room->addClient(this, false);
 	    _server.addClientRoom(_clientroom);
 	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_OK);
+	    _clientroom->updateRoomInfos();
 	  }
       }
   }

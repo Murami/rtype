@@ -5,7 +5,7 @@
 
 namespace Game
 {
-  class EntityEvent::Life
+  class EntityEvent::Life : public EntityEvent
   {
   public:
     int		life;

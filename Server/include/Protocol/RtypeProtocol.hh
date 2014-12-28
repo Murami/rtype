@@ -88,7 +88,8 @@ static const int8_t	proto_name[] = "RType";
       T_ENTITYINFOS			= 44,
       T_ROOM_JOIN_STARTED		= 45,
       T_ROOM_DELETE			= 46,
-      T_ROOM_HOST_LEAVED		= 47
+      T_ROOM_HOST_LEAVED		= 47,
+      T_ROOM_JOINED			= 48
     };
 
   enum Entity

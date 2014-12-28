@@ -139,4 +139,9 @@ namespace Application
     if (state & INPUT_SECONDARYFIRE)
       _player->addInput(Game::Player::SecondaryFire);
   }
+
+  void	ClientRoom::updateRoomInfos()
+  {
+    _room.updateRoomInfos();
+  }
 };

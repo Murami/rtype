@@ -70,11 +70,22 @@ namespace Application
     position.id = entity.getId();
     packed = _server.getProtocoleUdp().pack(&position);
     sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_POSITION);
+    delete (packed);
   }
 
-  void	Room::receive(const Game::Entity& /*entity*/,
+  void	Room::receive(const Game::Entity& entity,
 		      const Game::EntityEvent::Life& /*event*/)
   {
+    RtypeProtocol::Life	life;
+    Network::packet*	packed;
+
+    std::cout << "send life" << std::endl;
+    life.id = entity.getId();
+    life.life = entity.getLife();
+    packed = _server.getProtocoleUdp().pack(&life);
+    sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_LIFE);
+    delete (packed);
+
   }
 
   void	Room::receive(const Game::Entity& entity,
@@ -249,5 +260,13 @@ namespace Application
 
     for (it = _clients.begin(); it != _clients.end(); it++)
       (*it)->getClientServer().sendHeader(RtypeProtocol::T_GAMESTART);
+  }
+
+  void			Room::updateRoomInfos()
+  {
+    std::list<ClientRoom*>::iterator	it;
+
+    for (it = _clients.begin(); it != _clients.end(); it++)
+      (*it)->getClientServer().sendRoomInfos(this, true);
   }
 };

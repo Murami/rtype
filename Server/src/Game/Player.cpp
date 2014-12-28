@@ -3,6 +3,7 @@
 #include "Game/Monster.hh"
 #include "Game/Core.hh"
 #include "Game/DestroyableSet.hh"
+#include "Game/EntityEventLife.hh"
 
 namespace Game
 {
@@ -96,6 +97,9 @@ namespace Game
     if (!projectile.isFriend())
       _life -= projectile.getDamage();
     projectile.kill();
+    EntityEvent::Life msg(_life);
+
+    notifyObservers(msg);
   }
 
   void	Player::onCollide(Monster& monster)
@@ -109,6 +113,9 @@ namespace Game
       return ;
     _life -= 10;
     set.kill();
+    EntityEvent::Life msg(_life);
+
+    notifyObservers(msg);
   }
 
   // TODO input methods
