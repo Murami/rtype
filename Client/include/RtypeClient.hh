@@ -67,11 +67,11 @@ public:
   virtual void	onRoomInfo(RtypeProtocol::Room);
   virtual void	onRoomCreateAlreadyExist(RtypeProtocol::Room);
   virtual void	onRoomCreateInternalError(RtypeProtocol::Room);
-  virtual void	onRoomCreateOk(RtypeProtocol::Room);
+  virtual void	onRoomCreateOk();
   virtual void	onRoomJoinNotFound(RtypeProtocol::Room);
   virtual void	onRoomJoinIsFull(RtypeProtocol::Room);
   virtual void	onRoomJoinBadPswd(RtypeProtocol::Room);
-  virtual void	onRoomJoinOk(RtypeProtocol::Room);
+  virtual void	onRoomJoinOk();
   virtual void	onRoomExitOk(RtypeProtocol::Room);
   virtual void	onPing(RtypeProtocol::PingPong);
   virtual void	onGameStart();

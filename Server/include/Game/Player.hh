@@ -22,11 +22,12 @@ namespace Game
   private:
     typedef void (Player::*PlayerAction)();
 
-
   private:
     std::list<Input>	_inputs;
     static PlayerAction	_actions[InputMax];
     unsigned int	_num;
+    float		_timeMissile;
+    bool		_canFireMissile;
 
   public:
     Player(Core& game, int num);

@@ -12,7 +12,8 @@ namespace Game
     int		_damage;
 
   public:
-    Projectile(Core& game, bool isFriend, int damage);
+    Projectile(Core& game, bool isFriend,
+	       int damage, const Util::Vec2& position);
     ~Projectile();
 
     bool	isFriend() const;

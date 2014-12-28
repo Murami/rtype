@@ -3,7 +3,7 @@
 namespace Game
 {
   Camera::Camera(Core& game) :
-    Entity(game)
+    Entity(game, false)
   {
   }
 

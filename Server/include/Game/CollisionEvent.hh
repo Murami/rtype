@@ -12,7 +12,7 @@ namespace Game
 
   class CollisionEvent : public Physic::BodyEvent
   {
-  private:
+  public:
     Entity&	_entity;
 
   public:

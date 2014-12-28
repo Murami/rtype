@@ -30,6 +30,7 @@ namespace Game
     Player&		addPlayer();
     Entity*		getEntity(unsigned int);
     void		deleteEntity(Entity*);
+    void		addMissile(const Player& player);
   };
 };
 

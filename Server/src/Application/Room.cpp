@@ -39,7 +39,7 @@ namespace Application
 
     if (time - _time > duration_milli(20))
       {
-	_game.update(2);
+	_game.update(0.02);
 	_time = time;
 	timer.setTimeout(duration_milli(0));
 	_server.getService().addTimeout(_timer);

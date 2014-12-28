@@ -32,7 +32,7 @@ namespace Game
     bool			_toDeleted;
 
   public:
-    Entity(Core& game);
+    Entity(Core& game, bool isfriend);
     virtual ~Entity();
 
     void		setSpeed(const Util::Vec2& speed);

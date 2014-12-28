@@ -4,14 +4,17 @@
 
 namespace Game
 {
-  Projectile::Projectile(Core& game, bool isFriend, int damage) :
-    Entity(game),
+  Projectile::Projectile(Core& game, bool isFriend, int damage,
+			 const Util::Vec2& position) :
+    Entity(game, isFriend),
     _isFriend(isFriend),
     _damage(damage)
   {
     Util::Vec2	pos(16, 8);
 
     _body.setSize(pos);
+    setPosition(position);
+    setSpeed(Util::Vec2(1500, 0));
   }
 
   Projectile::~Projectile()
