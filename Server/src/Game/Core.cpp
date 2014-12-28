@@ -104,7 +104,7 @@ namespace Game
     int					rand = std::rand() % plugins.size();
 
     it = std::next(plugins.begin(), rand);
-    monster = _loader.load(*it);
+    monster = _loader.load(*it, this);
 
     const CoreEvent::Spawn&		spawn = CoreEvent::Spawn(*monster);
 

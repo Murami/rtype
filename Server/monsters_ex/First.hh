@@ -4,7 +4,7 @@
 
 # include "AMonster.hh"
 
-class	First : public AMonster
+class	First : public
 {
 public:
   First();
