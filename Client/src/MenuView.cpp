@@ -327,6 +327,7 @@ void	MenuView::reset()
 void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 {
   SoundManager::Play("theme");
+  window.setMouseCursorVisible(true);
   _run = true;
   while (_run == true && window.isOpen())
     {
