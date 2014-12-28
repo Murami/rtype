@@ -21,7 +21,7 @@ Wall::Wall()
   _bgDown1Sprite.setPosition(0, 1760);
 #else
   _bgUp1Sprite.setPosition(0, 0);
-  _bgDown1Sprite.setPosition(0, 1050);
+  _bgDown1Sprite.setPosition(0, 1040);
 #endif
 
 
