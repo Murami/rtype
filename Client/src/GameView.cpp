@@ -32,7 +32,7 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
   SoundManager::Play("stage1");
   SoundManager::Play("horde");
   window.setMouseCursorVisible(false);
-  window.setFramerateLimit(40);
+  window.setFramerateLimit(60);
   _run = true;
   while (_run)
     {
