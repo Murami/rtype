@@ -1,6 +1,8 @@
 #include "Application/ClientRoom.hh"
 #include "Application/Room.hh"
 #include "Application/ClientServer.hh"
+#include "Application/Server.hh"
+#include "Protocol/Protocole.hh"
 
 namespace Application
 {
@@ -24,9 +26,62 @@ namespace Application
     notifyState(state->state);
   }
 
-  void		ClientRoom::notify(const RtypeProtocol::EntityRequest*)
+  void		ClientRoom::notify(const RtypeProtocol::EntityRequest* request)
   {
-    // TODO request entity (BONUS --- )
+    Game::Entity*	entity = _room.getGame().getEntity(request->id);
+
+    if (entity)
+      {
+	RtypeProtocol::Header	header;
+	RtypeProtocol::Spawn	spawn;
+	Network::packet*	packed;
+	Network::packet*	hpacked;
+	char			buffer[4096];
+
+	header.type = RtypeProtocol::T_SPAWN;
+	header.type = sizeof(RtypeProtocol::Spawn);
+
+	spawn.id = entity->getId();
+	spawn.type = RtypeProtocol::T_PLAYER_1; // TODO gerer le type de l'entity !!!
+	spawn.position.x = entity->getPosition().x;
+	spawn.position.y = entity->getPosition().y;
+	spawn.life = entity->getLife();
+
+	packed = _clientserver.getServer().getProtocoleUdp().pack(&spawn);
+	hpacked = _clientserver.getServer().getProtocoleUdp().pack(&header);
+
+	std::memcpy(buffer, hpacked->getData(), hpacked->getSize());
+	std::memcpy(buffer + hpacked->getSize(), packed->getData(), packed->getSize());
+
+	_clientserver.sendUdp(buffer, hpacked->getSize() + packed->getSize());
+
+	delete (hpacked);
+	delete (packed);
+      }
+    else
+      {
+	RtypeProtocol::Header		header;
+	RtypeProtocol::Destruction	destruction;
+	Network::packet*		packed;
+	Network::packet*		hpacked;
+	char				buffer[4096];
+
+	header.type = RtypeProtocol::T_DESTRUCTION;
+	header.type = sizeof(RtypeProtocol::Destruction);
+
+	destruction.id = request->id;
+
+	packed = _clientserver.getServer().getProtocoleUdp().pack(&destruction);
+	hpacked = _clientserver.getServer().getProtocoleUdp().pack(&header);
+
+	std::memcpy(buffer, hpacked->getData(), hpacked->getSize());
+	std::memcpy(buffer + hpacked->getSize(), packed->getData(), packed->getSize());
+
+	_clientserver.sendUdp(buffer, hpacked->getSize() + packed->getSize());
+
+	delete (hpacked);
+	delete (packed);
+      }
   }
 
   ////////////////////////

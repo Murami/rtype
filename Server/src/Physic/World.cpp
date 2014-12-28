@@ -22,7 +22,7 @@ namespace Physic
       (*it)->update(time);
 
     for (it = _bodies.begin(); it != _bodies.end(); it++)
-      for (it2 = std::next(it); it2 != _bodies.end(); it++)
+      for (it2 = std::next(it); it2 != _bodies.end(); it2++)
 	{
 	  if ((*it)->collide(*(*it2)))
 	    {
