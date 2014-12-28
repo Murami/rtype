@@ -6,13 +6,14 @@ namespace	RtypeEvent
   enum eKeyEvent
     {
       DEFAULT	= 0,
-      LEFT	= 1,
-      RIGHT	= 2,
-      UP	= 4,
-      DOWN	= 8,
+      UP	= 1,
+      DOWN	= 2,
+      LEFT	= 4,
+      RIGHT	= 8,
       SPACE	= 16,
-      ESCAPE	= 32,
-      ENTER	= 64
+      SECOND	= 32,
+      ESCAPE	= 64,
+      ENTER	= 128
     };
 }
 #endif /* _GAME_ENUM_HH_ */
