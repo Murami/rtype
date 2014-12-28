@@ -1,4 +1,4 @@
-
+#include <stdexcept>
 #if defined (WIN32) || defined (_WIN32)
 
 # include "WindowDirent.hh"
