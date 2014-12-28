@@ -47,16 +47,16 @@ Player::~Player()
 
 void Player::update(const sf::Vector2<float> pos)
 {
-// #ifdef __APPLE__
-//   float x, y;
-//   x = (pos.x / 1920) * 2880;
-//   y = (pos.y / 1920) * 1800;
-//   _sprite.setPosition(x, y);
-// #else
+#ifdef __APPLE__
+  float x, y;
+  x = (pos.x / 1920) * 2880;
+  y = (pos.y / 1080) * 1800;
+  _sprite.setPosition(x, y);
+#else
   _sprite.setPosition(pos.x, pos.y);
   sf::Vector2<float> tmp(pos.x + _sprite.getLocalBounds().width * 2, pos.y + _sprite.getLocalBounds().height - 10);
   _powerUp.update(tmp);
-  //  #endif
+#endif
 }
 
 void Player::updateAnim()
