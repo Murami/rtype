@@ -27,6 +27,7 @@ int		TcpNetworkWriter::run()
 	}
       if (!_buffer.empty())
 	_cond.unlock();
+std::cout << "realSend" << std::endl;
       if (_tcpConnection.socket().send(buffer, i) != sf::Socket::Done)
 	{
 	  _tcpConnection.exit();
@@ -38,6 +39,7 @@ int		TcpNetworkWriter::run()
 
 void		TcpNetworkWriter::sendData(void *data, std::size_t size)
 {
+  std::cout << "send" << std::endl;
   Util::Lock	lock(_mutex);
   bool		empty;
 
@@ -46,4 +48,5 @@ void		TcpNetworkWriter::sendData(void *data, std::size_t size)
     _buffer.push_back(static_cast<char *>(data)[i]);
   if (empty)
     _cond.unlock();
+  std::cout << "sended" << std::endl;
 }
