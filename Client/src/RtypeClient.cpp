@@ -156,6 +156,7 @@ void	RtypeClient::onKeyEvent(uint32_t event)
 
 void	RtypeClient::onExitFromGame()
 {
+  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   onDisconnectFromMenu();
 }
 
