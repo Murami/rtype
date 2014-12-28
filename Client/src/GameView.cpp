@@ -100,7 +100,14 @@ void	GameView::update(float time)
     {
       if (itObj->second->networkUpdated() == false)
 	{
+#ifdef __APPLE__
+	  pos = itObj->second->getPosition();
+	  pos.x = (pos.x / 2880) * 1920;
+	  pos.y = (pos.y / 1800) * 1080;
+	  pos = pos + (itObj->second->getSpeed() * time);
+#else
 	  pos = itObj->second->getPosition() + (itObj->second->getSpeed() * time);
+#endif
 	  itObj->second->update(pos);
 	}
       else
