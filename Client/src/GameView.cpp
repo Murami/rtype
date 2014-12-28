@@ -80,12 +80,9 @@ void	GameView::erase(int id)
 {
   if (_objectMap.find(id) != _objectMap.end())
     {
+      std::cout << "j'erase le " << id << std::endl;
       delete ((_objectMap.find(id))->second);
       _objectMap.erase(id);
-      for (std::map<int, IObject*>::iterator it = _objectMap.begin(); it != _objectMap.end(); it++)
-	{
-	  std::cout << it->first << std::endl;
-	}
     }
 }
 
@@ -121,5 +118,8 @@ void	GameView::render(sf::RenderWindow& window)
   for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
     (*itBack)->render(window);
   for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
-    itObj->second->render(window);
+    {
+      std::cout << "je render " << itObj->first << std::endl;
+      itObj->second->render(window);
+    }
 }
