@@ -159,7 +159,6 @@ void	RtypeClient::onExitFromGame()
 
 void	RtypeClient::onEntityRequestFromGame(uint32_t id)
 {
-  std::cout << "Entity Request !" << std::endl;
   RtypeProtocol::Header header;
   RtypeProtocol::EntityRequest request;
   char		buffer[sizeof(header) + sizeof(request)];
