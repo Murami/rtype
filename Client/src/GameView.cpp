@@ -81,6 +81,7 @@ void	GameView::erase(int id)
 {
   if (_objectMap.find(id) != _objectMap.end())
     {
+      _objectMap[id]->playDeathSound();
       delete ((_objectMap.find(id))->second);
       _objectMap.erase(id);
     }
