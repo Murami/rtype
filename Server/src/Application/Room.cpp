@@ -21,7 +21,6 @@ namespace Application
     _pass = pass;
     _id = _generator.generate();
     _gamestarted = false;
-    std::cout << "add observer to core" << std::endl;
     _game.addObserver(*this);
     _timer.setObserver(this);
   }
@@ -32,17 +31,24 @@ namespace Application
 
   void	Room::onTimeout(Network::Timer& timer)
   {
-    std::cout << "ROOM on timeout" << std::endl;
     std::chrono::system_clock::duration	time;
-    std::chrono::system_clock::duration	timediff;
+
+    _server.getService().deleteTimeout(_timer);
 
     time = std::chrono::system_clock::now().time_since_epoch();
-    timediff = time - _time;
-    _game.update(static_cast<float>(std::chrono::duration_cast<duration_milli>(timediff).count()) / 1000.f);
-    time = std::chrono::system_clock::now().time_since_epoch();
-    timediff = time - _time;
-    _server.getService().addTimeout(_timer);
-    timer.setTimeout(duration_milli(20) - timediff);
+
+    if (time - _time > duration_milli(20))
+      {
+	_game.update(2);
+	_time = time;
+	timer.setTimeout(duration_milli(0));
+	_server.getService().addTimeout(_timer);
+      }
+    else
+      {
+	timer.setTimeout(duration_milli(20) - (time - _time));
+	_server.getService().addTimeout(_timer);
+      }
   }
 
   void	Room::receive(const Game::Entity& entity,
@@ -116,7 +122,7 @@ namespace Application
 
   void		Room::startGame()
   {
-    std::cout << "start game ta race" << std::endl;
+    std::cout << "start game" << std::endl;
     _time = std::chrono::system_clock::now().time_since_epoch();
     _timer.setTimeout(duration_milli(0));
     _server.getService().addTimeout(_timer);

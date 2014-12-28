@@ -138,8 +138,10 @@ namespace Network
 	  }
 	// Send informations to select without timer information
 	else
-	  if ((ret = select(fd + 1, &readfs, &writefs, NULL, NULL)) < 0)
+	  {
+	    if ((ret = select(fd + 1, &readfs, &writefs, NULL, NULL)) < 0)
 	    throw NetworkException("Service select failed");
+	  }
 
 	notifyRTcp(&readfs);
 	notifyWTcp(&writefs);
@@ -151,7 +153,7 @@ namespace Network
 
   SOCKET  Service::setRead(fd_set* readfs)
   {
-	SOCKET fd = 0;
+    SOCKET fd = 0;
     std::map<SOCKET, TcpSocket *>::iterator tcpIt;
     std::map<SOCKET, UdpSocket *>::iterator udpIt;
     std::map<SOCKET,Acceptor *>::iterator  accIt;
@@ -336,14 +338,14 @@ namespace Network
     _Acceptors.insert(std::pair<SOCKET, Acceptor*>(socket.getSocket(), &socket));
   }
 
-  void Service::deleteTimeout(Timer & timer)
+  void Service::deleteTimeout(Timer& timer)
   {
     std::list<TimerRAII>::iterator it;
 
     for (it = _Timers.begin(); it != _Timers.end(); ++it)
       {
 	if (*(*it) == &timer)
-	  _Timers.erase(it);
+	  it = _Timers.erase(it);
       }
   }
 

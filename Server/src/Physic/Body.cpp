@@ -21,6 +21,7 @@ namespace Physic
 
   void			Body::setSpeed(const Util::Vec2& speed)
   {
+    std::cout << "set speed IUL EST LAS !!!!!" << std::endl;
     _speed = speed;
   }
 
@@ -51,8 +52,11 @@ namespace Physic
 
   void			Body::update(float time)
   {
-    _position += _speed * time;
-    notifyMove();
+    if (_speed.x != 0 || _speed.y != 0)
+      {
+	_position += _speed * time;
+	notifyMove();
+      }
   }
 
   void			Body::notifyMove()
