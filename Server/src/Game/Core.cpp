@@ -14,6 +14,7 @@ namespace Game
     _playercount(0),
     _loader("./monsters")
   {
+    _timeSpawn = 0;
   }
 
   Core::~Core()
@@ -24,6 +25,12 @@ namespace Game
   {
     std::list<Entity*>::iterator	it;
 
+    _timeSpawn += time;
+    if (_timeSpawn > 1)
+      {
+	_timeSpawn = 0;
+	spawnMonster();
+      }
     _world.update(time);
     for (it = _entities.begin(); it != _entities.end(); it++)
       (*it)->update(time);
