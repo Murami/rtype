@@ -18,7 +18,7 @@ public:
   void	updateSpawnList();
   void	updateDestroyList();
   void	update(size_t);
-  void	updateLife(int life);
+  void	updateLife(int id, int life);
   void	onRoomExit();
   void	onExit();
 

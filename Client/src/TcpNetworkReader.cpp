@@ -86,7 +86,6 @@ void			TcpNetworkReader::onReadPing()
 {
   RtypeProtocol::PingPong	ping;
 
-  std::cout << "\044[46m" << __FUNCTION__ << "\033[0m\n";
   for (std::size_t i = 0; i < sizeof(ping); i++)
     {
       reinterpret_cast<char *>(&ping)[i] = _buffer.front();

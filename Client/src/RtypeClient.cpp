@@ -117,8 +117,7 @@ void	RtypeClient::onDestruction(RtypeProtocol::Destruction destruct)
 
 void	RtypeClient::onLife(RtypeProtocol::Life life)
 {
-  std::cout << "\033[41m" << life.life << "\033[0m\n";
-  _gameController->updateLife(life.life);
+  _gameController->updateLife(life.id, life.life);
 }
 
 void	RtypeClient::onBonus()
@@ -158,7 +157,6 @@ void	RtypeClient::onRoomLeaveFromGame()
 {
   RtypeProtocol::Header header;
 
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   header.type = RtypeProtocol::T_ROOM_EXIT;
   header.data_size = 0;
   _tcpConnection->write(&header, sizeof(header));
@@ -166,7 +164,6 @@ void	RtypeClient::onRoomLeaveFromGame()
 
 void	RtypeClient::onExitFromGame()
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   onRoomLeaveFromMenu();
 }
 
@@ -188,34 +185,27 @@ void	RtypeClient::onEntityRequestFromGame(uint32_t id)
 
 void	RtypeClient::onMagicBadVersion()
 {
-  //std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   throw (std::runtime_error("connect to server : bad magic version"));
 }
 
 void	RtypeClient::onMagicAccept()
 {
-  //std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onConnectionAlreadyConnected()
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onConnectionInternalError()
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onConnectionOk()
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onDisconnection()
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
-  // ICI
   _menuView->stop();
   _menuView->setGameRunning(false);
 }
@@ -228,49 +218,39 @@ void	RtypeClient::onRoomInfo(RtypeProtocol::Room room)
     _menuController->addToRoomList(room);
   else
     _menuController->deleteFromRoomList(room);
-
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onRoomCreateAlreadyExist(RtypeProtocol::Room)
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onRoomCreateInternalError(RtypeProtocol::Room)
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onRoomCreateOk()
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onRoomJoinNotFound(RtypeProtocol::Room)
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onRoomJoinIsFull(RtypeProtocol::Room)
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onRoomJoinBadPswd(RtypeProtocol::Room)
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onRoomJoinOk()
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   _menuController->joinRoom();
 }
 
 void	RtypeClient::onRoomExitOk(RtypeProtocol::Room)
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   RtypeProtocol::Header header;
   header.type = RtypeProtocol::T_ROOM_EXIT;
   header.data_size = 0;
@@ -279,13 +259,11 @@ void	RtypeClient::onRoomExitOk(RtypeProtocol::Room)
 
 void	RtypeClient::onPing(RtypeProtocol::PingPong)
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onGameStart()
 {
   _menuView->setGameRunning(true);
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 bool	RtypeClient::letStart()
@@ -302,18 +280,14 @@ void	RtypeClient::onGameEnd(RtypeProtocol::EndGame end)
 
   b = (bool) end.victory;
   _gameController->gameEnd(b);
-  std::cout << "\033[42mENDING GAME : " << (b ? "victory" : "Defeat") << "\033[0m" << std::endl;
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onScore(RtypeProtocol::Score)
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onMessage(RtypeProtocol::Message)
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
 void	RtypeClient::onHostLeftRoom()
@@ -344,7 +318,6 @@ bool	RtypeClient::onConnectFromMenu(const std::string & login)
   header.data_size = sizeof(RtypeProtocol::User);
   strcpy(reinterpret_cast<char *>(&user.username[0]), login.c_str());
   user.port = htons(_udpConnection->getLocalPort());
-  //std::cout << "Local port UDP : " << _udpConnection->getLocalPort() << std::endl;
   std::memcpy(&buffer[0], &header, sizeof(header));
   std::memcpy(&buffer[sizeof(header)], &user, sizeof(user));
   _tcpConnection->write(&buffer[0], sizeof(header) + sizeof(user));
@@ -355,7 +328,6 @@ bool	RtypeClient::onDisconnectFromMenu()
 {
   RtypeProtocol::Header header;
 
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   header.type = RtypeProtocol::T_DISCONNECTION;
   header.data_size = 0;
   _menuView->stop();
@@ -370,7 +342,6 @@ bool	RtypeClient::onRoomConnectFromMenu(int id, const std::string& pass)
   RtypeProtocol::RoomConnection room;
   char buffer[sizeof(header) + sizeof(room)];
 
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   header.type = RtypeProtocol::T_ROOM_JOIN;
   header.data_size = sizeof(room);
   room.id = htonl(id);
@@ -385,7 +356,6 @@ bool	RtypeClient::onRoomLeaveFromMenu()
 {
   RtypeProtocol::Header header;
 
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   header.type = RtypeProtocol::T_ROOM_EXIT;
   header.data_size = 0;
   _tcpConnection->write(&header, sizeof(header));
@@ -396,7 +366,6 @@ bool	RtypeClient::onUserReadyFromMenu()
 {
   RtypeProtocol::Header header;
 
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   header.type = RtypeProtocol::T_READY;
   header.data_size = 0;
   _tcpConnection->write(&header, sizeof(header));
@@ -405,7 +374,6 @@ bool	RtypeClient::onUserReadyFromMenu()
 
 bool	RtypeClient::onUserMessageFromMenu(RtypeProtocol::Message)
 {
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   return (true);
 }
 

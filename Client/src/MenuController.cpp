@@ -31,7 +31,6 @@ void MenuController::manageUpdate(RtypeEvent::eButton idCallback)
   switch (idCallback)
     {
     case RtypeEvent::LOGIN:
-      std::cout << "Login : " << _view.getLogin() << std::endl;
       _listen->onConnectFromMenu(_view.getLogin());
       break;
     case RtypeEvent::JOIN:
@@ -43,14 +42,12 @@ void MenuController::manageUpdate(RtypeEvent::eButton idCallback)
 	  if (comp == _view.getRoomName())
 	    {
 	      id = it->first;
-	      std::cout << "find !!" << std::endl;
 	      _listen->onRoomConnectFromMenu(id, _view.getRoomPass());
 	      break;
 	    }
 	}
       break;
     case RtypeEvent::CREATE:
-      std::cout << "Creating room : " << _view.getRoomName() << " with password : " << _view.getRoomPass() << std::endl;
       _listen->onCreateRoomFromMenu(_view.getRoomName(), _view.getRoomPass());
       break;
     case RtypeEvent::LEAVE:
@@ -75,7 +72,6 @@ void MenuController::setMenuListener(IMenuListener *listen)
 void MenuController::addToRoomList(RtypeProtocol::Room room)
 {
   _roomList[room.id] = room;
-  std::cout << "Add room : " << room.room_name << std::endl;
   this->updateRoomList();
 }
 
@@ -91,14 +87,11 @@ void MenuController::deleteFromRoomList(RtypeProtocol::Room room)
   if (_roomList.find(room.id) != _roomList.end())
     {
       _roomList.erase(room.id);
-      std::cout << "erase room : " << room.room_name << std::endl;
-      this->updateRoomList();
     }
 }
 
 void MenuController::joinRoom()
 {
-  //TO DO : change menuView to room view
   _view.setActualState(RtypeEvent::ROOMSTATE);
 }
 

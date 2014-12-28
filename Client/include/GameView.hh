@@ -27,7 +27,7 @@ public:
   void	setGameRunning(bool);
   void	add(int id, IObject*);
   void	erase(int id);
-  void	updateLife(int life);
+  void	updateLife(int id, int life);
   void	isGameEnd(bool);
   void	isGameIsWin(bool);
 

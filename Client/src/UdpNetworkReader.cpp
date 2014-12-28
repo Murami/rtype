@@ -34,14 +34,12 @@ int			UdpNetworkReader::run(Util::Mutex* mutex)
   unsigned short	port;
 
   port = static_cast<unsigned short>(_udpConnection.getPortFromConf());
-  std::cout << "\033[37mEntering UDP Reading thread\033[0m" << std::endl;
   while (_udpConnection.isReading() && _udpConnection.socket().receive(buffer, 4096, received, ip, port) == sf::Socket::Done)
     {
       mutex->lock();
       onReadData(buffer);
       mutex->unlock();
     }
-  std::cout << "\033[35mGetting of the UDP reading thread\033[0m" << std::endl;
   return (0);
 }
 
@@ -112,11 +110,9 @@ void	UdpNetworkReader::onReadDeath(char *buffer)
   RtypeProtocol::Header		header;
   RtypeProtocol::Destruction	d;
 
-  //std::cout << "DEATH" << std::endl;
   std::memcpy(&header, &buffer[0], sizeof(header));
   std::memcpy(&d, &buffer[sizeof(header)], sizeof(d));
   d.id = ntohl(d.id);
-  //std::cout << d.id << std::endl;
   _listener->onDestruction(d);
 }
 
@@ -132,7 +128,6 @@ void	UdpNetworkReader::onReadDestruction(char *buffer)
   std::memcpy(&header, &buffer[0], sizeof(header));
   std::memcpy(&d, &buffer[sizeof(header)], sizeof(d));
   d.id = ntohl(d.id);
-  //std::cout << d.id << std::endl;
   _listener->onDestruction(d);
 }
 

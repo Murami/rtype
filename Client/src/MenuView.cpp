@@ -387,10 +387,8 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 		_actualState = RtypeEvent::SETTINGSTATE;
 		break;
 	      case RtypeEvent::SCORES:
-		std::cout << "Scores button pressed" << std::endl;
 		break;
 	      case RtypeEvent::CREDITS:
-		std::cout << "Credits button pressed" << std::endl;
 		break;
 	      case RtypeEvent::CREATE:
 		if (_editBoxRoomName->getText() != "")
