@@ -371,7 +371,7 @@ bool	RtypeClient::onRoomLeaveFromMenu()
   RtypeProtocol::Header header;
 
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
-  header.type = htonl(RtypeProtocol::T_ROOM_EXIT);
+  header.type = RtypeProtocol::T_ROOM_EXIT;
   header.data_size = 0;
   _tcpConnection->write(&header, sizeof(header));
   return (true);
