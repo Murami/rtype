@@ -1,6 +1,7 @@
 #include "BigMonster.hh"
 #include "Projectile.hh"
 #include "DestroyableSet.hh"
+#include "Player.hh"
 #include <iostream>
 
 namespace Game
