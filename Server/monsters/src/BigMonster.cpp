@@ -1,4 +1,6 @@
 #include "BigMonster.hh"
+#include "Projectile.hh"
+#include "DestroyableSet.hh"
 
 namespace Game
 {
@@ -12,6 +14,17 @@ namespace Game
 
   void	BigMonster::update(float /*time*/)
   {
+    static bool	init = false;
+
+    if (!init)
+      {
+	init = true;
+	setSpeed(Util::Vec2(-100, 0));
+      }
+    if (getPosition().x >= 500 || getPosition().y >= 900)
+      setSpeed(Util::Vec2(0, -100));
+    if (getPosition().y <= 50)
+      setSpeed(Util::Vec2(0, 100));
   }
 
   void	BigMonster::onCollide(Entity& entity)

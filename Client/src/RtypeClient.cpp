@@ -209,6 +209,7 @@ void	RtypeClient::onDisconnection()
 
 void	RtypeClient::onRoomInfo(RtypeProtocol::Room room)
 {
+  std::cout << "ON ROOM INFO" << std::endl;
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   if (room.alive)
     _menuController->addToRoomList(room);
