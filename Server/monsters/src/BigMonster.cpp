@@ -47,7 +47,7 @@ namespace Game
       entity.getType() == T_PLAYER_3 ||
       entity.getType() == T_PLAYER_4)
     {
-      entity.setLife(entity.getLife - 67);
+      entity.setLife(entity.getLife() - 67);
     }
     entity.onCollide(*this);
   }
