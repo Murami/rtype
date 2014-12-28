@@ -44,7 +44,7 @@ public:
   virtual void	onPosition(RtypeProtocol::PositionEvent);
   virtual void	onSpawn(RtypeProtocol::Spawn);
   virtual void	onDestruction(RtypeProtocol::Destruction);
-  virtual void	onLife();
+  virtual void	onLife(RtypeProtocol::Life);
   virtual void	onBonus();
   virtual void	onHit();
   virtual void	onDeath();

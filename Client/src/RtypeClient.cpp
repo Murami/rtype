@@ -42,8 +42,7 @@ void		RtypeClient::run()
 
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
 					       sf::VideoMode::getDesktopMode().height),
-				 "Rtype"// , sf::Style::Fullscreen
-				 );
+				 "Rtype", sf::Style::Fullscreen);
 
   _window->setKeyRepeatEnabled(false);
 
@@ -115,8 +114,9 @@ void	RtypeClient::onDestruction(RtypeProtocol::Destruction destruct)
   _gameController->deleteEntity(destruct.id);
 }
 
-void	RtypeClient::onLife()
+void	RtypeClient::onLife(RtypeProtocol::Life life)
 {
+  _gameController->updateLife(life.life);
 }
 
 void	RtypeClient::onBonus()

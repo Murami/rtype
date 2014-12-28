@@ -14,20 +14,26 @@ namespace Game
   {
   }
 
-  void	BigMonster::onCollide(Entity& /*entity*/)
+  void	BigMonster::onCollide(Entity& entity)
   {
+    entity.onCollide(*this);
   }
 
-  void	BigMonster::onCollide(Projectile& /*projectile*/)
+  void	BigMonster::onCollide(Projectile& projectile)
   {
+    if (!projectile.isFriend() || !this->isAlive())
+      return ;
+    projectile.kill();
+    _life -= projectile.getDamage();
   }
 
   void	BigMonster::onCollide(Monster& /*monster*/)
   {
   }
 
-  void	BigMonster::onCollide(DestroyableSet& /*set*/)
+  void	BigMonster::onCollide(DestroyableSet& set)
   {
+    set.kill();
   }
 };
 
