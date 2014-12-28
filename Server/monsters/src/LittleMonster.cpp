@@ -29,13 +29,6 @@ namespace Game
 
   void	LittleMonster::onCollide(Entity& entity)
   {
-    if (entity.getType() == T_PLAYER_1 ||
-      entity.getType() == T_PLAYER_2 ||
-      entity.getType() == T_PLAYER_3 ||
-      entity.getType() == T_PLAYER_4)
-    {
-      entity.setLife(entity.getLife() - 34);
-    }
     entity.onCollide(*this);
   }
 
@@ -53,8 +46,15 @@ namespace Game
   {
   }
 
-  void	LittleMonster::onCollide(Player& /*player*/)
+  void	LittleMonster::onCollide(Player& entity)
   {
+    if (entity.getType() == T_PLAYER_1 ||
+      entity.getType() == T_PLAYER_2 ||
+      entity.getType() == T_PLAYER_3 ||
+      entity.getType() == T_PLAYER_4)
+    {
+      entity.setLife(entity.getLife - 34);
+    }
   }
 
   void	LittleMonster::onCollide(DestroyableSet& set)
