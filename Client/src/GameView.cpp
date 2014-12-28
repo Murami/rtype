@@ -34,6 +34,7 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
   while (_run)
     {
       this->updateSpawn();
+      this->updateDestroy();
       mask = RtypeEvent::DEFAULT;
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	mask += RtypeEvent::LEFT;
@@ -81,6 +82,10 @@ void	GameView::erase(int id)
     {
       delete ((_objectMap.find(id))->second);
       _objectMap.erase(id);
+      for (std::map<int, IObject*>::iterator it = _objectMap.begin(); it != _objectMap.end(); it++)
+	{
+	  std::cout << it->first << std::endl;
+	}
     }
 }
 
