@@ -2,6 +2,7 @@
 #if defined(__unix__) || defined(__APPLE__)
 
 # include <dlfcn.h>
+# include <iostream>
 # include "LinuxDynamicFile.hh"
 
 namespace	DynamicFile
