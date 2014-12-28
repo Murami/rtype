@@ -39,7 +39,6 @@ namespace Application
       _server.deleteClientServer(this);
       return ;
     }
-    // std::cout << "ClientServer::onRead()" << std::endl;
     _server.getService().addReadTcp(socket);
     try
       {
@@ -47,7 +46,7 @@ namespace Application
       }
     catch (ClientException e)
       {
-	       std::cout << e.what() << std::endl;
+	       std::cerr << e.what() << std::endl;
 	       _server.deleteClientServer(this);
      }
   }
@@ -71,8 +70,6 @@ namespace Application
   {
     if (type == RtypeProtocol::T_MAGIC)
       {
-	std::cout << "magic" << std::endl;
-
 	RtypeProtocol::Magic	magic;
 
 	if (_state != T_MAGIC_WAITING)
@@ -85,14 +82,12 @@ namespace Application
 
 	if (std::memcmp(&magic, magicRcv, sizeof(RtypeProtocol::Magic)) != 0)
 	  {
-	    std::cout << "ERROR MAGIC" << std::endl;
+	    std::cerr << "ERROR MAGIC" << std::endl;
 	    this->sendHeader(RtypeProtocol::T_MAGIC_BAD_VERSION);
 	  }
 	else
 	  {
-	    std::cout << _state << std::endl;
 	    _state = T_DISCONNECTED;
-	    std::cout << _state << std::endl;
 	    this->sendHeader(RtypeProtocol::T_MAGIC_ACCEPT);
 	  }
       }
@@ -103,12 +98,9 @@ namespace Application
   {
     if (type == RtypeProtocol::T_CONNECTION)
       {
-	std::cout << "connection" << std::endl;
 
-	std::cout << _state << std::endl;
 	if (_state != T_DISCONNECTED)
 	  throw ClientException("CONNECTION PROTOCOL ERROR");
-  std::cout << "client in connection" << std::endl;
 
 	Util::stringncopy(_name, user->username, USERNAME_SIZE);
 	_udpport = user->port;
@@ -116,7 +108,6 @@ namespace Application
 	_state = T_CONNECTED;
 	this->sendHeader(RtypeProtocol::T_CONNECTION_OK);
 	_server.sendAllRoomInfos(this);
-	std::cout << "client connected" << std::endl;
       }
   }
 
@@ -125,7 +116,6 @@ namespace Application
   {
     if (type == RtypeProtocol::T_MSG)
       {
-	std::cout << "msg : " << msg->message << std::endl;
 	if (_state != T_CONNECTED)
 	  throw ClientException("PROTOCOL ERROR");
 
@@ -138,7 +128,6 @@ namespace Application
   {
     if (type == RtypeProtocol::T_ROOM_JOIN)
       {
-	std::cout << "##### ROOM JOIN #####" << std::endl;
 
 	if (_state != T_CONNECTED)
 	  throw ClientException("Join in non-connected state");
@@ -150,22 +139,22 @@ namespace Application
 
 	if (room == NULL)			// NOT FOUND
 	  {
-	    std::cout << "-> not found" << std::endl;
+	    std::cerr << "-> not found" << std::endl;
 	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_NOT_FOUND);
 	  }
 	else if (!room->testConnection(pass))	// BAD PASS
 	  {
-	    std::cout << "-> bad password" << std::endl;
+	    std::cerr << "-> bad password" << std::endl;
 	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_BAD_PSWD);
 	  }
 	else if (room->isFull())		// IS FULL
 	  {
-	    std::cout << "-> is full" << std::endl;
+	    std::cerr << "-> is full" << std::endl;
 	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_IS_FULL);
 	  }
 	else if (room->isGameStarted())		// GAME ALREADY STARTED
 	  {
-	    std::cout << "-> started " << std::endl;
+	    std::cerr << "-> started " << std::endl;
 	    this->sendHeader(RtypeProtocol::T_ROOM_JOIN_STARTED);
 	  }
 	else					// OK
@@ -183,8 +172,6 @@ namespace Application
   {
     if (type == RtypeProtocol::T_PONG)
       {
-	std::cout << "pong" << std::endl;
-
 	_timer.setTimeout(std::chrono::duration<int, std::ratio<1> >(3));
 	this->sendHeader(RtypeProtocol::T_PING);
       }
@@ -226,7 +213,6 @@ namespace Application
   {
     if (type == RtypeProtocol::T_READY)
     {
-      std::cout << "ready" << std::endl;
 
       if (_state != T_INROOM)
       throw ClientException("Not in room");
@@ -242,7 +228,6 @@ namespace Application
     {
       Room*	room;
 
-      std::cout << "room exit" << std::endl;
       room = _clientroom->getRoom();
       _server.deleteClientRoom(_clientroom);
 
@@ -255,7 +240,6 @@ namespace Application
 	}
       else
 	{
-	  std::cout << "le send ta race" << std::endl;
 	  this->sendRoomInfos(room, false);
 	}
       _clientroom->getRoom()->deleteClient(this);

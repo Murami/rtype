@@ -92,7 +92,6 @@ namespace Game
     Player*			player = new Player(*this, _playercount);
     const CoreEvent::Spawn&	spawn = CoreEvent::Spawn(*player);
 
-    std::cout << "Add new player" << std::endl;
     _entities.push_back(player);
     player->setPosition(Util::Vec2(30, 20 + _playercount * 20));
     _playercount++;

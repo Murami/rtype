@@ -12,7 +12,6 @@ namespace Application
     _service(service),
     _acceptor(RtypeProtocol::TcpPort)
   {
-    std::cout << "server start" << std::endl;
     _udpSocket.bindSocket(3279); // DANS LE PROTOCOLE TA RACE !!!!!!
     _acceptor.setObserver(this);
     _udpSocket.setObserver(this);
@@ -29,7 +28,6 @@ namespace Application
 
   Server::~Server()
   {
-    std::cout << "server end" << std::endl;
   }
 
   //////////////////////
@@ -63,7 +61,6 @@ namespace Application
 
   void Server::onAccept(Network::Acceptor & acceptor)
   {
-    std::cout << "accept" << std::endl;
     Network::TcpSocket * clientSocket;
 
     acceptor.acceptSocket();
@@ -138,11 +135,9 @@ namespace Application
 
     for (std::map<unsigned int, Room *>::iterator it = _rooms.begin(); it != _rooms.end(); it++)
     {
-      std::cout << "Room already exist" << std::endl;
       if (it->second->getName() == name)
         return (NULL);
     }
-    std::cout << "create e new room : " << name << std::endl;
     Room*	room = new Room(*this, name, pass);
 
     _rooms.insert(std::pair<unsigned int, Room *>(room->getID(), room));
@@ -162,7 +157,6 @@ namespace Application
 
     for (it = _rooms.begin(); it != _rooms.end(); it++)
     {
-      std::cout << it->second->getName() << std::endl;
       if ((it->second)->getName() == name)
 	return (true);
     }
@@ -177,7 +171,6 @@ namespace Application
       {
 	if (it->second == room)
 	  {
-	    std::cout << "delete la room" << std::endl;
 	    _rooms.erase(it);
 	    room->close();
 	    delete (room);

@@ -84,7 +84,6 @@ namespace Application
     RtypeProtocol::Life	life;
     Network::packet*	packed;
 
-    std::cout << "send life" << std::endl;
     life.id = entity.getId();
     life.life = entity.getLife();
     packed = _server.getProtocoleUdp().pack(&life);
@@ -99,7 +98,6 @@ namespace Application
     RtypeProtocol::Destruction	destroy;
     Network::packet*		packed;
 
-    std::cout << "send death" << std::endl;
     destroy.id = entity.getId();
     packed = _server.getProtocoleUdp().pack(&destroy);
     sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_DEATH);
@@ -168,7 +166,6 @@ namespace Application
 
   void		Room::startGame()
   {
-    std::cout << "start game" << std::endl;
     _time = std::chrono::system_clock::now().time_since_epoch();
     _timer.setTimeout(duration_milli(0));
     _server.getService().addTimeout(_timer);
@@ -177,7 +174,6 @@ namespace Application
 
   void		Room::stopGame()
   {
-    std::cout << "stop game" << std::endl;
     _timer.cancel();
     _gamestarted = false;
   }

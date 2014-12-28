@@ -56,7 +56,6 @@ namespace	DynamicFile
       std::cerr << "You don't have an open file" << std::endl;
     else
       {
-	std::cout << "--> " << symbol.c_str() << std::endl;
 	res = dlsym(_handle, symbol.c_str());
 	if ((error = dlerror()) != NULL)
 	  std::cerr << reinterpret_cast<char*>(error) << std::endl;
