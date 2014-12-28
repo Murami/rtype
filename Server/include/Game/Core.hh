@@ -20,6 +20,7 @@ namespace Game
     bool			_alive;
     unsigned int		_playercount;
     PluginLoader<Monster>	_loader;
+    float			_timeSpawn;
 
   public:
     Core();

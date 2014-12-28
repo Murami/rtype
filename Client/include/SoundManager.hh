@@ -21,6 +21,9 @@ public:
   static void	SoundVolume(int volume);
 
 private:
+  static void	deleteObsoleteSounds();
+
+private:
   static std::map<std::string, std::shared_ptr<sf::SoundBuffer> >	initializeSounds();
   static std::map<std::string, std::shared_ptr<sf::Music> >		initializeMusics();
 

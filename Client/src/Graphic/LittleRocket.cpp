@@ -16,9 +16,7 @@ LittleRocket::LittleRocket(bool friendly)
     _texture = TextureManager::getInstance()->getTextureRocket();
     _sprite.setTexture(_texture);
 
-#ifdef __APPLE__
     _sprite.scale(3.0, 3.0);
-#endif
     
     if (_friendly == true)
         _sprite.setTextureRect(sf::IntRect(249, 105, 16, 8));
