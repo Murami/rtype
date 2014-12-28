@@ -29,6 +29,7 @@ namespace Game
 
     Player&		addPlayer();
     Entity*		getEntity(unsigned int);
+    void		addMissile(const Player& player);
   };
 };
 

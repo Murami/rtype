@@ -2,6 +2,7 @@
 #include "Game/Entity.hh"
 #include "Game/Player.hh"
 #include "Game/CoreEventSpawn.hh"
+#include "Game/Projectile.hh"
 #include <iostream>
 
 namespace Game
@@ -58,5 +59,15 @@ namespace Game
 	  return (*it);
       }
     return (NULL);
+  }
+
+  void			Core::addMissile(const Player& player)
+  {
+    Projectile*			projectile = new Projectile(*this, true, 100,
+							    player.getPosition());
+    const CoreEvent::Spawn&	spawn = CoreEvent::Spawn(*projectile);
+
+    _entities.push_back(projectile);
+    notifyObservers(spawn);
   }
 };

@@ -5,11 +5,12 @@
 
 namespace Physic
 {
-  Body::Body(World& world) : _world(world)
+  Body::Body(World& world, bool group) : _world(world)
   {
     _position = Util::Vec2(0, 0);
     _speed = Util::Vec2(0, 0);
     _size = Util::Vec2(0, 0);
+    _group = group;
 
     static_cast<BodyContainer&>(_world).add(*this);
   }
@@ -81,5 +82,10 @@ namespace Physic
 	((top1 > bottom2 && top1 < top2) || (bottom1 > bottom2 && bottom1 < top2)))
       return (true);
     return (false);
+  }
+
+  bool		Body::getGroup() const
+  {
+    return (_group);
   }
 };

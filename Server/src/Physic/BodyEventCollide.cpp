@@ -3,7 +3,7 @@
 
 namespace Physic
 {
-  BodyEvent::Collide::Collide(const Body& body) :
+  BodyEvent::Collide::Collide(Body& body) :
     _body(body)
   {
   }
@@ -17,7 +17,7 @@ namespace Physic
     receiver.receive(world, *this);
   }
 
-  const Body&	BodyEvent::Collide::getBody() const
+  Body&	BodyEvent::Collide::getBody() const
   {
     return (_body);
   }

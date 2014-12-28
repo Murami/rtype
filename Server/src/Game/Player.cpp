@@ -1,6 +1,7 @@
 #include "Game/Player.hh"
 #include "Game/Projectile.hh"
 #include "Game/Monster.hh"
+#include "Game/Core.hh"
 
 namespace Game
 {
@@ -15,10 +16,10 @@ namespace Game
     };
 
   Player::Player(Core& game, int num) :
-    Entity(game), _num(num)
+    Entity(game, true), _num(num)
   {
-    // TODO a enlever
-    // setSpeed(Util::Vec2(10, 0));
+    _timeMissile = 0;
+    _canFireMissile = true;
   }
 
   Player::~Player()
@@ -35,25 +36,30 @@ namespace Game
     _inputs.clear();
   }
 
-  void	Player::update(float /*time*/)
+  void	Player::update(float time)
   {
-    // Input/State Component
     std::list<Input>::iterator	it;
+    Util::Vec2			speed;
 
+    _timeMissile += time;
+    if (_timeMissile > 0.1)
+      {
+	while (_timeMissile > 0.1)
+	  _timeMissile -= 0.1;
+	_canFireMissile = true;
+      }
     setSpeed(Util::Vec2(0, 0));
     for (it = _inputs.begin(); it != _inputs.end(); it++)
       (this->*_actions[*it])();
-
-    Util::Vec2	speed;
 
     speed = getSpeed();
 
     if (speed.x != 0 || speed.y != 0)
       {
 	speed.normalize();
-	setSpeed(speed);
+	setSpeed(speed * 500);
       }
-    // Check of the player is behin the camera of the gameplay
+    // TODO Check of the player is behin the camera of the gameplay
   }
 
   void	Player::onCollide(Entity& entity)
@@ -111,6 +117,12 @@ namespace Game
   void	Player::onPrimaryFire()
   {
     // TODO primary fire
+    if (_canFireMissile)
+      {
+	_canFireMissile = false;
+	_timeMissile = 0;
+	_core.addMissile(*this);
+      }
   }
 
   void	Player::onSecondaryFire()
