@@ -96,7 +96,7 @@ public:
 
   T		*load(const std::string& name, void* param)
   {
-    T		*(*res)();
+    T		*(*res)(void*);
 
     if (_pluginsMap.find(name) == _pluginsMap.end())
       {
