@@ -11,6 +11,7 @@ namespace Game
   public:
     class Move;
     class Life;
+    class Death;
 
   public:
     virtual ~EntityEvent() {}

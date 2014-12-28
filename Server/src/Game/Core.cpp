@@ -26,7 +26,7 @@ namespace Game
 
     std::list<Entity*>::iterator	it;
     _timeSpawn += time;
-    if (_timeSpawn > 5)
+    if (_timeSpawn > 2.5)
       {
 	_timeSpawn = 0;
 	spawnMonster();

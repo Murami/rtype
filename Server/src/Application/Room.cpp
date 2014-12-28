@@ -69,6 +69,19 @@ namespace Application
   {
   }
 
+  void	Room::receive(const Game::Entity& entity,
+		      const Game::EntityEvent::Death&)
+  {
+    RtypeProtocol::Destruction	destroy;
+    Network::packet*		packed;
+
+    event.entity.deleteObserver(*this);
+    destroy.id = entity.getId();
+    packed = _server.getProtocoleUdp().pack(&destroy);
+    sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_DEATH);
+    delete (packed);
+  }
+
   void	Room::receive(const Game::Core& /*core*/,
 		      const Game::CoreEvent::Spawn& event)
   {
