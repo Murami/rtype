@@ -28,6 +28,7 @@ namespace Game
     Physic::World&	getWorld();
 
     Player&		addPlayer();
+    Entity*		getEntity(unsigned int);
   };
 };
 
