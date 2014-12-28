@@ -116,6 +116,7 @@ void	RtypeClient::onDestruction(RtypeProtocol::Destruction destruct)
 
 void	RtypeClient::onLife(RtypeProtocol::Life life)
 {
+  std::cout << "\033[41m" << life.life << "\033[0m\n";
   _gameController->updateLife(life.life);
 }
 
