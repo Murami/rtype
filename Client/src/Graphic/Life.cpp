@@ -18,7 +18,7 @@ Life::~Life()
 
 void Life::update(int live)
 {
-  float tmp = (live / 100) * 3;
+  float tmp = live * 3 / 100 + 1;
   _live = std::round(tmp);
 }
 
