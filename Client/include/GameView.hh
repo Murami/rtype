@@ -22,6 +22,7 @@ public:
 public:
   void	run(sf::RenderWindow&, Util::Mutex*);
   void	stop();
+  void	emptyMap();
 
   void	setGameRunning(bool);
   void	add(int id, IObject*);
@@ -50,3 +51,4 @@ private:
 };
 
 #endif
+

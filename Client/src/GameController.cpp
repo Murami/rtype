@@ -47,6 +47,7 @@ void	GameController::updateDestroyList()
 void GameController::onExit()
 {
   _listener->onExitFromGame();
+  _view.emptyMap();
 }
 
 void	GameController::createEntity(int id, RtypeProtocol::Entity entity)

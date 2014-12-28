@@ -115,6 +115,15 @@ void	GameView::erase(int id)
     }
 }
 
+void	GameView::emptyMap()
+{
+  std::map<int, IObject*>::iterator		itObj;
+
+  for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
+    delete (itObj->second);
+  _objectMap.clear();
+}
+
 void	GameView::update(float time)
 {
   std::map<int, IObject*>::iterator		itObj;
