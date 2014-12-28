@@ -15,7 +15,7 @@ public:
   virtual void	onRoomInfo(RtypeProtocol::Room) = 0;
   virtual void	onRoomCreateAlreadyExist(RtypeProtocol::Room) = 0;
   virtual void	onRoomCreateInternalError(RtypeProtocol::Room) = 0;
-  virtual void	onRoomCreateOk(RtypeProtocol::Room) = 0;
+  virtual void	onRoomCreateOk() = 0;
   virtual void	onRoomJoinNotFound(RtypeProtocol::Room) = 0;
   virtual void	onRoomJoinIsFull(RtypeProtocol::Room) = 0;
   virtual void	onRoomJoinBadPswd(RtypeProtocol::Room) = 0;
@@ -28,6 +28,7 @@ public:
   virtual void	onMessage(RtypeProtocol::Message) = 0;
   virtual void	onHostLeftRoom() = 0;
   virtual void	onDeleteRoom(RtypeProtocol::Room) = 0;
+  virtual void	onServerExited() = 0;
 };
 
 #endif

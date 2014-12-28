@@ -1,20 +1,22 @@
 #include "Game/Entity.hh"
 #include "Game/Core.hh"
 #include "Game/EntityEventMove.hh"
+#include "Game/CollisionEvent.hh"
+#include "Physic/BodyEventCollide.hh"
 
 namespace Game
 {
   Util::IDGenerator	Entity::_generator = Util::IDGenerator();
 
-  Entity::Entity(Core& game) :
+  Entity::Entity(Core& game, bool isfriend) :
     _core(game),
-    _body(game.getWorld()),
+    _body(game.getWorld(), isfriend),
     _life(100),
     _maxlife(100),
     _alive(true)
   {
     _id = _generator.generate();
-
+    _toDeleted = false;
     _body.addObserver(*this);
   }
 
@@ -73,6 +75,16 @@ namespace Game
     return (_core);
   }
 
+  void		Entity::isToDeleted(bool toDeleted)
+  {
+    _toDeleted = toDeleted;
+  }
+
+  bool		Entity::isToDeleted() const
+  {
+    return (_toDeleted);
+  }
+
   void		Entity::receive(const Physic::Body& body,
 				const Physic::BodyEvent::Move& /*event*/)
   {
@@ -81,13 +93,16 @@ namespace Game
     notifyObservers(move);
   }
 
-  void		Entity::receive(const Physic::Body& /*body*/, const Physic::BodyEvent::Collide& /*event*/)
+  void		Entity::receive(const Physic::Body& /*body*/,
+				const Physic::BodyEvent::Collide& event)
   {
-    // TODO notifier l'autre body en envoyant l'entity dans le message
+    const CollisionEvent&	collisionevent = CollisionEvent(*this);
+
+    event.getBody().notifyObservers(collisionevent);
   }
 
-  void		Entity::receive(const Physic::Body& /*body*/, const CollisionEvent& /*event*/)
+  void		Entity::receive(const Physic::Body& /*body*/, const CollisionEvent& event)
   {
-    // TODO notifer le serveur d'un collision
+    event._entity.onCollide(*this);
   }
 };

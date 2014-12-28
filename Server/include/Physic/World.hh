@@ -12,6 +12,7 @@ namespace Physic
   {
   private:
     std::list<Body*>	_bodies;
+    std::list<Body*>	_bodies2;
 
   public:
     World();

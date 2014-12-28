@@ -90,3 +90,9 @@ void MenuController::deleteFromRoomList(RtypeProtocol::Room room)
       this->updateRoomList();
     }
 }
+
+void MenuController::joinRoom()
+{
+  //TO DO : change menuView to room view
+  _view.setActualState(RtypeEvent::ROOMSTATE);
+}

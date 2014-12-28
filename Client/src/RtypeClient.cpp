@@ -203,6 +203,8 @@ void	RtypeClient::onConnectionOk()
 void	RtypeClient::onDisconnection()
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
+  // ICI
+  _menuView->setGameRunning(false);
 }
 
 void	RtypeClient::onRoomInfo(RtypeProtocol::Room room)
@@ -224,7 +226,7 @@ void	RtypeClient::onRoomCreateInternalError(RtypeProtocol::Room)
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
-void	RtypeClient::onRoomCreateOk(RtypeProtocol::Room room)
+void	RtypeClient::onRoomCreateOk()
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
@@ -244,13 +246,13 @@ void	RtypeClient::onRoomJoinBadPswd(RtypeProtocol::Room)
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
-void	RtypeClient::onRoomJoinOk(RtypeProtocol::Room)
+void	RtypeClient::onRoomJoinOk()
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
-  _gameController->joinRoom();
+  _menuController->joinRoom();
 }
 
-void	RtypeClient::onRoomExitOk()
+void	RtypeClient::onRoomExitOk(RtypeProtocol::Room)
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   RtypeProtocol::Header header;
@@ -300,6 +302,14 @@ void	RtypeClient::onHostLeftRoom()
 void	RtypeClient::onDeleteRoom(RtypeProtocol::Room room)
 {
   _menuController->deleteFromRoomList(room);
+}
+
+void	RtypeClient::onServerExited()
+{
+  _gameView->stop();
+  _gameView->onExit();
+  _menuView->stop();
+  _menuView->setGameRunning(false);
 }
 
 bool	RtypeClient::onConnectFromMenu(const std::string & login)
@@ -383,7 +393,6 @@ bool	RtypeClient::onCreateRoomFromMenu(const std::string& roomName,
   RtypeProtocol::Room	room;
   char			buffer[sizeof(header) + sizeof(room)];
 
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   header.type = RtypeProtocol::T_ROOM_CREATE;
   header.data_size = sizeof(room);
   std::memset(&room, 0, sizeof(room));

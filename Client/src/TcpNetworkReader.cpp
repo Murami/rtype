@@ -22,9 +22,10 @@ int			TcpNetworkReader::run(Util::Mutex* mutex)
 {
   char			buffer[4096];
   std::size_t		received;
-
+  sf::Socket::Status	ret;
+  
   while (_tcpConnection.isReading() &&
-	 _tcpConnection.socket().receive(&buffer[0], 4096, received) == sf::Socket::Done)
+	 (ret = _tcpConnection.socket().receive(&buffer[0], 4096, received)) == sf::Socket::Done)
     {
       mutex->lock();
       for (size_t i = 0; i < received; i++)
@@ -32,6 +33,7 @@ int			TcpNetworkReader::run(Util::Mutex* mutex)
       onReadData();
       mutex->unlock();
     }
+  _tcpListener->onServerExited();
   return (0);
 }
 
@@ -115,6 +117,8 @@ void			TcpNetworkReader::onReadRoomCreateInternalError(){}
 
 void			TcpNetworkReader::onReadRoomCreateOk()
 {
+  _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
+  _tcpListener->onRoomJoinOk();
   // Have to send to the view that the creation of the room is successful
 }
 

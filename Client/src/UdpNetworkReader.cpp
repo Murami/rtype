@@ -75,7 +75,7 @@ void	UdpNetworkReader::onReadPosition(char *buffer)
   position.position.x = ntohl(position.position.x);
   position.position.y = ntohl(position.position.y);
   position.position.state = ntohl(position.position.state);
-  std::cout << "\033[45mRECEIVED POSITION\033[0m" << std::endl;
+  //std::cout << "\033[45mRECEIVED POSITION\033[0m" << std::endl;
   _listener->onPosition(position);
 }
 
@@ -90,7 +90,7 @@ void	UdpNetworkReader::onReadSpawn(char *buffer)
   spawn.position.orientation = ntohl(spawn.position.orientation);
   spawn.position.state = ntohl(spawn.position.state);
   spawn.life = ntohl(spawn.life);
-  std::cout << "\033[44mRECEIVED SPAWN and sending to listener\033[0m" << std::endl;
+  //std::cout << "\033[44mRECEIVED SPAWN and sending to listener\033[0m" << std::endl;
   _listener->onSpawn(spawn);
 }
 
@@ -126,7 +126,6 @@ void	UdpNetworkReader::onReadData(char *buffer)
 {
   RtypeProtocol::Header header;
 
-  std::cout << "\033[41mreading data UDP\033[0m" << std::endl;
   std::memcpy(&header, buffer, sizeof(header));
   header.type = ntohl(header.type);
   if (_callbacks.find((RtypeProtocol::Type)header.type) != _callbacks.end())
