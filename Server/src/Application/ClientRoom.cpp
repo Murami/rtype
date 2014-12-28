@@ -125,7 +125,6 @@ namespace Application
   void	ClientRoom::notifyState(unsigned int state)
   {
     // DANS L'IDEAL UNE MAP
-    std::cout << "STATE INPUT --------------> " << state << std::endl;
     _player->clearInput();
     if (state & INPUT_FORWARD)
       _player->addInput(Game::Player::Forward);
