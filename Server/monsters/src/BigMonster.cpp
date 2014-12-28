@@ -19,7 +19,7 @@ namespace Game
     if (!init)
       {
 	init = true;
-	setSpeed(Util::Vec2(100, 0));
+	setSpeed(Util::Vec2(-100, 0));
       }
     if (getPosition().x >= 500 || getPosition().y >= 900)
       setSpeed(Util::Vec2(0, -100));
