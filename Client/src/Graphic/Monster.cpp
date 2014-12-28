@@ -14,10 +14,10 @@ Monster::Monster(int monsterID)
 {
     _monsterMap[1] = &Monster::initMonster1;
     _monsterMap[2] = &Monster::initMonster2;
-    
+
     _animationDuration[1] = 0.5;
     _animationDuration[2] = 0.1;
-    
+
     _monsterID = monsterID;
     _anim = 0;
     if (_monsterMap.find(_monsterID) != _monsterMap.end())
@@ -25,7 +25,7 @@ Monster::Monster(int monsterID)
 }
 
 Monster::~Monster()
-{   
+{
 }
 
 void Monster::update(sf::Vector2<float> pos)
@@ -33,7 +33,7 @@ void Monster::update(sf::Vector2<float> pos)
 #ifdef __APPLE__
   _sprite.setPosition((pos.x /1920) * 2880, (pos.y / 1080) * 1800);
 #else
-  _sprite.setPosition(pos);  
+  _sprite.setPosition(pos);
 #endif
     if (_clock.getElapsedTime().asSeconds() > _animationDuration[_monsterID])
     {
@@ -51,13 +51,13 @@ void Monster::initMonster1()
     _texture = TextureManager::getInstance()->getTextureEnemy1();
     _sprite.setTexture(_texture);
     _sprite.setTextureRect(sf::IntRect(4, 4, 252, 192));
-    
+
     //#ifdef __APPLE__
     _sprite.scale(3.0, 3.0);
     //#endif
-    
+
     _anim = 0;
-    
+
     _animationMap[0] = sf::IntRect(1, 1, 62, 48);
     _animationMap[1] = sf::IntRect(66, 1, 63, 48);
     _animationMap[2] = sf::IntRect(131, 1, 63, 48);
@@ -69,13 +69,13 @@ void Monster::initMonster2()
     _texture = TextureManager::getInstance()->getTextureEnemy2();
     _sprite.setTexture(_texture);
     _sprite.setTextureRect(sf::IntRect(20, 24, 84, 96));
-    
+
     //#ifdef __APPLE__
     _sprite.scale(3.0, 3.0);
     //#endif
-    
+
     _anim = 0;
-    
+
     _animationMap[0] = sf::IntRect(5, 6, 21, 24);
     _animationMap[1] = sf::IntRect(38, 6, 21, 24);
     _animationMap[2] = sf::IntRect(71, 6, 21, 24);

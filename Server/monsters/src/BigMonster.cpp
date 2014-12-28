@@ -27,6 +27,7 @@ namespace Game
     // if (getPosition().y <= 50)
     //   setSpeed(Util::Vec2(0, 100));
     Util::Vec2  pos = _body.getPosition();
+    Util::Vec2	size(63 * 3, 48 * 3);
 
     if (_body.getPosition().x + (_body.getSize().x / 2) < 0)
       _core.deleteEntity(this);

@@ -7,6 +7,7 @@ namespace Game
   LittleMonster::LittleMonster(Core& game) : Monster(game, T_MONSTER_LITTLE)
   {
     setSpeed(Util::Vec2(-100, 0));
+    _body.setSize(Util::Vec2(21 * 3, 24 * 3));
   }
 
   LittleMonster::~LittleMonster()
