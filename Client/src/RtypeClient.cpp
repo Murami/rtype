@@ -107,15 +107,12 @@ void	RtypeClient::onPosition(RtypeProtocol::PositionEvent position)
 
 void	RtypeClient::onSpawn(RtypeProtocol::Spawn spawn)
 {
-  // RtypeProtocol::Entity entity;
-
-  // entity = _entityMap[spawn.type];
   _gameController->spawnEntity(spawn);
-  // _gameController->updateEntityPosition(spawn.id, spawn.position);
 }
 
-void	RtypeClient::onDestruction()
+void	RtypeClient::onDestruction(RtypeProtocol::Destruction destruct)
 {
+  _gameController->deleteEntity(destruct.id);
 }
 
 void	RtypeClient::onLife()
