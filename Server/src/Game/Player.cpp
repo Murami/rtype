@@ -2,6 +2,7 @@
 #include "Game/Projectile.hh"
 #include "Game/Monster.hh"
 #include "Game/Core.hh"
+#include "Game/DestroyableSet.hh"
 
 namespace Game
 {
@@ -81,7 +82,7 @@ namespace Game
     entity.onCollide(*this);
   }
 
-  void	Player::onCollide(Player& /*player*/)
+  void	Player::onCollide(Player&)
   {
     // TODO Les joueurs se collisionent sans degats
   }
@@ -101,10 +102,12 @@ namespace Game
     monster.onCollide(*this);
   }
 
-  void	Player::onCollide(DestroyableSet& /*set*/)
+  void	Player::onCollide(DestroyableSet& set)
   {
-    // TODO Player loose some life ans then set die
-
+    if (!this->isAlive() || !set.isAlive())
+      return ;
+    _life -= 10;
+    set.kill();
   }
 
   // TODO input methods

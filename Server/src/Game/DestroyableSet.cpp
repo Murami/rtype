@@ -12,6 +12,11 @@ namespace Game
   {
   }
 
+  bool	DestroyableSet::isAlive()
+  {
+    return (_alive);
+  }
+
   void	DestroyableSet::update(float /*time*/)
   {
   }
