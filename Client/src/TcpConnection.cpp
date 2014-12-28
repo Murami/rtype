@@ -1,4 +1,7 @@
 #include	<SFML/System/Time.hpp>
+#if defined(__linux) || defined(__APPLE__)
+# include	<arpa/inet.h>
+#endif
 
 #include	"Thread.hpp"
 #include	"ConnectionConfiguration.hh"

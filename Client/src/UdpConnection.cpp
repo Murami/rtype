@@ -69,7 +69,6 @@ bool			UdpConnection::write(void *data, std::size_t count)
 {
   sf::Socket::Status ret;
 
-  // std::cout << _conf.getPortUdp() << std::endl;
   if ((ret = _socket.send(data, count, _conf.getIp(), _conf.getPortUdp())) != sf::Socket::Done)
     {
       switch (ret)
@@ -88,7 +87,6 @@ bool			UdpConnection::write(void *data, std::size_t count)
 	}
       return (false);
     }
-  
   return (true);
 }
 
