@@ -25,7 +25,7 @@ void	Core::update(float time)
 {
   std::list<Entity*>::iterator	it;
   _timeSpawn += time;
-  if (_timeSpawn > 5)
+  if (_timeSpawn > 2.5)
   {
     _timeSpawn = 0;
     spawnMonster();
@@ -34,17 +34,8 @@ void	Core::update(float time)
   for (it = _entities.begin(); it != _entities.end(); it++)
     (*it)->update(time);
 
-  for (it = _entities.begin(); it != _entities.end(); it++)
-  {
-    if ((*it)->isToDeleted() == true)
-    {
-      const CoreEvent::Destroy&	destroy = CoreEvent::Destroy(*(*it));
 
-      notifyObservers(destroy);
-      delete (*it);
-      it = _entities.erase(it);
-    }
-  }
+
   std::list<std::list<Entity*>::iterator> toDelete;
   for (it = _entities.begin(); it != _entities.end(); it++)
   {
@@ -62,6 +53,18 @@ void	Core::update(float time)
     notifyObservers(destroy);
     delete (*it);
     _entities.erase(it);
+  }
+
+    for (it = _entities.begin(); it != _entities.end(); it++)
+  {
+    if ((*it)->isToDeleted() == true)
+    {
+      const CoreEvent::Destroy& destroy = CoreEvent::Destroy(*(*it));
+
+      notifyObservers(destroy);
+      delete (*it);
+      it = _entities.erase(it);
+    }
   }
 }
 

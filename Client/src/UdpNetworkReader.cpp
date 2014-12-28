@@ -110,8 +110,16 @@ void	UdpNetworkReader::onReadHit(char *)
 {
 }
 
-void	UdpNetworkReader::onReadDeath(char *)
+void	UdpNetworkReader::onReadDeath(char *buffer)
 {
+  RtypeProtocol::Header		header;
+  RtypeProtocol::Deatch		d;
+
+  std::memcpy(&header, &buffer[0], sizeof(header));
+  std::memcpy(&d, &buffer[sizeof(header)], sizeof(d));
+  d.id = ntohl(d.id);
+  std::cout << d.id << std::endl;
+  _listener->onDestruction(d);
 }
 
 void	UdpNetworkReader::onReadEntityInfos(char *)

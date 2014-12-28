@@ -28,7 +28,10 @@ namespace Game
 
   void	Entity::setSpeed(const Util::Vec2& speed)
   {
+    const EntityEvent::Move& 	move = EntityEvent::Move(_body.getPosition());
+
     _body.setSpeed(speed);
+    notifyObservers(move);
   }
 
   const Util::Vec2&	Entity::getSpeed() const
@@ -59,6 +62,9 @@ namespace Game
   void		Entity::kill()
   {
     _alive = false;
+    EntityEvent::Death death;
+
+    notifyObserver(death);
   }
 
   bool		Entity::isAlive() const

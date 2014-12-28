@@ -27,12 +27,13 @@ namespace Game
     // if (getPosition().y <= 50)
     //   setSpeed(Util::Vec2(0, 100));
     Util::Vec2  pos = _body.getPosition();
+    Util::Vec2	size(63 * 3, 48 * 3);
 
-    if (_body.getPosition().x + (_body.getSize().x / 2) < 0)
+    if (_body.getPosition().x + (_body.getSize().x / 2) < -_body.getSize().x)
       _core.deleteEntity(this);
     if (_body.getPosition().y - (_body.getSize().y / 2) < 0)
       pos.y = _body.getSize().y / 2;
-    else if ((_body.getPosition().y - (_body.getSize().y / 2)) > (1080 - _body.getSize().y))
+    else if ((_body.getPosition().y - (_body.getSize().y / 2)) > 1080)
       pos.y = 1080 - _body.getSize().y / 2;
     _body.setPosition(pos);
   }

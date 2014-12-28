@@ -36,6 +36,7 @@ add_executable(
   src/Game/CoreEventSpawn.cpp
   src/Game/EntityEventLife.cpp
   src/Game/Camera.cpp
+  src/Game/EntityEventDeath.cpp
   src/Physic/Body.cpp
   src/Physic/BodyEventCollide.cpp
   src/Physic/BodyEventMove.cpp
@@ -79,6 +80,7 @@ add_executable(
   include/Game/EntityEventMove.hh
   include/Game/Player.hh
   include/Game/Camera.hh
+  include/Game/EntityEventDeath.hh
   include/Physic/BodyContainer.hh
   include/Physic/BodyEvent.hh
   include/Physic/BodyEventReceiver.hh

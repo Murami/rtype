@@ -48,6 +48,7 @@ namespace Application
     void				onTimeout(Network::Timer& timer);
     void				receive(const Game::Entity& entity, const Game::EntityEvent::Move& event);
     void				receive(const Game::Entity& entity, const Game::EntityEvent::Life& event);
+    void				receive(const Game::Entity& entity, const Game::EntityEvent::Death& event);
     void				receive(const Game::Core& core, const Game::CoreEvent::Spawn& event);
     void				receive(const Game::Core& core, const Game::CoreEvent::Destroy& event);
 

@@ -5,6 +5,7 @@
 #include "Game/EntityEvent.hh"
 #include "Game/EntityEventMove.hh"
 #include "Game/EntityEventLife.hh"
+#include "Game/EntityEventDeath.hh"
 
 namespace Game
 {
@@ -20,6 +21,7 @@ namespace Game
 
     virtual void	receive(const Entity& entity, const EntityEvent::Move& event) = 0;
     virtual void	receive(const Entity& entity, const EntityEvent::Life& event) = 0;
+    virtual void	receive(const Entity& Entity, const EntityEvent::Death& event) = 0;
   };
 };
 
