@@ -50,10 +50,6 @@ int			UdpNetworkReader::run(Util::Mutex* mutex)
   while (_udpConnection.isReading() && _udpConnection.socket().receive(buffer, 4096, received, ip, port) == sf::Socket::Done)
     {
       mutex->lock();
-<<<<<<< HEAD
-      //std::cout << "\033[36mInto the while\033[0m" << std::endl;
-=======
->>>>>>> e31773ed2f90901b34c0ad4f3ec77ae97b5fdd12
       onReadData(buffer);
       mutex->unlock();
     }
