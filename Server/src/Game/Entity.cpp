@@ -53,6 +53,8 @@ namespace Game
   void		Entity::setLife(int life)
   {
     _life = life;
+    if (_life <= 0)
+      kill();
   }
 
   int		Entity::getLife() const
