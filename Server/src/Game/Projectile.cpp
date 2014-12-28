@@ -6,7 +6,7 @@ namespace Game
 {
   Projectile::Projectile(Core& game, bool isFriend, int damage,
 			 const Util::Vec2& position) :
-    Entity(game, isFriend),
+    Entity(game, isFriend, T_MISSILE),
     _isFriend(isFriend),
     _damage(damage)
   {

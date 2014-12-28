@@ -16,7 +16,7 @@ namespace Game
     };
 
   Player::Player(Core& game, int num) :
-    Entity(game, true), _num(num)
+    Entity(game, true, (EntityType)((int)T_PLAYER_1 + num)), _num(num)
   {
     Util::Vec2	pos(64, 28);
 
