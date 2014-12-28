@@ -30,12 +30,14 @@ public:
   void deleteFromRoomList(RtypeProtocol::Room room);
   void updateRoomList();
   void joinRoom();
+  void	setPlayersNameList(RtypeProtocol::Room);
+  void	updatePlayerName();
   
 private:
   MenuView& _view;
   IMenuListener *_listen;
-  std::map<int, RtypeProtocol::Room> _roomList;
+  std::map<int, RtypeProtocol::Room>	_roomList;
+  std::vector<std::string>		_playersName;
 };
-
 
 #endif /* defined(__RType__MenuController__) */

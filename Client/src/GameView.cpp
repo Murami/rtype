@@ -119,7 +119,7 @@ void	GameView::update(float time)
 	itObj->second->networkUpdated() = false;
       itObj->second->updateAnim();
     }
-  _life.update(3);
+  //  _life.update(3);
 }
 
 bool	GameView::updateById(int id, RtypeProtocol::Position pos)
@@ -150,7 +150,7 @@ void	GameView::render(sf::RenderWindow& window)
   _life.render(window);
 }
 
-void	GameView::updateLife(size_t life)
+void	GameView::updateLife(int life)
 {
   _life.update(life);
 }

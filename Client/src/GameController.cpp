@@ -105,7 +105,7 @@ void	GameController::gameEnd(bool)
 {
 }
 
-void	GameController::updateLife(size_t life)
+void	GameController::updateLife(int life)
 {
   _view.updateLife(life);
 }

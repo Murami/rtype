@@ -14,6 +14,7 @@
 class	IMenuObserver {
 public:
   virtual void update(RtypeEvent::eButton idCallback) = 0;
+  virtual void	updatePlayerName() = 0;
 
  public:
     virtual ~IMenuObserver() {}

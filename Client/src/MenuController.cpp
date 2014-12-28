@@ -96,3 +96,27 @@ void MenuController::joinRoom()
   //TO DO : change menuView to room view
   _view.setActualState(RtypeEvent::ROOMSTATE);
 }
+
+void	MenuController::setPlayersNameList(RtypeProtocol::Room room)
+{
+  std::string	str;
+
+  for (size_t i = 0; i < room.nb_connected_users; i++)
+    {
+      str = reinterpret_cast<char*>(room.connected_users[i]);
+      _playersName.push_back(str);
+    }
+}
+
+void	MenuController::updatePlayerName()
+{
+  if (_playersName.size() >= 1)
+    _view.setPlayerLabe1(_playersName[0]);
+  if (_playersName.size() >= 2)
+    _view.setPlayerLabe2(_playersName[1]);
+  if (_playersName.size() >= 3)
+    _view.setPlayerLabe3(_playersName[2]);
+  if (_playersName.size() >= 4)
+    _view.setPlayerLabe4(_playersName[3]);
+  _playersName.clear();
+}

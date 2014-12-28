@@ -1,9 +1,11 @@
+#include <iostream>
+#include <cmath>
 #include "Life.hh"
 #include "TextureManager.hh"
 
 Life::Life()
 {
-  _live = 3;
+  _live = 3.0;
   _texture = TextureManager::getInstance()->getTextureLife();
   _sprite.setTexture(_texture);
   _sprite.setTextureRect(sf::IntRect(1, 3, 32, 28));
@@ -14,10 +16,10 @@ Life::~Life()
 
 }
 
-void Life::update(size_t live)
+void Life::update(int live)
 {
-  float tmp = (live / 100) * 3;
-  _live = tmp;
+  float tmp = live * 3 / 100 + 1;
+  _live = std::round(tmp);
 }
 
 void Life::render(sf::RenderWindow &window)

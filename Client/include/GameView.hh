@@ -26,7 +26,7 @@ public:
   void	setGameRunning(bool);
   void	add(int id, IObject*);
   void	erase(int id);
-  void	updateLife(size_t life);
+  void	updateLife(int life);
 
 public:
   bool	updateById(int id, RtypeProtocol::Position pos);
