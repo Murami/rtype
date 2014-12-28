@@ -62,6 +62,11 @@ namespace Game
     return (_life);
   }
 
+  Physic::Body&	Entity::getBody()
+  {
+    return (_body);
+  }
+
   void		Entity::kill()
   {
     _alive = false;

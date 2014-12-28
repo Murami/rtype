@@ -20,7 +20,7 @@ namespace Physic
 
     void	update(float time);
 
-  private:
+  public:
     void	add(Body& body);
     void	remove(Body& body);
   };
