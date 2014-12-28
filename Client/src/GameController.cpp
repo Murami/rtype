@@ -96,7 +96,8 @@ void	GameController::deleteEntity(int id)
 
 void	GameController::updateEntityPosition(int id, RtypeProtocol::Position pos)
 {
-  _view.updateById(id, pos);
+  if (_view.updateById(id, pos) == false)
+    _listener->onEntityRequestFromGame(id);
 }
 
 void	GameController::update(size_t mask)
