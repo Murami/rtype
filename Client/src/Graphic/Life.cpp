@@ -29,11 +29,11 @@ void Life::render(sf::RenderWindow &window)
   _sprite.setPosition(200, 1750);
   window.draw(_sprite);
   #else
-  _sprite.setPosition();
+  _sprite.setPosition(0, 0);
   window.draw(_sprite);
-  _sprite.setPosition();
+  _sprite.setPosition(0, 0);
   window.draw(_sprite);
-  _sprite.setPosition();
+  _sprite.setPosition(0, 0);
   window.draw(_sprite);
   #endif
 }
