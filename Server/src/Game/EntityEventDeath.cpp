@@ -1,3 +1,4 @@
+#include "Game/EntityEventReceiver.hh"
 #include "Game/EntityEventDeath.hh"
 
 namespace Game

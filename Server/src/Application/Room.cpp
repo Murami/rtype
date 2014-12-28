@@ -75,7 +75,6 @@ namespace Application
     RtypeProtocol::Destruction	destroy;
     Network::packet*		packed;
 
-    event.entity.deleteObserver(*this);
     destroy.id = entity.getId();
     packed = _server.getProtocoleUdp().pack(&destroy);
     sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_DEATH);

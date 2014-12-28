@@ -3,6 +3,7 @@
 #include "Game/EntityEventMove.hh"
 #include "Game/CollisionEvent.hh"
 #include "Physic/BodyEventCollide.hh"
+#include "Game/EntityEventDeath.hh"
 
 namespace Game
 {
@@ -64,7 +65,7 @@ namespace Game
     _alive = false;
     EntityEvent::Death death;
 
-    notifyObserver(death);
+    notifyObservers(death);
   }
 
   bool		Entity::isAlive() const
