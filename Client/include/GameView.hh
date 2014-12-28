@@ -8,6 +8,7 @@
 # include "ScrollingBackground.hh"
 # include "RtypeProtocol.hh"
 # include "Mutex.hh"
+# include "Life.hh"
 
 class	IObject;
 
@@ -24,6 +25,7 @@ public:
   void	setGameRunning(bool);
   void	add(int id, IObject*);
   void	erase(int id);
+  void	updateLife(size_t life);
 
 public:
   bool	updateById(int id, RtypeProtocol::Position pos);
@@ -36,6 +38,7 @@ private:
   std::vector<ScrollingBackground*>	_backgroundVector;
   std::map<int, IObject*>		_objectMap;
   bool					_run;
+  Life					_life;
 };
 
 #endif

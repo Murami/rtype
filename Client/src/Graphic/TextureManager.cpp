@@ -38,6 +38,7 @@ void TextureManager::loadTexture()
     _enemy1.loadFromFile("./res/Game/r-typesheet26.gif");
     _enemy2.loadFromFile("./res/Game/r-typesheet5.gif");
     _enemy3.loadFromFile("./res/Game/r-typesheet9.gif");
+    _life.loadFromFile("./res/Game/r-typesheet30a.gif");
 }
 
 sf::Texture TextureManager::getTextureShip() const
@@ -68,4 +69,9 @@ sf::Texture TextureManager::getTextureEnemy3() const
 sf::Texture TextureManager::getTextureSheet2() const
 {
     return _sheet2;
+}
+
+sf::Texture TextureManager::getTextureLife() const
+{
+  return _life;
 }
