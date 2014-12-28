@@ -51,16 +51,16 @@ namespace Application
 
     time = std::chrono::system_clock::now().time_since_epoch();
 
-    if (time - _time > duration_milli(20))
+    if (time - _time > duration_milli(30))
       {
-	_game.update(0.02);
+	_game.update(0.03);
 	_time = time;
 	timer.setTimeout(duration_milli(0));
 	_server.getService().addTimeout(_timer);
       }
     else
       {
-	timer.setTimeout(duration_milli(20) - (time - _time));
+	timer.setTimeout(duration_milli(30) - (time - _time));
 	_server.getService().addTimeout(_timer);
       }
   }

@@ -47,10 +47,10 @@ namespace Game
     Util::Vec2			speed;
 
     _timeMissile += time;
-    if (_timeMissile > 0.1)
+    if (_timeMissile > 0.2)
       {
-	while (_timeMissile > 0.1)
-	  _timeMissile -= 0.1;
+	while (_timeMissile > 0.2)
+	  _timeMissile -= 0.2;
 	_canFireMissile = true;
       }
     setSpeed(Util::Vec2(0, 0));
