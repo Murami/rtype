@@ -12,6 +12,15 @@ namespace Game
 
   void	BigMonster::update(float /*time*/)
   {
+    static bool	init = false;
+    static bool	goUp = false;
+    static bool	goDown = true;
+
+    if (!init)
+      {
+	init = true;
+	setSpeed(Util::Vec2(50, 50));
+      }
   }
 
   void	BigMonster::onCollide(Entity& entity)

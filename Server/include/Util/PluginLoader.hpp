@@ -20,7 +20,7 @@ public:
     DynamicFile::IDynamicFile		*tmp;
     std::string			(*hook)();
 
-#if defined (__unix__)
+#if defined (__unix__) || defined (__APPLE__)
     fileList = dir->getFilesNameByExtension("so");
 #elif defined (WIN32) || defined (_WIN32)
     fileList = dir->getFilesNameByExtension("dll");
@@ -54,7 +54,7 @@ public:
     std::string			(*hook)();
     std::list<std::string>		copy;
 
-#if defined (__unix__)
+#if defined (__unix__) || defined (__APPLE__)
     fileList = dir->getFilesNameByExtension("so");
 #elif defined (WIN32) || defined (_WIN32)
     fileList = dir->getFilesNameByExtension("dll");
