@@ -36,12 +36,12 @@ int			UdpNetworkReader::run(Util::Mutex* mutex)
   port = static_cast<unsigned short>(_udpConnection.getPortFromConf());
   std::cout << "\033[37mEntering UDP Reading thread\033[0m" << std::endl;
   while (_udpConnection.isReading() && _udpConnection.socket().receive(reinterpret_cast<char *>(&buffer[0]), 4096, received, ip, port) == sf::Socket::Done)
-    {
-      mutex->lock();
-      std::cout << "\033[36mInto the while\033[0m" << std::endl;
-      onReadData(buffer);
-      mutex->unlock();
-    }
+  {
+    std::cout << "\033[36mInto the while\033[0m" << std::endl;
+    mutex->lock();
+    onReadData(buffer);
+    mutex->unlock();
+  }
   std::cout << "\033[35mGetting of the UDP reading thread\033[0m" << std::endl;
   return (0);
 }
