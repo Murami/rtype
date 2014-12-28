@@ -24,6 +24,7 @@ add_executable(
 	src/Graphic/TextureManager.cpp
 	src/Graphic/Monster.cpp
 	src/Graphic/Camera.cpp
+	src/Graphic/Life.cpp
 	src/ConnectionConfiguration.cpp
 	src/MenuController.cpp
 	src/MenuView.cpp
@@ -93,7 +94,7 @@ find_package(SFML 2.1 REQUIRED system window graphics network audio)
 find_package(TGUI 0.6 REQUIRED)
 
 if (UNIX)
-	target_link_libraries(client pthread X11)
+	target_link_libraries(client pthread)
 elseif(WIN32)
   target_link_libraries(client wsock32 ws2_32)
 endif()
