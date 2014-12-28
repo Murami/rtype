@@ -17,8 +17,9 @@ namespace	Dirent
     std::list<std::string>	getFilesNameByExtension(std::string ext);
 
   private:
-	  HANDLE			_handle;
-	  WIN32_FIND_DATA	_ffd;
+    HANDLE			_handle;
+    WIN32_FIND_DATA		_ffd;
+    bool			_isOpen;
   };
 }
 
