@@ -26,6 +26,8 @@ public:
   sf::Texture getTextureLife() const;
   sf::Texture getTextureRWall() const;
   sf::Texture getTextureWall() const;
+  sf::Texture getTextureWin() const;
+  sf::Texture getTextureLoose() const;
   
   void loadTexture();
     
@@ -39,6 +41,8 @@ private:
   sf::Texture _life;
   sf::Texture _rwall;
   sf::Texture _wall;
+  sf::Texture _win;
+  sf::Texture _loose;
     
     
 private:

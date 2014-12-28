@@ -63,7 +63,6 @@ void	UdpNetworkReader::onReadPosition(char *buffer)
   position.position.y = ntohl(position.position.y);
   position.position.speedX = ntohl(position.position.speedX);
   position.position.speedY = ntohl(position.position.speedY);
-  //std::cout << "\033[45mRECEIVED POSITION\033[0m" << std::endl;
   _listener->onPosition(position);
 }
 
@@ -73,14 +72,12 @@ void	UdpNetworkReader::onReadSpawn(char *buffer)
 
   std::memcpy(&spawn, &buffer[sizeof(RtypeProtocol::Header)], sizeof(spawn));
   spawn.id = ntohl(spawn.id);
-  //std::cout << "[CLIENT] -> SPAWN : " << spawn.id << std::endl;
   spawn.type = ntohl(spawn.type);
   spawn.position.x = ntohl(spawn.position.x);
   spawn.position.y = ntohl(spawn.position.y);
   spawn.position.speedX = ntohl(spawn.position.speedX);
   spawn.position.speedY = ntohl(spawn.position.speedY);
   spawn.life = ntohl(spawn.life);
-  //std::cout << "\033[44mRECEIVED SPAWN and sending to listener\033[0m" << std::endl;
   _listener->onSpawn(spawn);
 }
 
@@ -90,13 +87,13 @@ void	UdpNetworkReader::onReadEvent(char *)
 
 void	UdpNetworkReader::onReadLife(char *buffer)
 {
-  //  RtypeProtocol::Header header;
+  RtypeProtocol::Header header;
   RtypeProtocol::Life life;
 
-  //std::memcpy(&header, &buffer[0], sizeof(header));
-  //  std::memcpy(&life, &buffer[sizeof(header)], sizeof(life));
+  std::memcpy(&header, &buffer[0], sizeof(header));
+  std::memcpy(&life, &buffer[sizeof(header)], sizeof(life));
 
-  std::memcpy(&life, &buffer[0], sizeof(life));
+  //std::memcpy(&life, &buffer[0], sizeof(life));
   life.id = ntohl(life.id);
   life.life = ntohl(life.life);
   _listener->onLife(life);
