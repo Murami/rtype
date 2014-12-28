@@ -16,7 +16,8 @@ Life::~Life()
 
 void Life::update(size_t live)
 {
-  _live = live;
+  float tmp = (live / 100) * 3;
+  _live = tmp;
 }
 
 void Life::render(sf::RenderWindow &window)
@@ -29,11 +30,11 @@ void Life::render(sf::RenderWindow &window)
   _sprite.setPosition(200, 1750);
   window.draw(_sprite);
   #else
-  _sprite.setPosition(0, 0);
+  _sprite.setPosition(100, 1000);
   window.draw(_sprite);
-  _sprite.setPosition(0, 0);
+  _sprite.setPosition(150, 1000);
   window.draw(_sprite);
-  _sprite.setPosition(0, 0);
+  _sprite.setPosition(200, 1000);
   window.draw(_sprite);
   #endif
 }
