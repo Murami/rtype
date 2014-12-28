@@ -43,7 +43,7 @@ void	GameController::updateDestroyList()
 
   for (it = _destroyList.begin(); it != _destroyList.end(); it++)
     {
-      std::cout << "j'essaye d'earse le " << *it << std::endl;
+      //std::cout << "j'essaye d'earse le " << *it << std::endl;
       _view.erase(*it);
     }
   _destroyList.clear();
@@ -59,7 +59,7 @@ void	GameController::createEntity(int id, RtypeProtocol::Entity entity)
 {
   IObject *obj = NULL;
 
-  std::cout << "ENTITY : " << (int)entity << std::endl;
+  //std::cout << "ENTITY : " << (int)entity << std::endl;
   switch (entity)
     {
     case RtypeProtocol::T_PLAYER_1:

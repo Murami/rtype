@@ -72,7 +72,7 @@ void	UdpNetworkReader::onReadSpawn(char *buffer)
 
   std::memcpy(&spawn, &buffer[sizeof(RtypeProtocol::Header)], sizeof(spawn));
   spawn.id = ntohl(spawn.id);
-  std::cout << "[CLIENT] -> SPAWN : " << spawn.id << std::endl;
+  //std::cout << "[CLIENT] -> SPAWN : " << spawn.id << std::endl;
   spawn.type = ntohl(spawn.type);
   spawn.position.x = ntohl(spawn.position.x);
   spawn.position.y = ntohl(spawn.position.y);
