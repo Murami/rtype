@@ -21,32 +21,49 @@ namespace Game
   {
   }
 
-  void	Core::update(float time)
+void	Core::update(float time)
+{
+  std::list<Entity*>::iterator	it;
+  _timeSpawn += time;
+  if (_timeSpawn > 5)
   {
-
-    std::list<Entity*>::iterator	it;
-    _timeSpawn += time;
-    if (_timeSpawn > 5)
-      {
-	_timeSpawn = 0;
-	spawnMonster();
-      }
-    _world.update(time);
-    for (it = _entities.begin(); it != _entities.end(); it++)
-      (*it)->update(time);
-
-    for (it = _entities.begin(); it != _entities.end(); it++)
-      {
-	if ((*it)->isToDeleted() == true)
-	  {
-	    const CoreEvent::Destroy&	destroy = CoreEvent::Destroy(*(*it));
-
-	    notifyObservers(destroy);
-	    delete (*it);
-	    it = _entities.erase(it);
-	  }
-      }
+    _timeSpawn = 0;
+    spawnMonster();
   }
+  _world.update(time);
+  for (it = _entities.begin(); it != _entities.end(); it++)
+    (*it)->update(time);
+
+  for (it = _entities.begin(); it != _entities.end(); it++)
+  {
+    if ((*it)->isToDeleted() == true)
+    {
+      const CoreEvent::Destroy&	destroy = CoreEvent::Destroy(*(*it));
+
+      notifyObservers(destroy);
+      delete (*it);
+      it = _entities.erase(it);
+    }
+  }
+  std::list<std::list<Entity*>::iterator> toDelete;
+  for (it = _entities.begin(); it != _entities.end(); it++)
+  {
+    if (!(*it)->isAlive())
+    {
+      toDelete.push_front(it);
+    }
+  }
+  std::list<std::list<Entity*>::iterator>::iterator toDeleteIt;
+  for (toDeleteIt = toDelete.begin(); toDeleteIt != toDelete.end(); toDeleteIt++)
+  {
+    it = (*toDeleteIt);
+    const CoreEvent::Destroy& destroy = CoreEvent::Destroy(*(*it));
+
+    notifyObservers(destroy);
+    delete (*it);
+    _entities.erase(it);
+  }
+}
 
   bool	Core::alive() const
   {
