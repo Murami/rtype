@@ -224,7 +224,7 @@ void	RtypeClient::onRoomCreateInternalError(RtypeProtocol::Room)
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
-void	RtypeClient::onRoomCreateOk(RtypeProtocol::Room room)
+void	RtypeClient::onRoomCreateOk()
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
@@ -244,13 +244,13 @@ void	RtypeClient::onRoomJoinBadPswd(RtypeProtocol::Room)
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
-void	RtypeClient::onRoomJoinOk(RtypeProtocol::Room)
+void	RtypeClient::onRoomJoinOk()
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
-  _gameController->joinRoom();
+  _menuController->joinRoom();
 }
 
-void	RtypeClient::onRoomExitOk()
+void	RtypeClient::onRoomExitOk(RtypeProtocol::Room)
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   RtypeProtocol::Header header;
@@ -383,7 +383,6 @@ bool	RtypeClient::onCreateRoomFromMenu(const std::string& roomName,
   RtypeProtocol::Room	room;
   char			buffer[sizeof(header) + sizeof(room)];
 
-  std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   header.type = RtypeProtocol::T_ROOM_CREATE;
   header.data_size = sizeof(room);
   std::memset(&room, 0, sizeof(room));

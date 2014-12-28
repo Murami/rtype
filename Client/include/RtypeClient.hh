@@ -67,7 +67,7 @@ public:
   virtual void	onRoomInfo(RtypeProtocol::Room);
   virtual void	onRoomCreateAlreadyExist(RtypeProtocol::Room);
   virtual void	onRoomCreateInternalError(RtypeProtocol::Room);
-  virtual void	onRoomCreateOk(RtypeProtocol::Room);
+  virtual void	onRoomCreateOk();
   virtual void	onRoomJoinNotFound(RtypeProtocol::Room);
   virtual void	onRoomJoinIsFull(RtypeProtocol::Room);
   virtual void	onRoomJoinBadPswd(RtypeProtocol::Room);
