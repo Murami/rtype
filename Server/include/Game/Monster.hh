@@ -2,22 +2,23 @@
 #define GAME_MONSTER
 
 #include "Game/Entity.hh"
+// #include "Util/APlugin.hh"
 
 namespace Game
 {
-  class Monster : public Entity
+  class Monster : public Entity,
+		  public APlugin
   {
   public:
-    Monster(Core& game);
-    ~Monster();
+    virtual ~Monster() {};
 
-    void	update(float time);
+    virtual void	update(float time) = 0;
 
-    void	onCollide(Entity& entity);
-    void	onCollide(Player& player);
-    void	onCollide(Projectile& projectile);
-    void	onCollide(Monster& monster);
-    void	onCollide(DestroyableSet& set);
+    virtual void	onCollide(Entity& entity) = 0;
+    virtual void	onCollide(Player& player) = 0;
+    virtual void	onCollide(Projectile& projectile) = 0;
+    virtual void	onCollide(Monster& monster) = 0;
+    virtual void	onCollide(DestroyableSet& set) = 0;
   };
 };
 

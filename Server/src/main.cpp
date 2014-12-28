@@ -4,10 +4,12 @@
 
 #include "RtypeProtocol.hh"
 #include <iostream>
+#include <ctime>
 #include "NetworkException.hh"
 
 int main()
 {
+  std::srand(std::time(NULL));
   try
   {
     Network::Service	service;

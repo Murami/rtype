@@ -10,7 +10,8 @@ namespace Game
 {
   Core::Core() :
     _alive(true),
-    _playercount(0)
+    _playercount(0),
+    _loader("./monsters")
   {
   }
 
@@ -86,6 +87,27 @@ namespace Game
     const CoreEvent::Spawn&	spawn = CoreEvent::Spawn(*projectile);
 
     _entities.push_back(projectile);
+    notifyObservers(spawn);
+  }
+
+  void			Core::spawnMonster()
+  {
+    std::list<std::string>::iterator	it;
+    std::list<std::string>&		plugins = _loader.getPluginList();
+    Monster*				monster;
+
+
+    if (plugins.size() == 0)
+      return;
+
+    int					rand = std::rand() % plugins.size();
+
+    it = std::next(_plugins.begin(), rand);
+    monster = _loader.load(*it);
+
+    const CoreEvent::Spawn&		spawn = CoreEvent::Spawn(*monster);
+
+    _entities.push_back(monster);
     notifyObservers(spawn);
   }
 };
