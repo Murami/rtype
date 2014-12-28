@@ -115,6 +115,8 @@ void			TcpNetworkReader::onReadRoomCreateInternalError(){}
 
 void			TcpNetworkReader::onReadRoomCreateOk()
 {
+  _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
+  _tcpListener->onRoomJoinOk();
   // Have to send to the view that the creation of the room is successful
 }
 
@@ -136,6 +138,8 @@ void			TcpNetworkReader::onReadRoomJoinBadPswd()
 void			TcpNetworkReader::onReadRoomJoinOk()
 {
   // Have to send to the view that joining the room is successful
+  _changeExpectedData(RtypeProtocol::T_HEADER, sizeof(RtypeProtocol::Header));
+  _tcpListener->onRoomJoinOk();
 }
 
 void			TcpNetworkReader::onReadMessage(){}

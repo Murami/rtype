@@ -29,6 +29,7 @@ public:
   void addToRoomList(RtypeProtocol::Room room);
   void deleteFromRoomList(RtypeProtocol::Room room);
   void updateRoomList();
+  void joinRoom();
   
 private:
   MenuView& _view;

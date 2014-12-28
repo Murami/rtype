@@ -15,11 +15,11 @@ public:
   virtual void	onRoomInfo(RtypeProtocol::Room) = 0;
   virtual void	onRoomCreateAlreadyExist(RtypeProtocol::Room) = 0;
   virtual void	onRoomCreateInternalError(RtypeProtocol::Room) = 0;
-  virtual void	onRoomCreateOk(RtypeProtocol::Room) = 0;
+  virtual void	onRoomCreateOk() = 0;
   virtual void	onRoomJoinNotFound(RtypeProtocol::Room) = 0;
   virtual void	onRoomJoinIsFull(RtypeProtocol::Room) = 0;
   virtual void	onRoomJoinBadPswd(RtypeProtocol::Room) = 0;
-  virtual void	onRoomJoinOk(RtypeProtocol::Room) = 0;
+  virtual void	onRoomJoinOk() = 0;
   virtual void	onRoomExitOk(RtypeProtocol::Room) = 0;
   virtual void	onPing(RtypeProtocol::PingPong) = 0;
   virtual void	onGameStart() = 0;

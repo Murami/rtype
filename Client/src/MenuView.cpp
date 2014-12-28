@@ -346,7 +346,7 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 	      {
 		if (event.key.code == sf::Keyboard::Escape)
 		  {
-		    if (_actualState == RtypeEvent::LOGINSTATE)
+		    if (_actualState == RtypeEvent::LOGINSTATE ||  _actualState == RtypeEvent::MENUSTATE)
 		      {
 			_run = false;
 			window.close();
@@ -392,16 +392,16 @@ void MenuView::run(sf::RenderWindow &window, Util::Mutex *mutex)
 		if (_editBoxRoomName->getText() != "")
 		  {
 		    this->notify(RtypeEvent::CREATE);
-		    _actualState = RtypeEvent::ROOMSTATE;
+// 		    _actualState = RtypeEvent::ROOMSTATE;
 		  }
 		break;
 	      case RtypeEvent::JOIN:
 		if (_editBoxRoomName->getText() != "")
 		  {
 		    this->notify(RtypeEvent::JOIN);
-		    _actualState = RtypeEvent::ROOMSTATE;
-		    _editBoxRoomName->setText("");
-		    _editBoxRoomPass->setText("");
+// 		    _actualState = RtypeEvent::ROOMSTATE;
+// 		    _editBoxRoomName->setText("");
+// 		    _editBoxRoomPass->setText("");
 		  }
 		break;
 	      case RtypeEvent::READY:
@@ -451,7 +451,6 @@ void MenuView::prevState()
     case RtypeEvent::LOGINSTATE:
       break;
     case RtypeEvent::MENUSTATE:
-      _actualState = RtypeEvent::LOGINSTATE;
       break;
     case RtypeEvent::ROOMSELECTSTATE:
       _actualState = RtypeEvent::MENUSTATE;
