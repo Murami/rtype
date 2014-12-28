@@ -61,7 +61,8 @@ void	UdpNetworkReader::onReadPosition(char *buffer)
   position.id = ntohl(position.id);
   position.position.x = ntohl(position.position.x);
   position.position.y = ntohl(position.position.y);
-  position.position.state = ntohl(position.position.state);
+  position.position.speedX = ntohl(position.position.speedX);
+  position.position.speedY = ntohl(position.position.speedY);
   //std::cout << "\033[45mRECEIVED POSITION\033[0m" << std::endl;
   _listener->onPosition(position);
 }
@@ -76,8 +77,8 @@ void	UdpNetworkReader::onReadSpawn(char *buffer)
   spawn.type = ntohl(spawn.type);
   spawn.position.x = ntohl(spawn.position.x);
   spawn.position.y = ntohl(spawn.position.y);
-  spawn.position.orientation = ntohl(spawn.position.orientation);
-  spawn.position.state = ntohl(spawn.position.state);
+  spawn.position.speedX = ntohl(spawn.position.speedX);
+  spawn.position.speedY = ntohl(spawn.position.speedY);
   spawn.life = ntohl(spawn.life);
   //std::cout << "\033[44mRECEIVED SPAWN and sending to listener\033[0m" << std::endl;
   _listener->onSpawn(spawn);
