@@ -268,9 +268,9 @@ namespace Network
     hton(&encoded.position, &posEvent->position);
     return (new packet(&encoded, sizeof(encoded)));
   }
-  packet	*Protocole::pack(const RtypeProtocol::destruction *destru) const
+  packet	*Protocole::pack(const RtypeProtocol::Destruction *destru) const
   {
-    RtypeProtocol::destruction encoded;
+    RtypeProtocol::Destruction encoded;
 
     encoded.id = hton(destru->id);
     return (new packet(&encoded, sizeof(encoded)));
@@ -345,7 +345,7 @@ namespace Network
     ntoh(&posEvent->position, &posEvent->position);
     return (posEvent);
   }
-  RtypeProtocol::destruction	*Protocole::decode(RtypeProtocol::destruction *destru) const
+  RtypeProtocol::Destruction	*Protocole::decode(RtypeProtocol::Destruction *destru) const
   {
     destru->id = ntoh(destru->id);
     return (destru);
@@ -584,7 +584,7 @@ namespace Network
       else if (header->type == RtypeProtocol::T_SPAWN)
       obs->notify(header->type, decode<RtypeProtocol::Spawn>(dataAddr, datasize, header->data_size), port, host);
       else if (header->type == RtypeProtocol::T_DESTRUCTION)
-      obs->notify(header->type, decode<RtypeProtocol::destruction>(dataAddr, datasize, header->data_size), port, host);
+      obs->notify(header->type, decode<RtypeProtocol::Destruction>(dataAddr, datasize, header->data_size), port, host);
       else if (header->type == RtypeProtocol::T_LIFE)
       obs->notify(header->type, decode<RtypeProtocol::Life>(dataAddr, datasize, header->data_size), port, host);
       else if (header->type == RtypeProtocol::T_BONUS)

@@ -11,6 +11,7 @@ public:
   virtual ~IGameListener() {}
   virtual void	onKeyEvent(uint32_t) = 0;
   virtual void	onExitFromGame() = 0;
+  virtual void	onEntityRequestFromGame(uint32_t) = 0;
 };
 
 #endif
