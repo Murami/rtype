@@ -31,6 +31,8 @@ Player::Player(int nb) : _powerUp(1)
     if (playerSprite.find(nb) == playerSprite.end())
         nb = 1;
 
+    //  _sprite.setOrigin(_sprite.getLocalBounds().width, _sprite.getLocalBounds().height);
+
     _sprite.setTextureRect(playerSprite[nb]);
     _texture.setSmooth(false);
     _sprite.setPosition(100, 100);
@@ -45,9 +47,21 @@ Player::~Player()
 
 void Player::update(const sf::Vector2<float> pos)
 {
-    _sprite.setPosition(pos.x, pos.y);
-  _powerUp.update(sf::Vector2<float>((_sprite.getPosition().x + _sprite.getLocalBounds().width + 35),
-                                       (_sprite.getPosition().y + _sprite.getLocalBounds().height / 2 - 5)));
+// #ifdef __APPLE__
+//   float x, y;
+//   x = (pos.x / 1920) * 2880;
+//   y = (pos.y / 1920) * 1800;
+//   _sprite.setPosition(x, y);
+// #else
+  _sprite.setPosition(pos.x, pos.y);
+  sf::Vector2<float> tmp(pos.x + _sprite.getLocalBounds().width * 2, pos.y + _sprite.getLocalBounds().height - 10);
+  _powerUp.update(tmp);
+  //  #endif
+}
+
+void Player::updateAnim()
+{
+  _powerUp.updateAnim();
 }
 
 void Player::render(sf::RenderWindow &window)

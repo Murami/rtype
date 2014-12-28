@@ -20,6 +20,7 @@ public:
     Player(int nb = 1);
     virtual ~Player();
     virtual void update(const sf::Vector2<float> pos);
+  virtual void updateAnim();
     virtual void render(sf::RenderWindow &window);
     
     void	setPower(int power);

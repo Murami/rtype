@@ -34,5 +34,9 @@ LittleRocket::~LittleRocket()
 
 void LittleRocket::update(sf::Vector2<float> pos)
 {
-    _sprite.setPosition(pos);
+#ifdef __APPLE__
+  _sprite.setPosition((pos.x / 1920) * 2880, (pos.y / 1080) * 1800);
+#else
+  _sprite.setPosition(pos);  
+#endif
 }

@@ -17,6 +17,9 @@ AObject::~AObject()
 void AObject::update(const sf::Vector2<float>)
 { }
 
+void AObject::updateAnim()
+{ }
+
 void AObject::render(sf::RenderWindow &window)
 {
     window.draw(_sprite);

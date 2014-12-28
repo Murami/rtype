@@ -18,7 +18,7 @@ public:
   PlayerPowerUp(int index);
   virtual ~PlayerPowerUp();
   virtual void update(sf::Vector2<float> pos);
-  
+  virtual void updateAnim();
   void	setIndex(int index);
   int	getIndex() const;
 

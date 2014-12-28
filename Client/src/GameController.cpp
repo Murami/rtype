@@ -91,6 +91,7 @@ void	GameController::createEntity(int id, RtypeProtocol::Entity entity)
 
 void	GameController::deleteEntity(int id)
 {
+  std::cout << "delete" << std::endl;
   _view.erase(id);
 }
 
