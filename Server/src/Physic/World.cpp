@@ -21,6 +21,10 @@ namespace Physic
     for (it = _bodies.begin(); it != _bodies.end(); it++)
       (*it)->update(time);
 
+    for (it = _bodies2.begin(); it != _bodies2.end(); it++)
+      (*it)->update(time);
+
+
     for (it = _bodies.begin(); it != _bodies.end(); it++)
       {
 	for (it2 = _bodies2.begin(); it2 != _bodies2.end(); it2++)

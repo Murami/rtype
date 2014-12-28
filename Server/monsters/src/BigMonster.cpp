@@ -6,6 +6,7 @@ namespace Game
 {
   BigMonster::BigMonster(Core& game) : Monster(game, T_MONSTER_BIG)
   {
+    setSpeed(Util::Vec2(-100, 0));
   }
 
   BigMonster::~BigMonster()
@@ -14,17 +15,17 @@ namespace Game
 
   void	BigMonster::update(float /*time*/)
   {
-    static bool	init = false;
+    // static bool	init = false;
 
-    if (!init)
-      {
-	init = true;
-	setSpeed(Util::Vec2(-100, 0));
-      }
-    if (getPosition().x >= 500 || getPosition().y >= 900)
-      setSpeed(Util::Vec2(0, -100));
-    if (getPosition().y <= 50)
-      setSpeed(Util::Vec2(0, 100));
+    // if (!init)
+    //   {
+    // 	init = true;
+    // 	setSpeed(Util::Vec2(-100, 0));
+    //   }
+    // if (getPosition().x >= 500 || getPosition().y >= 900)
+    //   setSpeed(Util::Vec2(0, -100));
+    // if (getPosition().y <= 50)
+    //   setSpeed(Util::Vec2(0, 100));
   }
 
   void	BigMonster::onCollide(Entity& entity)

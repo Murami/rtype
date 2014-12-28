@@ -115,10 +115,10 @@ namespace Game
 
     const CoreEvent::Spawn&		spawn = CoreEvent::Spawn(*monster);
 
-    _entities.push_back(monster);
-    notifyObservers(spawn);
-
     int	y = std::rand() % 1080;
     monster->setPosition(Util::Vec2(2000, y));
+
+    _entities.push_back(monster);
+    notifyObservers(spawn);
   }
 };

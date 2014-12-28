@@ -23,7 +23,8 @@ namespace Application
 
   Room::~Room()
   {
-      close();
+    _server.getService().deleteTimeout(_timer);
+    close();
   }
 
   void	Room::onTimeout(Network::Timer& timer)

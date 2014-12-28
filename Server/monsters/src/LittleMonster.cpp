@@ -4,7 +4,7 @@
 
 namespace Game
 {
-  LittleMonster::LittleMonster(Core& game) : Monster(game, T_MONSTER_BIG)
+  LittleMonster::LittleMonster(Core& game) : Monster(game, T_MONSTER_LITTLE)
   {
   }
 
