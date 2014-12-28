@@ -42,7 +42,8 @@ void		RtypeClient::run()
 
   _window = new sf::RenderWindow(sf::VideoMode(sf::VideoMode::getDesktopMode().width,
 					       sf::VideoMode::getDesktopMode().height),
-				 "Rtype", sf::Style::Fullscreen);
+				 "Rtype"// , sf::Style::Fullscreen
+				 );
 
   _window->setKeyRepeatEnabled(false);
 
@@ -204,6 +205,7 @@ void	RtypeClient::onDisconnection()
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   // ICI
+  _menuView->stop();
   _menuView->setGameRunning(false);
 }
 
@@ -345,6 +347,7 @@ bool	RtypeClient::onDisconnectFromMenu()
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   header.type = RtypeProtocol::T_DISCONNECTION;
   header.data_size = 0;
+  _menuView->stop();
   _tcpConnection->write(&header, sizeof(header));
   return (true);
 }
