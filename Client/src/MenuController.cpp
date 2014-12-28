@@ -110,13 +110,26 @@ void	MenuController::setPlayersNameList(RtypeProtocol::Room room)
 
 void	MenuController::updatePlayerName()
 {
+  std::vector<std::string>	tmp;
+
+
+  tmp.push_back("Player1");
+  tmp.push_back("Player2");
+  tmp.push_back("Player3");
+  tmp.push_back("Player4");
+
   if (_playersName.size() >= 1)
-    _view.setPlayerLabe1(_playersName[0]);
+    tmp[0] = _playersName[0];
   if (_playersName.size() >= 2)
-    _view.setPlayerLabe2(_playersName[1]);
+    tmp[1] = _playersName[1];
   if (_playersName.size() >= 3)
-    _view.setPlayerLabe3(_playersName[2]);
+    tmp[2] = _playersName[2];
   if (_playersName.size() >= 4)
-    _view.setPlayerLabe4(_playersName[3]);
+    tmp[3] = _playersName[3];
+
+  _view.setPlayerLabe1(tmp[0]);
+  _view.setPlayerLabe2(tmp[1]);
+  _view.setPlayerLabe3(tmp[2]);
+  _view.setPlayerLabe4(tmp[3]);
   _playersName.clear();
 }

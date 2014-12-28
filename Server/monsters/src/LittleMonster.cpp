@@ -23,20 +23,16 @@ namespace Game
 
     if (_body.getPosition().x + (_body.getSize().x / 2) < -_body.getSize().x)
       _core.deleteEntity(this);
-    if (_body.getPosition().y <= 0)
+    if (_body.getPosition().y <= 30)
       {
-	pos.y = 0;
+	pos.y = 30;
 	setSpeed(Util::Vec2(getSpeed().x, -getSpeed().y));
       }
-    else if ((_body.getPosition().y + (_body.getSize().y)) >= 1080)
+    else if ((_body.getPosition().y + (_body.getSize().y)) >= 1080 - 30)
       {
-	pos.y = 1080 - _body.getSize().y;
+	pos.y = 1080 - 30 - _body.getSize().y;
 	setSpeed(Util::Vec2(getSpeed().x, -getSpeed().y));
       }
-    // if (_body.getPosition().y - (_body.getSize().y / 2) < 0)
-    //   pos.y = _body.getSize().y / 2;
-    // else if ((_body.getPosition().y + (_body.getSize().y / 2)) > 1080)
-    //   pos.y = 1080 - _body.getSize().y / 2;
     _body.setPosition(pos);
   }
 
