@@ -10,12 +10,12 @@ namespace Game
   public:
     enum Input
       {
-	Forward,
-	Backward,
-	Left,
-	Right,
-	PrimaryFire,
-	SecondaryFire,
+	Forward = 0,
+	Backward = 1,
+	Left = 2,
+	Right = 3,
+	PrimaryFire = 4,
+	SecondaryFire = 5,
 	InputMax
       };
 

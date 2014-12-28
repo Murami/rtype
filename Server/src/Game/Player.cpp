@@ -43,12 +43,15 @@ namespace Game
     for (it = _inputs.begin(); it != _inputs.end(); it++)
       (this->*_actions[*it])();
 
-    // Util::Vec2	speed;
+    Util::Vec2	speed;
 
-    // speed = getSpeed();
+    speed = getSpeed();
 
-    // speed.normalize();
-    // setSpeed(speed * 50);
+    if (speed.x != 0 || speed.y != 0)
+      {
+	speed.normalize();
+	setSpeed(speed);
+      }
     // Check of the player is behin the camera of the gameplay
   }
 
