@@ -304,6 +304,14 @@ void	RtypeClient::onDeleteRoom(RtypeProtocol::Room room)
   _menuController->deleteFromRoomList(room);
 }
 
+void	RtypeClient::onServerExited()
+{
+  _gameView->stop();
+  _gameView->onExit();
+  _menuView->stop();
+  _menuView->setGameRunning(false);
+}
+
 bool	RtypeClient::onConnectFromMenu(const std::string & login)
 {
   RtypeProtocol::Header header;

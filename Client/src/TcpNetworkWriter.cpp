@@ -27,7 +27,11 @@ int		TcpNetworkWriter::run()
 	}
       if (!_buffer.empty())
 	_cond.unlock();
-      _tcpConnection.socket().send(buffer, i);
+      if (_tcpConnection.socket().send(buffer, i) != sf::Socket::Done)
+	{
+	  _tcpConnection.exit();
+	  return (-1);
+	}
     }
   return (0);
 }

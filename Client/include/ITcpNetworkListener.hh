@@ -28,6 +28,7 @@ public:
   virtual void	onMessage(RtypeProtocol::Message) = 0;
   virtual void	onHostLeftRoom() = 0;
   virtual void	onDeleteRoom(RtypeProtocol::Room) = 0;
+  virtual void	onServerExited() = 0;
 };
 
 #endif
