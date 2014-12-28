@@ -3,6 +3,7 @@
 #include "GameView.hh"
 #include "GameEnum.hh"
 #include "SoundManager.hh"
+#include "TextureManager.hh"
 #include "Mutex.hh"
 
 GameView::GameView()
@@ -37,24 +38,6 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
   _run = true;
   while (_run)
     {
-      // if (_gameEnd == true)
-      // 	{
-      // 	  sf::Texture	tex;
-      // 	  sf::Sprite	sprite;
-
-      // 	  SoundManager::Stop();
-      // 	  if (_gameWin == true)
-      // 	    {
-      // 	      tex.loadFromFile("res/Game/win.jpg");
-      // 	      SoundManager::Play("stageClear");
-      // 	    }
-      // 	  else
-      // 	    {
-      // 	      tex.loadFromFile("res/Game/lose.jpg");
-      // 	      SoundManager::Play("gameOver");
-      // 	    }
-      // 	  sprite.setTexture(tex);
-      // 	}
       this->updateSpawn();
       this->updateDestroy();
       mask = RtypeEvent::DEFAULT;
@@ -83,6 +66,24 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
       window.display();
       mutex->lock();
     }
+  if (_gameWin == true)
+    _texture = TextureManager::getInstance()->getTextureWin();
+  else
+    _texture = TextureManager::getInstance()->getTextureLoose();
+  _sprite.setTexture(_texture);
+  _sprite.setPosition(0, 0);
+  while (_gameEnd == true)
+    {
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+	{
+	  this->onExit();
+	  break;
+	}
+      window.clear();
+      window.draw(_sprite);
+      window.display();
+    }
+  
   SoundManager::Stop();
 }
 
@@ -138,7 +139,6 @@ void	GameView::update(float time)
 	itObj->second->networkUpdated() = false;
       itObj->second->updateAnim();
     }
-  //  _life.update(3);
 }
 
 bool	GameView::updateById(int id, RtypeProtocol::Position pos)
@@ -177,6 +177,7 @@ void	GameView::updateLife(int life)
 void	GameView::isGameEnd(bool end)
 {
   _gameEnd = end;
+  _run = false;
 }
 
 void	GameView::isGameIsWin(bool win)
