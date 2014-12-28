@@ -177,9 +177,9 @@ namespace Application
       {
 	if (it->second == room)
 	  {
+      _rooms.erase(it);
 	    room->close();
-	    delete (room);
-	    _rooms.erase(it);
+	    //delete (room);
 	    return;
 	  }
       }

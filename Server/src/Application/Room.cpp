@@ -27,6 +27,7 @@ namespace Application
 
   Room::~Room()
   {
+      close();
   }
 
   void	Room::onTimeout(Network::Timer& timer)
@@ -169,13 +170,18 @@ namespace Application
       {
 	(*it)->getClientServer().sendHeader(RtypeProtocol::T_ROOM_HOST_LEAVED);
 	(*it)->getClientServer().setClientRoom(NULL);
-	(*it)->getClientServer().getServer().deleteClientRoom(*it);
+	_server.deleteClientRoom(*it);
       }
   }
 
   void			Room::deleteClient(ClientServer* clientserver)
   {
+    std::cout << "delete client" << std::endl;
     _clients.remove(clientserver->getClientRoom());
+    if (_clients.empty())
+    {
+      _server.deleteRoom(this);
+    }
   }
 
   bool			Room::isReady() const
