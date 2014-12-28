@@ -32,7 +32,8 @@ namespace Game
 
   void	Player::addInput(Input input)
   {
-    _inputs.push_back(input);
+    if (_alive)
+      _inputs.push_back(input);
   }
 
   void	Player::clearInput()

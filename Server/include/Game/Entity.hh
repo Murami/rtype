@@ -65,6 +65,7 @@ namespace Game
     const Util::Vec2&	getPosition() const;
     void		setLife(int life);
     int			getLife() const;
+    Physic::Body&	getBody();
     void		kill();
     bool		isAlive() const;
     unsigned int	getId() const;

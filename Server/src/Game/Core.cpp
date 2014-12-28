@@ -24,6 +24,7 @@ namespace Game
 
   void	Core::update(float time)
   {
+    bool				alive = true;
     std::list<Entity*>::iterator	it;
 
     _timeSpawn += time;
@@ -35,30 +36,27 @@ namespace Game
     if (_progress > 200)
       {
 	_alive = false;
+	return;
       }
     _world.update(time);
     for (it = _entities.begin(); it != _entities.end(); it++)
-      (*it)->update(time);
-
-    // std::list<std::list<Entity*>::iterator> toDelete;
-    for (it = _entities.begin(); it != _entities.end(); it++)
       {
-	if (!(*it)->isAlive())
-	  {
-	    (*it)->isToDeleted(true);
-	    // toDelete.push_front(it);
-	  }
+	(*it)->update(time);
+	if ((*it)->getType() == T_PLAYER_1 ||
+	    (*it)->getType() == T_PLAYER_2 ||
+	    (*it)->getType() == T_PLAYER_3 ||
+	    (*it)->getType() == T_PLAYER_4)
+	  alive &= !(*it)->isAlive();
       }
-    // std::list<std::list<Entity*>::iterator>::iterator toDeleteIt;
-    // for (toDeleteIt = toDelete.begin(); toDeleteIt != toDelete.end(); toDeleteIt++)
-    // {
-    //   it = (*toDeleteIt);
-    //   const CoreEvent::Destroy& destroy = CoreEvent::Destroy(*(*it));
+    if (alive)
+      {
+	_alive = false;
+	return;
+      }
 
-    //   notifyObservers(destroy);
-    //   delete (*it);
-    //   _entities.erase(it);
-    // }
+    for (it = _entities.begin(); it != _entities.end(); it++)
+      if (!(*it)->isAlive())
+	(*it)->isToDeleted(true);
 
     for (it = _entities.begin(); it != _entities.end(); it++)
       {
@@ -67,11 +65,13 @@ namespace Game
 	    const CoreEvent::Destroy& destroy = CoreEvent::Destroy(*(*it));
 
 	    notifyObservers(destroy);
-      if ((*it)->getType() != T_PLAYER_1 &&
-        (*it)->getType() != T_PLAYER_2 &&
-        (*it)->getType() != T_PLAYER_3 &&
-        (*it)->getType() != T_PLAYER_4)
-	    delete (*it);
+	    if ((*it)->getType() != T_PLAYER_1 &&
+		(*it)->getType() != T_PLAYER_2 &&
+		(*it)->getType() != T_PLAYER_3 &&
+		(*it)->getType() != T_PLAYER_4)
+	      delete (*it);
+	    else
+	      _world.remove((*it)->getBody());
 	    it = _entities.erase(it);
 	  }
       }
@@ -80,6 +80,11 @@ namespace Game
   bool	Core::alive() const
   {
     return (_alive);
+  }
+
+  bool	Core::isWin() const
+  {
+    return (_progress > 200);
   }
 
   Player&	Core::addPlayer()
