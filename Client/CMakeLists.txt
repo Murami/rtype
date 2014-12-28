@@ -24,6 +24,7 @@ add_executable(
 	src/Graphic/TextureManager.cpp
 	src/Graphic/Monster.cpp
 	src/Graphic/Camera.cpp
+	src/Graphic/Wall.cpp
 	src/Graphic/Life.cpp
 	src/ConnectionConfiguration.cpp
 	src/MenuController.cpp

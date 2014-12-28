@@ -94,6 +94,8 @@ void	GameView::update(float time)
   std::map<int, IObject*>::iterator		itObj;
   std::vector<ScrollingBackground*>::iterator	itBack;
 
+  _wall.update();
+
   for (itBack = _backgroundVector.begin(); itBack != _backgroundVector.end(); itBack++)
     (*itBack)->update(sf::Vector2<float>(0, 0));
 
@@ -144,6 +146,7 @@ void	GameView::render(sf::RenderWindow& window)
     (*itBack)->render(window);
   for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
     itObj->second->render(window);
+  _wall.render(window);
   _life.render(window);
 }
 
