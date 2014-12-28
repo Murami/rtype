@@ -10,7 +10,7 @@ public:
   virtual void	onPosition(RtypeProtocol::PositionEvent) = 0;
   virtual void	onSpawn(RtypeProtocol::Spawn) = 0;
   virtual void	onDestruction(RtypeProtocol::Destruction) = 0;
-  virtual void	onLife() = 0;
+  virtual void	onLife(RtypeProtocol::Life) = 0;
   virtual void	onBonus() = 0;
   virtual void	onHit() = 0;
   virtual void	onDeath() = 0;
