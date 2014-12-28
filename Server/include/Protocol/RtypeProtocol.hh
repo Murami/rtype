@@ -35,11 +35,11 @@ namespace	RtypeProtocol
 # define	INPUT_PRIMARYFIRE	FLAG(4)
 # define	INPUT_SECONDARYFIRE	FLAG(5)
 
-static const int UdpPort = 3279;
-static const int TcpPort = 3278;
-static const uint32_t  minor_version = 0;
-static const uint32_t  major_version = 1;
-static const int8_t proto_name[] = "RType";
+static const int	UdpPort = 3279;
+static const int	TcpPort = 3278;
+static const uint32_t	minor_version = 0;
+static const uint32_t	major_version = 1;
+static const int8_t	proto_name[] = "RType";
 
   enum			Type
     {
@@ -196,7 +196,7 @@ static const int8_t proto_name[] = "RType";
       Position	position;
     };)
 
-  PACKED(destruction{
+  PACKED(Destruction{
       uint32_t	id;
     };)
 

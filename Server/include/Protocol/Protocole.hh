@@ -69,7 +69,7 @@ namespace Network
     //Udp
     packet	*pack(const RtypeProtocol::Spawn *) const;
     packet	*pack(const RtypeProtocol::PositionEvent *) const;
-    packet	*pack(const RtypeProtocol::destruction *) const;
+    packet	*pack(const RtypeProtocol::Destruction *) const;
     packet	*pack(const RtypeProtocol::EntityRequest *) const;
     packet	*pack(const RtypeProtocol::Life *) const;
     packet	*pack(const RtypeProtocol::Bonus *) const;
@@ -82,7 +82,7 @@ namespace Network
     RtypeProtocol::Bonus			*decode(RtypeProtocol::Bonus *bonus) const;
     RtypeProtocol::Life				*decode(RtypeProtocol::Life *life) const;
     RtypeProtocol::EntityRequest		*decode(RtypeProtocol::EntityRequest *entity) const;
-    RtypeProtocol::destruction			*decode(RtypeProtocol::destruction *destru) const;
+    RtypeProtocol::Destruction			*decode(RtypeProtocol::Destruction *destru) const;
     RtypeProtocol::PositionEvent		*decode(RtypeProtocol::PositionEvent *posEvent) const;
     RtypeProtocol::Spawn			*decode(RtypeProtocol::Spawn *spawn) const;
 

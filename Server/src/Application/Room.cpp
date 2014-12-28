@@ -203,12 +203,8 @@ namespace Application
     packed = _server.getProtocoleUdp().pack(&header);
     std::memcpy(buffer, packed->getData(), sizeof(header));
     std::memcpy(buffer + sizeof(header), data, size);
-    std::cout << "Room::sendUdp" << std::endl;
     for (it = _clients.begin(); it != _clients.end(); it++)
-      {
-	std::cout << "loop" << std::endl;
-	(*it)->getClientServer().sendUdp(buffer, size + sizeof(header));
-      }
+      (*it)->getClientServer().sendUdp(buffer, size + sizeof(header));
     delete packed;
   }
 

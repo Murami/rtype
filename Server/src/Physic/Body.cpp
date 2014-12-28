@@ -21,7 +21,6 @@ namespace Physic
 
   void			Body::setSpeed(const Util::Vec2& speed)
   {
-    std::cout << "set speed IUL EST LAS !!!!!" << std::endl;
     _speed = speed;
   }
 
