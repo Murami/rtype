@@ -38,6 +38,8 @@ namespace Game
       return;
     projectile.kill();
     _life -= projectile.getDamage();
+    if (_life <= 0)
+      kill();
   }
 
   void	LittleMonster::onCollide(Monster& /*monster*/)

@@ -59,6 +59,9 @@ namespace Game
   void		Entity::kill()
   {
     _alive = false;
+    EntityEvent::Death death;
+
+    notifyObserver(death);
   }
 
   bool		Entity::isAlive() const
