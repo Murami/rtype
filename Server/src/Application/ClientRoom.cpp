@@ -9,12 +9,14 @@ namespace Application
   ClientRoom::ClientRoom(Room& room, ClientServer& clientserver, bool host) :
     _room(room),
     _clientserver(clientserver),
-    _host(host)
+    _host(host),
+    _player(NULL)
   {
   }
 
   ClientRoom::~ClientRoom()
   {
+    _room.getGame().deleteEntity(_player);
   }
 
   //////////////////////////////

@@ -245,8 +245,8 @@ namespace Application
       std::cout << "room exit" << std::endl;
       room = _clientroom->getRoom();
       _server.deleteClientRoom(_clientroom);
-      if (_state != T_INROOM)
-        throw ClientException("Not in a room");
+      if (_state != T_INROOM || _state != T_INGAME)
+        throw ClientException("Not in a room or game");
       if (_clientroom->getRoom()->deleteClient(this))
 	{
 	  std::cout << "updateRoom infos on exit" << std::endl;
@@ -360,6 +360,11 @@ namespace Application
     end.victory = victory;
     this->sendHeader(RtypeProtocol::T_GAMEEND, sizeof(RtypeProtocol::EndGame));
     send(this->_socket, end);
+  }
+
+  void	ClientServer::setState(State state)
+  {
+    _state = state;
   }
 
 } /* namespace Application */

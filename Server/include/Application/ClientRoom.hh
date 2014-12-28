@@ -15,8 +15,8 @@ namespace Application
   private:
     Room&		_room;
     ClientServer&	_clientserver;
-    Game::Player*	_player;
     bool		_host;
+    Game::Player*	_player;
 
   public:
     ClientRoom(Room& room, ClientServer& clientserver, bool host);
