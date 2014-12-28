@@ -14,6 +14,7 @@
 
 Player::Player(int nb) : _powerUp(1)
 {
+    std::cout << "Constructeur player" << std::endl;
     _nbPlayer = nb;
     _texture = TextureManager::getInstance()->getTextureShip();
     _sprite.setTexture(_texture);

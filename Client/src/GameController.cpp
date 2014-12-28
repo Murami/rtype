@@ -5,6 +5,7 @@
 #include "Monster.hh"
 #include "BigRocket.hh"
 #include "LittleRocket.hh"
+#include <iostream>
 
 GameController::GameController(GameView& view)
   : _view(view)
@@ -19,6 +20,7 @@ GameController::~GameController()
 
 void	GameController::spawnEntity(RtypeProtocol::Spawn spawn)
 {
+  std::cout << "SPAWNENTITY" << std::endl;
   _spawnList.push_back(spawn);
 }
 
@@ -38,18 +40,23 @@ void	GameController::createEntity(int id, RtypeProtocol::Entity entity)
 {
   IObject *obj = NULL;
 
+  std::cout << "ENTITY : " << (int)entity << std::endl;
   switch (entity)
     {
     case RtypeProtocol::T_PLAYER_1:
+    std::cout << "new player 1" << std::endl;
       obj = new Player(1);
       break;
     case RtypeProtocol::T_PLAYER_2:
+    std::cout << "new player 2" << std::endl;
       obj = new Player(2);
       break;
     case RtypeProtocol::T_PLAYER_3:
+    std::cout << "new player 3" << std::endl;
       obj = new Player(3);
       break;
     case RtypeProtocol::T_PLAYER_4:
+    std::cout << "new player 4" << std::endl;
       obj = new Player(4);
       break;
     case RtypeProtocol::T_MONSTER_LITTLE:

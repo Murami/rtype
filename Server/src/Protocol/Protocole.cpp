@@ -570,9 +570,15 @@ namespace Network
     if (dataAddr)
     {
       if (header->type == RtypeProtocol::T_EVENT)
+      {
+        std::cout << "Udp event" << std::endl;
         obs->notify(header->type, decode<RtypeProtocol::State>(dataAddr, datasize, header->data_size), port, host);
+      }
       else if (header->type == RtypeProtocol::T_ENTITYREQUEST)
+      {
+        std::cout << "Udp entityrequest" << std::endl;
         obs->notify(header->type, decode<RtypeProtocol::EntityRequest>(dataAddr, datasize, header->data_size), port, host);
+      }
 
       /*
       unused on server side :
