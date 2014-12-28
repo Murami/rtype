@@ -1,7 +1,7 @@
 
 #include "IDynamicFile.hh"
 
-#if defined (__unix__)
+#if defined (__unix__) || defined (__APPLE__)
 # include "LinuxDynamicFile.hh"
 #elif defined (WIN32) || (_WIN32)
 # include "WindowDynamicFile.hh"
