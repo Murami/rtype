@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include "Life.hh"
 #include "TextureManager.hh"
 
@@ -18,7 +19,7 @@ Life::~Life()
 void Life::update(int live)
 {
   float tmp = (live / 100) * 3;
-  _live = tmp;
+  _live = std::round(tmp);
 }
 
 void Life::render(sf::RenderWindow &window)
