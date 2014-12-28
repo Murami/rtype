@@ -24,6 +24,18 @@ UdpNetworkReader::UdpNetworkReader(UdpConnection& connection) :
   _callbacks[RtypeProtocol::T_HIT]		= &UdpNetworkReader::onReadHit;
   _callbacks[RtypeProtocol::T_DEATH]		= &UdpNetworkReader::onReadDeath;
   _callbacks[RtypeProtocol::T_ENTITYINFOS]	= &UdpNetworkReader::onReadEntityInfos;
+  std::cout << "setted :" << std::endl;
+  std::cout << (int)RtypeProtocol::T_MAPCHANGE << std::endl;
+  std::cout << (int)RtypeProtocol::T_PLAYERINFO << std::endl;
+  std::cout << (int)RtypeProtocol::T_POSITION << std::endl;
+  std::cout << (int)RtypeProtocol::T_SPAWN << std::endl;
+  std::cout << (int)RtypeProtocol::T_EVENT << std::endl;
+  std::cout << (int)RtypeProtocol::T_DESTRUCTION << std::endl;
+  std::cout << (int)RtypeProtocol::T_LIFE << std::endl;
+  std::cout << (int)RtypeProtocol::T_BONUS << std::endl;
+  std::cout << (int)RtypeProtocol::T_HIT << std::endl;
+  std::cout << (int)RtypeProtocol::T_DEATH << std::endl;
+  std::cout << (int)RtypeProtocol::T_ENTITYINFOS << std::endl;
 }
 
 int			UdpNetworkReader::run(Util::Mutex* mutex)
