@@ -113,7 +113,7 @@ void	UdpNetworkReader::onReadHit(char *)
 void	UdpNetworkReader::onReadDeath(char *buffer)
 {
   RtypeProtocol::Header		header;
-  RtypeProtocol::Deatch		d;
+  RtypeProtocol::Death		d;
 
   std::memcpy(&header, &buffer[0], sizeof(header));
   std::memcpy(&d, &buffer[sizeof(header)], sizeof(d));
