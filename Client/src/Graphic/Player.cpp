@@ -19,10 +19,7 @@ Player::Player(int nb) : _powerUp(1)
     _texture = TextureManager::getInstance()->getTextureShip();
     _sprite.setTexture(_texture);
     
-#ifdef __APPLE__
-    _sprite.scale(2.0, 2.0);
-#endif
-    
+    _sprite.scale(2.0, 2.0);    
     
     std::map<int, sf::IntRect> playerSprite;
     
