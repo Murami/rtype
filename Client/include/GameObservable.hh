@@ -20,23 +20,29 @@ public:
     for (std::set<IGameObserver *>::const_iterator it = _listObservers.begin(); it != _listObservers.end(); it++)
       (*it)->updateSpawnList();
   }
-
+  
   void notify(size_t mask) const
-    {
-        for (std::set<IGameObserver *>::const_iterator it = _listObservers.begin(); it != _listObservers.end(); it++)
-            (*it)->update(mask);
-    }
-
-    void addObserver(IGameObserver *observer)
-    {
-        _listObservers.insert(observer);
-    }
-
-    void removeObserver(IGameObserver *observer)
-    {
-        _listObservers.erase(observer);
-    }
-
+  {
+    for (std::set<IGameObserver *>::const_iterator it = _listObservers.begin(); it != _listObservers.end(); it++)
+      (*it)->update(mask);
+  }
+  
+  void onExit()
+  {
+    for (std::set<IGameObserver *>::const_iterator it = _listObservers.begin(); it != _listObservers.end(); it++)
+    (*it)->onExit();
+  }
+  
+  void addObserver(IGameObserver *observer)
+  {
+    _listObservers.insert(observer);
+  }
+  
+  void removeObserver(IGameObserver *observer)
+  {
+    _listObservers.erase(observer);
+  }
+  
 private:
     std::set<IGameObserver *> _listObservers;
 
