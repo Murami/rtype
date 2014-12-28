@@ -4,6 +4,7 @@
 #include "Game/CollisionEvent.hh"
 #include "Physic/BodyEventCollide.hh"
 #include "Game/EntityEventDeath.hh"
+#include "Game/EntityEventLife.hh"
 
 namespace Game
 {
@@ -55,6 +56,9 @@ namespace Game
     _life = life;
     if (_life <= 0)
       kill();
+    EntityEvent::Life msg(life);
+
+    notifyObservers(msg);
   }
 
   int		Entity::getLife() const

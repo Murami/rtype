@@ -66,6 +66,7 @@ namespace Application
     void	sendHeader(int type, unsigned int size = 0);
     void	sendRoomInfos(const Room* room, bool alive);
     void	sendUdp(const void* data, size_t size);
+    void	sendGameEnd(bool victory);
 
   private:
     Server&			_server;

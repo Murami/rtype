@@ -34,18 +34,10 @@ namespace Application
     _server.getService().deleteTimeout(_timer);
     if (!_game.alive())
       {
-	RtypeProtocol::EndGame		end;
-	Network::packet*		packed;
+	std::list<ClientRoom*>::iterator	it;
 
-	// position.position.x = entity.getPosition().x;
-	// position.position.y = entity.getPosition().y;
-	// position.position.speedX = entity.getSpeed().x;
-	// position.position.speedY = entity.getSpeed().y;
-	// position.id = entity.getId();
-	end.victory = _game.isWin();
-	packed = _server.getProtocoleUdp().pack(&end);
-	sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_GAMEEND);
-
+	for (it = _clients.begin(); it != _clients.end(); it++)
+	  (*it)->getClientServer().sendGameEnd(_game.isWin());
 	return;
       }
 
@@ -78,11 +70,22 @@ namespace Application
     position.id = entity.getId();
     packed = _server.getProtocoleUdp().pack(&position);
     sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_POSITION);
+    delete (packed);
   }
 
-  void	Room::receive(const Game::Entity& /*entity*/,
+  void	Room::receive(const Game::Entity& entity,
 		      const Game::EntityEvent::Life& /*event*/)
   {
+    RtypeProtocol::Life	life;
+    Network::packet*	packed;
+
+    std::cout << "send life" << std::endl;
+    life.id = entity.getId();
+    life.life = entity.getLife();
+    packed = _server.getProtocoleUdp().pack(&life);
+    sendUdp(packed->getData(), packed->getSize(), RtypeProtocol::T_LIFE);
+    delete (packed);
+
   }
 
   void	Room::receive(const Game::Entity& entity,
@@ -257,5 +260,13 @@ namespace Application
 
     for (it = _clients.begin(); it != _clients.end(); it++)
       (*it)->getClientServer().sendHeader(RtypeProtocol::T_GAMESTART);
+  }
+
+  void			Room::updateRoomInfos()
+  {
+    std::list<ClientRoom*>::iterator	it;
+
+    for (it = _clients.begin(); it != _clients.end(); it++)
+      (*it)->getClientServer().sendRoomInfos(this, true);
   }
 };

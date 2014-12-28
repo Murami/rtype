@@ -23,18 +23,36 @@ void Life::update(size_t live)
 void Life::render(sf::RenderWindow &window)
 {
   #ifdef __APPLE__
-  _sprite.setPosition(100, 1750);
-  window.draw(_sprite);
-  _sprite.setPosition(150, 1750);
-  window.draw(_sprite);
-  _sprite.setPosition(200, 1750);
-  window.draw(_sprite);
+  if (_live >= 1)
+    {
+      _sprite.setPosition(100, 1750);
+      window.draw(_sprite);
+    }
+  if (_live >= 2)
+    {
+      _sprite.setPosition(150, 1750);
+      window.draw(_sprite);
+    }
+  if (_live >= 3)
+    {
+      _sprite.setPosition(200, 1750);
+      window.draw(_sprite);
+    }
   #else
-  _sprite.setPosition(100, 1000);
-  window.draw(_sprite);
-  _sprite.setPosition(150, 1000);
-  window.draw(_sprite);
-  _sprite.setPosition(200, 1000);
-  window.draw(_sprite);
+  if (_live >= 1)
+    {
+      _sprite.setPosition(100, 1000);
+      window.draw(_sprite);
+    }
+  if (_live >= 2)
+    {
+      _sprite.setPosition(150, 1000);
+      window.draw(_sprite);
+    }
+  if (_live >= 3)
+    {
+      _sprite.setPosition(200, 1000);
+      window.draw(_sprite);
+    }
   #endif
 }
