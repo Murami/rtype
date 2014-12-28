@@ -36,6 +36,17 @@ void	GameController::updateSpawnList()
   _spawnList.clear();
 }
 
+void	GameController::updateDestroyList()
+{
+  std::list<int>::iterator	it;
+
+  for (it = _destroyList.begin(); it != _destroyList.end(); it++)
+    {
+      _view.erase(*it);
+    }
+  _destroyList.clear();
+}
+
 void GameController::onExit()
 {
   _listener->onExitFromGame();
@@ -91,7 +102,7 @@ void	GameController::createEntity(int id, RtypeProtocol::Entity entity)
 
 void	GameController::deleteEntity(int id)
 {
-  _view.erase(id);
+  _destroyList.push_back(id);
 }
 
 void	GameController::updateEntityPosition(int id, RtypeProtocol::Position pos)
