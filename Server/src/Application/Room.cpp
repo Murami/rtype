@@ -7,10 +7,6 @@
 #include "Game/EntityEventMove.hh"
 #include "Game/EntityEventLife.hh"
 
-// NEED -> death , hit, bonus
-
-// TODO observe the player !!!!!!
-
 namespace Application
 {
   Room::Room(Server& server, const std::string& name, const std::string& pass) :

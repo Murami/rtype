@@ -14,19 +14,20 @@
 class AObject : public IObject {
     
 public:
-    AObject();
-    virtual ~AObject();
-    virtual void update(const sf::Vector2<float> pos = {0, 0});
-    virtual void render(sf::RenderWindow &window);
-
+  AObject();
+  virtual ~AObject();
+  virtual void update(const sf::Vector2<float> pos = {0, 0});
+  virtual void updateAnim();
+  virtual void render(sf::RenderWindow &window);
+  
 public:
-    virtual sf::Vector2<float> getPosition() const;
-    virtual void setPosition(sf::Vector2<float> position);
-
+  virtual sf::Vector2<float> getPosition() const;
+  virtual void setPosition(sf::Vector2<float> position);
+  
 protected:
-    sf::Sprite  _sprite;
-    sf::Texture _texture;
-
+  sf::Sprite  _sprite;
+  sf::Texture _texture;
+  
 };
 
 #endif /* defined(__RType__AObject__) */

@@ -1,12 +1,12 @@
 
 #include <iostream>
+
 #include "GameController.hh"
 #include "GameView.hh"
 #include "Player.hh"
 #include "Monster.hh"
 #include "BigRocket.hh"
 #include "LittleRocket.hh"
-#include <iostream>
 
 GameController::GameController(GameView& view)
   : _view(view)
@@ -42,6 +42,7 @@ void	GameController::updateDestroyList()
 
   for (it = _destroyList.begin(); it != _destroyList.end(); it++)
     {
+      std::cout << "j'essaye d'earse le " << *it << std::endl;
       _view.erase(*it);
     }
   _destroyList.clear();

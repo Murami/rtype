@@ -20,6 +20,12 @@ public:
     for (std::set<IGameObserver *>::const_iterator it = _listObservers.begin(); it != _listObservers.end(); it++)
       (*it)->updateSpawnList();
   }
+
+  void	updateDestroy() const
+  {
+    for (std::set<IGameObserver *>::const_iterator it = _listObservers.begin(); it != _listObservers.end(); it++)
+      (*it)->updateDestroyList();
+  }
   
   void notify(size_t mask) const
   {
