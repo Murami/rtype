@@ -18,7 +18,7 @@ namespace Game
   {
     Util::Vec2  pos = _body.getPosition();
 
-    if (_body.getPosition().x - (_body.getSize().x / 2) < -_body.getSize().x)
+    if (_body.getPosition().x + (_body.getSize().x / 2) < -_body.getSize().x)
       _core.deleteEntity(this);
     if (_body.getPosition().y - (_body.getSize().y / 2) < 0)
       pos.y = _body.getSize().y / 2;

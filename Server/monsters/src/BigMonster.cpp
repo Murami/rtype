@@ -30,7 +30,7 @@ namespace Game
     Util::Vec2  pos = _body.getPosition();
     Util::Vec2	size(63 * 3, 48 * 3);
 
-    if (_body.getPosition().x - (_body.getSize().x / 2) < -_body.getSize().x)
+    if (_body.getPosition().x + (_body.getSize().x / 2) < -_body.getSize().x)
       _core.deleteEntity(this);
     if (_body.getPosition().y - (_body.getSize().y / 2) < 0)
       pos.y = _body.getSize().y / 2;
@@ -50,6 +50,8 @@ namespace Game
       return ;
     projectile.kill();
     _life -= projectile.getDamage();
+    if (_life <= 0)
+      kill();
   }
 
   void	BigMonster::onCollide(Monster& /*monster*/)
