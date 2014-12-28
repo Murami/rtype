@@ -14,6 +14,7 @@ namespace Game
     _playercount(0),
     _loader("./monsters")
   {
+    _timeSpawn = 0;
   }
 
   Core::~Core()
@@ -24,6 +25,12 @@ namespace Game
   {
     std::list<Entity*>::iterator	it;
 
+    _timeSpawn += time;
+    if (_timeSpawn > 1)
+      {
+	_timeSpawn = 0;
+	spawnMonster();
+      }
     _world.update(time);
     for (it = _entities.begin(); it != _entities.end(); it++)
       (*it)->update(time);
@@ -108,17 +115,10 @@ namespace Game
 
     const CoreEvent::Spawn&		spawn = CoreEvent::Spawn(*monster);
 
+    int	y = std::rand() % 1080;
+    monster->setPosition(Util::Vec2(2000, y));
+
     _entities.push_back(monster);
     notifyObservers(spawn);
-
-    // int	y = std::rand() % 40;
-    // int	x = (1920 / 2) + std::rand() % (1920 / 2);
-    // if (y > 20)
-    //   y += 1080;
-    // else
-    //   y -= 20;
-    int	x = 200;
-    int	y = 200;
-    monster->setPosition(Util::Vec2(x, y));
   }
 };
