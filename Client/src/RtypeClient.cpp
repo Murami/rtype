@@ -285,6 +285,7 @@ void	RtypeClient::onGameEnd(RtypeProtocol::EndGame end)
 
   b = (bool) end.victory;
   _gameController->gameEnd(b);
+  std::cout << "\033[42mENDING GAME : " << (b ? "victory" : "Defeat") << "\033[0m" << std::endl;
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
 }
 
