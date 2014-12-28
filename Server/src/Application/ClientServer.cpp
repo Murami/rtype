@@ -201,6 +201,8 @@ namespace Application
 	    Room*	serverroom;
 
 	    serverroom = _server.createRoom(this, room);
+      if (!serverroom)
+        return ;
 	    _server.sendRoomToAllClients(serverroom, true);
 	    _clientroom = serverroom->addClient(this, true);
 	    _server.addClientRoom(_clientroom);
