@@ -15,6 +15,7 @@ class IGameObserver {
 public:
   virtual void	updateSpawnList() = 0;
   virtual void	update(size_t) = 0;
+  virtual void	onExit() = 0;
 
  public:
     virtual ~IGameObserver() {}

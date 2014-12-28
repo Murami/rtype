@@ -17,6 +17,8 @@ public:
 
   void	updateSpawnList();
   void	update(size_t);
+  void	onExit();
+
   void	setGameListener(IGameListener*);
 
   void	spawnEntity(RtypeProtocol::Spawn);

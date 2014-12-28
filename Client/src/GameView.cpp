@@ -45,8 +45,10 @@ void	GameView::run(sf::RenderWindow& window, Util::Mutex *mutex)
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	mask += RtypeEvent::SPACE;
 
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 	_run = false;
+	this->onExit();
+      }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 	std::cout << "a remplir" << std::endl;
       this->notify(mask);

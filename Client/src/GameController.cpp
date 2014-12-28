@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include "GameController.hh"
 #include "GameView.hh"
 #include "Player.hh"
@@ -32,6 +33,12 @@ void	GameController::updateSpawnList()
       updateEntityPosition(it->id, it->position);
     }
   _spawnList.clear();
+}
+
+void GameController::onExit()
+{
+  //_listener exit
+  std::cout << "exit game !!" << std::endl;
 }
 
 void	GameController::createEntity(int id, RtypeProtocol::Entity entity)
