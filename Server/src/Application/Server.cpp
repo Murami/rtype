@@ -136,6 +136,13 @@ namespace Application
     Util::stringncopy(name, roominfos->room_name, ROOM_NAME_SIZE);
     Util::stringncopy(pass, roominfos->pass_md5, PASS_MD5_SIZE);
 
+    for (std::map<unsigned int, Room *>::iterator it = _rooms.begin(); it != _rooms.end(); it++)
+    {
+      std::cout << "Room already exist" << std::endl;
+      if (it->second->getName() == name)
+        return (NULL);
+    }
+    std::cout << "create e new room : " << name << std::endl;
     Room*	room = new Room(*this, name, pass);
 
     _rooms.insert(std::pair<unsigned int, Room *>(room->getID(), room));

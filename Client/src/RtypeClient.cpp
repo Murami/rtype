@@ -250,7 +250,7 @@ void	RtypeClient::onRoomJoinOk(RtypeProtocol::Room)
   _gameController->joinRoom();
 }
 
-void	RtypeClient::onRoomExitOk(RtypeProtocol::Room)
+void	RtypeClient::onRoomExitOk()
 {
   std::cout << __FILE__ << ":" << __LINE__ << "\t" << __FUNCTION__ << std::endl;
   RtypeProtocol::Header header;
