@@ -177,7 +177,8 @@ namespace Application
       {
 	if (it->second == room)
 	  {
-      _rooms.erase(it);
+	    std::cout << "delete la room" << std::endl;
+	    _rooms.erase(it);
 	    room->close();
 	    delete (room);
 	    return;

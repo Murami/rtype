@@ -116,7 +116,7 @@ namespace Application
 	_state = T_CONNECTED;
 	this->sendHeader(RtypeProtocol::T_CONNECTION_OK);
 	_server.sendAllRoomInfos(this);
-  std::cout << "client connected" << std::endl;
+	std::cout << "client connected" << std::endl;
       }
   }
 
@@ -245,15 +245,22 @@ namespace Application
       std::cout << "room exit" << std::endl;
       room = _clientroom->getRoom();
       _server.deleteClientRoom(_clientroom);
-      if (_state != T_INROOM || _state != T_INGAME)
+
+      if (_state != T_INROOM && _state != T_INGAME)
         throw ClientException("Not in a room or game");
-      if (_clientroom->getRoom()->deleteClient(this))
+
+      if (room->getNbClient() != 1)
 	{
-	  std::cout << "updateRoom infos on exit" << std::endl;
 	  room->updateRoomInfos();
 	}
+      else
+	{
+	  this->sendRoomInfos(room, false);
+	}
+      _clientroom->getRoom()->deleteClient(this);
       _clientroom = NULL;
       _state = T_CONNECTED;
+
     }
   }
 
