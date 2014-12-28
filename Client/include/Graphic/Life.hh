@@ -17,11 +17,11 @@ class Life {
 public:
   Life();
   ~Life();
-  void update(size_t live);
+  void update(int live);
   void render(sf::RenderWindow &window);
   
 private:
-  size_t	_live;
+  float		_live;
   sf::Texture	_texture;
   sf::Sprite	_sprite;
 

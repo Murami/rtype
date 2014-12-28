@@ -150,7 +150,7 @@ void	GameView::render(sf::RenderWindow& window)
   _life.render(window);
 }
 
-void	GameView::updateLife(size_t life)
+void	GameView::updateLife(int life)
 {
   _life.update(life);
 }
