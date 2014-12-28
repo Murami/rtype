@@ -68,11 +68,11 @@ namespace Game
 
     if (_body.getPosition().x - (_body.getSize().x / 2) < 0)
       pos.x = _body.getSize().x / 2;
-    else if ((_body.getPosition().x - (_body.getSize().x / 2)) > (1920 - _body.getSize().x))
+    else if ((_body.getPosition().x + (_body.getSize().x / 2)) > 1920)
       pos.x = 1920 - _body.getSize().x / 2;
     if (_body.getPosition().y - (_body.getSize().y / 2) < 0)
       pos.y = _body.getSize().y / 2;
-    else if ((_body.getPosition().y - (_body.getSize().y / 2)) > (1080 - _body.getSize().y))
+    else if ((_body.getPosition().y + (_body.getSize().y / 2)) > 1080)
       pos.y = 1080 - _body.getSize().y / 2;
     _body.setPosition(pos);
   }

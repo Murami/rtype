@@ -33,7 +33,7 @@ void Monster::update(sf::Vector2<float> pos)
 #ifdef __APPLE__
   _sprite.setPosition((pos.x /1920) * 2880, (pos.y / 1080) * 1800);
 #else
-  _sprite.setPosition(pos.x - _sprite.getLocalBounds().width/2, pox.y - _sprite.getLocalBounds().height / 2);
+  _sprite.setPosition(pos.x - _sprite.getLocalBounds().width/2, pos.y - _sprite.getLocalBounds().height / 2);
 #endif
     if (_clock.getElapsedTime().asSeconds() > _animationDuration[_monsterID])
     {
