@@ -11,6 +11,8 @@ namespace Game
     DestroyableSet(Core& game);
     ~DestroyableSet();
 
+    bool	isAlive();
+
     void	update(float time);
 
     void	onCollide(Entity& entity);

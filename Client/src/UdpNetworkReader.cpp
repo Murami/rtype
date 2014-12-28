@@ -24,18 +24,18 @@ UdpNetworkReader::UdpNetworkReader(UdpConnection& connection) :
   _callbacks[RtypeProtocol::T_HIT]		= &UdpNetworkReader::onReadHit;
   _callbacks[RtypeProtocol::T_DEATH]		= &UdpNetworkReader::onReadDeath;
   _callbacks[RtypeProtocol::T_ENTITYINFOS]	= &UdpNetworkReader::onReadEntityInfos;
-  std::cout << "setted :" << std::endl;
-  std::cout << (int)RtypeProtocol::T_MAPCHANGE << std::endl;
-  std::cout << (int)RtypeProtocol::T_PLAYERINFO << std::endl;
-  std::cout << (int)RtypeProtocol::T_POSITION << std::endl;
-  std::cout << (int)RtypeProtocol::T_SPAWN << std::endl;
-  std::cout << (int)RtypeProtocol::T_EVENT << std::endl;
-  std::cout << (int)RtypeProtocol::T_DESTRUCTION << std::endl;
-  std::cout << (int)RtypeProtocol::T_LIFE << std::endl;
-  std::cout << (int)RtypeProtocol::T_BONUS << std::endl;
-  std::cout << (int)RtypeProtocol::T_HIT << std::endl;
-  std::cout << (int)RtypeProtocol::T_DEATH << std::endl;
-  std::cout << (int)RtypeProtocol::T_ENTITYINFOS << std::endl;
+  // std::cout << "setted :" << std::endl;
+  // std::cout << (int)RtypeProtocol::T_MAPCHANGE << std::endl;
+  // std::cout << (int)RtypeProtocol::T_PLAYERINFO << std::endl;
+  // std::cout << (int)RtypeProtocol::T_POSITION << std::endl;
+  // std::cout << (int)RtypeProtocol::T_SPAWN << std::endl;
+  // std::cout << (int)RtypeProtocol::T_EVENT << std::endl;
+  // std::cout << (int)RtypeProtocol::T_DESTRUCTION << std::endl;
+  // std::cout << (int)RtypeProtocol::T_LIFE << std::endl;
+  // std::cout << (int)RtypeProtocol::T_BONUS << std::endl;
+  // std::cout << (int)RtypeProtocol::T_HIT << std::endl;
+  // std::cout << (int)RtypeProtocol::T_DEATH << std::endl;
+  // std::cout << (int)RtypeProtocol::T_ENTITYINFOS << std::endl;
 }
 
 int			UdpNetworkReader::run(Util::Mutex* mutex)
@@ -84,6 +84,7 @@ void	UdpNetworkReader::onReadSpawn(char *buffer)
 
   std::memcpy(&spawn, &buffer[sizeof(RtypeProtocol::Header)], sizeof(spawn));
   spawn.id = ntohl(spawn.id);
+  std::cout << "[CLIENT] -> SPAWN : " << spawn.id << std::endl;
   spawn.type = ntohl(spawn.type);
   spawn.position.x = ntohl(spawn.position.x);
   spawn.position.y = ntohl(spawn.position.y);
@@ -120,10 +121,13 @@ void	UdpNetworkReader::onReadEntityInfos(char *)
 
 void	UdpNetworkReader::onReadDestruction(char *buffer)
 {
+  RtypeProtocol::Header		header;
   RtypeProtocol::Destruction	d;
 
-  std::memcpy(&d, buffer, sizeof(d));
+  std::memcpy(&header, &buffer[0], sizeof(header));
+  std::memcpy(&d, &buffer[sizeof(header)], sizeof(d));
   d.id = ntohl(d.id);
+  std::cout << d.id << std::endl;
   _listener->onDestruction(d);
 }
 

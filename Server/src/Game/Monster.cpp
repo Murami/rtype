@@ -20,8 +20,10 @@ namespace Game
     entity.onCollide(*this);
   }
 
-  void	Monster::onCollide(Player& /*player*/)
+  void	Monster::onCollide(Player& // player
+			   )
   {
+    //    player.set
   }
 
   void	Monster::onCollide(Projectile& /*projectile*/)

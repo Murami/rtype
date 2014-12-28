@@ -97,6 +97,7 @@ void	GameView::update()
     {
       itObj->second->updateAnim();
     }
+  _life.update(3);
 }
 
 bool	GameView::updateById(int id, RtypeProtocol::Position pos)
@@ -119,4 +120,10 @@ void	GameView::render(sf::RenderWindow& window)
     (*itBack)->render(window);
   for (itObj = _objectMap.begin(); itObj != _objectMap.end(); itObj++)
     itObj->second->render(window);
+  _life.render(window);
+}
+
+void	GameView::updateLife(size_t life)
+{
+  _life.update(life);
 }
