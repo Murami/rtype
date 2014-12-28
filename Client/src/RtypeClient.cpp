@@ -160,6 +160,20 @@ void	RtypeClient::onExitFromGame()
   onDisconnectFromMenu();
 }
 
+void	RtypeClient::onEntityRequestFromGame(uint32_t id)
+{
+  RtypeProtocol::Header header;
+  RtypeProtocol::EntityRequest request;
+  char		buffer[sizeof(header) + sizeof(request)];
+
+  header.type = htonl(RtypeProtocol::T_ENTITYREQUEST);
+  header.data_size = htonl(sizeof(request));
+  request.id = htonl(id);
+  std::memcpy(&buffer[0], &header, sizeof(header));
+  std::memcpy(&buffer[sizeof(header)], &request, sizeof(request));
+  _udpConnection->write(&buffer[0], sizeof(header) + sizeof(request));
+}
+
 // ITcpNetworkListener
 
 void	RtypeClient::onMagicBadVersion()

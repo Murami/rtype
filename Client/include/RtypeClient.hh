@@ -54,6 +54,7 @@ public:
 public:
   virtual void	onKeyEvent(uint32_t);
   virtual void	onExitFromGame();
+  virtual void	onEntityRequestFromGame(uint32_t);
   
   // ITcpNetworkListener
 public:
