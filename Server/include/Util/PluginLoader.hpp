@@ -94,7 +94,7 @@ public:
     return (_pluginsList);
   }
 
-  T		*load(const std::string& name)
+  T		*load(const std::string& name, void* param)
   {
     T		*(*res)();
 
@@ -103,13 +103,13 @@ public:
 
     try
       {
-	res = reinterpret_cast<T* (*)()>(_pluginsMap[name]->loadSymbol("instantiate_plugin"));
+	res = reinterpret_cast<T* (*)(void*)>(_pluginsMap[name]->loadSymbol("instantiate_plugin"));
       }
     catch (const std::exception& e)
       {
 	throw (e);
       }
-    return (res());
+    return (res(param));
   }
 
   void	unload(const std::string& name)

@@ -1,7 +1,6 @@
 
 #if defined(__unix__) || defined(__APPLE__)
 
-# include <stdexcept>
 # include <dlfcn.h>
 # include "LinuxDynamicFile.hh"
 
@@ -14,9 +13,11 @@ namespace	DynamicFile
 
   LinuxDynamicFile::LinuxDynamicFile(const std::string& filename)
   {
+    _isOpen = false;
     if (!(_handle = dlopen(filename.c_str(), RTLD_LAZY)))
-      throw (std::runtime_error(dlerror()));
-    _isOpen = true;
+      std::cerr << dlerror() << std::endl;
+    else
+      _isOpen = true;
   }
 
   LinuxDynamicFile::~LinuxDynamicFile()
@@ -33,8 +34,9 @@ namespace	DynamicFile
 	_isOpen = false;
       }
     if (!(_handle = dlopen(filename.c_str(), RTLD_LAZY)))
-      throw (std::runtime_error(dlerror()));
-    _isOpen = true;
+      std::cerr << dlerror() << std::endl;
+    else
+      _isOpen = true;
   }
 
   void	LinuxDynamicFile::close()
@@ -50,11 +52,16 @@ namespace	DynamicFile
     void	*error;
 
     if (!_isOpen)
-      throw (std::runtime_error("You don't have an open file"));
-    res = dlsym(_handle, symbol.c_str());
-    if ((error = dlerror()) != NULL)
-      throw (std::runtime_error(reinterpret_cast<char*>(error)));
-    return (res);
+      std::cerr << "You don't have an open file" << std::endl;
+    else
+      {
+	res = dlsym(_handle, symbol.c_str());
+	if ((error = dlerror()) != NULL)
+	  std::cerr << reinterpret_cast<char*>(error) << std::endl;
+	else
+	  return (res);
+      }
+    return (NULL);
   }
 }
 
